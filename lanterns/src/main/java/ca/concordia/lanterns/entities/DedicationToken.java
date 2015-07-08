@@ -1,12 +1,12 @@
 package ca.concordia.lanterns.entities;
 
-import ca.concordia.lanterns.entities.enums.TokenType;
+import ca.concordia.lanterns.entities.enums.DedicationType;
 
 public class DedicationToken {
 	private int value;
-	private TokenType type;
+	private DedicationType type;
 	
-	public DedicationToken(int value, TokenType type) {
+	public DedicationToken(int value, DedicationType type) {
 		super();
 		this.value = value;
 		this.type = type;
@@ -41,7 +41,7 @@ public class DedicationToken {
 		return value;
 	}
 
-	public TokenType getType() {
+	public DedicationType getType() {
 		return type;
 	}
 	
