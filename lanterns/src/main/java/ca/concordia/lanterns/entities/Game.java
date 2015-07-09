@@ -7,15 +7,13 @@ import java.util.Stack;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
 
-<<<<<<< HEAD
-/**  Sets up game for players.
- * 
- * @version 1.0
- *
-=======
+
 /**
+ * 
+ * 
+ *
  * Entity that contains all game state.
->>>>>>> origin/master
+ * @version 1.0
  */
 public class Game {
 
@@ -30,17 +28,12 @@ public class Game {
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
 	
-<<<<<<< HEAD
-	/** Game constructor.
-	 * 
-	 * @param playerNames should be alphanumeric representations of player identification.
-=======
+
 	/**
 	 * Instantiates a new Game based on the player names.<br/>
 	 * This constructor will instantiate (but not populate) all attributes of this Game instance.
 	 * 
 	 * @param playerNames
->>>>>>> origin/master
 	 */
 	@SuppressWarnings("unchecked")
 	public Game(final Set<String> playerNames) {
