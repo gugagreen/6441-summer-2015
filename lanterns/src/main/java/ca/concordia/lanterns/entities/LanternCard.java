@@ -2,7 +2,7 @@ package ca.concordia.lanterns.entities;
 
 import ca.concordia.lanterns.entities.enums.Colour;
 
-/** Lantern Card object
+/** Lantern Card entity
  * <P> Various attributes of the Lantern Cards and related behaviors.
  * @version 1.0
  *
@@ -12,13 +12,16 @@ public class LanternCard {
 
 	/**
 	 * Lantern Card constructor.
-	 * @param colour
+	 * @param colour There are 7 possible lantern colours.
 	 */
 	public LanternCard(Colour colour) {
 		super();
 		this.colour = colour;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -27,6 +30,9 @@ public class LanternCard {
 		return result;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -41,6 +47,10 @@ public class LanternCard {
 		return true;
 	}
 
+	/**
+	 * Returns the colour of a lantern card to the constructor.
+	 * @return The colour of a lantern card.
+	 */
 	public Colour getColour() {
 		return colour;
 	}

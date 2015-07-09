@@ -1,7 +1,7 @@
 package ca.concordia.lanterns.entities;
 
 import ca.concordia.lanterns.entities.enums.Colour;
-/** Lake Tile Object
+/** Lake Tile entity
  * 
  * @version 1.0
  *

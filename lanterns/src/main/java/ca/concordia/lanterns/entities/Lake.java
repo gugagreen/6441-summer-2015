@@ -2,7 +2,7 @@ package ca.concordia.lanterns.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-/**  Lake Object.
+/**  Lake entity.
  * <P> Various attributes of the lake and related behavior.
  * @version 1.0
  *

@@ -30,10 +30,10 @@ public class Game {
 	
 
 	/**
-	 * Instantiates a new Game based on the player names.<br/>
-	 * This constructor will instantiate (but not populate) all attributes of this Game instance.
+	 * Instantiates a new Game based on the player names.
+	 * <p>This constructor will instantiate (but not populate) all attributes of this Game instance.
 	 * 
-	 * @param playerNames
+	 * @param playerNames Names of each current player
 	 */
 	@SuppressWarnings("unchecked")
 	public Game(final Set<String> playerNames) {

@@ -6,6 +6,11 @@ import java.util.Stack;
 
 import ca.concordia.lanterns.entities.enums.Colour;
 
+/**
+ * Player entity
+ * @version 1.0 
+ *
+ */
 public class Player {
 
 	private final String name;
@@ -14,6 +19,10 @@ public class Player {
 	private final List<LakeTile> tiles;
 	private int favors;
 	
+	/**
+	 * 
+	 * @param name
+	 */
 	@SuppressWarnings("unchecked")
 	public Player(final String name) {
 		super();
@@ -26,6 +35,9 @@ public class Player {
 		this.tiles = new ArrayList<LakeTile>();
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,6 +46,9 @@ public class Player {
 		return result;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -51,26 +66,47 @@ public class Player {
 		return true;
 	}
 
+	/**
+	 * Returns the Favor tokens of a player to the constructor.
+	 * @return Favor tokens of a player.
+	 */
 	public int getFavors() {
 		return favors;
 	}
+
 
 	public void setFavors(int favors) {
 		this.favors = favors;
 	}
 
+	/**
+	 * Returns the Name of a player to the constructor.
+	 * @return Player name.
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Returns the Lantern Cards attributed to a player to the constructor.
+	 * @return Lantern Cards attributed to a player.
+	 */
 	public Stack<LanternCard>[] getCards() {
 		return cards;
 	}
 
+	/**
+	 * Returns the dedication tokens attributed to a player to the constructor.
+	 * @return Dedication tokens attributed to a player.
+	 */
 	public List<DedicationToken> getDedications() {
 		return dedications;
 	}
 
+	/**
+	 * Returns the Lake tiles attributed to a player to the constructor.
+	 * @return Lake tiles attributed to a player.
+	 */
 	public List<LakeTile> getTiles() {
 		return tiles;
 	}
