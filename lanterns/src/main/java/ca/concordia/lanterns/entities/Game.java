@@ -21,6 +21,8 @@ public class Game {
 	private final Set<Player> players;
 	/** Lake where tiles are being displayed for all users. */
 	private final Lake lake;
+	/** Stack of Lake Tiles to be distributed. */
+	private final Stack<LakeTile> tiles;
 	/** Stack of Lantern Cards to be distributed. */
 	private final Stack<LanternCard>[] cards;
 	/** Stack of Dedication Tokens to be distributed. */
@@ -45,6 +47,8 @@ public class Game {
 		}
 		
 		this.lake = new Lake();
+		
+		this.tiles = new Stack<LakeTile>();
 		
 		this.cards = new Stack[Colour.values().length];
 		for (int i = 0; i < cards.length; i++) {
@@ -86,6 +90,10 @@ public class Game {
 	 */
 	public Lake getLake() {
 		return lake;
+	}
+	
+	public Stack<LakeTile> getTiles() {
+		return this.tiles;
 	}
 
 	/**

@@ -1,8 +1,8 @@
 package ca.concordia.lanterns.services.impl;
 
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
+import java.util.Stack;
 
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
@@ -19,8 +19,14 @@ public class DefaultSetupService implements SetupService {
 		Game game = new Game(playerNames);
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		startLake(game.getLake(), totalTiles[0]);
-
-		// TODO - store game???
+		dealPlayerTiles(totalTiles, game.getPlayers());
+		drawTileStack(game.getTiles(), totalTiles, playerCount);
+		// TODO - step 4
+		// TODO - step 5
+		// TODO - step 6
+		// TODO - step 7
+		// TODO - step 8
+		
 		return game;
 	}
 
@@ -31,10 +37,11 @@ public class DefaultSetupService implements SetupService {
 	 *            number of players in the game.
 	 * @return Array of tiles.
 	 */
-	protected LakeTile[] generateTiles(int playerCount) {
+	protected LakeTile[] generateTiles(final int playerCount) {
 		LakeTile[] totalTiles = null;
 
 		// TODO - maybe move quantity for each player count to properties/enum
+		// TODO - maybe just create a single big stack of tiles, and let splitting per player on step 3
 		switch (playerCount) {
 		case 4:
 			// 20 + 12 (3 tiles per player) + 1 initial tile
@@ -86,6 +93,8 @@ public class DefaultSetupService implements SetupService {
 	/**
 	 * Setup step #2:<br/>
 	 * Deal 3 Lake Tiles to each player face down. Lake Tiles are held in hand and kept secret from other players.
+	 * @param totalTiles
+	 * @param players
 	 */
 	protected void dealPlayerTiles(final LakeTile[] totalTiles, final Set<Player> players) {
 		final int playerCount = players.size();
@@ -100,4 +109,35 @@ public class DefaultSetupService implements SetupService {
 			// FIXME - throw exception
 		}
 	}
+	
+	/**
+	 * Setup step #3:<br/>
+	 * Create a draw stack of Lake Tiles. The number of tiles in the stack depends on player count:<br/>
+	 * <ul>
+	 * <li> 4 Players: 20 tiles</li>
+	 * <li> 3 Players: 18 tiles</li>
+	 * <li> 2 Players: 16 tiles</li>
+	 * </ul>
+	 * <br/>
+	 * In the end of this method, the tiles collection will be populated.
+	 */
+	protected void drawTileStack(final Stack<LakeTile> tiles, final LakeTile[] totalTiles, final int playerCount) {
+		int count = 0;
+		if (playerCount == 4) {
+			count = 20;
+		} else if (playerCount == 3) {
+			count = 18;
+		} else if (playerCount == 2) {
+			count = 16;
+		}
+		
+		// start with a shift: 1st tile + 3 tiles per player
+		int shift = 1 + 3 * playerCount;
+		
+		for (int i = shift; i < (shift + count); i++) {
+			tiles.add(totalTiles[i]);
+		}
+	}
+	
+	
 }
