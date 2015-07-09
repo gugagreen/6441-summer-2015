@@ -7,28 +7,45 @@ import java.util.Stack;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
 
+<<<<<<< HEAD
 /**  Sets up game for players.
  * 
  * @version 1.0
  *
+=======
+/**
+ * Entity that contains all game state.
+>>>>>>> origin/master
  */
 public class Game {
 
+	/** Players in the game. */
 	private final Set<Player> players;
+	/** Lake where tiles are being displayed for all users. */
 	private final Lake lake;
+	/** Stack of Lantern Cards to be distributed. */
 	private final Stack<LanternCard>[] cards;
+	/** Stack of Dedication Tokens to be distributed. */
 	private final Stack<DedicationToken>[] dedications;
+	/** Quantity of favors to be distributed to players. */
 	private int favors;
 	
+<<<<<<< HEAD
 	/** Game constructor.
 	 * 
 	 * @param playerNames should be alphanumeric representations of player identification.
+=======
+	/**
+	 * Instantiates a new Game based on the player names.<br/>
+	 * This constructor will instantiate (but not populate) all attributes of this Game instance.
+	 * 
+	 * @param playerNames
+>>>>>>> origin/master
 	 */
 	@SuppressWarnings("unchecked")
 	public Game(final Set<String> playerNames) {
 		super();
 		
-		// TODO - validate there are only 2-4 players
 		this.players = new HashSet<Player>();
 		for (String name : playerNames) {
 			this.players.add(new Player(name));
@@ -40,13 +57,11 @@ public class Game {
 		for (int i = 0; i < cards.length; i++) {
 			cards[i] = new Stack<LanternCard>();
 		}
-		// TODO - generate cards accordingly to players
 		
 		this.dedications = new Stack[DedicationType.values().length];
 		for (int i = 0; i < dedications.length; i++) {
 			dedications[i] = new Stack<DedicationToken>();
 		}
-		// TODO - generate dedications accordingly to players
 	}
 
 	/**
