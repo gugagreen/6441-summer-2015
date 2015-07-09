@@ -2,9 +2,18 @@ package ca.concordia.lanterns.entities;
 
 import ca.concordia.lanterns.entities.enums.Colour;
 
+/** Lantern Card object
+ * <P> Various attributes of the Lantern Cards and related behaviors.
+ * @version 1.0
+ *
+ */
 public class LanternCard {
 	private Colour colour;
 
+	/**
+	 * Lantern Card constructor.
+	 * @param colour
+	 */
 	public LanternCard(Colour colour) {
 		super();
 		this.colour = colour;

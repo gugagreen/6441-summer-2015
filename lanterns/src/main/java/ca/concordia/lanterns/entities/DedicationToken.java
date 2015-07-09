@@ -1,17 +1,29 @@
 package ca.concordia.lanterns.entities;
 
 import ca.concordia.lanterns.entities.enums.DedicationType;
-
+/** Dedication Token Object.
+ * 
+ * @version 1.0
+ * 
+ */
 public class DedicationToken {
 	private int value;
 	private DedicationType type;
 	
+	/**
+	 * Dedication Token constructor.
+	 * @param value should be in range <code>1..10</code> depending on game state and number of players
+	 * @param type should be in range <code>1-3</code> Based on three possible Dedication token types
+	 */
 	public DedicationToken(int value, DedicationType type) {
 		super();
 		this.value = value;
 		this.type = type;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -21,6 +33,9 @@ public class DedicationToken {
 		return result;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -36,11 +51,19 @@ public class DedicationToken {
 			return false;
 		return true;
 	}
-
+	
+	/**
+	 * This method returns the value of the dedication token to the constructor.
+	 * @return The value of the dedication token.
+	 */
 	public int getValue() {
 		return value;
 	}
-
+	
+	/**
+	 * This method returns the type of dedication token to the constructor.
+	 * @return The type of dedication.
+	 */
 	public DedicationType getType() {
 		return type;
 	}
