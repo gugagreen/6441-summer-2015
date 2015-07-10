@@ -14,6 +14,7 @@ import ca.concordia.lanterns.entities.enums.DedicationType;
  * @version 1.0
  */
 public class Game {
+	public static final int TOTAL_FAVORS = 20;
 
 	/** Players in the game. */
 	private final Player[] players;
@@ -57,6 +58,8 @@ public class Game {
 		for (int i = 0; i < dedications.length; i++) {
 			dedications[i] = new Stack<DedicationToken>();
 		}
+		
+		this.favors = TOTAL_FAVORS;
 	}
 
 	public int getFavors() {

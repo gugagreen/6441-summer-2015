@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +37,13 @@ public class DefaultSetupServiceTest {
 		Game game = service.createGame(playerNames);
 		
 		assertNotNull(game);
-		// FIXME - finish test
+		assertNotNull(game.getPlayers());
+		assertEquals(playerNames.length, game.getPlayers().length);
+		assertNotNull(game.getCards());
+		assertNotNull(game.getDedications());
+		assertNotNull(game.getLake());
+		assertNotNull(game.getTiles());
+		assertEquals(Game.TOTAL_FAVORS, game.getFavors());
 	}
 	
 	@Test
@@ -146,7 +151,7 @@ public class DefaultSetupServiceTest {
 		
 		service.separateLanternCards(cards, 4);
 		for (Stack<LanternCard> stack : cards) {
-			Assert.assertEquals(8, stack.size());
+			assertEquals(8, stack.size());
 		}
 	}
 	
@@ -173,8 +178,8 @@ public class DefaultSetupServiceTest {
 		
 		for (int i = 0; i < dedications.length; i++) {
 			Stack<DedicationToken> dedication = dedications[i];
-			Assert.assertNotNull(dedication);
-			Assert.assertEquals(DedicationType.values()[i].getValuesFour().length, dedication.size());
+			assertNotNull(dedication);
+			assertEquals(DedicationType.values()[i].getValuesFour().length, dedication.size());
 		}
 	}
 	
@@ -203,9 +208,9 @@ public class DefaultSetupServiceTest {
 			for (int j = 0; j < playerCards.length; j++) {
 				Stack<LanternCard> colourStack = playerCards[j];
 				if (j == colourValues.indexOf(colour)) {
-					Assert.assertEquals(1, colourStack.size());
+					assertEquals(1, colourStack.size());
 				} else {
-					Assert.assertEquals(0, colourStack.size());
+					assertEquals(0, colourStack.size());
 				}
 			}
 		}
