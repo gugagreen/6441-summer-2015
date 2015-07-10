@@ -1,5 +1,7 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
@@ -9,6 +11,7 @@ import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
+import ca.concordia.lanterns.entities.TileSide;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
 import ca.concordia.lanterns.services.SetupService;
@@ -28,7 +31,7 @@ public class DefaultSetupService implements SetupService {
 		drawTileStack(game.getTiles(), totalTiles, playerCount);
 		separateLanternCards(game.getCards(), playerCount);
 		setDedicationTokens(game.getDedications(), playerCount);
-		distributeInitialLanterns(game.getCards(), game.getPlayers());
+		distributeInitialLanterns(game.getLake(), game.getCards(), game.getPlayers());
 
 		return game;
 	}
@@ -187,8 +190,22 @@ public class DefaultSetupService implements SetupService {
 	
 	
 	@Override
-	public void distributeInitialLanterns(final Stack<LanternCard>[] cards, final Player[] players) {
-		// FIXME - implement
+	public void distributeInitialLanterns(final Lake lake, final Stack<LanternCard>[] cards, final Player[] players) {
+		if ((lake != null) && (lake.getTiles() != null) && (!lake.getTiles().isEmpty())) {
+			LakeTile firstTile = lake.getTiles().get(0);
+			List<Colour> colours = Arrays.asList(Colour.values());
+			
+			for (int i = 0; i < players.length; i++) {
+				Player player = players[i];
+				TileSide side = firstTile.getSides()[i];
+				if (side != null) {
+					int colourIndex = colours.indexOf(side.getColour());
+					player.getCards()[colourIndex] = cards[i];
+				}
+			}
+		} else {
+			throw new IllegalArgumentException("Lake does not contain a first tile!");
+		}
 	}
 
 }

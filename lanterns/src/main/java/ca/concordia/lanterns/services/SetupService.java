@@ -13,11 +13,13 @@ public interface SetupService {
 
 	/**
 	 * Creates a new game
-	 * @param playerNames	The name of the players that will participate on the game. Should be between 2-4.
-	 * @return	The game that was just created.
+	 * 
+	 * @param playerNames
+	 *            The name of the players that will participate on the game. Should be between 2-4.
+	 * @return The game that was just created.
 	 */
 	Game createGame(String[] playerNames);
-	
+
 	/**
 	 * Setup step #1:<br/>
 	 * Place the starting Lake Tile in the center of the play area face down. Flip the tile face up and orient it so that one
@@ -70,13 +72,16 @@ public interface SetupService {
 	 * </ul>
 	 * <br/>
 	 * By the end of this method, the cards stacks will be populated.
-	 * @param cards	the cards stacks to populate.
-	 * @param playerCount	number of players in the game.
+	 * 
+	 * @param cards
+	 *            the cards stacks to populate.
+	 * @param playerCount
+	 *            number of players in the game.
 	 * @throws IllegalArgumentException
 	 *             If cards stack arrays are not prepared to be populated.
 	 */
 	void separateLanternCards(final Stack<LanternCard>[] cards, final int playerCount);
-	
+
 	/**
 	 * Setup step #5:<br/>
 	 * Set aside the 3 generic Dedication Tokens.
@@ -91,21 +96,27 @@ public interface SetupService {
 	 * 
 	 * By the end of this method the dedication stacks will be populated.
 	 * 
-	 * @param dedications	the dedication token stacks to be set
-	 * @param playerCount	number of players in the game.
+	 * @param dedications
+	 *            the dedication token stacks to be set
+	 * @param playerCount
+	 *            number of players in the game.
 	 * @throws IllegalArgumentException
 	 *             If dedications stack arrays are not prepared to be populated.
 	 */
 	void setDedicationTokens(final Stack<DedicationToken>[] dedications, final int playerCount);
-	
-	
+
 	/**
 	 * Setup step #7:<br/>
-	 * Give each player one Lantern Card corresponding to the color on the side of the starting Lake Tile he is facing. 
-	 * Each player’s Lantern Cards are always kept in front of them, visible for everyone to see.
+	 * Give each player one Lantern Card corresponding to the color on the side of the starting Lake Tile he is facing. Each
+	 * player’s Lantern Cards are always kept in front of them, visible for everyone to see.
 	 * <p/>
-	 * fyi, Setup step #8 (Give the player with the red Lantern Card, the color of good fortune, the start player marker) is unnecessary, as start player can be inferred by first tile in lake plus first player
+	 * fyi, setup step #8 (Give the player with the red Lantern Card, the color of good fortune, the start player marker) is
+	 * unnecessary, as start player can be inferred by first tile in {@link Game#getLake()} plus first player in the {@link Game#getPlayers()}.
+	 * 
+	 * @param lake	game lake
+	 * @param cards	lantern cards available to be distributed
+	 * @param	the players in the game.
 	 */
-	void distributeInitialLanterns(final Stack<LanternCard>[] cards, final Player[] players);
-	
+	void distributeInitialLanterns(final Lake lake, final Stack<LanternCard>[] cards, final Player[] players);
+
 }
