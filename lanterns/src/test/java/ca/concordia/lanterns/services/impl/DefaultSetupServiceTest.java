@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +32,7 @@ public class DefaultSetupServiceTest {
 		
 		Game game = service.createGame(playerNames);
 		
-		Assert.assertNotNull(game);
+		assertNotNull(game);
 		// FIXME - finish test
 	}
 	
@@ -57,14 +57,14 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testGenerateTiles0Players() {
 		LakeTile[] tiles = service.generateTiles(0);
-		Assert.assertNull(tiles);
+		assertNull(tiles);
 	}
 	
 	private void callGenerateTiles(int playerCount, int expected) {
 		LakeTile[] tiles = service.generateTiles(playerCount);
-		Assert.assertNotNull(tiles);
+		assertNotNull(tiles);
 		// 33 = 20 + 12 (3 tiles per player) + 1 initial tile
-		Assert.assertEquals(expected, tiles.length);
+		assertEquals(expected, tiles.length);
 	}
 	
 	@Test
@@ -74,8 +74,8 @@ public class DefaultSetupServiceTest {
 		LakeTile initialTile = new LakeTile(colours, false);
 		service.startLake(lake, initialTile);
 		
-		Assert.assertEquals(1, lake.getTiles().size());
-		Assert.assertEquals(initialTile, lake.getTiles().get(0));
+		assertEquals(1, lake.getTiles().size());
+		assertEquals(initialTile, lake.getTiles().get(0));
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ public class DefaultSetupServiceTest {
 		
 		service.dealPlayerTiles(totalTiles, players);
 		for (Player player : players) {
-			Assert.assertEquals(3, player.getTiles().size());
+			assertEquals(3, player.getTiles().size());
 		}
 	}
 	
