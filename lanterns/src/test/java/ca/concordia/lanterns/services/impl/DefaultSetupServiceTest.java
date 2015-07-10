@@ -1,8 +1,5 @@
 package ca.concordia.lanterns.services.impl;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Stack;
 
 import org.junit.Assert;
@@ -15,7 +12,6 @@ import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupServiceTest {
 	
@@ -28,7 +24,7 @@ public class DefaultSetupServiceTest {
 	
 	@Test
 	public void testCreateGameSuccess() {
-		final Set<String> playerNames = createPlayerNames(4);
+		final String[] playerNames = createPlayerNames(4);
 		
 		Game game = service.createGame(playerNames);
 		
@@ -80,7 +76,7 @@ public class DefaultSetupServiceTest {
 	
 	@Test
 	public void testDealPlayerTiles() {
-		final Set<Player> players = createPlayers(3);
+		final Player[] players = createPlayers(3);
 		final LakeTile[] totalTiles = new LakeTile[36];
 		for (int i = 0; i < totalTiles.length; i++) {
 			totalTiles[i] = new LakeTile(new Colour[4], false);
@@ -94,14 +90,41 @@ public class DefaultSetupServiceTest {
 	
 	@Test (expected = IllegalArgumentException.class)
 	public void testDealPlayerTilesWithNoTiles() {
-		final Set<Player> players = createPlayers(3);
+		final Player[] players = createPlayers(3);
 		final LakeTile[] totalTiles = {};
 		service.dealPlayerTiles(totalTiles, players);
 	}
 	
 	@Test
-	public void testDrawTileStack() {
-		// FIXME - implement
+	public void testDrawTileStackFourPlayers() {
+		final Stack<LakeTile> tiles = new Stack<LakeTile>();
+		final LakeTile[] totalTiles = new LakeTile[36];
+		service.drawTileStack(tiles, totalTiles, 4);
+		Assert.assertEquals(20, tiles.size());
+	}
+	
+	@Test
+	public void testDrawTileStackThreePlayers() {
+		final Stack<LakeTile> tiles = new Stack<LakeTile>();
+		final LakeTile[] totalTiles = new LakeTile[36];
+		service.drawTileStack(tiles, totalTiles, 3);
+		Assert.assertEquals(18, tiles.size());
+	}
+	
+	@Test
+	public void testDrawTileStackTwoPlayers() {
+		final Stack<LakeTile> tiles = new Stack<LakeTile>();
+		final LakeTile[] totalTiles = new LakeTile[36];
+		service.drawTileStack(tiles, totalTiles, 2);
+		Assert.assertEquals(16, tiles.size());
+	}
+	
+	@Test
+	public void testDrawTileStackZeroPlayers() {
+		final Stack<LakeTile> tiles = new Stack<LakeTile>();
+		final LakeTile[] totalTiles = new LakeTile[36];
+		service.drawTileStack(tiles, totalTiles, 0);
+		Assert.assertTrue(tiles.isEmpty());
 	}
 	
 	@Test
@@ -116,18 +139,28 @@ public class DefaultSetupServiceTest {
 		service.separateLanternCards(cards, 4);
 	}
 	
-	private Set<String> createPlayerNames(int quantity) {
-		Set<String> playerNames = new HashSet<String>();
+	@Test
+	public void testSetDedicationTokens() {
+		// FIXME - implement
+	}
+	
+	@Test
+	public void testDistributeInitialLanterns() {
+		// FIXME - implement
+	}
+	
+	private String[] createPlayerNames(int quantity) {
+		String[] playerNames = new String[quantity];
 		for (int i = 0; i < quantity; i++) {
-			playerNames.add(Integer.toString(i));
+			playerNames[i] = Integer.toString(i);
 		}
 		return playerNames;
 	}
 	
-	private Set<Player> createPlayers(int quantity) {
-		Set<Player> players = new HashSet<Player>();
+	private Player[] createPlayers(int quantity) {
+		Player[] players = new Player[quantity];
 		for (int i = 0; i < quantity; i++) {
-			players.add(new Player(Integer.toString(i)));
+			players[i] = new Player(Integer.toString(i));
 		}
 		return players;
 	}
