@@ -20,6 +20,7 @@ public class LakeTile {
 	 * Each Lake tile has four sides, each side can have a colour, there are 7 different colours.
 	 * @param colours There are 7 possible colours.
 	 * @param platform The tiles may be in play or in the deck.
+	 * @throws IllegalArgumentException	if colours size does not match {@link #TOTAL_SIDES}.
 	 */
 	public LakeTile(Colour[] colours, boolean platform) {
 		super();
@@ -31,12 +32,11 @@ public class LakeTile {
 			for (int i = 0; i < TOTAL_SIDES; i++) {
 				sides[i] = new TileSide(colours[i]);
 			}
+		} else {
+			throw new IllegalArgumentException("Invalid colours size!");
 		}
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -46,10 +46,6 @@ public class LakeTile {
 		return result;
 	}
 	
-	/**
-	 * 
-	 * @return result
-	 */
 	public int sidesHashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -59,9 +55,6 @@ public class LakeTile {
 		return result;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -78,18 +71,10 @@ public class LakeTile {
 		return true;
 	}
 
-	/**
-	 * Returns the sides of a lake tile to the constructor.
-	 * @return The sides of the lake tile.
-	 */
 	public TileSide[] getSides() {
 		return sides;
 	}
 	
-	/**
-	 * Returns whether a lake tile is in play or not.
-	 * @return If the lake tile is in play or not.
-	 */
 	public boolean isPlatform() {
 		return platform;
 	}

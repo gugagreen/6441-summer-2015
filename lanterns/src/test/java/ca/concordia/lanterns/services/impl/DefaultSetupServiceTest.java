@@ -1,17 +1,21 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Stack;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.concordia.lanterns.entities.DedicationToken;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.enums.Colour;
+import ca.concordia.lanterns.entities.enums.DedicationType;
 
 public class DefaultSetupServiceTest {
 	
@@ -66,7 +70,7 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testStartLake() {
 		Lake lake = new Lake();
-		Colour[] colours = {};
+		Colour[] colours = {Colour.RED, Colour.BLUE, Colour.GREEN, Colour.PURPLE};
 		LakeTile initialTile = new LakeTile(colours, false);
 		service.startLake(lake, initialTile);
 		
@@ -127,26 +131,79 @@ public class DefaultSetupServiceTest {
 		assertTrue(tiles.isEmpty());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
-	public void testSeparateLanternCards() {
-		// FIXME - implement
+	public void testSeparateLanternCardsFourPlayers() {
+		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[Colour.values().length];
+		for (int i = 0; i < cards.length; i++) {
+			cards[i] = new Stack<LanternCard>();
+		}
+		
+		service.separateLanternCards(cards, 4);
+		for (Stack<LanternCard> stack : cards) {
+			Assert.assertEquals(8, stack.size());
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Test (expected = IllegalArgumentException.class)
-	public void testSeparateLanternCardsWithWrongStack() {
-		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[1];
+	@Test(expected = IllegalArgumentException.class)
+	public void testSeparateLanternCardsWrongStack() {
+		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[Colour.values().length + 1];
+		for (int i = 0; i < cards.length; i++) {
+			cards[i] = new Stack<LanternCard>();
+		}
+		
 		service.separateLanternCards(cards, 4);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
-	public void testSetDedicationTokens() {
-		// FIXME - implement
+	public void testSetDedicationTokensFourPlayers() {
+		final Stack<DedicationToken>[] dedications = new Stack[DedicationType.values().length];
+		for (int i = 0; i < dedications.length; i++) {
+			dedications[i] = new Stack<DedicationToken>();
+		}
+		
+		service.setDedicationTokens(dedications, 4);
+		
+		for (int i = 0; i < dedications.length; i++) {
+			Stack<DedicationToken> dedication = dedications[i];
+			Assert.assertNotNull(dedication);
+			Assert.assertEquals(DedicationType.values()[i].getValuesFour().length, dedication.size());
+		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testDistributeInitialLanterns() {
-		// FIXME - implement
+		List<Colour> colourValues = Arrays.asList(Colour.values());
+		final Lake lake = new Lake();
+		Colour[] colours = {Colour.RED, Colour.BLUE, Colour.GREEN, Colour.PURPLE};
+		LakeTile initialTile = new LakeTile(colours, false);
+		lake.getTiles().add(initialTile);
+		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[colourValues.size()];
+		for (int i = 0; i < cards.length; i++) {
+			cards[i] = new Stack<LanternCard>();
+			cards[i].push(new LanternCard(colourValues.get(i)));
+		}
+		Player[] players = createPlayers(4);
+		
+		service.distributeInitialLanterns(lake, cards, players);
+		
+		for (int i = 0; i < players.length; i++) {
+			Player player = players[i];
+			Colour colour = initialTile.getSides()[i].getColour();
+			
+			final Stack<LanternCard>[] playerCards = player.getCards();
+			for (int j = 0; j < playerCards.length; j++) {
+				Stack<LanternCard> colourStack = playerCards[j];
+				if (j == colourValues.indexOf(colour)) {
+					Assert.assertEquals(1, colourStack.size());
+				} else {
+					Assert.assertEquals(0, colourStack.size());
+				}
+			}
+		}
 	}
 	
 	private String[] createPlayerNames(int quantity) {

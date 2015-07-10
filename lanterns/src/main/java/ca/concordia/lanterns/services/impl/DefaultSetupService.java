@@ -200,7 +200,8 @@ public class DefaultSetupService implements SetupService {
 				TileSide side = firstTile.getSides()[i];
 				if (side != null) {
 					int colourIndex = colours.indexOf(side.getColour());
-					player.getCards()[colourIndex] = cards[i];
+					LanternCard card = cards[colourIndex].pop();
+					player.getCards()[colourIndex].push(card);
 				}
 			}
 		} else {
