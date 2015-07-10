@@ -1,7 +1,8 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.Stack;
 
 import ca.concordia.lanterns.entities.DedicationToken;
@@ -10,15 +11,17 @@ import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
+import ca.concordia.lanterns.entities.TileSide;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
 import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupService implements SetupService {
 
-	public Game createGame(Set<String> playerNames) {
+	@Override
+	public Game createGame(String[] playerNames) {
 		validatePlayersSet(playerNames);
-		int playerCount = playerNames.size();
+		int playerCount = playerNames.length;
 		
 		Game game = new Game(playerNames);
 		LakeTile[] totalTiles = generateTiles(playerCount);
@@ -28,15 +31,23 @@ public class DefaultSetupService implements SetupService {
 		drawTileStack(game.getTiles(), totalTiles, playerCount);
 		separateLanternCards(game.getCards(), playerCount);
 		setDedicationTokens(game.getDedications(), playerCount);
-		distributeInitialLanterns();
-		setStartPlayer();
+		distributeInitialLanterns(game.getLake(), game.getCards(), game.getPlayers());
 
 		return game;
 	}
 	
-	protected void validatePlayersSet(Set<String> playerNames) {
-		if ((playerNames == null) || (playerNames.size() < 2) || (playerNames.size() > 4)) {
+	protected void validatePlayersSet(String[] playerNames) {
+		if ((playerNames == null) || (playerNames.length < 2) || (playerNames.length > 4)) {
 			throw new IllegalArgumentException("Number of players should be between 2 and 4!");
+		} else {
+			// verify if there is any duplicated name
+			for (int i = 0; i < playerNames.length; i++) {
+				for (int j = i+1; j < playerNames.length; j++) {
+					if ((i != j) && (playerNames[i] == playerNames[j])) {
+						throw new IllegalArgumentException("Player names cannot be duplicated! -> [" + playerNames[i] + "]");
+					}
+				}
+			}
 		}
 	}
 
@@ -66,7 +77,6 @@ public class DefaultSetupService implements SetupService {
 			totalTiles = new LakeTile[23];
 			break;
 		default:
-			// TODO - throw exception
 			break;
 		}
 
@@ -88,30 +98,14 @@ public class DefaultSetupService implements SetupService {
 		return totalTiles;
 	}
 
-	/**
-	 * Setup step #1:<br/>
-	 * Place the starting Lake Tile in the center of the play area face down. Flip the tile face up and orient it so that one
-	 * player is facing the red side and each other player is facing a different side.
-	 * 
-	 * @param lake
-	 * @param initialTile
-	 */
-	protected void startLake(final Lake lake, final LakeTile initialTile) {
+	@Override
+	public void startLake(final Lake lake, final LakeTile initialTile) {
 		lake.getTiles().add(initialTile);
 	}
 
-	/**
-	 * Setup step #2:<br/>
-	 * Deal 3 Lake Tiles to each player face down. Lake Tiles are held in hand and kept secret from other players.
-	 * 
-	 * @param totalTiles
-	 * @param players
-	 * @throws IllegalArgumentException
-	 *             If amount of tiles is not enough for the amount of players.
-	 */
-	protected void dealPlayerTiles(final LakeTile[] totalTiles, final Set<Player> players) {
-		final int playerCount = players.size();
-		int toAssign = (3 * playerCount);
+	@Override
+	public void dealPlayerTiles(final LakeTile[] totalTiles, final Player[] players) {
+		int toAssign = (3 * players.length);
 		if (totalTiles.length > toAssign) {
 			while (toAssign > 0) {
 				for (Player player : players) {
@@ -123,25 +117,8 @@ public class DefaultSetupService implements SetupService {
 		}
 	}
 
-	/**
-	 * Setup step #3:<br/>
-	 * Create a draw stack of Lake Tiles. The number of tiles in the stack depends on player count:<br/>
-	 * <ul>
-	 * <li>4 Players: 20 tiles</li>
-	 * <li>3 Players: 18 tiles</li>
-	 * <li>2 Players: 16 tiles</li>
-	 * </ul>
-	 * <br/>
-	 * By the end of this method, the tiles collection will be populated.
-	 * 
-	 * @param tiles
-	 *            stack to be populated.
-	 * @param totalTiles
-	 *            total stack of tiles in the game.
-	 * @param playerCount
-	 *            number of players in the game.
-	 */
-	protected void drawTileStack(final Stack<LakeTile> tiles, final LakeTile[] totalTiles, final int playerCount) {
+	@Override
+	public void drawTileStack(final Stack<LakeTile> tiles, final LakeTile[] totalTiles, final int playerCount) {
 		int count = 0;
 		if (playerCount == 4) {
 			count = 20;
@@ -159,23 +136,8 @@ public class DefaultSetupService implements SetupService {
 		}
 	}
 
-	/**
-	 * Setup step #4:<br/>
-	 * Separate the Lantern Cards by color into 7 stacks. These stacks are collectively called the “supply.” The number of cards
-	 * in each stack depends on player count:<br/>
-	 * <ul>
-	 * <li>4 Players: 8 cards</li>
-	 * <li>3 Players: 7 cards</li>
-	 * <li>2 Players: 5 cards</li>
-	 * </ul>
-	 * <br/>
-	 * By the end of this method, the cards stacks will be populated.
-	 * @param cards	the cards stacks to populate.
-	 * @param playerCount	number of players in the game.
-	 * @throws IllegalArgumentException
-	 *             If cards stack arrays are not prepared to be populated.
-	 */
-	protected void separateLanternCards(final Stack<LanternCard>[] cards, final int playerCount) {
+	@Override
+	public void separateLanternCards(final Stack<LanternCard>[] cards, final int playerCount) {
 		int count = 0;
 		if (playerCount == 4) {
 			count = 8;
@@ -199,26 +161,8 @@ public class DefaultSetupService implements SetupService {
 		}
 	}
 	
-	/**
-	 * Setup step #5:<br/>
-	 * Set aside the 3 generic Dedication Tokens.
-	 * <p/>
-	 * Setup step #6:<br/>
-	 * Separate Dedication Tokens by type into 3 stacks. Arrange each stack in descending order of value.<br/>
-	 * <ul>
-	 * <li>4 Players: use all tokens</li>
-	 * <li>3 Players: remove tokens with 4 dots</li>
-	 * <li>2 Players: remove tokens with 3 or 4 dots</li>
-	 * </ul>
-	 * 
-	 * By the end of this method the dedication stacks will be populated.
-	 * 
-	 * @param dedications	the dedication token stacks to be set
-	 * @param playerCount	number of players in the game.
-	 * @throws IllegalArgumentException
-	 *             If dedications stack arrays are not prepared to be populated.
-	 */
-	protected void setDedicationTokens(final Stack<DedicationToken>[] dedications, final int playerCount) {
+	@Override
+	public void setDedicationTokens(final Stack<DedicationToken>[] dedications, final int playerCount) {
 		DedicationType[] types = DedicationType.values();
 		
 		if ((dedications != null) && (dedications.length == types.length)) {
@@ -245,20 +189,23 @@ public class DefaultSetupService implements SetupService {
 	}
 	
 	
-	/**
-	 * Setup step #7:<br/>
-	 * Give each player one Lantern Card corresponding to the color on the side of the starting Lake Tile he is facing. 
-	 * Each player’s Lantern Cards are always kept in front of them, visible for everyone to see.
-	 */
-	protected void distributeInitialLanterns() {
-		// FIXME - implement
-	}
-	/**
-	 * Setup step #8:<br/>
-	 * Give the player with the red Lantern Card, the color of good fortune, the start player marker.
-	 */
-	protected void setStartPlayer() {
-		// FIXME - implement
+	@Override
+	public void distributeInitialLanterns(final Lake lake, final Stack<LanternCard>[] cards, final Player[] players) {
+		if ((lake != null) && (lake.getTiles() != null) && (!lake.getTiles().isEmpty())) {
+			LakeTile firstTile = lake.getTiles().get(0);
+			List<Colour> colours = Arrays.asList(Colour.values());
+			
+			for (int i = 0; i < players.length; i++) {
+				Player player = players[i];
+				TileSide side = firstTile.getSides()[i];
+				if (side != null) {
+					int colourIndex = colours.indexOf(side.getColour());
+					player.getCards()[colourIndex] = cards[i];
+				}
+			}
+		} else {
+			throw new IllegalArgumentException("Lake does not contain a first tile!");
+		}
 	}
 
 }
