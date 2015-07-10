@@ -100,7 +100,7 @@ public class DefaultSetupServiceTest {
 		final Stack<LakeTile> tiles = new Stack<LakeTile>();
 		final LakeTile[] totalTiles = new LakeTile[36];
 		service.drawTileStack(tiles, totalTiles, 4);
-		Assert.assertEquals(20, tiles.size());
+		assertEquals(20, tiles.size());
 	}
 	
 	@Test
@@ -108,7 +108,7 @@ public class DefaultSetupServiceTest {
 		final Stack<LakeTile> tiles = new Stack<LakeTile>();
 		final LakeTile[] totalTiles = new LakeTile[36];
 		service.drawTileStack(tiles, totalTiles, 3);
-		Assert.assertEquals(18, tiles.size());
+		assertEquals(18, tiles.size());
 	}
 	
 	@Test
@@ -116,7 +116,7 @@ public class DefaultSetupServiceTest {
 		final Stack<LakeTile> tiles = new Stack<LakeTile>();
 		final LakeTile[] totalTiles = new LakeTile[36];
 		service.drawTileStack(tiles, totalTiles, 2);
-		Assert.assertEquals(16, tiles.size());
+		assertEquals(16, tiles.size());
 	}
 	
 	@Test
@@ -124,7 +124,7 @@ public class DefaultSetupServiceTest {
 		final Stack<LakeTile> tiles = new Stack<LakeTile>();
 		final LakeTile[] totalTiles = new LakeTile[36];
 		service.drawTileStack(tiles, totalTiles, 0);
-		Assert.assertTrue(tiles.isEmpty());
+		assertTrue(tiles.isEmpty());
 	}
 	
 	@Test
