@@ -7,18 +7,18 @@ import ca.concordia.lanterns.entities.enums.DedicationType;
  * 
  */
 public class DedicationToken {
-	private int value;
-	private DedicationType type;
+	private int tokenValue;
+	private DedicationType tokenType;
 	
 	/**
 	 * Dedication Token constructor.
-	 * @param value should be in range <code>1..10</code> depending on game state and number of players
-	 * @param type should be in range <code>1-3</code> Based on three possible Dedication token types
+	 * @param tokenValue should be in range <code>1..10</code> depending on game state and number of players
+	 * @param tokenType should be in range <code>1-3</code> Based on three possible Dedication token types
 	 */
-	public DedicationToken(int value, DedicationType type) {
+	public DedicationToken(int tokenValue, DedicationType tokenType) {
 		super();
-		this.value = value;
-		this.type = type;
+		this.tokenValue = tokenValue;
+		this.tokenType = tokenType;
 	}
 
 	/**
@@ -28,8 +28,8 @@ public class DedicationToken {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + value;
+		result = prime * result + ((tokenType == null) ? 0 : tokenType.hashCode());
+		result = prime * result + tokenValue;
 		return result;
 	}
 
@@ -45,9 +45,9 @@ public class DedicationToken {
 		if (getClass() != obj.getClass())
 			return false;
 		DedicationToken other = (DedicationToken) obj;
-		if (type != other.type)
+		if (tokenType != other.tokenType)
 			return false;
-		if (value != other.value)
+		if (tokenValue != other.tokenValue)
 			return false;
 		return true;
 	}
@@ -56,16 +56,16 @@ public class DedicationToken {
 	 * This method returns the value of the dedication token to the constructor.
 	 * @return The value of the dedication token.
 	 */
-	public int getValue() {
-		return value;
+	public int getTokenValue() {
+		return tokenValue;
 	}
 	
 	/**
 	 * This method returns the type of dedication token to the constructor.
 	 * @return The type of dedication.
 	 */
-	public DedicationType getType() {
-		return type;
+	public DedicationType getTokenType() {
+		return tokenType;
 	}
 	
 }
