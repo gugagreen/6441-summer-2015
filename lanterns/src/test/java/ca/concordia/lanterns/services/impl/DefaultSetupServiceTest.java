@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +22,9 @@ import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
+import org.junit.runner.RunWith;
 
+@RunWith(JUnitParamsRunner.class)
 public class DefaultSetupServiceTest {
 	
 	private DefaultSetupService service;
@@ -47,21 +51,12 @@ public class DefaultSetupServiceTest {
 	}
 	
 	@Test
-	public void testGenerateTiles4Players() {
+	@Parameters({"4, 33",
+			     "3, 28",
+				 "2, 23"})
+	public void testGenerateTilesForPlayers(int players, int expectedTiles) {
 		// expected 33 = 20 + 12 (3 tiles per player) + 1 initial tile
-		callGenerateTiles(4, 33);
-	}
-	
-	@Test
-	public void testGenerateTiles3Players() {
-		// expected 33 = 18 + 9 (3 tiles per player) + 1 initial tile
-		callGenerateTiles(3, 28);
-	}
-	
-	@Test
-	public void testGenerateTiles2Players() {
-		// expected 33 = 16 + 6 (3 tiles per player) + 1 initial tile
-		callGenerateTiles(2, 23);
+		callGenerateTiles(players, expectedTiles);
 	}
 	
 	@Test
@@ -110,29 +105,16 @@ public class DefaultSetupServiceTest {
 	}
 	
 	@Test
-	public void testDrawTileStackFourPlayers() {
+	@Parameters({"4, 20",
+			     "3, 18",
+			     "2, 16"})
+	public void testDrawTileStackForPlayers(int players, int expectedLakeTiles) {
 		final Stack<LakeTile> tiles = new Stack<LakeTile>();
 		final LakeTile[] totalTiles = new LakeTile[36];
-		service.drawTileStack(tiles, totalTiles, 4);
-		assertEquals(20, tiles.size());
+		service.drawTileStack(tiles, totalTiles, players);
+		assertEquals(expectedLakeTiles, tiles.size());
 	}
-	
-	@Test
-	public void testDrawTileStackThreePlayers() {
-		final Stack<LakeTile> tiles = new Stack<LakeTile>();
-		final LakeTile[] totalTiles = new LakeTile[36];
-		service.drawTileStack(tiles, totalTiles, 3);
-		assertEquals(18, tiles.size());
-	}
-	
-	@Test
-	public void testDrawTileStackTwoPlayers() {
-		final Stack<LakeTile> tiles = new Stack<LakeTile>();
-		final LakeTile[] totalTiles = new LakeTile[36];
-		service.drawTileStack(tiles, totalTiles, 2);
-		assertEquals(16, tiles.size());
-	}
-	
+
 	@Test
 	public void testDrawTileStackZeroPlayers() {
 		final Stack<LakeTile> tiles = new Stack<LakeTile>();
