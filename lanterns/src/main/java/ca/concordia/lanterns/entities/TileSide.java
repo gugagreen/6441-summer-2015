@@ -8,7 +8,7 @@ import ca.concordia.lanterns.entities.enums.Colour;
  */
 public class TileSide {
 	private Colour colour;
-	private LakeTile adjacent;
+	private LakeTile adjacent = null ;
 	
 	/**
 	 * Tile side constructor.
@@ -60,7 +60,12 @@ public class TileSide {
 	 * @param adjacent It is possible to be adjacent on 4 sides.
 	 */
 	public void setAdjacent(LakeTile adjacent) {
-		this.adjacent = adjacent;
+		if ( this.adjacent == null ) {
+			this.adjacent = adjacent;	
+		} else {
+			throw new IllegalArgumentException ( "Can't relocate a tile side" ) ;
+		}
+		
 	}
 
 	/**
@@ -70,4 +75,6 @@ public class TileSide {
 	public Colour getColour() {
 		return colour;
 	}
+	
+	
 }
