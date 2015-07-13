@@ -1,9 +1,10 @@
 package ca.concordia.lanterns.entities;
 
+import java.util.HashMap;
 import java.util.Stack;
 
-import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.entities.enums.DedicationType;
+import ca.concordia.lanterns.entities.enums.DedicationTokenType;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 
 
 /**
@@ -23,11 +24,12 @@ public class Game {
 	/** Stack of Lake Tiles to be distributed. */
 	private final Stack<LakeTile> tiles;
 	/** Stack of Lantern Cards to be distributed. */
-	private final Stack<LanternCard>[] cards;
+	private final HashMap<LanternCard, Integer> cards;
 	/** Stack of Dedication Tokens to be distributed. */
-	private final Stack<DedicationToken>[] dedications;
+	private final HashMap<DedicationTokenType, Stack<DedicationToken>> dedications;
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
+	private PlayerID startPlayerMaker ;
 	
 
 	/**
@@ -36,29 +38,24 @@ public class Game {
 	 * 
 	 * @param playerNames Names of each current player (ordered by login time)
 	 */
-	@SuppressWarnings("unchecked")
+//	@SuppressWarnings("unchecked")
 	public Game(final String[] playerNames) {
 		super();
 		
 		this.players = new Player[playerNames.length];
+		PlayerID[] playerid = PlayerID.values() ;
 		for (int i = 0; i < playerNames.length; i++) {
-			this.players[i] = new Player(playerNames[i]);
+			this.players[i] = new Player(playerNames[i], playerid[i]);
 		}
 		
 		this.lake = new Lake();
 		
 		this.tiles = new Stack<LakeTile>();
 		
-		this.cards = new Stack[Colour.values().length];
-		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
-		}
-		
-		this.dedications = new Stack[DedicationType.values().length];
-		for (int i = 0; i < dedications.length; i++) {
-			dedications[i] = new Stack<DedicationToken>();
-		}
-		
+		this.cards = new HashMap<LanternCard, Integer> ();
+				
+		this.dedications = new HashMap<DedicationTokenType, Stack<DedicationToken>> () ;
+				
 		this.favors = TOTAL_FAVORS;
 	}
 
@@ -90,12 +87,20 @@ public class Game {
 		return this.tiles;
 	}
 
-	public Stack<LanternCard>[] getCards() {
+	public HashMap<LanternCard, Integer> getCards() {
 		return cards;
 	}
 
-	public Stack<DedicationToken>[] getDedications() {
+	public HashMap<DedicationTokenType, Stack<DedicationToken>> getDedications() {
 		return dedications;
+	}
+	
+	public PlayerID getStartPlayerMaker () {
+		return startPlayerMaker ;
+	}
+	
+	public void setStartPlayerMaker ( PlayerID startPlayerMaker ) {
+		this.startPlayerMaker = startPlayerMaker ;
 	}
 	
 	
