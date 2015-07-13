@@ -9,18 +9,6 @@
 	<name>lanterns Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
-	<repositories>
-		<repository>
-			<id>maven-central</id>
-			<name>Maven Repository Switchboard</name>
-			<layout>default</layout>
-			<url>http://repo1.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
 	<properties>
 		<!-- plugins -->
 		<jetty.plugin.version>9.3.0.v20150612</jetty.plugin.version>
