@@ -1,10 +1,12 @@
 package ca.concordia.lanterns.entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
 
 import ca.concordia.lanterns.entities.enums.Colour;
+import ca.concordia.lanterns.entities.enums.DedicationTokenType;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 
 /**
  * Player entity
@@ -14,8 +16,9 @@ import ca.concordia.lanterns.entities.enums.Colour;
 public class Player {
 
 	private final String name;
-	private final Stack<LanternCard>[] cards;
-	private final List<DedicationToken> dedications;
+	private final PlayerID id ;
+	private final HashMap<LanternCard, Integer> cards;
+	private final HashMap<DedicationTokenType, List<DedicationToken>> dedications ;
 	private final List<LakeTile> tiles;
 	private int favors;
 	
@@ -23,16 +26,22 @@ public class Player {
 	 * 
 	 * @param name
 	 */
-	@SuppressWarnings("unchecked")
-	public Player(final String name) {
+//	@SuppressWarnings("unchecked")
+	public Player(final String name, PlayerID id ) {
 		super();
 		this.name = name;
-		this.cards = new Stack[Colour.values().length];
-		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
+		this.id = id ;
+		this.cards = new HashMap<LanternCard, Integer> ();
+		for ( Colour c : Colour.values() ) {
+			cards.put(new LanternCard(c), 0) ;
 		}
-		this.dedications = new ArrayList<DedicationToken>();
+		this.dedications = new HashMap<DedicationTokenType, List<DedicationToken>> () ;
+		this.dedications.put(DedicationTokenType.FOUR_OF_A_KIND, new ArrayList<DedicationToken>() );
+		this.dedications.put(DedicationTokenType.THREE_PAIRS, new ArrayList<DedicationToken>() );
+		this.dedications.put(DedicationTokenType.SEVEN_UNIQUE, new ArrayList<DedicationToken>() );
+		
 		this.tiles = new ArrayList<LakeTile>();
+		favors = 0 ;
 	}
 
 	/**
@@ -58,10 +67,10 @@ public class Player {
 		if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
-		if (name == null) {
-			if (other.name != null)
+		if (id == other.id) {
+			if (other.id != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
@@ -91,15 +100,32 @@ public class Player {
 	 * Returns the Lantern Cards attributed to a player to the constructor.
 	 * @return Lantern Cards attributed to a player.
 	 */
-	public Stack<LanternCard>[] getCards() {
+	public HashMap<LanternCard, Integer> getCards() {
 		return cards;
+	}
+	
+	public boolean getCards ( Colour color, int numberOfCards) {
+		LanternCard l = new LanternCard(color) ;
+		int stock = cards.get(l) ;
+		if ( stock >= numberOfCards ) {
+			cards.put(l, stock - numberOfCards ) ;
+			return true ;
+		} else {
+			return false ;
+		}
+	}
+	
+	public void addCards ( Colour color, int numberOfCards ) {
+		LanternCard l = new LanternCard(color) ;
+		int no = cards.get(l).intValue() + numberOfCards ;
+		cards.put(l, no) ;
 	}
 
 	/**
 	 * Returns the dedication tokens attributed to a player to the constructor.
 	 * @return Dedication tokens attributed to a player.
 	 */
-	public List<DedicationToken> getDedications() {
+	public HashMap<DedicationTokenType, List<DedicationToken>> getDedications() {
 		return dedications;
 	}
 
