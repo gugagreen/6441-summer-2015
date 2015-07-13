@@ -18,7 +18,7 @@ public class LakeTile {
 	
 	private final TileSide[] sides;
 	private final boolean platform;
-	private final HashMap<PlayerID, Integer> orientation = null ;
+	private final HashMap<PlayerID, Integer> orientation = new HashMap<PlayerID, Integer>() ;
 	/**
 	 * Each Lake tile has four sides, each side can have a colour, there are 7 different colours.
 	 * @param colours There are 7 possible colours.
@@ -84,7 +84,7 @@ public class LakeTile {
 	}
 	
 	public void setOrientation ( PlayerID[] orientation ) {
-		if ( this.orientation == null ) {
+		if ( this.orientation.isEmpty() ) {
 			if ( orientation.length == TOTAL_SIDES ) {
 				for ( int i = 0 ; i != orientation.length ; ++i ) {
 					if ( this.orientation.containsKey(orientation[i]) ) {
