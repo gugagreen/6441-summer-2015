@@ -34,10 +34,10 @@ public class JaxbGameMarshaller {
 	public static void main(String[] args) {
 		DefaultSetupService service = new DefaultSetupService();
 		Game game = service.createGame(new String[] {"p1", "p2", "p3"});
-		LanternCard card = game.getCards()[0].elementAt(0);
+		//LanternCard card = game.getCards()[0].getStack().elementAt(0);
 		try {
 			System.out.println(marshall(game));
-			System.out.println(marshall(card));
+			//System.out.println(marshall(card));
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

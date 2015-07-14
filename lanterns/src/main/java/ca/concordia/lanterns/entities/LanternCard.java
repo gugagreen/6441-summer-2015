@@ -1,5 +1,6 @@
 package ca.concordia.lanterns.entities;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanterns.entities.enums.Colour;
@@ -43,6 +44,7 @@ public class LanternCard {
 		return true;
 	}
 
+	@XmlAttribute
 	public Colour getColour() {
 		return colour;
 	}

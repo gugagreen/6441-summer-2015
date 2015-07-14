@@ -2,6 +2,8 @@ package ca.concordia.lanterns.entities;
 
 import java.util.Stack;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanterns.entities.enums.Colour;
@@ -23,9 +25,9 @@ public class Game {
 	/** Stack of Lake Tiles to be distributed. */
 	private Stack<LakeTile> tiles;
 	/** Stack of Lantern Cards to be distributed. */
-	private Stack<LanternCard>[] cards;
+	private LanternCardWrapper[] cards;
 	/** Stack of Dedication Tokens to be distributed. */
-	private Stack<DedicationToken>[] dedications;
+	private DedicationTokenWrapper[] dedications;
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
 
@@ -48,14 +50,14 @@ public class Game {
 		
 		this.tiles = new Stack<LakeTile>();
 		
-		this.cards = new Stack[Colour.values().length];
+		this.cards = new LanternCardWrapper[Colour.values().length];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
+			cards[i] = new LanternCardWrapper();
 		}
 		
-		this.dedications = new Stack[DedicationType.values().length];
+		this.dedications = new DedicationTokenWrapper[DedicationType.values().length];
 		for (int i = 0; i < dedications.length; i++) {
-			dedications[i] = new Stack<DedicationToken>();
+			dedications[i] = new DedicationTokenWrapper();
 		}
 		
 		this.favors = TOTAL_FAVORS;
@@ -110,22 +112,22 @@ public class Game {
 		this.tiles = tiles;
 	}
 
-	public Stack<LanternCard>[] getCards() {
+	public LanternCardWrapper[] getCards() {
 		return cards;
 	}
 
-	public synchronized void setCards(Stack<LanternCard>[] cards) {
+	public synchronized void setCards(LanternCardWrapper[] cards) {
 		if (this.cards != null) {
 			throw new IllegalAccessError("Attribute cards can only be set once.");
 		}
 		this.cards = cards;
 	}
 
-	public Stack<DedicationToken>[] getDedications() {
+	public DedicationTokenWrapper[] getDedications() {
 		return dedications;
 	}
 
-	public synchronized void setDedications(Stack<DedicationToken>[] dedications) {
+	public synchronized void setDedications(DedicationTokenWrapper[] dedications) {
 		if (this.dedications != null) {
 			throw new IllegalAccessError("Attribute dedications can only be set once.");
 		}

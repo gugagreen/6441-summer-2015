@@ -2,9 +2,6 @@ package ca.concordia.lanterns.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanterns.entities.enums.Colour;
 
@@ -16,7 +13,7 @@ import ca.concordia.lanterns.entities.enums.Colour;
 public class Player {
 
 	private String name;
-	private Stack<LanternCard>[] cards;
+	private LanternCardWrapper[] cards;
 	private List<DedicationToken> dedications;
 	private List<LakeTile> tiles;
 	private int favors;
@@ -24,12 +21,11 @@ public class Player {
 	/**
 	 * @param name
 	 */
-	@SuppressWarnings("unchecked")
 	public void init(final String name) {
 		this.name = name;
-		this.cards = new Stack[Colour.values().length];
+		this.cards = new LanternCardWrapper[Colour.values().length];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
+			cards[i] = new LanternCardWrapper();
 		}
 		this.dedications = new ArrayList<DedicationToken>();
 		this.tiles = new ArrayList<LakeTile>();
@@ -68,11 +64,11 @@ public class Player {
 		this.name = name;
 	}
 
-	public Stack<LanternCard>[] getCards() {
+	public LanternCardWrapper[] getCards() {
 		return cards;
 	}
 
-	public void setCards(Stack<LanternCard>[] cards) {
+	public void setCards(LanternCardWrapper[] cards) {
 		this.cards = cards;
 	}
 

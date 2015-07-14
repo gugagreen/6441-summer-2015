@@ -13,10 +13,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.concordia.lanterns.entities.DedicationToken;
+import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
+import ca.concordia.lanterns.entities.LanternCardWrapper;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
@@ -147,23 +149,23 @@ public class DefaultSetupServiceTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSeparateLanternCardsFourPlayers() {
-		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[Colour.values().length];
+		final LanternCardWrapper[] cards = new LanternCardWrapper[Colour.values().length];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
+			cards[i] = new LanternCardWrapper();
 		}
 		
 		service.separateLanternCards(cards, 4);
-		for (Stack<LanternCard> stack : cards) {
-			assertEquals(8, stack.size());
+		for (LanternCardWrapper wrapper : cards) {
+			assertEquals(8, wrapper.getStack().size());
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test(expected = IllegalArgumentException.class)
 	public void testSeparateLanternCardsWrongStack() {
-		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[Colour.values().length + 1];
+		final LanternCardWrapper[] cards = new LanternCardWrapper[Colour.values().length + 1];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
+			cards[i] = new LanternCardWrapper();
 		}
 		
 		service.separateLanternCards(cards, 4);
@@ -172,15 +174,15 @@ public class DefaultSetupServiceTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSetDedicationTokensFourPlayers() {
-		final Stack<DedicationToken>[] dedications = new Stack[DedicationType.values().length];
+		final DedicationTokenWrapper[] dedications = new DedicationTokenWrapper[DedicationType.values().length];
 		for (int i = 0; i < dedications.length; i++) {
-			dedications[i] = new Stack<DedicationToken>();
+			dedications[i] = new DedicationTokenWrapper();
 		}
 		
 		service.setDedicationTokens(dedications, 4);
 		
 		for (int i = 0; i < dedications.length; i++) {
-			Stack<DedicationToken> dedication = dedications[i];
+			Stack<DedicationToken> dedication = dedications[i].getStack();
 			assertNotNull(dedication);
 			assertEquals(DedicationType.values()[i].getValuesFour().length, dedication.size());
 		}
@@ -195,12 +197,12 @@ public class DefaultSetupServiceTest {
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
 		lake.getTiles().add(initialTile);
-		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[colourValues.size()];
+		final LanternCardWrapper[] cards = new LanternCardWrapper[colourValues.size()];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
+			cards[i] = new LanternCardWrapper();
 			LanternCard card = new LanternCard();
 			card.init(colourValues.get(i));
-			cards[i].push(card);
+			cards[i].getStack().push(card);
 		}
 		Player[] players = createPlayers(4);
 		
@@ -210,13 +212,13 @@ public class DefaultSetupServiceTest {
 			Player player = players[i];
 			Colour colour = initialTile.getSides()[i].getColour();
 			
-			final Stack<LanternCard>[] playerCards = player.getCards();
+			final LanternCardWrapper[] playerCards = player.getCards();
 			for (int j = 0; j < playerCards.length; j++) {
-				Stack<LanternCard> colourStack = playerCards[j];
+				LanternCardWrapper colourStack = playerCards[j];
 				if (j == colourValues.indexOf(colour)) {
-					assertEquals(1, colourStack.size());
+					assertEquals(1, colourStack.getStack().size());
 				} else {
-					assertEquals(0, colourStack.size());
+					assertEquals(0, colourStack.getStack().size());
 				}
 			}
 		}
