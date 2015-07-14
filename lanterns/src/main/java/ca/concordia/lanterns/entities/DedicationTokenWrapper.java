@@ -5,6 +5,10 @@ import java.util.Stack;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Dedication Token Wrapper
+ * @version 1.0
+ */
 @XmlRootElement
 public class DedicationTokenWrapper {
 

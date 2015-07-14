@@ -9,6 +9,7 @@ import javax.xml.bind.Unmarshaller;
 
 import ca.concordia.lanterns.entities.Game;
 
+/** This class is used to load game information/state in an XML file using JAXB */
 public class LoadXML {
 	
 	private Game loadXMLContent(){

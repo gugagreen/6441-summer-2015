@@ -11,6 +11,11 @@ import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
 
 
+/**
+ * Jaxb Game Marshaller
+ * @version 1.0
+ *
+ */
 public class JaxbGameMarshaller {
 
 	public static String marshall(Game game) throws JAXBException {
