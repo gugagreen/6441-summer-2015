@@ -11,17 +11,12 @@ public class TileSide {
 	private LakeTile adjacent;
 	
 	/**
-	 * Tile side constructor.
 	 * @param colour There are seven possible colours for a tile side.
 	 */
-	public TileSide(Colour colour) {
-		super();
+	public void init(Colour colour) {
 		this.colour = colour;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -30,9 +25,6 @@ public class TileSide {
 		return result;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -47,27 +39,19 @@ public class TileSide {
 		return true;
 	}
 
-	/**
-	 * Returns adjacent lake tile(s) to the constructor.
-	 * @return Any adjacent lake tiles.
-	 */
+	public Colour getColour() {
+		return colour;
+	}
+
+	public void setColour(Colour colour) {
+		this.colour = colour;
+	}
+
 	public LakeTile getAdjacent() {
 		return adjacent;
 	}
 
-	/**
-	 * Sets the tile side as adjacent.
-	 * @param adjacent It is possible to be adjacent on 4 sides.
-	 */
 	public void setAdjacent(LakeTile adjacent) {
 		this.adjacent = adjacent;
-	}
-
-	/**
-	 * Returns the colour of the tile side to the constructor.
-	 * @return Tile side colour.
-	 */
-	public Colour getColour() {
-		return colour;
 	}
 }

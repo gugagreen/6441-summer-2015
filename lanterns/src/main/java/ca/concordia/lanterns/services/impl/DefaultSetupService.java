@@ -23,7 +23,8 @@ public class DefaultSetupService implements SetupService {
 		validatePlayersSet(playerNames);
 		int playerCount = playerNames.length;
 		
-		Game game = new Game(playerNames);
+		Game game = new Game();
+		game.init(playerNames);
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		
 		startLake(game.getLake(), totalTiles[0]);
@@ -91,7 +92,8 @@ public class DefaultSetupService implements SetupService {
 					tileColours[j] = colours[nextColour];
 				}
 				boolean platform = random.nextBoolean();
-				totalTiles[i] = new LakeTile(tileColours, platform);
+				totalTiles[i] = new LakeTile();
+				totalTiles[i].init(tileColours, platform);
 			}
 		}
 
@@ -153,7 +155,9 @@ public class DefaultSetupService implements SetupService {
 			for (int i = 0; i < colours.length; i++) {
 				Stack<LanternCard> colourStack = cards[i];
 				for (int j = 0; j < count; j++) {
-					colourStack.push(new LanternCard(colours[i]));
+					LanternCard card = new LanternCard();
+					card.init(colours[i]);
+					colourStack.push(card);
 				}
 			}
 		} else {
@@ -179,7 +183,9 @@ public class DefaultSetupService implements SetupService {
 				}
 				
 				for (int value : values) {
-					dedicationStack.push(new DedicationToken(value, type));
+					DedicationToken token = new DedicationToken();
+					token.init(value, type);
+					dedicationStack.push(token);
 				}
 				
 			}

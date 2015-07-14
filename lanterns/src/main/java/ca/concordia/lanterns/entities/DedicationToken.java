@@ -1,22 +1,20 @@
 package ca.concordia.lanterns.entities;
 
 import ca.concordia.lanterns.entities.enums.DedicationType;
+
 /** Dedication Token entity.
  * 
  * @version 1.0
- * 
  */
 public class DedicationToken {
 	private int tokenValue;
 	private DedicationType tokenType;
 	
 	/**
-	 * Dedication Token constructor.
 	 * @param tokenValue should be in range <code>1..10</code> depending on game state and number of players
 	 * @param tokenType should be in range <code>1-3</code> Based on three possible Dedication token types
 	 */
-	public DedicationToken(int tokenValue, DedicationType tokenType) {
-		super();
+	public void init(int tokenValue, DedicationType tokenType) {
 		this.tokenValue = tokenValue;
 		this.tokenType = tokenType;
 	}
@@ -57,21 +55,21 @@ public class DedicationToken {
 		}
 		return true;
 	}
-	
-	/**
-	 * This method returns the value of the dedication token to the constructor.
-	 * @return The value of the dedication token.
-	 */
+
 	public int getTokenValue() {
 		return tokenValue;
 	}
-	
-	/**
-	 * This method returns the type of dedication token to the constructor.
-	 * @return The type of dedication.
-	 */
+
+	public void setTokenValue(int tokenValue) {
+		this.tokenValue = tokenValue;
+	}
+
 	public DedicationType getTokenType() {
 		return tokenType;
+	}
+
+	public void setTokenType(DedicationType tokenType) {
+		this.tokenType = tokenType;
 	}
 	
 }
