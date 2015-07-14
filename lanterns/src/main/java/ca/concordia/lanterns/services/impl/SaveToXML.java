@@ -6,6 +6,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import ca.concordia.lanterns.entities.Game;
 
+/* This class is used to save game information/state in an XML file using JAXB */
+
 public class SaveToXML {
 	
 	public void saveGame(Game game){
