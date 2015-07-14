@@ -9,22 +9,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 
 import ca.concordia.lanterns.entities.DedicationToken;
+import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
+import ca.concordia.lanterns.entities.LanternCardWrapper;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
-import org.junit.runner.RunWith;
 
-@RunWith(JUnitParamsRunner.class)
 public class DefaultSetupServiceTest {
 	
 	private DefaultSetupService service;
@@ -47,16 +45,26 @@ public class DefaultSetupServiceTest {
 		assertNotNull(game.getDedications());
 		assertNotNull(game.getLake());
 		assertNotNull(game.getTiles());
+		//... validate content
 		assertEquals(Game.TOTAL_FAVORS, game.getFavors());
 	}
 	
 	@Test
-	@Parameters({"4, 33",
-			     "3, 28",
-				 "2, 23"})
-	public void testGenerateTilesForPlayers(int players, int expectedTiles) {
+	public void testGenerateTiles4Players() {
 		// expected 33 = 20 + 12 (3 tiles per player) + 1 initial tile
-		callGenerateTiles(players, expectedTiles);
+		callGenerateTiles(4, 33);
+	}
+	
+	@Test
+	public void testGenerateTiles3Players() {
+		// expected 33 = 18 + 9 (3 tiles per player) + 1 initial tile
+		callGenerateTiles(3, 28);
+	}
+	
+	@Test
+	public void testGenerateTiles2Players() {
+		// expected 33 = 16 + 6 (3 tiles per player) + 1 initial tile
+		callGenerateTiles(2, 23);
 	}
 	
 	@Test
@@ -76,7 +84,8 @@ public class DefaultSetupServiceTest {
 	public void testStartLake() {
 		Lake lake = new Lake();
 		Colour[] colours = {Colour.RED, Colour.BLUE, Colour.GREEN, Colour.PURPLE};
-		LakeTile initialTile = new LakeTile(colours, false);
+		LakeTile initialTile = new LakeTile();
+		initialTile.init(colours, false);
 		service.startLake(lake, initialTile);
 		
 		assertEquals(1, lake.getTiles().size());
@@ -88,7 +97,8 @@ public class DefaultSetupServiceTest {
 		final Player[] players = createPlayers(3);
 		final LakeTile[] totalTiles = new LakeTile[36];
 		for (int i = 0; i < totalTiles.length; i++) {
-			totalTiles[i] = new LakeTile(new Colour[4], false);
+			totalTiles[i] = new LakeTile();
+			totalTiles[i].init(new Colour[4], false);
 		}
 		
 		service.dealPlayerTiles(totalTiles, players);
@@ -105,16 +115,29 @@ public class DefaultSetupServiceTest {
 	}
 	
 	@Test
-	@Parameters({"4, 20",
-			     "3, 18",
-			     "2, 16"})
-	public void testDrawTileStackForPlayers(int players, int expectedLakeTiles) {
+	public void testDrawTileStackFourPlayers() {
 		final Stack<LakeTile> tiles = new Stack<LakeTile>();
 		final LakeTile[] totalTiles = new LakeTile[36];
-		service.drawTileStack(tiles, totalTiles, players);
-		assertEquals(expectedLakeTiles, tiles.size());
+		service.drawTileStack(tiles, totalTiles, 4);
+		assertEquals(20, tiles.size());
 	}
-
+	
+	@Test
+	public void testDrawTileStackThreePlayers() {
+		final Stack<LakeTile> tiles = new Stack<LakeTile>();
+		final LakeTile[] totalTiles = new LakeTile[36];
+		service.drawTileStack(tiles, totalTiles, 3);
+		assertEquals(18, tiles.size());
+	}
+	
+	@Test
+	public void testDrawTileStackTwoPlayers() {
+		final Stack<LakeTile> tiles = new Stack<LakeTile>();
+		final LakeTile[] totalTiles = new LakeTile[36];
+		service.drawTileStack(tiles, totalTiles, 2);
+		assertEquals(16, tiles.size());
+	}
+	
 	@Test
 	public void testDrawTileStackZeroPlayers() {
 		final Stack<LakeTile> tiles = new Stack<LakeTile>();
@@ -126,23 +149,23 @@ public class DefaultSetupServiceTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSeparateLanternCardsFourPlayers() {
-		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[Colour.values().length];
+		final LanternCardWrapper[] cards = new LanternCardWrapper[Colour.values().length];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
+			cards[i] = new LanternCardWrapper();
 		}
 		
 		service.separateLanternCards(cards, 4);
-		for (Stack<LanternCard> stack : cards) {
-			assertEquals(8, stack.size());
+		for (LanternCardWrapper wrapper : cards) {
+			assertEquals(8, wrapper.getStack().size());
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test(expected = IllegalArgumentException.class)
 	public void testSeparateLanternCardsWrongStack() {
-		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[Colour.values().length + 1];
+		final LanternCardWrapper[] cards = new LanternCardWrapper[Colour.values().length + 1];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
+			cards[i] = new LanternCardWrapper();
 		}
 		
 		service.separateLanternCards(cards, 4);
@@ -151,15 +174,15 @@ public class DefaultSetupServiceTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testSetDedicationTokensFourPlayers() {
-		final Stack<DedicationToken>[] dedications = new Stack[DedicationType.values().length];
+		final DedicationTokenWrapper[] dedications = new DedicationTokenWrapper[DedicationType.values().length];
 		for (int i = 0; i < dedications.length; i++) {
-			dedications[i] = new Stack<DedicationToken>();
+			dedications[i] = new DedicationTokenWrapper();
 		}
 		
 		service.setDedicationTokens(dedications, 4);
 		
 		for (int i = 0; i < dedications.length; i++) {
-			Stack<DedicationToken> dedication = dedications[i];
+			Stack<DedicationToken> dedication = dedications[i].getStack();
 			assertNotNull(dedication);
 			assertEquals(DedicationType.values()[i].getValuesFour().length, dedication.size());
 		}
@@ -171,12 +194,15 @@ public class DefaultSetupServiceTest {
 		List<Colour> colourValues = Arrays.asList(Colour.values());
 		final Lake lake = new Lake();
 		Colour[] colours = {Colour.RED, Colour.BLUE, Colour.GREEN, Colour.PURPLE};
-		LakeTile initialTile = new LakeTile(colours, false);
+		LakeTile initialTile = new LakeTile();
+		initialTile.init(colours, false);
 		lake.getTiles().add(initialTile);
-		final Stack<LanternCard>[] cards = (Stack<LanternCard>[]) new Stack[colourValues.size()];
+		final LanternCardWrapper[] cards = new LanternCardWrapper[colourValues.size()];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new Stack<LanternCard>();
-			cards[i].push(new LanternCard(colourValues.get(i)));
+			cards[i] = new LanternCardWrapper();
+			LanternCard card = new LanternCard();
+			card.init(colourValues.get(i));
+			cards[i].getStack().push(card);
 		}
 		Player[] players = createPlayers(4);
 		
@@ -186,13 +212,13 @@ public class DefaultSetupServiceTest {
 			Player player = players[i];
 			Colour colour = initialTile.getSides()[i].getColour();
 			
-			final Stack<LanternCard>[] playerCards = player.getCards();
+			final LanternCardWrapper[] playerCards = player.getCards();
 			for (int j = 0; j < playerCards.length; j++) {
-				Stack<LanternCard> colourStack = playerCards[j];
+				LanternCardWrapper colourStack = playerCards[j];
 				if (j == colourValues.indexOf(colour)) {
-					assertEquals(1, colourStack.size());
+					assertEquals(1, colourStack.getStack().size());
 				} else {
-					assertEquals(0, colourStack.size());
+					assertEquals(0, colourStack.getStack().size());
 				}
 			}
 		}
@@ -209,7 +235,8 @@ public class DefaultSetupServiceTest {
 	private Player[] createPlayers(int quantity) {
 		Player[] players = new Player[quantity];
 		for (int i = 0; i < quantity; i++) {
-			players[i] = new Player(Integer.toString(i));
+			players[i] = new Player();
+			players[i].init(Integer.toString(i));
 		}
 		return players;
 	}

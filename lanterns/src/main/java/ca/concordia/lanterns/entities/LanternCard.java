@@ -1,5 +1,8 @@
 package ca.concordia.lanterns.entities;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import ca.concordia.lanterns.entities.enums.Colour;
 
 /** Lantern Card entity
@@ -7,21 +10,18 @@ import ca.concordia.lanterns.entities.enums.Colour;
  * @version 1.0
  *
  */
+@XmlRootElement
 public class LanternCard {
 	private Colour colour;
 
 	/**
-	 * Lantern Card constructor.
+	 * 
 	 * @param colour There are 7 possible lantern colours.
 	 */
-	public LanternCard(Colour colour) {
-		super();
+	public void init(Colour colour) {
 		this.colour = colour;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -30,9 +30,6 @@ public class LanternCard {
 		return result;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -47,11 +44,12 @@ public class LanternCard {
 		return true;
 	}
 
-	/**
-	 * Returns the colour of a lantern card to the constructor.
-	 * @return The colour of a lantern card.
-	 */
+	@XmlAttribute
 	public Colour getColour() {
 		return colour;
+	}
+
+	public void setColour(Colour colour) {
+		this.colour = colour;
 	}
 }

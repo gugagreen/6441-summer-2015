@@ -3,6 +3,7 @@ package ca.concordia.lanterns.entities.enums;
 import java.util.Arrays;
 
 public enum DedicationType {
+	// FIXME - add correct quantities
 	FOUR_OF_A_KIND(new int[]{}, new int[]{}, new int[]{}), 
 	THREE_PAIRS(new int[]{}, new int[]{}, new int[]{}), 
 	SEVEN_UNIQUE(new int[]{10,9,9,8,8,7,7,6,5}, new int[]{10,9,8,8,7,7,6,5}, new int[]{10,9,8,7,6,5}), 

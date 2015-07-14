@@ -6,11 +6,13 @@ import java.util.Random;
 import java.util.Stack;
 
 import ca.concordia.lanterns.entities.DedicationToken;
+import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
+import ca.concordia.lanterns.entities.LanternCardWrapper;
 import ca.concordia.lanterns.entities.TileSide;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
@@ -23,7 +25,8 @@ public class DefaultSetupService implements SetupService {
 		validatePlayersSet(playerNames);
 		int playerCount = playerNames.length;
 		
-		Game game = new Game(playerNames);
+		Game game = new Game();
+		game.init(playerNames);
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		
 		startLake(game.getLake(), totalTiles[0]);
@@ -91,7 +94,8 @@ public class DefaultSetupService implements SetupService {
 					tileColours[j] = colours[nextColour];
 				}
 				boolean platform = random.nextBoolean();
-				totalTiles[i] = new LakeTile(tileColours, platform);
+				totalTiles[i] = new LakeTile();
+				totalTiles[i].init(tileColours, platform);
 			}
 		}
 
@@ -137,7 +141,7 @@ public class DefaultSetupService implements SetupService {
 	}
 
 	@Override
-	public void separateLanternCards(final Stack<LanternCard>[] cards, final int playerCount) {
+	public void separateLanternCards(final LanternCardWrapper[] cards, final int playerCount) {
 		int count = 0;
 		if (playerCount == 4) {
 			count = 8;
@@ -151,9 +155,11 @@ public class DefaultSetupService implements SetupService {
 		
 		if ((cards != null) && (cards.length == colours.length)) {
 			for (int i = 0; i < colours.length; i++) {
-				Stack<LanternCard> colourStack = cards[i];
+				LanternCardWrapper colourStack = cards[i];
 				for (int j = 0; j < count; j++) {
-					colourStack.push(new LanternCard(colours[i]));
+					LanternCard card = new LanternCard();
+					card.init(colours[i]);
+					colourStack.getStack().push(card);
 				}
 			}
 		} else {
@@ -162,12 +168,12 @@ public class DefaultSetupService implements SetupService {
 	}
 	
 	@Override
-	public void setDedicationTokens(final Stack<DedicationToken>[] dedications, final int playerCount) {
+	public void setDedicationTokens(final DedicationTokenWrapper[] dedications, final int playerCount) {
 		DedicationType[] types = DedicationType.values();
 		
 		if ((dedications != null) && (dedications.length == types.length)) {
 			for (int i = 0; i < types.length; i++) {
-				Stack<DedicationToken> dedicationStack = dedications[i];
+				DedicationTokenWrapper dedicationStack = dedications[i];
 				DedicationType type = types[i];
 				int[] values = null;
 				if (playerCount == 4) {
@@ -179,7 +185,9 @@ public class DefaultSetupService implements SetupService {
 				}
 				
 				for (int value : values) {
-					dedicationStack.push(new DedicationToken(value, type));
+					DedicationToken token = new DedicationToken();
+					token.init(value, type);
+					dedicationStack.getStack().push(token);
 				}
 				
 			}
@@ -190,7 +198,7 @@ public class DefaultSetupService implements SetupService {
 	
 	
 	@Override
-	public void distributeInitialLanterns(final Lake lake, final Stack<LanternCard>[] cards, final Player[] players) {
+	public void distributeInitialLanterns(final Lake lake, final LanternCardWrapper[] cards, final Player[] players) {
 		if ((lake != null) && (lake.getTiles() != null) && (!lake.getTiles().isEmpty())) {
 			LakeTile firstTile = lake.getTiles().get(0);
 			List<Colour> colours = Arrays.asList(Colour.values());
@@ -200,8 +208,8 @@ public class DefaultSetupService implements SetupService {
 				TileSide side = firstTile.getSides()[i];
 				if (side != null) {
 					int colourIndex = colours.indexOf(side.getColour());
-					LanternCard card = cards[colourIndex].pop();
-					player.getCards()[colourIndex].push(card);
+					LanternCard card = cards[colourIndex].getStack().pop();
+					player.getCards()[colourIndex].getStack().push(card);
 				}
 			}
 		} else {

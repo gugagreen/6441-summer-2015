@@ -3,11 +3,13 @@ package ca.concordia.lanterns.services;
 import java.util.Stack;
 
 import ca.concordia.lanterns.entities.DedicationToken;
+import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
+import ca.concordia.lanterns.entities.LanternCardWrapper;
 
 public interface SetupService {
 
@@ -80,7 +82,7 @@ public interface SetupService {
 	 * @throws IllegalArgumentException
 	 *             If cards stack arrays are not prepared to be populated.
 	 */
-	void separateLanternCards(final Stack<LanternCard>[] cards, final int playerCount);
+	void separateLanternCards(final LanternCardWrapper[] cards, final int playerCount);
 
 	/**
 	 * Setup step #5:<br/>
@@ -103,7 +105,7 @@ public interface SetupService {
 	 * @throws IllegalArgumentException
 	 *             If dedications stack arrays are not prepared to be populated.
 	 */
-	void setDedicationTokens(final Stack<DedicationToken>[] dedications, final int playerCount);
+	void setDedicationTokens(final DedicationTokenWrapper[] dedications, final int playerCount);
 
 	/**
 	 * Setup step #7:<br/>
@@ -117,6 +119,6 @@ public interface SetupService {
 	 * @param cards	lantern cards available to be distributed
 	 * @param	the players in the game.
 	 */
-	void distributeInitialLanterns(final Lake lake, final Stack<LanternCard>[] cards, final Player[] players);
+	void distributeInitialLanterns(final Lake lake, final LanternCardWrapper[] cards, final Player[] players);
 
 }

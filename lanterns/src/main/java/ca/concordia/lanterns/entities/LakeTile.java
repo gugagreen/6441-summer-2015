@@ -13,8 +13,8 @@ public class LakeTile {
 	 */
 	public static final int TOTAL_SIDES = 4;
 	
-	private final TileSide[] sides;
-	private final boolean platform;
+	private TileSide[] sides;
+	private Boolean platform;
 	
 	/**
 	 * Each Lake tile has four sides, each side can have a colour, there are 7 different colours.
@@ -22,15 +22,16 @@ public class LakeTile {
 	 * @param platform The tiles may be in play or in the deck.
 	 * @throws IllegalArgumentException	if colours size does not match {@link #TOTAL_SIDES}.
 	 */
-	public LakeTile(Colour[] colours, boolean platform) {
-		super();
+	public void init(Colour[] colours, boolean platform) {
 		this.platform = platform;
 		sides = new TileSide[TOTAL_SIDES];
 
 		// populate sides
 		if (colours != null && colours.length == TOTAL_SIDES) {
 			for (int i = 0; i < TOTAL_SIDES; i++) {
-				sides[i] = new TileSide(colours[i]);
+				TileSide side = new TileSide();
+				side.init(colours[i]);
+				sides[i] = side;
 			}
 		} else {
 			throw new IllegalArgumentException("Invalid colours size!");
@@ -74,9 +75,17 @@ public class LakeTile {
 	public TileSide[] getSides() {
 		return sides;
 	}
-	
+
+	public void setSides(TileSide[] sides) {
+		this.sides = sides;
+	}
+
 	public boolean isPlatform() {
 		return platform;
+	}
+
+	public void setPlatform(Boolean platform) {
+		this.platform = platform;
 	}
 	
 }
