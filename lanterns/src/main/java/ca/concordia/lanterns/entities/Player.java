@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.entities.enums.DedicationTokenType;
+import ca.concordia.lanterns.entities.enums.DedicationType;
 import ca.concordia.lanterns.entities.enums.PlayerID;
 
 /**
@@ -18,7 +18,7 @@ public class Player {
 	private final String name;
 	private final PlayerID id ;
 	private final HashMap<LanternCard, Integer> cards;
-	private final HashMap<DedicationTokenType, List<DedicationToken>> dedications ;
+	private final HashMap<DedicationType, List<DedicationToken>> dedications ;
 	private final List<LakeTile> tiles;
 	private int favors;
 	
@@ -35,10 +35,10 @@ public class Player {
 		for ( Colour c : Colour.values() ) {
 			cards.put(new LanternCard(c), 0) ;
 		}
-		this.dedications = new HashMap<DedicationTokenType, List<DedicationToken>> () ;
-		this.dedications.put(DedicationTokenType.FOUR_OF_A_KIND, new ArrayList<DedicationToken>() );
-		this.dedications.put(DedicationTokenType.THREE_PAIRS, new ArrayList<DedicationToken>() );
-		this.dedications.put(DedicationTokenType.SEVEN_UNIQUE, new ArrayList<DedicationToken>() );
+		this.dedications = new HashMap<DedicationType, List<DedicationToken>> () ;
+		this.dedications.put(DedicationType.FOUR_OF_A_KIND, new ArrayList<DedicationToken>() );
+		this.dedications.put(DedicationType.THREE_PAIRS, new ArrayList<DedicationToken>() );
+		this.dedications.put(DedicationType.SEVEN_UNIQUE, new ArrayList<DedicationToken>() );
 		
 		this.tiles = new ArrayList<LakeTile>();
 		favors = 0 ;
@@ -125,7 +125,7 @@ public class Player {
 	 * Returns the dedication tokens attributed to a player to the constructor.
 	 * @return Dedication tokens attributed to a player.
 	 */
-	public HashMap<DedicationTokenType, List<DedicationToken>> getDedications() {
+	public HashMap<DedicationType, List<DedicationToken>> getDedications() {
 		return dedications;
 	}
 

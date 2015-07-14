@@ -3,7 +3,7 @@ package ca.concordia.lanterns.entities;
 import java.util.HashMap;
 import java.util.Stack;
 
-import ca.concordia.lanterns.entities.enums.DedicationTokenType;
+import ca.concordia.lanterns.entities.enums.DedicationType;
 import ca.concordia.lanterns.entities.enums.PlayerID;
 
 
@@ -26,7 +26,7 @@ public class Game {
 	/** Stack of Lantern Cards to be distributed. */
 	private final HashMap<LanternCard, Integer> cards;
 	/** Stack of Dedication Tokens to be distributed. */
-	private final HashMap<DedicationTokenType, Stack<DedicationToken>> dedications;
+	private final HashMap<DedicationType, Stack<DedicationToken>> dedications;
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
 	private PlayerID startPlayerMaker ;
@@ -54,7 +54,7 @@ public class Game {
 		
 		this.cards = new HashMap<LanternCard, Integer> ();
 				
-		this.dedications = new HashMap<DedicationTokenType, Stack<DedicationToken>> () ;
+		this.dedications = new HashMap<DedicationType, Stack<DedicationToken>> () ;
 				
 		this.favors = TOTAL_FAVORS;
 	}
@@ -91,7 +91,7 @@ public class Game {
 		return cards;
 	}
 
-	public HashMap<DedicationTokenType, Stack<DedicationToken>> getDedications() {
+	public HashMap<DedicationType, Stack<DedicationToken>> getDedications() {
 		return dedications;
 	}
 	
