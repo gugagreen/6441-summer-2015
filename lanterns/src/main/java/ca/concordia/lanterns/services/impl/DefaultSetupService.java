@@ -1,7 +1,6 @@
 package ca.concordia.lanterns.services.impl;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
 
@@ -13,7 +12,7 @@ import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.TileSide;
 import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.entities.enums.DedicationTokenType;
+import ca.concordia.lanterns.entities.enums.DedicationType;
 import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupService implements SetupService {
@@ -137,7 +136,7 @@ public class DefaultSetupService implements SetupService {
 	}
 
 	@Override
-	public void separateLanternCards(final Stack<LanternCard>[] cards, final int playerCount) {
+	public void separateLanternCards(final HashMap<LanternCard,Integer> cards, final int playerCount) {
 		int count = 0;
 		if (playerCount == 4) {
 			count = 8;
@@ -149,12 +148,9 @@ public class DefaultSetupService implements SetupService {
 		
 		Colour[] colours = Colour.values();
 		
-		if ((cards != null) && (cards.length == colours.length)) {
+		if ((cards != null) && (cards.isEmpty())) {
 			for (int i = 0; i < colours.length; i++) {
-				Stack<LanternCard> colourStack = cards[i];
-				for (int j = 0; j < count; j++) {
-					colourStack.push(new LanternCard(colours[i]));
-				}
+				cards.put(new LanternCard(colours[i]), count) ;
 			}
 		} else {
 			throw new IllegalArgumentException("Stack of cards to be populated is invalid!");
@@ -162,24 +158,25 @@ public class DefaultSetupService implements SetupService {
 	}
 	
 	@Override
-	public void setDedicationTokens(final Stack<DedicationToken>[] dedications, final int playerCount) {
-		DedicationType[] types = DedicationType.values();
+	public void setDedicationTokens(final HashMap<DedicationType, Stack<DedicationToken>> dedications, final int playerCount) {
 		
-		if ((dedications != null) && (dedications.length == types.length)) {
+		DedicationType[] types = DedicationType.values() ;
+		
+		if ((dedications != null) && (dedications.isEmpty())) {
 			for (int i = 0; i < types.length; i++) {
-				Stack<DedicationToken> dedicationStack = dedications[i];
-				DedicationType type = types[i];
+				Stack<DedicationToken> dedicationStack = new Stack<DedicationToken>();
+				
 				int[] values = null;
 				if (playerCount == 4) {
-					values = type.getValuesFour();
+					values = types[i].getValuesFour();
 				} else if (playerCount == 3) {
-					values = type.getValuesThree();
+					values = types[i].getValuesThree();
 				} else if (playerCount == 2) {
-					values = type.getValuesTwo();
+					values = types[i].getValuesTwo();
 				}
 				
 				for (int value : values) {
-					dedicationStack.push(new DedicationToken(value, type));
+					dedicationStack.push(new DedicationToken(value, types[i]));
 				}
 				
 			}
@@ -190,18 +187,16 @@ public class DefaultSetupService implements SetupService {
 	
 	
 	@Override
-	public void distributeInitialLanterns(final Lake lake, final Stack<LanternCard>[] cards, final Player[] players) {
+	public void distributeInitialLanterns(final Lake lake, final HashMap<LanternCard, Integer> cards, final Player[] players) {
 		if ((lake != null) && (lake.getTiles() != null) && (!lake.getTiles().isEmpty())) {
 			LakeTile firstTile = lake.getTiles().get(0);
-			List<Colour> colours = Arrays.asList(Colour.values());
 			
 			for (int i = 0; i < players.length; i++) {
 				Player player = players[i];
 				TileSide side = firstTile.getSides()[i];
 				if (side != null) {
-					int colourIndex = colours.indexOf(side.getColour());
-					LanternCard card = cards[colourIndex].pop();
-					player.getCards()[colourIndex].push(card);
+					cards.put(new LanternCard(side.getColour()), (cards.get(new LanternCard(side.getColour()) ) - 1) );
+					player.getCards( side.getColour(), 1);
 				}
 			}
 		} else {

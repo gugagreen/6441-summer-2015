@@ -20,6 +20,7 @@ import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 
 public class DefaultSetupServiceTest {
 	
@@ -226,8 +227,9 @@ public class DefaultSetupServiceTest {
 	
 	private Player[] createPlayers(int quantity) {
 		Player[] players = new Player[quantity];
+		PlayerID[] id = PlayerID.values() ;
 		for (int i = 0; i < quantity; i++) {
-			players[i] = new Player(Integer.toString(i));
+			players[i] = new Player(Integer.toString(i), id[i]);
 		}
 		return players;
 	}
