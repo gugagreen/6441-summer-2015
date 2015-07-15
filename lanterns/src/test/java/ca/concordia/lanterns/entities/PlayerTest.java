@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-/* player class test with junit */
+/* player class test with junit test cases*/
 
 public class PlayerTest {
 	
