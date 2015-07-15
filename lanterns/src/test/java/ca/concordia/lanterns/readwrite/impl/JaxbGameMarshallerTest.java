@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Scanner;
@@ -17,6 +18,8 @@ import org.junit.Test;
 import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
+
+import static org.custommonkey.xmlunit.XMLAssert.*;
 
 public class JaxbGameMarshallerTest {
 	public static final String TEST_FILE_PATH = "target/test-classes/jaxbGameTest.xml";
@@ -29,7 +32,7 @@ public class JaxbGameMarshallerTest {
 	}
 	
 	@Test
-	public void testMarshallGame() throws FileNotFoundException {
+	public void testMarshallGame() throws Exception, IOException {
 		Game game = GameStubber.createGameStub();
 		assertNotNull(game);
 		Writer writer = new StringWriter(); 
@@ -44,7 +47,7 @@ public class JaxbGameMarshallerTest {
 		scanner.close();
 		assertNotNull(content);
 		
-		assertEquals(content, result);
+		assertXMLEqual(content, result);
 	}
 	
 	@Test
