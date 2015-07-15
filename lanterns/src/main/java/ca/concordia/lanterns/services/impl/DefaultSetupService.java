@@ -228,15 +228,11 @@ public class DefaultSetupService implements SetupService {
 		if ((lake != null) && (lake.getTiles() != null) && (!lake.getTiles().isEmpty())) {
 			LakeTile firstTile = lake.getTiles().get(0);
 			List<Colour> colours = Arrays.asList(Colour.values());
-			
-			for (int i = 0; i < players.length; i++) {
-				Player player = players[i];
-				TileSide side = firstTile.getSides()[i];
-				if (side != null) {
-					int colourIndex = colours.indexOf(side.getColour());
-					LanternCard card = cards[colourIndex].getStack().pop();
-					player.getCards()[colourIndex].getStack().push(card);
-				}
+			for ( int i = 0 ; i != players.length ;++i ) {
+				Colour color = firstTile.getOrientation(players[i].getID()).getColour() ;
+				int colourIndex = colours.indexOf(color);
+				LanternCard card = cards[colourIndex].getStack().pop();
+				players[i].getCards()[colourIndex].getStack().push(card) ;
 			}
 		} else {
 			throw new IllegalArgumentException("Lake does not contain a first tile!");
