@@ -1,5 +1,6 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -16,6 +17,7 @@ import ca.concordia.lanterns.entities.LanternCardWrapper;
 import ca.concordia.lanterns.entities.TileSide;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupService implements SetupService {
@@ -32,7 +34,7 @@ public class DefaultSetupService implements SetupService {
 		game.init(playerNames);
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		
-		startLake(game.getLake(), totalTiles[0]);
+		startLake(game.getLake(), totalTiles[0], game.getPlayers().length);
 		dealPlayerTiles(totalTiles, game.getPlayers());
 		drawTileStack(game.getTiles(), totalTiles, playerCount);
 		separateLanternCards(game.getCards(), playerCount);
@@ -116,8 +118,19 @@ public class DefaultSetupService implements SetupService {
 	}
 
 	@Override
-	public void startLake(final Lake lake, final LakeTile initialTile) {
-		lake.getTiles().add(initialTile);
+	public void startLake(final Lake lake, final LakeTile initialTile, int playerCount) {
+		List<PlayerID> id = Arrays.asList(PlayerID.values()) ;
+		PlayerID[] orientation = new PlayerID[id.size()] ;
+		Random random = new Random () ;
+		int index = random.nextInt(playerCount) ;
+		orientation[0] = id.get(index) ;
+		id.remove(index) ;
+		for ( int i = 1; i != orientation.length; ++i ) {
+			index = random.nextInt(id.size()) ;
+			orientation[i] =  id.get(index);
+			id.remove(index) ;
+		}
+		lake.placeTile(initialTile, orientation);
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public interface SetupService {
 	 * @param lake
 	 * @param initialTile
 	 */
-	void startLake(final Lake lake, final LakeTile initialTile);
+	void startLake(final Lake lake, final LakeTile initialTile, int playerCount);
 
 	/**
 	 * Setup step #2:<br/>
