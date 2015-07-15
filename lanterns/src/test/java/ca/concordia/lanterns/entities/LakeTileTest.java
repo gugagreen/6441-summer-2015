@@ -20,6 +20,7 @@ public class LakeTileTest {
 	@Before
 	public void Setup(){
 		this.lakeTile = new LakeTile();
+		assertNotNull(colours);
 		this.lakeTile.init(colours, true);
 	}
 
@@ -29,7 +30,9 @@ public class LakeTileTest {
 		matchingLakeTile.init(colours, true);
 		
 		int expected = matchingLakeTile.hashCode();
+		assertNotNull(expected);
 		int result = this.lakeTile.hashCode();
+		assertNotNull(result);
 		
 		assertEquals(result, expected);
 	}
@@ -37,12 +40,13 @@ public class LakeTileTest {
 	@Test
 	public void testEqualsObject() {
 		assertFalse(this.lakeTile.equals(null));
-
+		assertFalse(othercolours.equals(colours));
 		String testString = new String();
 		assertFalse(this.lakeTile.equals(testString));
 		
 		LakeTile nonMatchingColourLakeTile = new LakeTile();
 		nonMatchingColourLakeTile.init(othercolours, true);
+		assertNotNull(othercolours);
 		assertFalse(this.lakeTile.equals(nonMatchingColourLakeTile));
 		
 		LakeTile nonMatchingPlatformLakeTile = new LakeTile();

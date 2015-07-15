@@ -36,17 +36,20 @@ public class FileGameDaoTest {
 	@Test
 	public void testSaveGame() throws IOException {
 		String newFilePath = TEST_FILE_FOLDER + System.currentTimeMillis();
-		
+		assertNotNull(newFilePath);
 		// save game to file
 		this.dao.saveGame(newFilePath, baseGame);
 		
 		File file = new File(newFilePath);
+		
 		assertTrue(file.exists());
 		assertFalse(file.isDirectory());
 		
 		// check if new file content matches the base file
 		String newContent = new String(Files.readAllBytes(Paths.get(newFilePath)));
+		assertNotNull(newContent);
 		String baseContent = new String(Files.readAllBytes(Paths.get(TEST_FILE_PATH)));
+		assertNotNull(baseContent);
 		assertEquals(newContent, baseContent);
 		
 		// delete new file in the end
