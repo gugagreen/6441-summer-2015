@@ -7,12 +7,14 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Scanner;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
 
@@ -28,9 +30,10 @@ public class JaxbGameMarshallerTest {
 	
 	@Test
 	public void testMarshallGame() throws FileNotFoundException {
-		Game game = new Game();
-		game.init(new String[] {"p1", "p2", "p3"});
-		Writer writer = marshaller.marshall(game);
+		Game game = GameStubber.createGameStub();
+		
+		Writer writer = new StringWriter(); 
+		marshaller.marshall(game, writer);
 		String result = writer.toString().trim();
 		
 		assertNotNull(result);

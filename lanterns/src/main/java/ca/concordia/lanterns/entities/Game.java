@@ -62,6 +62,8 @@ public class Game {
 		
 		this.favors = TOTAL_FAVORS;
 	}
+	
+	
 
 	public int getFavors() {
 		return favors;
