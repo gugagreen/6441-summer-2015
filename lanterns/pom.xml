@@ -10,33 +10,39 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<!-- dependencies -->
+		<servlet-api.version>2.5</servlet-api.version>
+		<junit.version>4.12</junit.version>
+		<junitparams.version>1.0.4</junitparams.version>
+		<xmlunit.version>1.6</xmlunit.version>
 		<!-- plugins -->
 		<jetty.plugin.version>9.3.0.v20150612</jetty.plugin.version>
+		<javadoc.plugin.version>2.10.3</javadoc.plugin.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>pl.pragmatists</groupId>
 			<artifactId>JUnitParams</artifactId>
-			<version>1.0.4</version>
+			<version>${junitparams.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
-			<version>1.6</version>
+			<version>${xmlunit.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -57,4 +63,21 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<!-- use 'mvn javadoc:javadoc' to generate javadoc -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${javadoc.plugin.version}</version>
+				<configuration>
+					<links>
+						<link>http://commons.apache.org/lang/api</link>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api</link>
+					</links>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
