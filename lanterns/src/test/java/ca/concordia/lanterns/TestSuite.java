@@ -13,7 +13,7 @@ import ca.concordia.lanterns.readwrite.impl.JaxbGameMarshallerTest;
 import ca.concordia.lanterns.services.impl.DefaultSetupServiceTest;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({FileGameDaoTest.class,GameStubber.class,DedicationTokenTest.class, LakeTileTest.class, 
+@Suite.SuiteClasses({FileGameDaoTest.class,DedicationTokenTest.class, LakeTileTest.class, 
 	LanternCardTest.class, PlayerTest.class, TileSideTest.class , JaxbGameMarshallerTest.class, DefaultSetupServiceTest.class})
 public class TestSuite {
 	
