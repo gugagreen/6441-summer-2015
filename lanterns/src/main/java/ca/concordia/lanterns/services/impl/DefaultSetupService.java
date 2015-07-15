@@ -92,9 +92,15 @@ public class DefaultSetupService implements SetupService {
 
 		// if total tiles is valid, populate it
 		if (totalTiles != null) {
+			
+			// Start tile
+			Colour[] startTileColour = new Colour[]{Colour.RED, Colour.BLACK, Colour.BLUE, Colour.GRAY } ;
+			totalTiles[0] = new LakeTile () ;
+			totalTiles[0].init(startTileColour, false);
+			
 			Random random = new Random();
 			Colour[] colours = Colour.values();
-			for (int i = 0; i < totalTiles.length; i++) {
+			for (int i = 1; i < totalTiles.length; i++) {
 				Colour[] tileColours = new Colour[LakeTile.TOTAL_SIDES];
 				for (int j = 0; j < tileColours.length; j++) {
 					int nextColour = random.nextInt(colours.length);
