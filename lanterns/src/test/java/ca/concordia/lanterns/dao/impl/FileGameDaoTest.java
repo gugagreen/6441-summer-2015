@@ -12,9 +12,14 @@ import java.nio.file.Paths;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanterns.entities.Game;
+
+
+import static org.custommonkey.xmlunit.XMLAssert.*;
+
 
 public class FileGameDaoTest {
 	
@@ -34,20 +39,23 @@ public class FileGameDaoTest {
 	}
 	
 	@Test
-	public void testSaveGame() throws IOException {
+	public void testSaveGame() throws IOException, SAXException {
 		String newFilePath = TEST_FILE_FOLDER + System.currentTimeMillis();
-		
+		assertNotNull(newFilePath);
 		// save game to file
 		this.dao.saveGame(newFilePath, baseGame);
 		
 		File file = new File(newFilePath);
+		
 		assertTrue(file.exists());
 		assertFalse(file.isDirectory());
 		
 		// check if new file content matches the base file
 		String newContent = new String(Files.readAllBytes(Paths.get(newFilePath)));
+		assertNotNull(newContent);
 		String baseContent = new String(Files.readAllBytes(Paths.get(TEST_FILE_PATH)));
-		assertEquals(newContent, baseContent);
+		assertNotNull(baseContent);
+		assertXMLEqual(newContent, baseContent);
 		
 		// delete new file in the end
 		file.delete();

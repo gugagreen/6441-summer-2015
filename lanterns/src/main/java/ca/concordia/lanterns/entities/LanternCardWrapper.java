@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LanternCardWrapper {
 
 	private Stack<LanternCard> stack;
-	
+
 	public LanternCardWrapper() {
 		this.stack = new Stack<LanternCard>();
 	}

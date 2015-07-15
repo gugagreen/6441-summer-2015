@@ -1,5 +1,7 @@
 package ca.concordia.lanterns.entities;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Stack;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -40,6 +42,7 @@ public class Game {
 	 * 
 	 * @param playerNames Names of each current player (ordered by login time)
 	 */
+	@SuppressWarnings("unchecked")
 	public void init(final String[] playerNames) {
 		
 		this.players = new Player[playerNames.length];
@@ -139,6 +142,73 @@ public class Game {
 		this.dedications = dedications;
 	}
 	
+	public void displayCurrentGameState()
+	{
+		displayPlayerState();
+
+		displayLanternCardState();
+
+		displayDedicationTokenState();
+
+		displayLakeTileState();
+
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void displayDedicationTokenState() {
+		System.out.println("Displaying dedication token stack current state...\n");
+		for (DedicationTokenWrapper dedicationTokenWrapper : dedications)
+		{
+			System.out.println("\t\t" + dedicationTokenWrapper.getStack().peek().getTokenType() + " Dedication Token Left: " + dedicationTokenWrapper.getStack().size());
+		}
+		System.out.println();
+	}
+
+	private void displayLanternCardState() {
+		System.out.println("Displaying lantern card stack current state...\n");
+		for (LanternCardWrapper lanternCardWrapper : cards)
+		{
+			System.out.println("\t\t" + lanternCardWrapper.getStack().peek().getColour() + " Lantern Card Left: " + lanternCardWrapper.getStack().size());
+		}
+		System.out.println();
+	}
+
+	private void displayLakeTileState() {
+		System.out.println("Displaying lake tile stack current state...\n");
+		System.out.println("\t\t" + "Lake Tile left in the stack: " + tiles.size() + "\n");
+	}
+
+	private void displayPlayerState() {
+
+		//Stack<LanternCard> lanternCards;
+		System.out.println("Displaying player's current state...\n");
+
+		for (Player player : players)
+		{
+			System.out.println(player.getName() + ":");
+
+			for (LanternCardWrapper lanternCardWrapper : player.getCards())
+			{
+				System.out.println("\t\t" + lanternCardWrapper.getStack().peek().getColour() + " Lantern Card: " + lanternCardWrapper.getStack().size());
+			}
+
+			System.out.println("\t\t" + "Favor Token:" + player.getFavors());
+
+			int sum = 0;
+			List<DedicationToken> dedicationTokens = player.getDedications();
+			for (int i = 0; i < dedicationTokens.size(); i++) {
+				sum += dedicationTokens.get(i).getTokenValue();
+			}
+
+			System.out.println("\t\t" + "Total Dedication:" + sum + "\n");
+		}
+
+	}
+
 	public void setStartPlayerMarker ( PlayerID id ) {
 		if ( id.getID() <= this.players.length ) {
 			this.startPlayerMarker = id ;
