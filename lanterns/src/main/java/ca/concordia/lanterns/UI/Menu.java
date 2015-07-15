@@ -2,11 +2,21 @@ package ca.concordia.lanterns.UI;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
+import org.lwjgl.input.*;
 
 /**
  * Created by Ruixiang on 7/14/2015.
  */
+
 public class Menu extends BasicGameState {
+
+    Image backGround = null;
+    Image playNow = null;
+    Image resumeGame = null;
+    Image exitGame = null;
+
+//    String userDir = System.getProperty("user.dir");
+//    String imagePath = userDir;
 
     public Menu(int menu) {
     }
@@ -18,17 +28,34 @@ public class Menu extends BasicGameState {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-
+        backGround = new Image("lanterns/images/BackGround.png", false, Image.FILTER_NEAREST);
+        playNow = new Image("lanterns/images/New Game.jpg");
+        resumeGame = new Image("lanterns/images/Resume.jpg");
+        exitGame = new Image("lanterns/images/Quit.jpg");
     }
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-
+//        System.out.println("Working Directory = " +
+//                          System.getProperty("user.dir"));
+        backGround.draw(0, 0, 800, 600);
+        playNow.draw(325, 430);
+        resumeGame.draw(325, 480);
+        exitGame.draw(325, 530);
+        //graphics.fillOval(3,3,3,3);
     }
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
+        int posX = Mouse.getX();
+        int posY = Mouse.getY();
 
+        if ((posX > 325 && posX < 457) && (posY > 135 && posY < 170))
+        {
+            if(Mouse.isButtonDown(0)){
+                stateBasedGame.enterState(1);
+            }
+        }
     }
 
     @Override

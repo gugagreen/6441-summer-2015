@@ -2,6 +2,7 @@ package ca.concordia.lanterns.UI;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
+import org.lwjgl.input.*;
 
 /**
  * Created by Ruixiang on 7/14/2015.
@@ -23,7 +24,7 @@ public class Play implements GameState {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
-
+        graphics.drawString("This is the play state, not ready yet!", 300, 200);
     }
 
     @Override

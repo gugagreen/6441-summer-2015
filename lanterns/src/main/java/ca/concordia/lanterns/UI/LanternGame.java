@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
+import org.lwjgl.input.*;
 
 public class LanternGame extends StateBasedGame
 {
@@ -33,7 +34,7 @@ public class LanternGame extends StateBasedGame
         {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new LanternGame(gameName));
-            appgc.setDisplayMode(640, 480, false);
+            appgc.setDisplayMode(800, 600, false);
             appgc.start();
         }
         catch (SlickException ex)
