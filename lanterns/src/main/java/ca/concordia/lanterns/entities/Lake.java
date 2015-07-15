@@ -3,6 +3,8 @@ package ca.concordia.lanterns.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.concordia.lanterns.entities.enums.PlayerID;
+
 /**
  * Lake entity.
  * 
@@ -16,6 +18,11 @@ public class Lake {
 		this.tiles = new ArrayList<LakeTile>();
 	}
 
+	public void placeTile ( LakeTile tile, PlayerID[] orientation ) {
+		tile.setOrientation(orientation);
+		this.tiles.add(tile) ;
+	}
+	
 	public List<LakeTile> getTiles() {
 		return tiles;
 	}
