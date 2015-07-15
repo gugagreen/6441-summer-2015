@@ -22,6 +22,7 @@ import ca.concordia.lanterns.entities.LanternCardWrapper;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 
 public class DefaultSetupServiceTest {
 	
@@ -83,10 +84,11 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testStartLake() {
 		Lake lake = new Lake();
-		Colour[] colours = {Colour.RED, Colour.BLUE, Colour.GREEN, Colour.PURPLE};
+		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.GRAY};
 		LakeTile initialTile = new LakeTile();
+		int playerCount = 4 ;
 		initialTile.init(colours, false);
-		service.startLake(lake, initialTile);
+		service.startLake(lake, initialTile, 4);
 		
 		assertEquals(1, lake.getTiles().size());
 		assertEquals(initialTile, lake.getTiles().get(0));
@@ -234,9 +236,10 @@ public class DefaultSetupServiceTest {
 	
 	private Player[] createPlayers(int quantity) {
 		Player[] players = new Player[quantity];
+		PlayerID[] id = PlayerID.values() ;
 		for (int i = 0; i < quantity; i++) {
 			players[i] = new Player();
-			players[i].init(Integer.toString(i));
+			players[i].init(Integer.toString(i), id[i]);
 		}
 		return players;
 	}
