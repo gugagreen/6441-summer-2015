@@ -20,6 +20,9 @@ import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupService implements SetupService {
 
+	/**
+	 * Create game creates game using player name
+	 */
 	@Override
 	public Game createGame(String[] playerNames) {
 		validatePlayersSet(playerNames);
@@ -39,6 +42,10 @@ public class DefaultSetupService implements SetupService {
 		return game;
 	}
 	
+	/**
+	 * Validate Players Set validates the players names
+	 * @param playerNames
+	 */
 	protected void validatePlayersSet(String[] playerNames) {
 		if ((playerNames == null) || (playerNames.length < 2) || (playerNames.length > 4)) {
 			throw new IllegalArgumentException("Number of players should be between 2 and 4!");
