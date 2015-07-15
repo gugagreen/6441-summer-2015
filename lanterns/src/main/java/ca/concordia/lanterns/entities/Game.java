@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 
 
 /**
@@ -37,13 +38,13 @@ public class Game {
 	 * 
 	 * @param playerNames Names of each current player (ordered by login time)
 	 */
-	@SuppressWarnings("unchecked")
 	public void init(final String[] playerNames) {
 		
 		this.players = new Player[playerNames.length];
+		PlayerID[] id = PlayerID.values() ;
 		for (int i = 0; i < playerNames.length; i++) {
 			this.players[i] = new Player();
-			this.players[i].init(playerNames[i]);
+			this.players[i].init(playerNames[i], id[i]);
 		}
 		
 		this.lake = new Lake();

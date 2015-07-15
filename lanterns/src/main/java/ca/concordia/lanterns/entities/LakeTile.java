@@ -1,6 +1,9 @@
 package ca.concordia.lanterns.entities;
 
+import java.util.HashMap;
+
 import ca.concordia.lanterns.entities.enums.Colour;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 /** Lake Tile entity
  * 
  * @version 1.0
@@ -15,7 +18,7 @@ public class LakeTile {
 	
 	private TileSide[] sides;
 	private Boolean platform;
-	
+	private HashMap<PlayerID, Integer> orientation ;
 	/**
 	 * Each Lake tile has four sides, each side can have a colour, there are 7 different colours.
 	 * @param colours There are 7 possible colours.
@@ -88,4 +91,38 @@ public class LakeTile {
 		this.platform = platform;
 	}
 	
+	public void setOrientation ( PlayerID[] orientation ) {
+		if ( this.orientation == null ) {
+			if ( orientation.length == TOTAL_SIDES ) {
+				this.orientation = new HashMap<PlayerID, Integer> () ;
+				for ( int i = 0; i != orientation.length; i++ ) {
+					this.orientation.put(orientation[i], i) ;
+				} 
+			}else {
+				throw new IllegalArgumentException ("Ivalid information for orienting the Lake Tile" ) ;
+			}	
+		} else {
+			throw new IllegalArgumentException ( "Can't rellocate a Lake Tile." ) ;
+		}
+	}
+	
+	public HashMap<PlayerID,TileSide> getOrientation () {
+		HashMap<PlayerID, TileSide> orientation = null ;
+		if ( this.orientation != null ) {
+			orientation = new HashMap<PlayerID,TileSide> () ;
+			PlayerID[] id = PlayerID.values() ;
+			for ( int i = 0 ; i != TOTAL_SIDES; ++i ) {
+				orientation.put(id[i], this.sides[this.orientation.get(id[i])]) ;
+			}
+		}
+		return orientation ;				
+	}
+	
+	public TileSide getOrientation ( PlayerID id ) {
+		if ( this.orientation != null ) {
+			return this.sides[this.orientation.get(id)] ;
+		} else {
+			return null ;
+		}
+	}
 }
