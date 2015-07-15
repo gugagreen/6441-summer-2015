@@ -31,7 +31,7 @@ public class JaxbGameMarshallerTest {
 	@Test
 	public void testMarshallGame() throws FileNotFoundException {
 		Game game = GameStubber.createGameStub();
-		
+		assertNotNull(game);
 		Writer writer = new StringWriter(); 
 		marshaller.marshall(game, writer);
 		String result = writer.toString().trim();
@@ -42,6 +42,7 @@ public class JaxbGameMarshallerTest {
 		Scanner scanner = new Scanner(new File(TEST_FILE_PATH));
 		String content = scanner.useDelimiter("\\Z").next().trim();
 		scanner.close();
+		assertNotNull(content);
 		
 		assertEquals(content, result);
 	}
@@ -49,6 +50,7 @@ public class JaxbGameMarshallerTest {
 	@Test
 	public void testUnMarshallGame() throws FileNotFoundException {
 		FileReader reader = new FileReader(new File(TEST_FILE_PATH));
+		assertNotNull(reader);
 		Game game = marshaller.unmarshall(reader);
 		assertNotNull(game);
 		assertNotNull(game.getPlayers());
