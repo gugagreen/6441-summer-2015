@@ -151,6 +151,7 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testSeparateLanternCardsFourPlayers() {
 		final LanternCardWrapper[] cards = new LanternCardWrapper[Colour.values().length];
+		assertTrue( cards.length > 0 );
 		for (int i = 0; i < cards.length; i++) {
 			cards[i] = new LanternCardWrapper();
 		}
@@ -166,6 +167,7 @@ public class DefaultSetupServiceTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testSeparateLanternCardsWrongStack() {
 		final LanternCardWrapper[] cards = new LanternCardWrapper[Colour.values().length + 1];
+		assertTrue( cards.length > 0 );
 		for (int i = 0; i < cards.length; i++) {
 			cards[i] = new LanternCardWrapper();
 		}
@@ -178,12 +180,13 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testSetDedicationTokensFourPlayers() {
 		final DedicationTokenWrapper[] dedications = new DedicationTokenWrapper[DedicationType.values().length];
+		assertTrue( dedications.length > 0 );
 		for (int i = 0; i < dedications.length; i++) {
 			dedications[i] = new DedicationTokenWrapper();
 		}
 		
 		service.setDedicationTokens(dedications, 4);
-		
+		assertTrue( dedications.length > 0 );
 		for (int i = 0; i < dedications.length; i++) {
 			Stack<DedicationToken> dedication = dedications[i].getStack();
 			assertNotNull(dedication);
@@ -203,6 +206,7 @@ public class DefaultSetupServiceTest {
 		lake.getTiles().add(initialTile);
 		assertNotNull(initialTile);
 		final LanternCardWrapper[] cards = new LanternCardWrapper[colourValues.size()];
+		assertTrue( cards.length > 0 );
 		for (int i = 0; i < cards.length; i++) {
 			cards[i] = new LanternCardWrapper();
 			LanternCard card = new LanternCard();
@@ -214,11 +218,13 @@ public class DefaultSetupServiceTest {
 		service.distributeInitialLanterns(lake, cards, players);
 		assertNotNull(lake);
 		assertNotNull(cards);
+		assertTrue( players.length > 0 );
 		for (int i = 0; i < players.length; i++) {
 			Player player = players[i];
 			Colour colour = initialTile.getSides()[i].getColour();
 			assertNotNull(colour);
 			final LanternCardWrapper[] playerCards = player.getCards();
+			assertTrue( playerCards.length > 0 );
 			for (int j = 0; j < playerCards.length; j++) {
 				LanternCardWrapper colourStack = playerCards[j];
 				assertNotNull(colourStack);
@@ -233,6 +239,7 @@ public class DefaultSetupServiceTest {
 	
 	private String[] createPlayerNames(int quantity) {
 		String[] playerNames = new String[quantity];
+		assertTrue(quantity > 0 );
 		for (int i = 0; i < quantity; i++) {
 			playerNames[i] = Integer.toString(i);
 		}
@@ -242,6 +249,7 @@ public class DefaultSetupServiceTest {
 	
 	private Player[] createPlayers(int quantity) {
 		Player[] players = new Player[quantity];
+		assertTrue(quantity > 0 );
 		for (int i = 0; i < quantity; i++) {
 			players[i] = new Player();
 			players[i].init(Integer.toString(i));
