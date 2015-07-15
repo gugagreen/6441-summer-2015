@@ -2,38 +2,33 @@ package ca.concordia.lanterns.entities;
 
 import ca.concordia.lanterns.entities.enums.DedicationType;
 
-/** Dedication Token entity.
+/** 
+ * Dedication Token entity.
  * 
  * @version 1.0
  */
 public class DedicationToken {
-	private int tokenValue;
-	private DedicationType tokenType;
+	private int value;
+	private DedicationType type;
 	
 	/**
-	 * @param tokenValue should be in range <code>1..10</code> depending on game state and number of players
-	 * @param tokenType should be in range <code>1-3</code> Based on three possible Dedication token types
+	 * @param tokenValue Value of the token should be in range <code>1..10</code> depending on game state and number of players
+	 * @param tokenType Type of the token should be one of {@link DedicationType}.
 	 */
 	public void init(int tokenValue, DedicationType tokenType) {
-		this.tokenValue = tokenValue;
-		this.tokenType = tokenType;
+		this.value = tokenValue;
+		this.type = tokenType;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((tokenType == null) ? 0 : tokenType.hashCode());
-		result = prime * result + tokenValue;
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + value;
 		return result;
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj){
@@ -47,29 +42,29 @@ public class DedicationToken {
 		}
 		
 		DedicationToken other = (DedicationToken) obj;
-		if (tokenType != other.tokenType){
+		if (type != other.type){
 			return false;
 		}
-		if (tokenValue != other.tokenValue){
+		if (value != other.value){
 			return false;
 		}
 		return true;
 	}
 
 	public int getTokenValue() {
-		return tokenValue;
+		return value;
 	}
 
 	public void setTokenValue(int tokenValue) {
-		this.tokenValue = tokenValue;
+		this.value = tokenValue;
 	}
 
 	public DedicationType getTokenType() {
-		return tokenType;
+		return type;
 	}
 
 	public void setTokenType(DedicationType tokenType) {
-		this.tokenType = tokenType;
+		this.type = tokenType;
 	}
 	
 }
