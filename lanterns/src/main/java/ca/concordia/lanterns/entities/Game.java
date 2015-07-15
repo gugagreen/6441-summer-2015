@@ -32,6 +32,8 @@ public class Game {
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
 	private PlayerID startPlayerMarker ;
+	private PlayerID currentTurnPlayer ;
+	
 	/**
 	 * Initializes a new Game based on the player names.
 	 * <p>This constructor will instantiate (but not populate) all attributes of this Game instance.
@@ -145,4 +147,7 @@ public class Game {
 		}
 	}
 	
+	public PlayerID getCurrentTurnPlayer () {
+		return currentTurnPlayer ;
+	}
 }

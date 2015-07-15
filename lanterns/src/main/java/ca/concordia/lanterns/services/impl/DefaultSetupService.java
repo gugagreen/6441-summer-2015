@@ -2,6 +2,7 @@ package ca.concordia.lanterns.services.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
@@ -237,6 +238,20 @@ public class DefaultSetupService implements SetupService {
 		} else {
 			throw new IllegalArgumentException("Lake does not contain a first tile!");
 		}
+	}
+	
+	@Override
+	public void decideFirstPlayer ( final Lake lake,  PlayerID currentTurnPlayer, PlayerID startPlayerMarker) {
+		LakeTile startTile = lake.getTiles().get(0) ;
+		HashMap<PlayerID, TileSide> orientation = startTile.getOrientation() ;
+		for ( PlayerID id : PlayerID.values() ) {
+			if ( orientation.get(id).getColour() == Colour.RED ) {
+				startPlayerMarker = id ;
+				currentTurnPlayer = id ;
+				break ;
+			}
+		}
+		
 	}
 
 }
