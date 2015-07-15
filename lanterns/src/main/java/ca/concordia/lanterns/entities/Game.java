@@ -31,7 +31,7 @@ public class Game {
 	private DedicationTokenWrapper[] dedications;
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
-
+	private PlayerID startPlayerMarker ;
 	/**
 	 * Initializes a new Game based on the player names.
 	 * <p>This constructor will instantiate (but not populate) all attributes of this Game instance.
@@ -137,5 +137,12 @@ public class Game {
 		this.dedications = dedications;
 	}
 	
+	public void setStartPlayerMarker ( PlayerID id ) {
+		if ( id.getID() <= this.players.length ) {
+			this.startPlayerMarker = id ;
+		} else {
+			throw new IllegalArgumentException ( "There is no player with id: " + id.toString() ) ;
+		}
+	}
 	
 }
