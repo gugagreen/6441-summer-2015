@@ -1,9 +1,13 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import ca.concordia.lanterns.entities.DedicationToken;
 import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
@@ -106,16 +110,49 @@ public class ValidateGameImpl implements ValidateGame {
 	public void validateDedicationToken ( final DedicationTokenWrapper[] dedications, final Player[] players ) {
 		DedicationType[] type = DedicationType.values() ;
 		
-		//TODO
-		for ( int i = 0; i != type.length ; ++i ) {
+
+		for ( int i = 0; i != type.length - 1 ; ++i ) {
 			int[] values ;
 			if ( players.length == 4 ) {
 				values = type[i].getValuesFour() ;
 			} else if ( players.length == 3 ) {
 				values = type[i].getValuesThree() ;
-			} else if ( players.length == 2 ) {
+			} else {
 				values = type[i].getValuesTwo() ;
 			}
+			
+			LinkedList remainingValues = new LinkedList(Arrays.asList(values)) ;
+			Stack<DedicationToken> tokenStack = dedications[i].getStack() ;
+			int index = tokenStack.size() ;
+			if ( index != 0 )
+			for ( int j = index - 1; j != values.length ; ++i ) {
+				if ( values[i] != tokenStack.get(i).getTokenValue()) {
+					throw new IllegalArgumentException ( type[i].toString() + " stack has been compromised" );
+				} else {
+					remainingValues.remove(j) ;
+				}
+			}
+			
+			for ( int k = 0 ; k != players.length ; ++k ) {
+				
+				List<DedicationToken> playerToken = players[k].getDedications() ;
+				for ( int l = 0; l != playerToken.size(); ++i ) {
+					if ( playerToken.get(l).getTokenType() == type[i] ) {
+						if ( remainingValues.contains(playerToken.get(l).getTokenValue())) {
+							remainingValues.remove(playerToken.get(l).getTokenValue()) ;
+						} else {
+							throw new IllegalArgumentException ( "Player :" + players[k].getName() 
+									+ " have illegitimate dedication of type: "+ type[i].toString() ) ;
+						}
+					}
+				}
+			}
+			
+			if ( ! remainingValues.isEmpty() ) {
+				throw new IllegalArgumentException ( "The quantity of dedication token of type : " 
+			+ type[i].toString() + " is compromised" ) ;
+			}
+			
 		}
 	}
 
