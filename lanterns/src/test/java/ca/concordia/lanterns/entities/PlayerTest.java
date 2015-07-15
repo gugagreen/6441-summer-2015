@@ -6,6 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.concordia.lanterns.entities.enums.PlayerID;
+
 /* player class test with junit test cases*/
 
 public class PlayerTest {
@@ -15,13 +17,13 @@ public class PlayerTest {
 	@Before
 	public void setup(){
 		this.player = new Player();
-		this.player.init("John");
+		this.player.init("John", PlayerID.ONE);
 	}
 	
 	@Test
 	public void testHashCode() {
 		Player matchingPlayer = new Player();
-		matchingPlayer.init("John");	
+		matchingPlayer.init("John", PlayerID.ONE);	
 		
 		int expected = matchingPlayer.hashCode();
 		int result = this.player.hashCode();

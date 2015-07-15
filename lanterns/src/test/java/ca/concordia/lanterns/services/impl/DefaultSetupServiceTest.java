@@ -84,10 +84,10 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testStartLake() {
 		Lake lake = new Lake();
-		Colour[] colours = {Colour.RED, Colour.BLUE, Colour.GREEN, Colour.PURPLE};
+		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.GRAY};
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
-		service.startLake(lake, initialTile);
+		service.startLake(lake, initialTile, PlayerID.values().length);
 		
 		assertEquals(1, lake.getTiles().size());
 		assertEquals(initialTile, lake.getTiles().get(0));
@@ -199,21 +199,25 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testDistributeInitialLanterns() {
 		List<Colour> colourValues = Arrays.asList(Colour.values());
+		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.GRAY};
+		
 		final Lake lake = new Lake();
-		Colour[] colours = {Colour.RED, Colour.BLUE, Colour.GREEN, Colour.PURPLE};
-		assertNotNull(colours);
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
-		lake.getTiles().add(initialTile);
-		assertNotNull(initialTile);
+		
+		PlayerID[] orientation = new PlayerID[]{PlayerID.THREE, PlayerID.TWO, PlayerID.ONE, PlayerID.FOUR} ;
+		
+		lake.placeTile(initialTile, orientation);
+		
 		final LanternCardWrapper[] cards = new LanternCardWrapper[colourValues.size()];
-		assertTrue( cards.length > 0 );
+		
 		for (int i = 0; i < cards.length; i++) {
 			cards[i] = new LanternCardWrapper();
 			LanternCard card = new LanternCard();
 			card.init(colourValues.get(i));
 			cards[i].getStack().push(card);
 		}
+		
 		Player[] players = createPlayers(4);
 		assertNotNull(players);
 		service.distributeInitialLanterns(lake, cards, players);
@@ -222,6 +226,7 @@ public class DefaultSetupServiceTest {
 		assertTrue( players.length > 0 );
 		for (int i = 0; i < players.length; i++) {
 			Player player = players[i];
+			
 			Colour colour = initialTile.getSides()[i].getColour();
 			assertNotNull(colour);
 			final LanternCardWrapper[] playerCards = player.getCards();

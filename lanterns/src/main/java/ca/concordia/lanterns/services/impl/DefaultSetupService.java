@@ -3,9 +3,12 @@ package ca.concordia.lanterns.services.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import ca.concordia.lanterns.entities.DedicationToken;
 import ca.concordia.lanterns.entities.DedicationTokenWrapper;
@@ -120,7 +123,7 @@ public class DefaultSetupService implements SetupService {
 
 	@Override
 	public void startLake(final Lake lake, final LakeTile initialTile, int playerCount) {
-		List<PlayerID> id = Arrays.asList(PlayerID.values()) ;
+		LinkedList<PlayerID> id = new LinkedList<PlayerID>(Arrays.asList(PlayerID.values())) ;
 		PlayerID[] orientation = new PlayerID[id.size()] ;
 		Random random = new Random () ;
 		int index = random.nextInt(playerCount) ;
