@@ -10,6 +10,7 @@ import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.LanternCardWrapper;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 
 public interface SetupService {
 
@@ -30,7 +31,7 @@ public interface SetupService {
 	 * @param lake
 	 * @param initialTile
 	 */
-	void startLake(final Lake lake, final LakeTile initialTile);
+	void startLake(final Lake lake, final LakeTile initialTile, int playerCount);
 
 	/**
 	 * Setup step #2:<br/>
@@ -121,4 +122,5 @@ public interface SetupService {
 	 */
 	void distributeInitialLanterns(final Lake lake, final LanternCardWrapper[] cards, final Player[] players);
 
+	void decideFirstPlayer ( final Lake lake, PlayerID currentTurnPlayer, PlayerID startPlayerMarker) ;
 }

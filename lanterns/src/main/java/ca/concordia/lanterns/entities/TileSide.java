@@ -52,6 +52,10 @@ public class TileSide {
 	}
 
 	public void setAdjacent(LakeTile adjacent) {
-		this.adjacent = adjacent;
+		if ( this.adjacent == null ) {
+			this.adjacent = adjacent ;
+		} else {
+			throw new IllegalArgumentException ( "This Tileside already have an adjacent tile" );
+		}
 	}
 }

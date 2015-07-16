@@ -1,9 +1,14 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import ca.concordia.lanterns.entities.DedicationToken;
 import ca.concordia.lanterns.entities.DedicationTokenWrapper;
@@ -16,6 +21,7 @@ import ca.concordia.lanterns.entities.LanternCardWrapper;
 import ca.concordia.lanterns.entities.TileSide;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
+import ca.concordia.lanterns.entities.enums.PlayerID;
 import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupService implements SetupService {
@@ -32,7 +38,7 @@ public class DefaultSetupService implements SetupService {
 		game.init(playerNames);
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		
-		startLake(game.getLake(), totalTiles[0]);
+		startLake(game.getLake(), totalTiles[0], game.getPlayers().length);
 		dealPlayerTiles(totalTiles, game.getPlayers());
 		drawTileStack(game.getTiles(), totalTiles, playerCount);
 		separateLanternCards(game.getCards(), playerCount);
@@ -92,9 +98,15 @@ public class DefaultSetupService implements SetupService {
 
 		// if total tiles is valid, populate it
 		if (totalTiles != null) {
+			
+			// Start tile
+			Colour[] startTileColour = new Colour[]{Colour.RED, Colour.BLACK, Colour.BLUE, Colour.GRAY } ;
+			totalTiles[0] = new LakeTile () ;
+			totalTiles[0].init(startTileColour, false);
+			
 			Random random = new Random();
 			Colour[] colours = Colour.values();
-			for (int i = 0; i < totalTiles.length; i++) {
+			for (int i = 1; i < totalTiles.length; i++) {
 				Colour[] tileColours = new Colour[LakeTile.TOTAL_SIDES];
 				for (int j = 0; j < tileColours.length; j++) {
 					int nextColour = random.nextInt(colours.length);
@@ -110,8 +122,19 @@ public class DefaultSetupService implements SetupService {
 	}
 
 	@Override
-	public void startLake(final Lake lake, final LakeTile initialTile) {
-		lake.getTiles().add(initialTile);
+	public void startLake(final Lake lake, final LakeTile initialTile, int playerCount) {
+		LinkedList<PlayerID> id = new LinkedList<PlayerID>(Arrays.asList(PlayerID.values())) ;
+		PlayerID[] orientation = new PlayerID[id.size()] ;
+		Random random = new Random () ;
+		int index = random.nextInt(playerCount) ;
+		orientation[0] = id.get(index) ;
+		id.remove(index) ;
+		for ( int i = 1; i != orientation.length; ++i ) {
+			index = random.nextInt(id.size()) ;
+			orientation[i] =  id.get(index);
+			id.remove(index) ;
+		}
+		lake.placeTile(initialTile, orientation);
 	}
 
 	@Override
@@ -209,19 +232,29 @@ public class DefaultSetupService implements SetupService {
 		if ((lake != null) && (lake.getTiles() != null) && (!lake.getTiles().isEmpty())) {
 			LakeTile firstTile = lake.getTiles().get(0);
 			List<Colour> colours = Arrays.asList(Colour.values());
-			
-			for (int i = 0; i < players.length; i++) {
-				Player player = players[i];
-				TileSide side = firstTile.getSides()[i];
-				if (side != null) {
-					int colourIndex = colours.indexOf(side.getColour());
-					LanternCard card = cards[colourIndex].getStack().pop();
-					player.getCards()[colourIndex].getStack().push(card);
-				}
+			for ( int i = 0 ; i != players.length ;++i ) {
+				Colour color = firstTile.getOrientation(players[i].getID()).getColour() ;
+				int colourIndex = colours.indexOf(color);
+				LanternCard card = cards[colourIndex].getStack().pop();
+				players[i].getCards()[colourIndex].getStack().push(card) ;
 			}
 		} else {
 			throw new IllegalArgumentException("Lake does not contain a first tile!");
 		}
+	}
+	
+	@Override
+	public void decideFirstPlayer ( final Lake lake,  PlayerID currentTurnPlayer, PlayerID startPlayerMarker) {
+		LakeTile startTile = lake.getTiles().get(0) ;
+		HashMap<PlayerID, TileSide> orientation = startTile.getOrientation() ;
+		for ( PlayerID id : PlayerID.values() ) {
+			if ( orientation.get(id).getColour() == Colour.RED ) {
+				startPlayerMarker = id ;
+				currentTurnPlayer = id ;
+				break ;
+			}
+		}
+		
 	}
 
 }
