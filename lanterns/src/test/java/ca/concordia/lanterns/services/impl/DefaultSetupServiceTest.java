@@ -205,7 +205,7 @@ public class DefaultSetupServiceTest {
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
 		
-		PlayerID[] orientation = new PlayerID[]{PlayerID.THREE, PlayerID.TWO, PlayerID.ONE, PlayerID.FOUR} ;
+		PlayerID[] orientation = new PlayerID[]{PlayerID.ONE, PlayerID.TWO, PlayerID.THREE, PlayerID.FOUR} ;
 		
 		lake.placeTile(initialTile, orientation);
 		
@@ -236,8 +236,10 @@ public class DefaultSetupServiceTest {
 				assertNotNull(colourStack);
 				if (j == colourValues.indexOf(colour)) {
 					assertEquals(1, colourStack.getStack().size());
-				} else {
+				} 
+				else {
 					assertEquals(0, colourStack.getStack().size());
+					
 				}
 			}
 		}
