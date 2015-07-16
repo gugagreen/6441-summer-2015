@@ -37,7 +37,6 @@ public class InitialServlet extends HttpServlet {
 			}
 		}
 		return playersList.toArray(new String[playersList.size()]);
-		
 	}
 	
 	private boolean notEmpty(String s) {

@@ -16,6 +16,27 @@
 
 	<servlet-mapping>
 		<servlet-name>initialServlet</servlet-name>
-		<url-pattern>/initialServlet</url-pattern>
+		<url-pattern>/initial</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>uploadServlet</servlet-name>
+		<servlet-class>ca.concordia.lanterns.controllers.FileUploadServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>uploadServlet</servlet-name>
+		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>listFilesServlet</servlet-name>
+		<servlet-class>ca.concordia.lanterns.controllers.ListFilesServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>listFilesServlet</servlet-name>
+		<url-pattern>/listfiles</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
