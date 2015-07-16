@@ -21,9 +21,9 @@ public class GameController {
 		
 		DefaultSetupService service = new DefaultSetupService() ;
 		Game game =  service.createGame(playerNames);
-		game.displayCurrentGameState(); 
+		game.displayCurrentGameState();
 		
 		FileGameDao write = new FileGameDao () ;
-		write.saveGame("Controller/savedGame.xml", game);
+		write.saveGame("savedGame.xml", game);
 	}
 }

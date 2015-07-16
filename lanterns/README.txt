@@ -10,8 +10,6 @@
 2) a description of the files in the archive, clearly indicating the purpose of each file
 	- lanterns.zip
 		- the source code of the project
-	- lanterns.war
-		- The war file that could be used in any application server (e.g Tomcat) to run the application.
 	- Build 1 documentation.docx
 		- The project main documentation, describing architecture and tools used.
 
@@ -22,9 +20,9 @@
 
 4) instructions for how to compile, build and run your code
 	- This project is set up using apache maven (https://maven.apache.org/). So any tasks could be done using it.
-	- compile: "$ mvn clean compile"
-	- run tests: "$ mvn test"
-	- run code: "$ mvn jetty:run"
+	- compile: $ mvn clean compile
+	- run tests: $ mvn test
+	- run code: $ mvn exec:java -Dexec.mainClass="ca.concordia.lanterns.Controller.GameController"
 	
 	
 fyi: the source code and other artifacts for this project can be found in github, on this link:
