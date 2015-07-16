@@ -12,7 +12,7 @@ public interface MarshallerManager<T> {
 	/**
 	 * Marshalls the content of an object of type {@link T} into a {@link Writer}.
 	 * @param object to be read
-	 * @param the {@link Writer} to be filled.
+	 * @param writer the {@link Writer} to be filled.
 	 */
 	void marshall(final T object, final Writer writer);
 	
