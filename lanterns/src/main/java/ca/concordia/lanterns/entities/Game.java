@@ -155,7 +155,7 @@ public class Game {
 		System.out.println ( "It is "+ players[currentTurnPlayer.getID()-1].getName() + 
 				"'s turn to play" ) ;
 //		System.out.println ( startPlayerMarker.getID() - 1) ;
-		System.out.println ( "Start Player Marker is with : " + players[startPlayerMarker.getID()-1].getName()) ;
+//		System.out.println ( "Start Player Marker is with : " + players[startPlayerMarker.getID()-1].getName()) ;
 		try {
 			System.in.read();
 		} catch (IOException e) {
@@ -212,11 +212,13 @@ public class Game {
 
 			int sum = 0;
 			List<DedicationToken> dedicationTokens = player.getDedications();
-			for (int i = 0; i < dedicationTokens.size(); i++) {
-				sum += dedicationTokens.get(i).getTokenValue();
-			}
+			if( dedicationTokens != null){
+				for (int i = 0; i < dedicationTokens.size(); i++) {
+					sum += dedicationTokens.get(i).getTokenValue();
+				}
 
 			System.out.println("\t\t" + "Total Dedication:" + sum + "\n");
+			}
 		}
 
 	}
