@@ -25,3 +25,7 @@
 	- compile: "$ mvn clean compile"
 	- run tests: "$ mvn test"
 	- run code: "$ mvn jetty:run"
+	
+	
+fyi: the source code and other artifacts for this project can be found in github, on this link:
+	- https://github.com/gugagreen/6441-summer-2015/
