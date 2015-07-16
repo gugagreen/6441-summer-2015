@@ -122,5 +122,5 @@ public interface SetupService {
 	 */
 	void distributeInitialLanterns(final Lake lake, final LanternCardWrapper[] cards, final Player[] players);
 
-	void decideFirstPlayer ( final Lake lake, PlayerID currentTurnPlayer, PlayerID startPlayerMarker) ;
+	void decideFirstPlayer ( final Game game) ;
 }

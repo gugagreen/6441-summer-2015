@@ -44,7 +44,7 @@ public class DefaultSetupService implements SetupService {
 		separateLanternCards(game.getCards(), playerCount);
 		setDedicationTokens(game.getDedications(), playerCount);
 		distributeInitialLanterns(game.getLake(), game.getCards(), game.getPlayers());
-
+		decideFirstPlayer (game) ;
 		return game;
 	}
 	
@@ -244,13 +244,13 @@ public class DefaultSetupService implements SetupService {
 	}
 	
 	@Override
-	public void decideFirstPlayer ( final Lake lake,  PlayerID currentTurnPlayer, PlayerID startPlayerMarker) {
-		LakeTile startTile = lake.getTiles().get(0) ;
+	public void decideFirstPlayer ( Game game) {
+		LakeTile startTile = game.getLake().getTiles().get(0) ;
 		HashMap<PlayerID, TileSide> orientation = startTile.getOrientation() ;
 		for ( PlayerID id : PlayerID.values() ) {
 			if ( orientation.get(id).getColour() == Colour.RED ) {
-				startPlayerMarker = id ;
-				currentTurnPlayer = id ;
+				game.setCurrentTurnPlayer(id);
+				game.setStartPlayerMarker(id);
 				break ;
 			}
 		}

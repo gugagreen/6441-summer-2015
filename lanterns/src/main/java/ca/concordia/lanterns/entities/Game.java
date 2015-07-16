@@ -152,6 +152,10 @@ public class Game {
 
 		displayLakeTileState();
 
+		System.out.println ( "It is "+ players[currentTurnPlayer.getID()-1].getName() + 
+				"'s turn to play" ) ;
+//		System.out.println ( startPlayerMarker.getID() - 1) ;
+		System.out.println ( "Start Player Marker is with : " + players[startPlayerMarker.getID()-1].getName()) ;
 		try {
 			System.in.read();
 		} catch (IOException e) {
@@ -191,9 +195,17 @@ public class Game {
 		{
 			System.out.println(player.getName() + ":");
 
-			for (LanternCardWrapper lanternCardWrapper : player.getCards())
+			Colour[] color = Colour.values() ;
+			
+			LanternCardWrapper[] lanternCardWrapper = player.getCards() ;
+			for (int i = 0; i != lanternCardWrapper.length; ++i )
 			{
-				System.out.println("\t\t" + lanternCardWrapper.getStack().peek().getColour() + " Lantern Card: " + lanternCardWrapper.getStack().size());
+				if ( lanternCardWrapper[i].getStack().isEmpty()) {
+				 System.out.println ( "\t\t" + color[i].toString() + " Lantern Card: " + 0 ) ;
+				} else {
+					
+					System.out.println("\t\t" + lanternCardWrapper[i].getStack().peek().getColour() + " Lantern Card: " + lanternCardWrapper[i].getStack().size());
+				}
 			}
 
 			System.out.println("\t\t" + "Favor Token:" + player.getFavors());
@@ -209,6 +221,10 @@ public class Game {
 
 	}
 
+	public PlayerID getStartPlayerMarker () {
+		return this.startPlayerMarker ;
+	}
+	
 	public void setStartPlayerMarker ( PlayerID id ) {
 		if ( id.getID() <= this.players.length ) {
 			this.startPlayerMarker = id ;
@@ -220,4 +236,9 @@ public class Game {
 	public PlayerID getCurrentTurnPlayer () {
 		return currentTurnPlayer ;
 	}
+	
+	public void setCurrentTurnPlayer ( PlayerID id ) {
+		currentTurnPlayer = id ;
+	}
+	
 }
