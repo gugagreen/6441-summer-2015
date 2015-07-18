@@ -1,7 +1,5 @@
 package ca.concordia.lanterns_slick2d.ui;
 
-import org.lwjgl.input.Mouse;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -45,24 +43,6 @@ public abstract class Button extends MouseOverArea {
 		if (isClicked) {
 			g.drawString("> " + image.getResourceReference(), 300, getY() + 10);
 		}
-	}
-
-	public boolean mouseHit(GameContainer container) {
-		boolean hasClicked = false;
-		// if mouse left button was pressed
-		if (container.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			int mouseX = Mouse.getX();
-			// getY() coordinates starts on bottom (0 is bottom, 768 is top), while container starts on top
-			// (768 is bottom, 0 is top), so it needs to be translated to game coordinates
-			int mouseY = container.getHeight() - Mouse.getY();
-
-			// check if mouse was clicked on the button area
-			if ((mouseX > getX()) && (mouseX < (getX() + getWidth())) && (mouseY > getY()) && (mouseY < (getY() + getHeight()))) {
-				hasClicked = true;
-			}
-		}
-
-		return hasClicked;
 	}
 
 }
