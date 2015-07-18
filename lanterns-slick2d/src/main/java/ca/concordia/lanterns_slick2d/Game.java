@@ -6,7 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import ca.concordia.lanterns_slick2d.ui.CardStack;
+import ca.concordia.lanterns_slick2d.ui.CardStacks;
 
 /**
  * A game using Slick2d
@@ -20,11 +20,11 @@ public class Game extends BasicGame {
     private static final boolean FULL_SCREEN = false;
     private static final boolean SHOW_FPS = true;
     
-    private CardStack stack;
+    private CardStacks stack;
 
     public Game() {
         super("Lanterns - Team A");
-        stack = new CardStack();
+        stack = new CardStacks();
     }
 
     @Override
