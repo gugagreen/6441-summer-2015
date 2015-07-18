@@ -23,22 +23,23 @@ public class Game extends BasicGame {
     private CardStack stack;
 
     public Game() {
-        super("A Slick2d game");
+        super("Lanterns - Team A");
         stack = new CardStack();
     }
 
+    @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
         stack.render(container, g);
     }
 
     @Override
     public void init(GameContainer container) throws SlickException {
-        stack.init();
+        stack.init(container);
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        stack.update();
+        stack.update(container, delta);
     }
     
     public static void main(String[] args) throws SlickException {
