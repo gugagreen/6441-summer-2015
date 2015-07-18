@@ -100,7 +100,7 @@ public class DefaultSetupService implements SetupService {
 		if (totalTiles != null) {
 			
 			// Start tile
-			Colour[] startTileColour = new Colour[]{Colour.RED, Colour.BLACK, Colour.BLUE, Colour.GRAY } ;
+			Colour[] startTileColour = new Colour[]{Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE } ;
 			totalTiles[0] = new LakeTile () ;
 			totalTiles[0].init(startTileColour, false);
 			

@@ -1,5 +1,5 @@
 package ca.concordia.lanterns.entities.enums;
 
 public enum Colour {
-	ORANGE, GREEN, PURPLE, GRAY, BLUE, RED, BLACK;
+	ORANGE, GREEN, PURPLE, WHITE, BLUE, RED, BLACK;
 }

@@ -84,7 +84,7 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testStartLake() {
 		Lake lake = new Lake();
-		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.GRAY};
+		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
 		service.startLake(lake, initialTile, PlayerID.values().length);
@@ -199,7 +199,7 @@ public class DefaultSetupServiceTest {
 	@Test
 	public void testDistributeInitialLanterns() {
 		List<Colour> colourValues = Arrays.asList(Colour.values());
-		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.GRAY};
+		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
 		
 		final Lake lake = new Lake();
 		LakeTile initialTile = new LakeTile();
