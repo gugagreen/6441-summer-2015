@@ -11,6 +11,16 @@ import org.newdawn.slick.SlickException;
 public class CardStacks implements Game {
 
 	private Card[] cards;
+	private boolean vertical;
+	private int x;
+	private int y;
+
+	public CardStacks(boolean vertical, int x, int y) {
+		super();
+		this.vertical = vertical;
+		this.x = x;
+		this.y = y;
+	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
@@ -20,8 +30,14 @@ public class CardStacks implements Game {
 		cards = new Card[colours.length];
 		
 		for (int i = 0; i < colours.length; i++) {
-			int y = 10 + i * (10 + Card.HEIGHT);
-			cards[i] = new Card(container, "img/cards/" + colours[i] + ".jpg", 10, y);
+			String ref = "img/cards/" + colours[i] + ".jpg";
+			if (vertical) {
+				int cardY = this.y + i * (10 + Card.HEIGHT);
+				cards[i] = new Card(container, ref, this.x, cardY);
+			} else {
+				int cardX = this.x + i * (10 + Card.WIDTH);
+				cards[i] = new Card(container, ref, cardX, this.y);
+			}
 		}
 	}
 
