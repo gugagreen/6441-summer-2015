@@ -1,6 +1,5 @@
 package ca.concordia.lanterns.services.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,16 +7,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import ca.concordia.lanterns.entities.DedicationToken;
 import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
 import ca.concordia.lanterns.entities.LanternCard;
-import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.LanternCardWrapper;
+import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.TileSide;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
@@ -25,6 +22,14 @@ import ca.concordia.lanterns.entities.enums.PlayerID;
 import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupService implements SetupService {
+	
+	private static class SingletonHolder {
+		static final DefaultSetupService INSTANCE = new DefaultSetupService();
+	}
+	
+	public static DefaultSetupService getInstance() {
+		return SingletonHolder.INSTANCE;
+	}
 
 	/**
 	 * Create game creates game using player name
