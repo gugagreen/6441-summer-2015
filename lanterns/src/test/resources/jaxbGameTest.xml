@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <game>
-    <cards/>
-    <cards/>
-    <cards/>
-    <cards/>
-    <cards/>
-    <cards/>
-    <cards/>
+    <cards>
+        <colour>ORANGE</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>GREEN</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>PURPLE</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>WHITE</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>BLUE</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>RED</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>BLACK</colour>
+        <quantity>0</quantity>
+    </cards>
     <dedications/>
     <dedications/>
     <dedications/>
@@ -14,35 +35,98 @@
     <favors>20</favors>
     <lake/>
     <players>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
+        <cards>
+            <colour>ORANGE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>GREEN</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>PURPLE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>WHITE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLUE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>RED</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLACK</colour>
+            <quantity>0</quantity>
+        </cards>
         <favors>0</favors>
         <name>p1</name>
     </players>
     <players>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
+        <cards>
+            <colour>ORANGE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>GREEN</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>PURPLE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>WHITE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLUE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>RED</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLACK</colour>
+            <quantity>0</quantity>
+        </cards>
         <favors>0</favors>
         <name>p2</name>
     </players>
     <players>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
+        <cards>
+            <colour>ORANGE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>GREEN</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>PURPLE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>WHITE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLUE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>RED</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLACK</colour>
+            <quantity>0</quantity>
+        </cards>
         <favors>0</favors>
         <name>p3</name>
     </players>

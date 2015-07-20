@@ -1,29 +1,33 @@
 package ca.concordia.lanterns.entities;
 
-import java.util.Stack;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import ca.concordia.lanterns.entities.enums.Colour;
 
 /**
  * Lantern Card Wrapper
  * @version 1.0
  */
-@XmlRootElement
 public class LanternCardWrapper {
 
-	private Stack<LanternCard> stack;
+	private Colour colour;
+	private int quantity;
 
 	public LanternCardWrapper() {
-		this.stack = new Stack<LanternCard>();
 	}
 
-	@XmlElement(name="card")
-	public Stack<LanternCard> getStack() {
-		return stack;
+	public Colour getColour() {
+		return colour;
 	}
 
-	public void setStack(Stack<LanternCard> stack) {
-		this.stack = stack;
+	public void setColour(Colour colour) {
+		this.colour = colour;
 	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 }

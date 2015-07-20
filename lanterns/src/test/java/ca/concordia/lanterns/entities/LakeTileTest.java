@@ -1,15 +1,14 @@
 package ca.concordia.lanterns.entities;
 
-import static org.junit.Assert.*;
-
-import javax.swing.plaf.ColorUIResource;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.entities.enums.DedicationType;
-import ca.concordia.lanterns.services.SetupService;
 
 public class LakeTileTest {
 	

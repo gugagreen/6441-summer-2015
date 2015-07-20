@@ -53,7 +53,6 @@ public class JaxbGameMarshallerTest {
 	@Test
 	public void testUnMarshallGame() throws FileNotFoundException {
 		FileReader reader = new FileReader(new File(TEST_FILE_PATH));
-		assertNotNull(reader);
 		Game game = marshaller.unmarshall(reader);
 		assertNotNull(game);
 		assertNotNull(game.getPlayers());
