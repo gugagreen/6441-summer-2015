@@ -1,11 +1,7 @@
 package ca.concordia.lanterns.entities;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Stack;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanterns.entities.enums.Colour;
@@ -42,7 +38,6 @@ public class Game {
 	 * 
 	 * @param playerNames Names of each current player (ordered by login time)
 	 */
-	@SuppressWarnings("unchecked")
 	public void init(final String[] playerNames) {
 		
 		this.players = new Player[playerNames.length];
@@ -56,9 +51,12 @@ public class Game {
 		
 		this.tiles = new Stack<LakeTile>();
 		
-		this.cards = new LanternCardWrapper[Colour.values().length];
+		Colour[] colours = Colour.values();
+		this.cards = new LanternCardWrapper[colours.length];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new LanternCardWrapper();
+			LanternCardWrapper lantern = new LanternCardWrapper();
+			lantern.setColour(colours[i]);
+			this.cards[i] = lantern;
 		}
 		
 		this.dedications = new DedicationTokenWrapper[DedicationType.values().length];
@@ -140,87 +138,6 @@ public class Game {
 			throw new IllegalAccessError("Attribute dedications can only be set once.");
 		}
 		this.dedications = dedications;
-	}
-	
-	public void displayCurrentGameState()
-	{
-		displayPlayerState();
-
-		displayLanternCardState();
-
-		displayDedicationTokenState();
-
-		displayLakeTileState();
-
-		System.out.println ( "It is "+ players[currentTurnPlayer.getID()-1].getName() + 
-				"'s turn to play" ) ;
-//		System.out.println ( startPlayerMarker.getID() - 1) ;
-//		System.out.println ( "Start Player Marker is with : " + players[startPlayerMarker.getID()-1].getName()) ;
-		try {
-			System.in.read();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void displayDedicationTokenState() {
-		System.out.println("Displaying dedication token stack current state...\n");
-		for (DedicationTokenWrapper dedicationTokenWrapper : dedications)
-		{
-			System.out.println("\t\t" + dedicationTokenWrapper.getStack().peek().getTokenType() + " Dedication Token Left: " + dedicationTokenWrapper.getStack().size());
-		}
-		System.out.println();
-	}
-
-	private void displayLanternCardState() {
-		System.out.println("Displaying lantern card stack current state...\n");
-		for (LanternCardWrapper lanternCardWrapper : cards)
-		{
-			System.out.println("\t\t" + lanternCardWrapper.getStack().peek().getColour() + " Lantern Card Left: " + lanternCardWrapper.getStack().size());
-		}
-		System.out.println();
-	}
-
-	private void displayLakeTileState() {
-		System.out.println("Displaying lake tile stack current state...\n");
-		System.out.println("\t\t" + "Lake Tile left in the stack: " + tiles.size() + "\n");
-	}
-
-	private void displayPlayerState() {
-
-		//Stack<LanternCard> lanternCards;
-		System.out.println("Displaying player's current state...\n");
-
-		for (Player player : players)
-		{
-			System.out.println(player.getName() + ":");
-
-			Colour[] color = Colour.values() ;
-			
-			LanternCardWrapper[] lanternCardWrapper = player.getCards() ;
-			for (int i = 0; i != lanternCardWrapper.length; ++i )
-			{
-				if ( lanternCardWrapper[i].getStack().isEmpty()) {
-				 System.out.println ( "\t\t" + color[i].toString() + " Lantern Card: " + 0 ) ;
-				} else {
-					
-					System.out.println("\t\t" + lanternCardWrapper[i].getStack().peek().getColour() + " Lantern Card: " + lanternCardWrapper[i].getStack().size());
-				}
-			}
-
-			System.out.println("\t\t" + "Favor Token:" + player.getFavors());
-
-			int sum = 0;
-			List<DedicationToken> dedicationTokens = player.getDedications();
-			if( dedicationTokens != null){
-				for (int i = 0; i < dedicationTokens.size(); i++) {
-					sum += dedicationTokens.get(i).getTokenValue();
-				}
-
-			System.out.println("\t\t" + "Total Dedication:" + sum + "\n");
-			}
-		}
-
 	}
 
 	public PlayerID getStartPlayerMarker () {

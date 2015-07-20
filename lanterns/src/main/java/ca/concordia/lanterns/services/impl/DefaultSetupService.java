@@ -1,6 +1,5 @@
 package ca.concordia.lanterns.services.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,16 +7,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import ca.concordia.lanterns.entities.DedicationToken;
 import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
-import ca.concordia.lanterns.entities.LanternCard;
-import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.LanternCardWrapper;
+import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.TileSide;
 import ca.concordia.lanterns.entities.enums.Colour;
 import ca.concordia.lanterns.entities.enums.DedicationType;
@@ -186,11 +182,7 @@ public class DefaultSetupService implements SetupService {
 		if ((cards != null) && (cards.length == colours.length)) {
 			for (int i = 0; i < colours.length; i++) {
 				LanternCardWrapper colourStack = cards[i];
-				for (int j = 0; j < count; j++) {
-					LanternCard card = new LanternCard();
-					card.init(colours[i]);
-					colourStack.getStack().push(card);
-				}
+				colourStack.setQuantity(count);
 			}
 		} else {
 			throw new IllegalArgumentException("Stack of cards to be populated is invalid!");
@@ -235,8 +227,9 @@ public class DefaultSetupService implements SetupService {
 			for ( int i = 0 ; i != players.length ;++i ) {
 				Colour color = firstTile.getOrientation(players[i].getID()).getColour() ;
 				int colourIndex = colours.indexOf(color);
-				LanternCard card = cards[colourIndex].getStack().pop();
-				players[i].getCards()[colourIndex].getStack().push(card) ;
+				LanternCardWrapper cardWrapper = cards[colourIndex];
+				players[i].getCards()[colourIndex].setQuantity(1);
+				cardWrapper.setQuantity(cardWrapper.getQuantity() - 1);
 			}
 		} else {
 			throw new IllegalArgumentException("Lake does not contain a first tile!");

@@ -26,9 +26,13 @@ public class Player {
 	public void init(final String name, final PlayerID id) {
 		this.name = name;
 		this.id = id ;
-		this.cards = new LanternCardWrapper[Colour.values().length];
+		
+		Colour[] colours = Colour.values();
+		this.cards = new LanternCardWrapper[colours.length];
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new LanternCardWrapper();
+			LanternCardWrapper lantern = new LanternCardWrapper();
+			lantern.setColour(colours[i]);
+			this.cards[i] = lantern;
 		}
 		this.dedications = new ArrayList<DedicationToken>();
 		this.tiles = new ArrayList<LakeTile>();
