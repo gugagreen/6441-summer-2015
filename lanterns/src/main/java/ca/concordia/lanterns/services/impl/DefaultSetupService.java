@@ -12,10 +12,6 @@ import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
-<<<<<<< HEAD
-import ca.concordia.lanterns.entities.LanternCard;
-=======
->>>>>>> master
 import ca.concordia.lanterns.entities.LanternCardWrapper;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.TileSide;
