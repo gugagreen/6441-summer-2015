@@ -1,8 +1,6 @@
 package ca.concordia.lanterns.readwrite.impl;
 
-import java.io.IOException;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.io.Writer;
 
 import javax.xml.bind.JAXBContext;

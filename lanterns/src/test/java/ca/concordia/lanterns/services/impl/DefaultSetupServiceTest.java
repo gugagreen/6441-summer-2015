@@ -17,7 +17,6 @@ import ca.concordia.lanterns.entities.DedicationTokenWrapper;
 import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.entities.Lake;
 import ca.concordia.lanterns.entities.LakeTile;
-import ca.concordia.lanterns.entities.LanternCard;
 import ca.concordia.lanterns.entities.LanternCardWrapper;
 import ca.concordia.lanterns.entities.Player;
 import ca.concordia.lanterns.entities.enums.Colour;
@@ -148,27 +147,25 @@ public class DefaultSetupServiceTest {
 		assertTrue(tiles.isEmpty());
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testSeparateLanternCardsFourPlayers() {
 		final LanternCardWrapper[] cards = new LanternCardWrapper[Colour.values().length];
-		assertTrue( cards.length > 0 );
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new LanternCardWrapper();
+			LanternCardWrapper lantern = new LanternCardWrapper();
+			lantern.setColour(Colour.values()[i]);
+			cards[i] = lantern;
 		}
 		
 		service.separateLanternCards(cards, 4);
 		assertNotNull(cards);
 		for (LanternCardWrapper wrapper : cards) {
-			assertEquals(8, wrapper.getStack().size());
+			assertEquals(8, wrapper.getQuantity());
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test(expected = IllegalArgumentException.class)
 	public void testSeparateLanternCardsWrongStack() {
 		final LanternCardWrapper[] cards = new LanternCardWrapper[Colour.values().length + 1];
-		assertTrue( cards.length > 0 );
 		for (int i = 0; i < cards.length; i++) {
 			cards[i] = new LanternCardWrapper();
 		}
@@ -177,11 +174,9 @@ public class DefaultSetupServiceTest {
 		assertNotNull(cards);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testSetDedicationTokensFourPlayers() {
 		final DedicationTokenWrapper[] dedications = new DedicationTokenWrapper[DedicationType.values().length];
-		assertTrue( dedications.length > 0 );
 		for (int i = 0; i < dedications.length; i++) {
 			dedications[i] = new DedicationTokenWrapper();
 		}
@@ -195,7 +190,6 @@ public class DefaultSetupServiceTest {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testDistributeInitialLanterns() {
 		List<Colour> colourValues = Arrays.asList(Colour.values());
@@ -212,14 +206,18 @@ public class DefaultSetupServiceTest {
 		final LanternCardWrapper[] cards = new LanternCardWrapper[colourValues.size()];
 		
 		for (int i = 0; i < cards.length; i++) {
-			cards[i] = new LanternCardWrapper();
-			LanternCard card = new LanternCard();
-			card.init(colourValues.get(i));
-			cards[i].getStack().push(card);
+			LanternCardWrapper wrapper = cards[i];
+			if (wrapper == null) {
+				wrapper = new LanternCardWrapper();
+				wrapper.setColour(Colour.values()[i]);
+				wrapper.setQuantity(1);
+			} else {
+				wrapper.setQuantity(wrapper.getQuantity() + 1);
+			}
+			cards[i] = wrapper;
 		}
 		
 		Player[] players = createPlayers(4);
-		assertNotNull(players);
 		service.distributeInitialLanterns(lake, cards, players);
 		assertNotNull(lake);
 		assertNotNull(cards);
@@ -233,12 +231,11 @@ public class DefaultSetupServiceTest {
 			assertTrue( playerCards.length > 0 );
 			for (int j = 0; j < playerCards.length; j++) {
 				LanternCardWrapper colourStack = playerCards[j];
-				assertNotNull(colourStack);
 				if (j == colourValues.indexOf(colour)) {
-					assertEquals(1, colourStack.getStack().size());
+					assertEquals(1, colourStack.getQuantity());
 				} 
 				else {
-					assertEquals(0, colourStack.getStack().size());
+					assertEquals(0, colourStack.getQuantity());
 					
 				}
 			}
@@ -247,11 +244,9 @@ public class DefaultSetupServiceTest {
 	
 	private String[] createPlayerNames(int quantity) {
 		String[] playerNames = new String[quantity];
-		assertTrue(quantity > 0 );
 		for (int i = 0; i < quantity; i++) {
 			playerNames[i] = Integer.toString(i);
 		}
-		assertNotNull(playerNames);
 		return playerNames;
 	}
 	
@@ -262,7 +257,6 @@ public class DefaultSetupServiceTest {
 			players[i] = new Player();
 			players[i].init(Integer.toString(i), id[i]);
 		}
-		assertNotNull(players);
 		return players;
 	}
 }
