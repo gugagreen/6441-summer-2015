@@ -12,6 +12,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<main.class>ca.concordia.lanterns_slick2d.Game</main.class>
 		<!-- dependencies -->
+		<lanterns.version>0.0.1-SNAPSHOT</lanterns.version>
 		<slick2d-core.version>1.0.1</slick2d-core.version>
 		<lwjgl.version>2.9.3</lwjgl.version>
 		<!-- plugins -->
@@ -22,6 +23,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>ca.concordia</groupId>
+			<artifactId>lanternsentities</artifactId>
+			<version>${lanterns.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slick2d</groupId>
 			<artifactId>slick2d-core</artifactId>

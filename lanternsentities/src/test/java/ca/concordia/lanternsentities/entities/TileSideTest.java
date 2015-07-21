@@ -1,4 +1,4 @@
-package ca.concordia.lanterns.entities;
+package ca.concordia.lanternsentities.entities;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -7,7 +7,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.concordia.lanterns.entities.enums.Colour;
+import ca.concordia.lanternsentities.TileSide;
+import ca.concordia.lanternsentities.enums.Colour;
 
 
 public class TileSideTest {

@@ -1,6 +1,6 @@
 package ca.concordia.lanterns.dao;
 
-import ca.concordia.lanterns.entities.Game;
+import ca.concordia.lanternsentities.Game;
 
 /**
  * Data Access Object for the {@link Game entity}.

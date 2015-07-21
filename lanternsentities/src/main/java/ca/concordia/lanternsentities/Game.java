@@ -1,12 +1,12 @@
-package ca.concordia.lanterns.entities;
+package ca.concordia.lanternsentities;
 
 import java.util.Stack;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.entities.enums.DedicationType;
-import ca.concordia.lanterns.entities.enums.PlayerID;
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanternsentities.enums.PlayerID;
 
 
 /**

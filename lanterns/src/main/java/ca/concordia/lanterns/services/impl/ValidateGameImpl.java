@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import ca.concordia.lanterns.entities.DedicationToken;
-import ca.concordia.lanterns.entities.DedicationTokenWrapper;
-import ca.concordia.lanterns.entities.Game;
-import ca.concordia.lanterns.entities.Lake;
-import ca.concordia.lanterns.entities.LakeTile;
-import ca.concordia.lanterns.entities.LanternCardWrapper;
-import ca.concordia.lanterns.entities.Player;
-import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.entities.enums.DedicationType;
-import ca.concordia.lanterns.entities.enums.PlayerID;
+import ca.concordia.lanternsentities.DedicationToken;
+import ca.concordia.lanternsentities.DedicationTokenWrapper;
+import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.Lake;
+import ca.concordia.lanternsentities.LakeTile;
+import ca.concordia.lanternsentities.LanternCardWrapper;
+import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanternsentities.enums.PlayerID;
 import ca.concordia.lanterns.services.ValidateGame;
 
 public class ValidateGameImpl implements ValidateGame {

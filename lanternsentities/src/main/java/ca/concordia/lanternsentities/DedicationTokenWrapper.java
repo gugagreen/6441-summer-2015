@@ -1,4 +1,4 @@
-package ca.concordia.lanterns.entities;
+package ca.concordia.lanternsentities;
 
 import java.util.Stack;
 

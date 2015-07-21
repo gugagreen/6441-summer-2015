@@ -3,71 +3,32 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ca.concordia</groupId>
-	<artifactId>lanterns</artifactId>
-	<packaging>war</packaging>
+	<artifactId>lanternsentities</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>lanterns Maven Webapp</name>
+	<name>Lanterns Entities</name>
 	<url>http://maven.apache.org</url>
-
+	
 	<properties>
 		<!-- dependencies -->
-		<lanterns.version>0.0.1-SNAPSHOT</lanterns.version>
-		<servlet-api.version>2.5</servlet-api.version>
 		<junit.version>4.12</junit.version>
-		<junitparams.version>1.0.4</junitparams.version>
-		<xmlunit.version>1.6</xmlunit.version>
 		<!-- plugins -->
-		<jetty.plugin.version>9.3.0.v20150612</jetty.plugin.version>
 		<javadoc.plugin.version>2.10.3</javadoc.plugin.version>
 	</properties>
-
+	
 	<dependencies>
-		<dependency>
-			<groupId>ca.concordia</groupId>
-			<artifactId>lanternsentities</artifactId>
-			<version>${lanterns.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet-api.version}</version>
-			<scope>provided</scope>
-		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>pl.pragmatists</groupId>
-			<artifactId>JUnitParams</artifactId>
-			<version>${junitparams.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>xmlunit</groupId>
-			<artifactId>xmlunit</artifactId>
-			<version>${xmlunit.version}</version>
-		</dependency>
 	</dependencies>
-
+	
 	<build>
 		<finalName>lanterns</finalName>
 
 		<plugins>
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>${jetty.plugin.version}</version>
-				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<webApp>
-						<contextPath>/</contextPath>
-					</webApp>
-				</configuration>
-			</plugin>
-
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
