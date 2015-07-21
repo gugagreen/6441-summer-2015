@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import ca.concordia.lanterns.entities.Game;
+import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanterns.services.SetupService;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
 
