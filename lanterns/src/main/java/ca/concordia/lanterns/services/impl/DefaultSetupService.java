@@ -21,6 +21,14 @@ import ca.concordia.lanternsentities.enums.PlayerID;
 import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupService implements SetupService {
+	
+	private static class SingletonHolder {
+		static final DefaultSetupService INSTANCE = new DefaultSetupService();
+	}
+	
+	public static DefaultSetupService getInstance() {
+		return SingletonHolder.INSTANCE;
+	}
 
 	/**
 	 * Create game creates game using player name

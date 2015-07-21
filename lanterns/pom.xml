@@ -12,7 +12,7 @@
 	<properties>
 		<!-- dependencies -->
 		<lanterns.version>0.0.1-SNAPSHOT</lanterns.version>
-		<servlet-api.version>2.5</servlet-api.version>
+		<jersey.version>1.9</jersey.version>
 		<junit.version>4.12</junit.version>
 		<junitparams.version>1.0.4</junitparams.version>
 		<xmlunit.version>1.6</xmlunit.version>
@@ -28,10 +28,9 @@
 			<version>${lanterns.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet-api.version}</version>
-			<scope>provided</scope>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
