@@ -1,10 +1,10 @@
-package ca.concordia.lanterns.entities;
+package ca.concordia.lanternsentities;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.entities.enums.PlayerID;
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.PlayerID;
 
 /**
  * Player entity

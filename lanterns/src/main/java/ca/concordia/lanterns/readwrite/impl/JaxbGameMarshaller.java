@@ -8,7 +8,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import ca.concordia.lanterns.entities.Game;
+import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
 
 

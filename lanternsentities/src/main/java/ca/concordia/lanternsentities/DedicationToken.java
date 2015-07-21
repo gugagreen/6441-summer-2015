@@ -1,6 +1,6 @@
-package ca.concordia.lanterns.entities;
+package ca.concordia.lanternsentities;
 
-import ca.concordia.lanterns.entities.enums.DedicationType;
+import ca.concordia.lanternsentities.enums.DedicationType;
 
 /** 
  * Dedication Token entity.

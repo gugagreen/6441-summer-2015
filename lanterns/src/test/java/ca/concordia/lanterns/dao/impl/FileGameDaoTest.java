@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import ca.concordia.lanterns.GameStubber;
-import ca.concordia.lanterns.entities.Game;
+import ca.concordia.lanternsentities.Game;
 
 
 import static org.custommonkey.xmlunit.XMLAssert.*;

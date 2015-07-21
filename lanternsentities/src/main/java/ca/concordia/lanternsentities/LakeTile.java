@@ -1,9 +1,9 @@
-package ca.concordia.lanterns.entities;
+package ca.concordia.lanternsentities;
 
 import java.util.HashMap;
 
-import ca.concordia.lanterns.entities.enums.Colour;
-import ca.concordia.lanterns.entities.enums.PlayerID;
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.PlayerID;
 /** Lake Tile entity
  * 
  * @version 1.0

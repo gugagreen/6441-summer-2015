@@ -1,6 +1,6 @@
-package ca.concordia.lanterns.entities;
+package ca.concordia.lanternsentities;
 
-import ca.concordia.lanterns.entities.enums.Colour;
+import ca.concordia.lanternsentities.enums.Colour;
 /**
  * Tile Side entity
  * @version 1.0
