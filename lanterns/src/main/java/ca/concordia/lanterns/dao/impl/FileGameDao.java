@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import ca.concordia.lanterns.dao.GameDao;
-import ca.concordia.lanterns.entities.Game;
+import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
 import ca.concordia.lanterns.readwrite.impl.JaxbGameMarshaller;
 

@@ -1,6 +1,6 @@
 package ca.concordia.lanterns;
 
-import ca.concordia.lanterns.entities.Game;
+import ca.concordia.lanternsentities.Game;
 
 public class GameStubber {
 	

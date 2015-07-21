@@ -5,7 +5,7 @@ import java.io.Writer;
 import java.util.Scanner;
 
 import ca.concordia.lanterns.dao.impl.FileGameDao;
-import ca.concordia.lanterns.entities.Game;
+import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
 import ca.concordia.lanterns.readwrite.impl.JaxbGameMarshaller;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;

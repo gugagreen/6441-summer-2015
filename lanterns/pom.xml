@@ -11,6 +11,7 @@
 
 	<properties>
 		<!-- dependencies -->
+		<lanterns.version>0.0.1-SNAPSHOT</lanterns.version>
 		<servlet-api.version>2.5</servlet-api.version>
 		<junit.version>4.12</junit.version>
 		<junitparams.version>1.0.4</junitparams.version>
@@ -21,6 +22,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>ca.concordia</groupId>
+			<artifactId>lanternsentities</artifactId>
+			<version>${lanterns.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -61,6 +67,14 @@
 					</webApp>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -74,7 +88,7 @@
 				<configuration>
 					<links>
 						<link>http://commons.apache.org/lang/api</link>
-						<link>http://java.sun.com/j2se/1.5.0/docs/api</link>
+						<link>http://java.sun.com/j2se/1.8.0/docs/api</link>
 					</links>
 				</configuration>
 			</plugin>

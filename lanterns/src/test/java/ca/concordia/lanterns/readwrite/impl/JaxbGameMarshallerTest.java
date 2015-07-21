@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.concordia.lanterns.GameStubber;
-import ca.concordia.lanterns.entities.Game;
+import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
 
 import static org.custommonkey.xmlunit.XMLAssert.*;
