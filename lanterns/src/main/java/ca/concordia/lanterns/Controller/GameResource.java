@@ -20,6 +20,6 @@ public class GameResource {
 		String[] playerNames = new String[] { p1, p2, p3, p4 };
 		Game game = setupService.createGame(playerNames);
 
-		return Response.status(200).entity(game).build();
+		return Response.status(Response.Status.OK.getStatusCode()).entity(game).build();
 	}
 }
