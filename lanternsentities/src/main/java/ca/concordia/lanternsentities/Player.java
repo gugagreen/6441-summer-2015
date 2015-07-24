@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.PlayerID;
+
 
 /**
  * Player entity
@@ -14,16 +14,18 @@ import ca.concordia.lanternsentities.enums.PlayerID;
 public class Player {
 
 	private String name;
-	private PlayerID id ;
+	private int id;
 	private LanternCardWrapper[] cards;
 	private List<DedicationToken> dedications;
 	private List<LakeTile> tiles;
 	private int favors;
 	
 	/**
+	 * Initialize {@link Player} attributes.
 	 * @param name
+	 * @param id
 	 */
-	public void init(final String name, final PlayerID id) {
+	public void init(final String name, final int id) {
 		this.name = name;
 		this.id = id ;
 		
@@ -70,11 +72,15 @@ public class Player {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public PlayerID getID () {
-		return id ;
-	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public LanternCardWrapper[] getCards() {
 		return cards;
 	}

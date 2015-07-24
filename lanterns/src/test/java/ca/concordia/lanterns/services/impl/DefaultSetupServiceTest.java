@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -15,13 +16,11 @@ import org.junit.Test;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
-import ca.concordia.lanternsentities.Lake;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
-import ca.concordia.lanternsentities.enums.PlayerID;
 
 public class DefaultSetupServiceTest {
 	
@@ -82,14 +81,14 @@ public class DefaultSetupServiceTest {
 	
 	@Test
 	public void testStartLake() {
-		Lake lake = new Lake();
+		List<LakeTile> lake = new ArrayList<LakeTile>();
 		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
-		service.startLake(lake, initialTile, PlayerID.values().length);
+		service.startLake(lake, initialTile, 4);
 		
-		assertEquals(1, lake.getTiles().size());
-		assertEquals(initialTile, lake.getTiles().get(0));
+		assertEquals(1, lake.size());
+		assertEquals(initialTile, lake.get(0));
 	}
 	
 	@Test
@@ -195,13 +194,12 @@ public class DefaultSetupServiceTest {
 		List<Colour> colourValues = Arrays.asList(Colour.values());
 		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
 		
-		final Lake lake = new Lake();
+		final List<LakeTile> lake = new ArrayList<LakeTile>();
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
 		
-		PlayerID[] orientation = new PlayerID[]{PlayerID.ONE, PlayerID.TWO, PlayerID.THREE, PlayerID.FOUR} ;
-		
-		lake.placeTile(initialTile, orientation);
+		initialTile.setOrientation(0);
+		lake.add(initialTile);
 		
 		final LanternCardWrapper[] cards = new LanternCardWrapper[colourValues.size()];
 		
@@ -252,10 +250,9 @@ public class DefaultSetupServiceTest {
 	
 	private Player[] createPlayers(int quantity) {
 		Player[] players = new Player[quantity];
-		PlayerID[] id = PlayerID.values() ;
 		for (int i = 0; i < quantity; i++) {
 			players[i] = new Player();
-			players[i].init(Integer.toString(i), id[i]);
+			players[i].init(Integer.toString(i), i);
 		}
 		return players;
 	}
