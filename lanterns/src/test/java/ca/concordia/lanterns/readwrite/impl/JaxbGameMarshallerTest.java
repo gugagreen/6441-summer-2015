@@ -39,6 +39,10 @@ public class JaxbGameMarshallerTest {
 		marshaller.marshall(game, writer);
 		String result = writer.toString().trim();
 		
+		// FIXME - delete
+		System.out.println(result);
+		
+		
 		assertNotNull(result);
 		assertTrue(result.length() > 0);
 		

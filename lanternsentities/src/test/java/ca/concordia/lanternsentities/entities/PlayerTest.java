@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.concordia.lanternsentities.Player;
-import ca.concordia.lanternsentities.enums.PlayerID;
 
 /* player class test with junit test cases*/
 
@@ -18,13 +17,13 @@ public class PlayerTest {
 	@Before
 	public void setup(){
 		this.player = new Player();
-		this.player.init("John", PlayerID.ONE);
+		this.player.init("John", 1);
 	}
 	
 	@Test
 	public void testHashCode() {
 		Player matchingPlayer = new Player();
-		matchingPlayer.init("John", PlayerID.ONE);	
+		matchingPlayer.init("John", 1);	
 		
 		int expected = matchingPlayer.hashCode();
 		int result = this.player.hashCode();

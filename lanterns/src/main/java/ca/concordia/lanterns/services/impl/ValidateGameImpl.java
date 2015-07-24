@@ -10,24 +10,22 @@ import java.util.Stack;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
-import ca.concordia.lanternsentities.Lake;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
-import ca.concordia.lanternsentities.enums.PlayerID;
 import ca.concordia.lanterns.services.ValidateGame;
 
 public class ValidateGameImpl implements ValidateGame {
 
 	public void validatePlayerCount(Game game) {
 		Player[] players = game.getPlayers();
-		if (players.length >= 2 && players.length <= 4) {
-			Set<PlayerID> uniqueID = new HashSet<PlayerID>();
+		if (players.length >= MIN_PLAYERS && players.length <= MAX_PLAYERS) {
+			Set<Integer> uniqueID = new HashSet<Integer>();
 			for (int i = 0; i != players.length; ++i) {
-				if (!(uniqueID.contains(players[i].getID()))) {
-					uniqueID.add(players[i].getID());
+				if (!(uniqueID.contains(players[i].getId()))) {
+					uniqueID.add(players[i].getId());
 				} else {
 					throw new IllegalArgumentException("The players have duplicate ID");
 				}
@@ -57,9 +55,9 @@ public class ValidateGameImpl implements ValidateGame {
 	}
 
 	@Override
-	public void validateStartPlayerMarker(final Player[] player, final PlayerID startPlayerMarker) {
+	public void validateStartPlayerMarker(final Player[] player, final int startPlayerMarker) {
 		for (int i = 0; i != player.length; ++i) {
-			if (player[i].getID() == startPlayerMarker) {
+			if (player[i].getId() == startPlayerMarker) {
 				return;
 			}
 		}
@@ -82,10 +80,10 @@ public class ValidateGameImpl implements ValidateGame {
 	}
 
 	@Override
-	public void validateLakeTileStack(final Player[] players, final Lake lake, final Stack<LakeTile> lakeTile,
-			final PlayerID currentTurnPlayer) {
+	public void validateLakeTileStack(final Player[] players, final List<LakeTile> lake, final Stack<LakeTile> lakeTile,
+			final int currentTurnPlayer) {
 		int sum = 0;
-		sum = sum + lake.getTiles().size() + lakeTile.size();
+		sum = sum + lake.size() + lakeTile.size();
 		for (int i = 0; i != players.length; ++i) {
 			sum = sum + players[i].getTiles().size();
 		}
@@ -94,7 +92,7 @@ public class ValidateGameImpl implements ValidateGame {
 		}
 
 		for (int i = 0; i != players.length; ++i) {
-			if (players[i].getTiles().size() != 3 && !lake.getTiles().isEmpty() && players[i].getID() != currentTurnPlayer) {
+			if (players[i].getTiles().size() != 3 && !lake.isEmpty() && players[i].getId() != currentTurnPlayer) {
 				throw new IllegalArgumentException("Player: " + players[i].getName() + "have insufficient Lake Tiles");
 			}
 		}

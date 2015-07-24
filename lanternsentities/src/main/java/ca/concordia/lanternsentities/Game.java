@@ -1,12 +1,13 @@
 package ca.concordia.lanternsentities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
-import ca.concordia.lanternsentities.enums.PlayerID;
 
 
 /**
@@ -20,7 +21,7 @@ public class Game {
 	/** Players in the game. */
 	private Player[] players;
 	/** Lake where tiles are being displayed for all users. */
-	private Lake lake;
+	private List<LakeTile> lake;
 	/** Stack of Lake Tiles to be distributed. */
 	private Stack<LakeTile> tiles;
 	/** Stack of Lantern Cards to be distributed. */
@@ -29,8 +30,8 @@ public class Game {
 	private DedicationTokenWrapper[] dedications;
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
-	private PlayerID startPlayerMarker ;
-	private PlayerID currentTurnPlayer ;
+	/** Index to mark current player in {@link #players} */
+	private int currentTurnPlayer ;
 	
 	/**
 	 * Initializes a new Game based on the player names.
@@ -41,13 +42,12 @@ public class Game {
 	public void init(final String[] playerNames) {
 		
 		this.players = new Player[playerNames.length];
-		PlayerID[] id = PlayerID.values() ;
 		for (int i = 0; i < playerNames.length; i++) {
 			this.players[i] = new Player();
-			this.players[i].init(playerNames[i], id[i]);
+			this.players[i].init(playerNames[i], i);
 		}
 		
-		this.lake = new Lake();
+		this.lake = new ArrayList<LakeTile>();
 		
 		this.tiles = new Stack<LakeTile>();
 		
@@ -67,8 +67,6 @@ public class Game {
 		this.favors = TOTAL_FAVORS;
 	}
 	
-	
-
 	public int getFavors() {
 		return favors;
 	}
@@ -89,21 +87,15 @@ public class Game {
 		return players;
 	}
 
-	public synchronized void setPlayers(Player[] players) {
-		if (this.players != null) {
-			throw new IllegalAccessError("Attribute players can only be set once.");
-		}
+	public void setPlayers(Player[] players) {
 		this.players = players;
 	}
 
-	public Lake getLake() {
+	public List<LakeTile> getLake() {
 		return lake;
 	}
 
-	public synchronized void setLake(Lake lake) {
-		if (this.lake != null) {
-			throw new IllegalAccessError("Attribute lake can only be set once.");
-		}
+	public void setLake(List<LakeTile> lake) {
 		this.lake = lake;
 	}
 
@@ -111,10 +103,7 @@ public class Game {
 		return tiles;
 	}
 
-	public synchronized void setTiles(Stack<LakeTile> tiles) {
-		if (this.tiles != null) {
-			throw new IllegalAccessError("Attribute tiles can only be set once.");
-		}
+	public void setTiles(Stack<LakeTile> tiles) {
 		this.tiles = tiles;
 	}
 
@@ -122,10 +111,7 @@ public class Game {
 		return cards;
 	}
 
-	public synchronized void setCards(LanternCardWrapper[] cards) {
-		if (this.cards != null) {
-			throw new IllegalAccessError("Attribute cards can only be set once.");
-		}
+	public void setCards(LanternCardWrapper[] cards) {
 		this.cards = cards;
 	}
 
@@ -133,30 +119,15 @@ public class Game {
 		return dedications;
 	}
 
-	public synchronized void setDedications(DedicationTokenWrapper[] dedications) {
-		if (this.dedications != null) {
-			throw new IllegalAccessError("Attribute dedications can only be set once.");
-		}
+	public void setDedications(DedicationTokenWrapper[] dedications) {
 		this.dedications = dedications;
 	}
-
-	public PlayerID getStartPlayerMarker () {
-		return this.startPlayerMarker ;
-	}
 	
-	public void setStartPlayerMarker ( PlayerID id ) {
-		if ( id.getID() <= this.players.length ) {
-			this.startPlayerMarker = id ;
-		} else {
-			throw new IllegalArgumentException ( "There is no player with id: " + id.toString() ) ;
-		}
-	}
-	
-	public PlayerID getCurrentTurnPlayer () {
+	public int getCurrentTurnPlayer() {
 		return currentTurnPlayer ;
 	}
 	
-	public void setCurrentTurnPlayer ( PlayerID id ) {
+	public void setCurrentTurnPlayer(int id) {
 		currentTurnPlayer = id ;
 	}
 	
