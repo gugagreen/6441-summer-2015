@@ -15,6 +15,9 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
 import ca.concordia.lanterns.readwrite.impl.JaxbGameMarshaller;
 
+/**
+ * Data Access Object Implementations for Save and Load methods, adds exception handling.
+ */
 public class FileGameDao implements GameDao {
 	
 	private MarshallerManager<Game> marshaller;

@@ -11,7 +11,11 @@ import javax.xml.bind.Unmarshaller;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
 
-
+/**
+ * 
+ * Game Marshaller implementation, adds exception handling.
+ *
+ */
 public class JaxbGameMarshaller implements MarshallerManager<Game> {
 
 	@Override

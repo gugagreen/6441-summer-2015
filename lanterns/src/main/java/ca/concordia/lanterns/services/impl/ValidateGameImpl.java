@@ -90,7 +90,7 @@ public class ValidateGameImpl implements ValidateGame {
 		if ((players.length == 4 && sum != 33) || (players.length == 3 && sum != 28) || (players.length == 2 && sum != 23)) {
 			throw new IllegalArgumentException("The quantity of Lake Tiles in the game have been Compromised");
 		}
-
+		//TODO Validates that all players have 3 lake tiles in their hand, shouldn't players be allowed to have less than 3 cards if the game is nearing the end? Game ends when no lake tiles are left to play (hands are empty).
 		for (int i = 0; i != players.length; ++i) {
 			if (players[i].getTiles().size() != 3 && !lake.isEmpty() && players[i].getId() != currentTurnPlayer) {
 				throw new IllegalArgumentException("Player: " + players[i].getName() + "have insufficient Lake Tiles");
