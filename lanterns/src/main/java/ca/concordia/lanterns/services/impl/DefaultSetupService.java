@@ -1,9 +1,9 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.Stack;
 
 import ca.concordia.lanterns.services.SetupService;
@@ -15,6 +15,7 @@ import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanternsentities.enums.TileStack;
 
 public class DefaultSetupService implements SetupService {
 	
@@ -82,56 +83,45 @@ public class DefaultSetupService implements SetupService {
 	 * @return Array of tiles.
 	 */
 	protected LakeTile[] generateTiles(final int playerCount) {
-		LakeTile[] totalTiles = null;
+		LakeTile[] gameTiles = null;
 
-		// TODO - maybe move quantity for each player count to properties/enum
-		// TODO - maybe just create a single big stack of tiles, and let splitting per player on step 3
 		switch (playerCount) {
 		case 4:
-			// 20 + 12 (3 tiles per player) + 1 initial tile
-			totalTiles = new LakeTile[33];
+			gameTiles = new LakeTile[FOUR_PLAYERS_TILE_COUNT];
 			break;
 		case 3:
-			// 18 + 9 (3 tiles per player) + 1 initial tile
-			totalTiles = new LakeTile[28];
+			gameTiles = new LakeTile[THREE_PLAYERS_TILE_COUNT];
 			break;
 		case 2:
-			// 16 + 6 (3 tiles per player) + 1 initial tile
-			totalTiles = new LakeTile[23];
+			gameTiles = new LakeTile[TWO_PLAYERS_TILE_COUNT];
 			break;
 		default:
 			break;
 		}
 
 		// if total tiles is valid, populate it
-		if (totalTiles != null) {
+		if (gameTiles != null) {
+			List<TileStack> totalTiles = new ArrayList<TileStack>(Arrays.asList(TileStack.values()));
 			
-			// Start tile
-			Colour[] startTileColour = new Colour[]{Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE } ;
-			totalTiles[0] = new LakeTile () ;
-			totalTiles[0].init(startTileColour, false);
+			// first, remove initial tile, and add to the gameTiles
+			int initalIndex = totalTiles.indexOf(TileStack.T54);
+			TileStack initialTile = totalTiles.remove(initalIndex);
+			gameTiles[0] = initialTile.tile;
 			
-			Random random = new Random();
-			Colour[] colours = Colour.values();
-			for (int i = 1; i < totalTiles.length; i++) {
-				Colour[] tileColours = new Colour[LakeTile.TOTAL_SIDES];
-				for (int j = 0; j < tileColours.length; j++) {
-					int nextColour = random.nextInt(colours.length);
-					tileColours[j] = colours[nextColour];
-				}
-				boolean platform = random.nextBoolean();
-				totalTiles[i] = new LakeTile();
-				totalTiles[i].init(tileColours, platform);
+			// then shuffle remaining tiles and assign to gameTiles
+			Collections.shuffle(totalTiles);
+			for (int i = 1; i < gameTiles.length; i++) {
+				gameTiles[i] = totalTiles.get(i).tile;
 			}
 		}
 
-		return totalTiles;
+		return gameTiles;
 	}
 
 	@Override
 	public void startLake(final List<LakeTile> lake, final LakeTile initialTile, int playerCount) {
-		// RED on initial tile will always be element 0. And will be pointing the first player. 
-		initialTile.setOrientation(0);
+		// RED on initial tile will always be element 1. And will be pointing the first player. 
+		initialTile.setOrientation(1);
 		lake.add(initialTile);
 	}
 

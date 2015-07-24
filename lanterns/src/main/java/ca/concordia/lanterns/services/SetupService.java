@@ -10,6 +10,13 @@ import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 
 public interface SetupService {
+	
+	/** 16 + 6 (3 tiles per player) + 1 initial tile */
+	int TWO_PLAYERS_TILE_COUNT = 23;
+	/** 18 + 9 (3 tiles per player) + 1 initial tile */
+	int THREE_PLAYERS_TILE_COUNT = 28;
+	/** 20 + 12 (3 tiles per player) + 1 initial tile */
+	int FOUR_PLAYERS_TILE_COUNT = 33;
 
 	/**
 	 * Creates a new game

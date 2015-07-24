@@ -16,11 +16,11 @@ public class LakeTile {
 	private TileSide[] sides;
 	/** Index of which element in {@link #sides} is facing the first player in the game. */
 	private int orientation;
-	private Boolean platform;
+	private boolean platform;
 	/**
 	 * Each Lake tile has four sides, each side can have a colour, there are 7 different colours.
 	 * @param colours There are 7 possible colours.
-	 * @param platform The tiles may be in play or in the deck.
+	 * @param platform Says if tile has a platform.
 	 * @throws IllegalArgumentException	if colours size does not match {@link #TOTAL_SIDES}.
 	 */
 	public void init(Colour[] colours, boolean platform) {
