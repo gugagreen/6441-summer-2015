@@ -1,22 +1,20 @@
 package ca.concordia.lanterns.services.impl;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import ca.concordia.lanterns.services.SetupService;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
-import ca.concordia.lanternsentities.TileSide;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
-import ca.concordia.lanterns.services.SetupService;
 
 public class DefaultSetupService implements SetupService {
 	
@@ -34,8 +32,11 @@ public class DefaultSetupService implements SetupService {
 	@Override
 	public Game createGame(String[] playerNames) {
 		validatePlayersSet(playerNames);
+		String[] sortedPlayerNames = decidePlayersOrder(playerNames);
+		int playerCount = sortedPlayerNames.length;
 		
 		Game game = new Game();
+		game.init(sortedPlayerNames);
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		
 		startLake(game.getLake(), totalTiles[0], game.getPlayers().length);
@@ -64,6 +65,13 @@ public class DefaultSetupService implements SetupService {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public String[] decidePlayersOrder(final String[] playerNames) {
+		List<String> players = Arrays.asList(playerNames);
+		Collections.shuffle(players);
+		return players.toArray(new String[playerNames.length]);
 	}
 
 	/**
@@ -121,15 +129,10 @@ public class DefaultSetupService implements SetupService {
 	}
 
 	@Override
-		Random random = new Random () ;
-		int index = random.nextInt(playerCount) ;
-		orientation[0] = id.get(index) ;
-		id.remove(index) ;
-		for ( int i = 1; i != orientation.length; ++i ) {
-			index = random.nextInt(id.size()) ;
-			orientation[i] =  id.get(index);
-			id.remove(index) ;
-		}
+	public void startLake(final List<LakeTile> lake, final LakeTile initialTile, int playerCount) {
+		// RED on initial tile will always be element 0. And will be pointing the first player. 
+		initialTile.setOrientation(0);
+		lake.add(initialTile);
 	}
 
 	@Override
@@ -219,8 +222,13 @@ public class DefaultSetupService implements SetupService {
 	
 	
 	@Override
+	public void distributeInitialLanterns(final List<LakeTile> lake, final LanternCardWrapper[] cards, final Player[] players) {
+		if ((lake != null) && (!lake.isEmpty())) {
+			LakeTile firstTile = lake.get(0);
 			List<Colour> colours = Arrays.asList(Colour.values());
-			for ( int i = 0 ; i != players.length ;++i ) {
+			for ( int i = 0 ; i < players.length ; i++) {
+				// first tile will always be oriented to first player, so can use normal index to find colour
+				Colour color = firstTile.getSides()[i].getColour();
 				int colourIndex = colours.indexOf(color);
 				LanternCardWrapper cardWrapper = cards[colourIndex];
 				players[i].getCards()[colourIndex].setQuantity(1);
