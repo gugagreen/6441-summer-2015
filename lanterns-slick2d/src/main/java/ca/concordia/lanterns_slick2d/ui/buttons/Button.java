@@ -1,4 +1,4 @@
-package ca.concordia.lanterns_slick2d.ui;
+package ca.concordia.lanterns_slick2d.ui.buttons;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

@@ -1,4 +1,4 @@
-package ca.concordia.lanterns_slick2d.ui;
+package ca.concordia.lanterns_slick2d.ui.buttons;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
