@@ -30,10 +30,10 @@ public class PlayerView implements Game {
 	public void init(GameContainer container) throws SlickException {
 		if (vertical) {
 			// FIXME - recalculate when its vertical
-			initCardStacks(280, (y + 20), container);
+			initCardStacks(x, (y + 100), container);
 			initTileStack(x, (y + 20), container);
 		} else {
-			initCardStacks(280, (y + 20), container);
+			initCardStacks((x + 80), (y + 20), container);
 			initTileStack(x, (y + 20), container);
 		}
     	

@@ -1,19 +1,26 @@
 package ca.concordia.lanterns_slick2d;
 
+
+import static ca.concordia.lanterns_slick2d.constants.Constants.*;
+
+import java.util.ArrayList;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TileSet;
 
 import ca.concordia.lanterns_slick2d.client.GameClient;
-import ca.concordia.lanterns_slick2d.constants.Constants;
+import ca.concordia.lanterns_slick2d.client.PlayerViewEnum;
 import ca.concordia.lanterns_slick2d.ui.CardStacksView;
 import ca.concordia.lanterns_slick2d.ui.PlayerView;
 import ca.concordia.lanterns_slick2d.ui.buttons.FavorToken;
 import ca.concordia.lanterns_slick2d.ui.buttons.Tile;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.enums.TileStack;
 
 /**
  * A game using Slick2d
@@ -30,36 +37,41 @@ public class MainGame extends BasicGame {
     private CardStacksView cardStacks;
     private FavorToken favors;
     private Tile tileStack;
+    private ArrayList<Tile> lake;
     private PlayerView[] players;
     
     private GameClient client;
 
     public MainGame() {
-        super(Constants.GAME_TITLE);
+        super(GAME_TITLE);
         this.client = new GameClient();
+        this.lake = new ArrayList<Tile>();
     }
 
     @Override
     public void init(GameContainer container) throws SlickException {
     	Game game = client.getGame();
-        cardStacks = new CardStacksView(true, 10, 10);
+        cardStacks = new CardStacksView(true, CARDS_X, CARDS_Y);
     	cardStacks.init(container);
-        favors = new FavorToken(container, 100, 350);
-        tileStack = new Tile(container, Constants.TILE_BACK_IMG, 10, 670);
+        favors = new FavorToken(container, FAVORS_X, FAVORS_Y);
+        tileStack = new Tile(container, TILE_BACK_IMG, TILE_STACK_X, TILE_STACK_Y);
         initPlayers(game, container);
+        initLake(game, container);
     }
     
     private void initPlayers(final Game game, final GameContainer container) throws SlickException {
     	Player[] ps = game.getPlayers();
     	players = new PlayerView[ps.length];
+    	PlayerViewEnum[] pvEnum = PlayerViewEnum.values();
     	for (int i = 0; i < ps.length; i++) {
-    		System.out.println(ps[i].getName());
-    		boolean vertical = (i%2) == 0;
-        	// FIXME - get correct position
-    		players[i] = new PlayerView(ps[i], vertical, 200, 10);
+    		players[i] = new PlayerView(ps[i], pvEnum[i].vertical, pvEnum[i].x, pvEnum[i].y);
     		players[i].init(container);
 		}
-        
+    }
+    
+    private void initLake(final Game game, final GameContainer container) throws SlickException {
+    	String initialTilePath = TILE_IMG_FOLDER + TILE_PREFIX + TileStack.T54.name + JPG;
+    	lake.add(new Tile(container, initialTilePath, INIT_TILE_X, INIT_TILE_Y));
     }
 
     @Override
@@ -73,6 +85,7 @@ public class MainGame extends BasicGame {
     	favors.render(container, g);
     	tileStack.render(container, g);
     	renderPlayers(container, g);
+    	renderLake(container, g);
     	// FIXME - print real amount of favors and tiles
     	g.drawString("20x", 120, favors.getY() + 5);
     	g.drawString("20x", tileStack.getX() + 10, tileStack.getY() + 10);
@@ -81,6 +94,12 @@ public class MainGame extends BasicGame {
     private void renderPlayers(GameContainer container, Graphics g) throws SlickException {
     	for (PlayerView pv : players) {
     		pv.render(container, g);
+    	}
+    }
+    
+    private void renderLake(GameContainer container, Graphics g) throws SlickException {
+    	for (Tile tile : lake) {
+    		tile.render(container, g);
     	}
     }
     

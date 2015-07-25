@@ -22,7 +22,11 @@ public class GameClient {
 		p1.init("p1", 0);
 		Player p2 = new Player();
 		p2.init("p2", 1);
-		Player[] players = new Player[] {p1, p2};
+		Player p3 = new Player();
+		p3.init("p3", 0);
+		Player p4 = new Player();
+		p4.init("p4", 1);
+		Player[] players = new Player[] {p1, p2, p3, p4};
 		game.setPlayers(players);
 
 		return game;

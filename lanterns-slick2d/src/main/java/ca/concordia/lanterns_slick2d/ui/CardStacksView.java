@@ -61,7 +61,7 @@ public class CardStacksView implements Game {
 			Card card = cards[i];
 			card.render(container, g);
 			// FIXME - print real amount on each stack
-			g.drawString("8x", 30, card.getY() + 10);
+			g.drawString("8x", card.getX() + 10, card.getY() + 10);
 		}
 	}
 
