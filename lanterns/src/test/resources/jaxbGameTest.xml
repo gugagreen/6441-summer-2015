@@ -34,6 +34,7 @@
     <dedications/>
     <dedications/>
     <favors>20</favors>
+    <id>testGame</id>
     <players>
         <cards>
             <colour>ORANGE</colour>
@@ -133,4 +134,5 @@
         <id>2</id>
         <name>p3</name>
     </players>
+    <started>false</started>
 </game>

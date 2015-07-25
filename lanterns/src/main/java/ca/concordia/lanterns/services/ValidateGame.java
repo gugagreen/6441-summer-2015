@@ -16,7 +16,7 @@ import ca.concordia.lanternsentities.Player;
 public interface ValidateGame {
 	
 	int MIN_PLAYERS = 2;
-	int MAX_PLAYERS = 2;
+	int MAX_PLAYERS = 4;
 	
 
 	/**

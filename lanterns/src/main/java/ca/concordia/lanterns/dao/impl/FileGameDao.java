@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import ca.concordia.lanterns.dao.GameDao;
+import ca.concordia.lanterns.exception.LanternsException;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanterns.readwrite.MarshallerManager;
 import ca.concordia.lanterns.readwrite.impl.JaxbGameMarshaller;
@@ -35,8 +36,7 @@ public class FileGameDao implements GameDao {
 			Path path = Paths.get(resource);
 			Files.write(path, writer.toString().getBytes());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new LanternsException("Internal error while saving [" + resource + "].", e);
 		}
 	}
 
@@ -47,8 +47,7 @@ public class FileGameDao implements GameDao {
 			FileReader reader = new FileReader(new File(resource));
 			game = marshaller.unmarshall(reader);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new LanternsException("Unable to find game for file [" + resource + "].", e);
 		}
 		return game;
 	}

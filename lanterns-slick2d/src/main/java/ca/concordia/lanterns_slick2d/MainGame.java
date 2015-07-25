@@ -1,7 +1,19 @@
 package ca.concordia.lanterns_slick2d;
 
 
-import static ca.concordia.lanterns_slick2d.constants.Constants.*;
+import static ca.concordia.lanterns_slick2d.constants.Constants.CARDS_X;
+import static ca.concordia.lanterns_slick2d.constants.Constants.CARDS_Y;
+import static ca.concordia.lanterns_slick2d.constants.Constants.FAVORS_X;
+import static ca.concordia.lanterns_slick2d.constants.Constants.FAVORS_Y;
+import static ca.concordia.lanterns_slick2d.constants.Constants.GAME_TITLE;
+import static ca.concordia.lanterns_slick2d.constants.Constants.INIT_TILE_X;
+import static ca.concordia.lanterns_slick2d.constants.Constants.INIT_TILE_Y;
+import static ca.concordia.lanterns_slick2d.constants.Constants.JPG;
+import static ca.concordia.lanterns_slick2d.constants.Constants.TILE_BACK_IMG;
+import static ca.concordia.lanterns_slick2d.constants.Constants.TILE_IMG_FOLDER;
+import static ca.concordia.lanterns_slick2d.constants.Constants.TILE_PREFIX;
+import static ca.concordia.lanterns_slick2d.constants.Constants.TILE_STACK_X;
+import static ca.concordia.lanterns_slick2d.constants.Constants.TILE_STACK_Y;
 
 import java.util.ArrayList;
 
@@ -10,7 +22,6 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TileSet;
 
 import ca.concordia.lanterns_slick2d.client.GameClient;
 import ca.concordia.lanterns_slick2d.client.PlayerViewEnum;

@@ -29,14 +29,12 @@ public class PlayerView implements Game {
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		if (vertical) {
-			// FIXME - recalculate when its vertical
 			initCardStacks(x, (y + 100), container);
 			initTileStack(x, (y + 20), container);
 		} else {
 			initCardStacks((x + 80), (y + 20), container);
 			initTileStack(x, (y + 20), container);
 		}
-    	
 	}
 	
 	private void initCardStacks(int xStack, int yStack, GameContainer container) throws SlickException {
@@ -51,7 +49,6 @@ public class PlayerView implements Game {
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
