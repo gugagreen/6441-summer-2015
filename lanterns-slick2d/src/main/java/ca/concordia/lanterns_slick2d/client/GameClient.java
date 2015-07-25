@@ -11,7 +11,26 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
+
+// FIXME - add interface
 public class GameClient {
+	
+	public Game getGame() {
+		// FIXME - connect to server and get real game. By now, just creating a stub.
+		Game game = new Game();
+		Player p1 = new Player();
+		p1.init("p1", 0);
+		Player p2 = new Player();
+		p2.init("p2", 1);
+		Player p3 = new Player();
+		p3.init("p3", 0);
+		Player p4 = new Player();
+		p4.init("p4", 1);
+		Player[] players = new Player[] {p1, p2, p3, p4};
+		game.setPlayers(players);
+
+		return game;
+	}
 
 	// FIXME - just adding this client now to test. Need to break it into classes/interfaces.
 	public static void main(String[] args) {
