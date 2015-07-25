@@ -27,6 +27,10 @@ public class LanternCardWrapper {
 	}
 
 	public void setQuantity(int quantity) {
+		if ( quantity < 0 ) {
+			throw new IllegalArgumentException ( "The number of lantern cards can't be negative" ) ;
+		}
+		
 		this.quantity = quantity;
 	}
 

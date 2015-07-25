@@ -14,7 +14,7 @@ import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 
-public class ExchangeLanterCardTest {
+public class ExchangeLanternCardTest {
 
 	private Game game ;
 	private PlayerService service ;
@@ -115,7 +115,7 @@ public class ExchangeLanterCardTest {
 			fail ( "The exchange should be forbidden when supply of lantern card inis empty" ) ;
 		} catch (GameRuleViolationException e) {
 			String message = colors[colors.length-1].toString() + 
-					" is out of stock. Hence, you can't make this exchange" ;
+					" colored lantern cards are out of stock. Hence, you can't make this exchange" ;
 			assertEquals ( message, e.getMessage() ) ;
 		}				
 		
