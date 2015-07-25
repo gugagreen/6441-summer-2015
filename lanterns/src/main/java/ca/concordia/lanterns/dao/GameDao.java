@@ -8,12 +8,17 @@ import ca.concordia.lanternsentities.Game;
 public interface GameDao {
 	
 	/**
-	 * Saves a {@link Game} object.
+	 * Saves a {@link Game} object into a place (e.g. file, db) specified by the resource.
 	 * @param resource	
 	 * @param game
 	 */
 	void saveGame(String resource, Game game);
 	
+	/**
+	 * Loads a {@link Game} object from a given resource.
+	 * @param resource	Resource that specifies where the {@link Game} is stored.
+	 * @return	The {@link Game}.
+	 */
 	Game loadGame(String resource);
 
 }

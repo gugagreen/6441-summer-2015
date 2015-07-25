@@ -6,7 +6,9 @@ package ca.concordia.lanterns.exception;
  * @version 1.0
  *
  */
-public class GameRuleViolationException extends Exception {
+public class GameRuleViolationException extends LanternsException {
+
+	private static final long serialVersionUID = 4627159268292645417L;
 
 	public GameRuleViolationException ( String message ) {
 		super ( message ) ;

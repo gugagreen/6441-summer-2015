@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <game>
+    <id>testGame</id>
     <cards>
         <colour>ORANGE</colour>
         <quantity>0</quantity>
@@ -133,4 +134,5 @@
         <id>2</id>
         <name>p3</name>
     </players>
+    <started>false</started>
 </game>

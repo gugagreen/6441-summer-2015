@@ -18,6 +18,7 @@ import ca.concordia.lanternsentities.enums.DedicationType;
 public class Game {
 	public static final int TOTAL_FAVORS = 20;
 
+	private String id;
 	/** Players in the game. */
 	private Player[] players;
 	/** Lake where tiles are being displayed for all users. */
@@ -31,15 +32,19 @@ public class Game {
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
 	/** Index to mark current player in {@link #players} */
-	private int currentTurnPlayer ;
+	private int currentTurnPlayer;
+	/** Says if game is already started. */
+	private boolean started;
 	
 	/**
 	 * Initializes a new Game based on the player names.
 	 * <p>This constructor will instantiate (but not populate) all attributes of this Game instance.
 	 * 
 	 * @param playerNames Names of each current player (ordered by login time)
+	 * @param id	The game id.
 	 */
-	public void init(final String[] playerNames) {
+	public void init(final String[] playerNames, final String id) {
+		this.id = id;
 		
 		this.players = new Player[playerNames.length];
 		for (int i = 0; i < playerNames.length; i++) {
@@ -67,6 +72,14 @@ public class Game {
 		this.favors = TOTAL_FAVORS;
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public int getFavors() {
 		return favors;
 	}
@@ -129,6 +142,14 @@ public class Game {
 	
 	public void setCurrentTurnPlayer(int id) {
 		currentTurnPlayer = id ;
+	}
+
+	public boolean isStarted() {
+		return started;
+	}
+
+	public void setStarted(boolean started) {
+		this.started = started;
 	}
 	
 }

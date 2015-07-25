@@ -37,7 +37,7 @@ public class DefaultSetupService implements SetupService {
 		int playerCount = sortedPlayerNames.length;
 		
 		Game game = new Game();
-		game.init(sortedPlayerNames);
+		game.init(sortedPlayerNames, generateGameId(sortedPlayerNames));
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		
 		startLake(game.getLake(), totalTiles[0], game.getPlayers().length);
@@ -47,6 +47,15 @@ public class DefaultSetupService implements SetupService {
 		setDedicationTokens(game.getDedications(), playerCount);
 		distributeInitialLanterns(game.getLake(), game.getCards(), game.getPlayers());
 		return game;
+	}
+	
+	private String generateGameId(final String[] sortedPlayerNames) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(System.currentTimeMillis() + "_");
+		for (String name : sortedPlayerNames) {
+			sb.append(name);
+		}
+		return sb.toString();
 	}
 	
 	/**
