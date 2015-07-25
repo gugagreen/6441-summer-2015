@@ -87,8 +87,9 @@ public class MainGame extends BasicGame {
     	renderPlayers(container, g);
     	renderLake(container, g);
     	// FIXME - print real amount of favors and tiles
-    	g.drawString("20x", 120, favors.getY() + 5);
-    	g.drawString("20x", tileStack.getX() + 10, tileStack.getY() + 10);
+        Game game = client.getGame();
+    	g.drawString(game.getFavors() + "x", 120, favors.getY() + 5);
+    	g.drawString(game.getTiles().size() + "x", tileStack.getX() + 10, tileStack.getY() + 10);
     }
     
     private void renderPlayers(GameContainer container, Graphics g) throws SlickException {
