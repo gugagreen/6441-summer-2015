@@ -41,6 +41,7 @@ public class MainGame extends BasicGame {
     private PlayerView[] players;
     
     private GameClient client;
+    private Game game;
 
     public MainGame() {
         super(GAME_TITLE);
@@ -50,7 +51,7 @@ public class MainGame extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-    	Game game = client.getGame();
+    	game = client.getGame();
         cardStacks = new CardStacksView(true, CARDS_X, CARDS_Y);
     	cardStacks.init(container);
         favors = new FavorToken(container, FAVORS_X, FAVORS_Y);
@@ -87,7 +88,7 @@ public class MainGame extends BasicGame {
     	renderPlayers(container, g);
     	renderLake(container, g);
     	// FIXME - print real amount of favors and tiles
-        Game game = client.getGame();
+        //Game game = client.getGame();
     	g.drawString(game.getFavors() + "x", 120, favors.getY() + 5);
     	g.drawString(game.getTiles().size() + "x", tileStack.getX() + 10, tileStack.getY() + 10);
     }

@@ -27,6 +27,9 @@ public class GameClient {
 		Player p4 = new Player();
 		p4.init("p4", 1);
 		Player[] players = new Player[] {p1, p2, p3, p4};
+		String[] playerNames = {p1.getName(), p2.getName(), p3.getName(), p4.getName()};
+
+		game.init(playerNames);
 		game.setPlayers(players);
 
 		return game;
