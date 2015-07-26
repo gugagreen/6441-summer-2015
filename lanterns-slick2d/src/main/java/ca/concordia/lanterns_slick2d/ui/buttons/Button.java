@@ -34,6 +34,7 @@ public abstract class Button extends MouseOverArea {
 	@Override
 	public void mouseReleased(int button, int mx, int my) {
 		isClicked = false;
+		this.notifyListeners();
 	}
 
 	@Override
