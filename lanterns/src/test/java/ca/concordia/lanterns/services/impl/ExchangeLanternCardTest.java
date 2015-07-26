@@ -3,10 +3,7 @@ package ca.concordia.lanterns.services.impl;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanternsentities.Game;

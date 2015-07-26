@@ -4,7 +4,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import ca.concordia.lanternsentities.Game;
-import ca.concordia.lanternsentities.Player;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
