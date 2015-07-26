@@ -17,6 +17,7 @@ import ca.concordia.lanternsentities.Game;
 
 @Path("/game")
 public class GameResource {
+	// FIXME - Use GamePoolService
 
 	private SetupService setupService = DefaultSetupService.getInstance();
 	private PlayerService playerService = ActivePlayerService.getInstance();

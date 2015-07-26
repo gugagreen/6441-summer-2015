@@ -1,4 +1,4 @@
-package ca.concordia.lanterns_slick2d.ui;
+package ca.concordia.lanterns_slick2d.ui.views;
 
 import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;

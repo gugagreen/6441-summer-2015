@@ -16,6 +16,7 @@ How to setup eclipse to run slick2d:
 ==============================
 
 How to run "lanterns-slick2d" from command line
+
 1) make sure the server (project "lanterns") is up and running
 	Note: if the server is not up, when you run the client project you will get an error message like that:
 			Unnable to connect to [http://localhost:8080/rest/game]
