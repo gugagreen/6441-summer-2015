@@ -1,5 +1,7 @@
 package ca.concordia.lanternsentities;
 
+import java.util.Arrays;
+
 import ca.concordia.lanternsentities.enums.Colour;
 /** Lake Tile entity
  * 
@@ -14,8 +16,6 @@ public class LakeTile {
 	public static final int TOTAL_SIDES = 4;
 	
 	private TileSide[] sides;
-	/** Index of which element in {@link #sides} is facing the first player in the game. */
-	private int orientation;
 	private boolean platform;
 	/**
 	 * Each Lake tile has four sides, each side can have a colour, there are 7 different colours.
@@ -89,12 +89,13 @@ public class LakeTile {
 		this.platform = platform;
 	}
 
-	public int getOrientation() {
-		return orientation;
-	}
 
 	public void setOrientation(int orientation) {
-		this.orientation = orientation;
+		TileSide[] orientedSides = Arrays.copyOfRange(this.sides, orientation, TOTAL_SIDES + orientation) ;
+		for (int i = 0, j = TOTAL_SIDES - orientation; i != orientation && j != TOTAL_SIDES; ++i, ++j) {
+			orientedSides[j] = this.sides[i] ;
+		}
+		this.sides = orientedSides ;
 	}
 	
 }

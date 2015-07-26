@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.concordia.lanternsentities.LakeTile;
+import ca.concordia.lanternsentities.TileSide;
 import ca.concordia.lanternsentities.enums.Colour;
 
 public class LakeTileTest {
@@ -56,5 +57,23 @@ public class LakeTileTest {
 		LakeTile matchingLakeTile = new LakeTile();
 		matchingLakeTile.init(colours, true);
 		assertTrue(this.lakeTile.equals(matchingLakeTile));
+	}
+	
+	@Test
+	public void setOrientationTest () {
+		TileSide[] expectedOrientedSides = new TileSide[4] ;
+		Colour[] colours = {Colour.BLACK, Colour.GREEN, Colour.RED,Colour.BLUE};
+		for (int i = 0; i != colours.length; ++i){
+			expectedOrientedSides[i] = new TileSide() ;
+			expectedOrientedSides[i].setColour(colours[i]);
+		}
+
+		this.lakeTile.setOrientation(2);
+
+		TileSide[] sides = lakeTile.getSides() ;
+		
+		for (int i = 0; i != colours.length; ++i){
+			assertEquals (sides[i], expectedOrientedSides[i]) ;
+		}
 	}
 }

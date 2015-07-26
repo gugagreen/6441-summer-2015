@@ -24,6 +24,7 @@ public class MakeDedicationTest {
 	private static final Colour[] colors = Colour.values() ;
 	private static final List<DedicationType> dType = Arrays.asList(DedicationType.values()) ;
 	
+	//TODO Refactor all the tests.
 	@Before
 	public void setUp () {
 		String[] playerNames = {"A","B","C"} ;
