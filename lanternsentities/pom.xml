@@ -32,8 +32,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -49,7 +49,7 @@
 				<configuration>
 					<links>
 						<link>http://commons.apache.org/lang/api</link>
-						<link>http://java.sun.com/j2se/1.8.0/docs/api</link>
+						<link>http://java.sun.com/j2se/1.7.0/docs/api</link>
 					</links>
 				</configuration>
 			</plugin>

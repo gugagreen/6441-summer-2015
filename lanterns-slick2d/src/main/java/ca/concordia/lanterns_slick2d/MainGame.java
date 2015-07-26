@@ -62,7 +62,7 @@ public class MainGame extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-    	game = client.getGame();
+    	game = client.createGame();
         cardStacks = new CardStacksView(true, CARDS_X, CARDS_Y);
     	cardStacks.init(container);
         favors = new FavorToken(container, FAVORS_X, FAVORS_Y);
