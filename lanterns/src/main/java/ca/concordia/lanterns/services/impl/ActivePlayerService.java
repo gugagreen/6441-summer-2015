@@ -44,8 +44,11 @@ public class ActivePlayerService implements PlayerService {
 
     public void notifyObservers(String eventMessage)
     {
-        for (GameEventListener obj : gameEventListeners)
-            obj.displayEventMessage(eventMessage);
+        if (!gameEventListeners.isEmpty()) {
+            for (GameEventListener obj : gameEventListeners)
+                obj.displayEventMessage(eventMessage);
+        }else
+            System.out.println("please add some observers first");
     }
 
 	/**
