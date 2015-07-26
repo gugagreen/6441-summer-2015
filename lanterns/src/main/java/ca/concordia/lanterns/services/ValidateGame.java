@@ -53,7 +53,8 @@ public interface ValidateGame {
 	
 	/**
 	 * Validates that the correct number of lake cards is present in the game, relative to the number of players.
-	 * <p> Also Validates that players have 3 lake tiles in their hand.
+	 * <p> Validates that players have no more than 3 lake tiles in their hand at any time.
+	 * <p> Also validates that player have 3 lake tiles in their had for the begining on the game.
 	 * @param players each player should have 3 lake cards in their hand at the start of the game.
 	 * @param lake The lake may contain anywhere from 1 to all lake Tiles.
 	 * @param lakeTile There are different numbers of lake tiles in the game based on the number of players.

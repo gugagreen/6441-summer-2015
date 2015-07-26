@@ -88,12 +88,23 @@ public class ValidateGameImpl implements ValidateGame {
 			sum = sum + players[i].getTiles().size();
 		}
 		if ((players.length == 4 && sum != 33) || (players.length == 3 && sum != 28) || (players.length == 2 && sum != 23)) {
-			throw new IllegalArgumentException("The quantity of Lake Tiles in the game have been Compromised");
+			throw new IllegalArgumentException("The quantity of Lake Tiles in the game has been Compromised");
 		}
-		//TODO Validates that all players have 3 lake tiles in their hand, shouldn't players be allowed to have less than 3 cards if the game is nearing the end? Game ends when no lake tiles are left to play (hands are empty).
+		//Validates that all players have no more than 3 lake tiles in their hand
 		for (int i = 0; i != players.length; ++i) {
-			if (players[i].getTiles().size() != 3 && !lake.isEmpty() && players[i].getId() != currentTurnPlayer) {
-				throw new IllegalArgumentException("Player: " + players[i].getName() + "have insufficient Lake Tiles");
+			
+			if(players[i].getTiles().size() > 3){
+				throw new IllegalArgumentException("Player: " + players[i].getName() + "has too many Lake Tiles" );
+			}
+		}
+		//Validates that all players have 3 lake tiles for the beginning of the game, after this point players are allowed to have 2,1,0 tiles until game ends.
+		for (int i = 0; i != players.length; ++i) {
+			
+			if ((players.length == 4 && lake.size() < 21) || (players.length == 3 && lake.size() < 19) || (players.length == 2 && lake.size() < 17)){
+			
+				if (players[i].getTiles().size() != 3 && !lake.isEmpty() && players[i].getId() != currentTurnPlayer) {
+					throw new IllegalArgumentException("Player: " + players[i].getName() + "has insufficient Lake Tiles");
+				}
 			}
 		}
 
