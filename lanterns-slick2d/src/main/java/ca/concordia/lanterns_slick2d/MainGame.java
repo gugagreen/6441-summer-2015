@@ -17,7 +17,6 @@ import static ca.concordia.lanterns_slick2d.constants.Constants.TILE_STACK_Y;
 
 import java.util.ArrayList;
 
-import ca.concordia.lanterns.services.GameEventListener;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -37,7 +36,7 @@ import ca.concordia.lanternsentities.enums.TileStack;
 /**
  * A game using Slick2d
  */
-public class MainGame extends BasicGame implements GameEventListener {
+public class MainGame extends BasicGame {
 
     /** Screen width */
     private static final int WIDTH = 1024;
@@ -127,11 +126,5 @@ public class MainGame extends BasicGame implements GameEventListener {
         app.setShowFPS(SHOW_FPS);
         app.setForceExit(false);
         app.start();
-    }
-
-    //Not sure did the right thing
-    @Override
-    public void displayEventMessage(String eventMessage) {
-        this.eventMessage = eventMessage;
     }
 }

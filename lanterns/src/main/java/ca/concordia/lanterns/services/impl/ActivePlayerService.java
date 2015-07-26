@@ -23,33 +23,34 @@ import ca.concordia.lanternsentities.enums.DedicationType;
  *
  */
 public class ActivePlayerService implements PlayerService {
-	
+
 	private static final List<Colour> colors = Arrays.asList(Colour.values());
 	private List<GameEventListener> gameEventListeners = new ArrayList<GameEventListener>();
-    private String eventMessage = null;
+	private String eventMessage = null;
 
 	private static class SingletonHolder {
 		static final ActivePlayerService INSTANCE = new ActivePlayerService();
 	}
-	
+
 	public static ActivePlayerService getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
 
-    public void addListener (GameEventListener toAdd)
-    {
-        if(!gameEventListeners.contains(toAdd))
-            gameEventListeners.add(toAdd);
-    }
+	public void addListener(GameEventListener toAdd) {
+		if (!gameEventListeners.contains(toAdd)) {
+			gameEventListeners.add(toAdd);
+		}
+	}
 
-    public void notifyObservers(String eventMessage)
-    {
-        if (!gameEventListeners.isEmpty()) {
-            for (GameEventListener obj : gameEventListeners)
-                obj.displayEventMessage(eventMessage);
-        }else
-            System.out.println("please add some observers first");
-    }
+	public void notifyObservers(String eventMessage) {
+		if (!gameEventListeners.isEmpty()) {
+			for (GameEventListener obj : gameEventListeners) {
+				obj.displayEventMessage(eventMessage);
+			}
+		} else {
+			System.out.println("please add some observers first");
+		}
+	}
 
 	/**
 	 * The rules for exchanging lantern cards
@@ -95,79 +96,78 @@ public class ActivePlayerService implements PlayerService {
 		gameReceiveCard.setQuantity(gameReceiveCard.getQuantity() + 1);
 		playerReceiveCard.setQuantity(playerReceiveCard.getQuantity() + 1);
 
-        eventMessage = player.getName() + " spent 2 favor tokens to exchange a " + giveCard.toString() + " lantern card to a " + receiveCard.toString() + " lantern card";
-        notifyObservers(eventMessage);
+		eventMessage = player.getName() + " spent 2 favor tokens to exchange a " + giveCard.toString() + " lantern card to a "
+				+ receiveCard.toString() + " lantern card";
+		notifyObservers(eventMessage);
 	}
 
 	@Override
 	public void makeDedication(Game game, int id, DedicationType dedicationType, Colour[] color)
 			throws GameRuleViolationException {
-		
-		Player player = game.getPlayers()[id] ;
-		List<DedicationType> dType = Arrays.asList(DedicationType.values()) ;
-		
-		Stack<DedicationToken> dedicationStack = game.getDedications()
-				[dType.indexOf(dedicationType)].getStack() ;
-		Stack<DedicationToken> genericStack = game.getDedications()
-				[dType.indexOf(DedicationType.GENERIC)].getStack() ;
-		
-		if ( dedicationStack.isEmpty() && genericStack.isEmpty() ){
-			throw new GameRuleViolationException ( dedicationType.toString() + " dedication tokens"
-					+ " are out of stock. Hence, you can't make this dedication" ) ;
+
+		Player player = game.getPlayers()[id];
+		List<DedicationType> dType = Arrays.asList(DedicationType.values());
+
+		Stack<DedicationToken> dedicationStack = game.getDedications()[dType.indexOf(dedicationType)].getStack();
+		Stack<DedicationToken> genericStack = game.getDedications()[dType.indexOf(DedicationType.GENERIC)].getStack();
+
+		if (dedicationStack.isEmpty() && genericStack.isEmpty()) {
+			throw new GameRuleViolationException(dedicationType.toString() + " dedication tokens"
+					+ " are out of stock. Hence, you can't make this dedication");
 		}
-		
-		int requiredColors ;
-		int  requiredCardPerColor;
-		
-		if ( dedicationType.equals(DedicationType.FOUR_OF_A_KIND)) {
-			requiredColors = 1 ;
-			requiredCardPerColor = 4 ;
-		} else if ( dedicationType.equals(DedicationType.THREE_PAIRS)) {
-			requiredColors = 3 ;
-			requiredCardPerColor = 2 ;			
-		} else if ( dedicationType.equals(DedicationType.SEVEN_UNIQUE)) {
-			requiredColors = 7 ;
-			requiredCardPerColor = 1 ;		
+
+		int requiredColors;
+		int requiredCardPerColor;
+
+		if (dedicationType.equals(DedicationType.FOUR_OF_A_KIND)) {
+			requiredColors = 1;
+			requiredCardPerColor = 4;
+		} else if (dedicationType.equals(DedicationType.THREE_PAIRS)) {
+			requiredColors = 3;
+			requiredCardPerColor = 2;
+		} else if (dedicationType.equals(DedicationType.SEVEN_UNIQUE)) {
+			requiredColors = 7;
+			requiredCardPerColor = 1;
 		} else {
-			throw new IllegalArgumentException ( "Invalid Dedication type" ) ;
+			throw new IllegalArgumentException("Invalid Dedication type");
 		}
-		
-		if ( color.length == requiredColors) {
-			LanternCardWrapper[] playerCard = new LanternCardWrapper[requiredColors] ;
-			LanternCardWrapper[] gameCard  = new LanternCardWrapper[requiredColors] ;
-			
+
+		if (color.length == requiredColors) {
+			LanternCardWrapper[] playerCard = new LanternCardWrapper[requiredColors];
+			LanternCardWrapper[] gameCard = new LanternCardWrapper[requiredColors];
+
 			// Get references to lantern cards of mentioned colors from player as well as game
-			for ( int i = 0 ; i != color.length; ++i ) {
-				playerCard[i] = player.getCards()[colors.indexOf(color[i])] ;
-				
+			for (int i = 0; i != color.length; ++i) {
+				playerCard[i] = player.getCards()[colors.indexOf(color[i])];
+
 				// check if player have enough cards for required colors to make the dedication
-				if ( playerCard[i].getQuantity() < requiredCardPerColor ) {
-					throw new GameRuleViolationException ( "You do not have enough " +
-							color[i].toString() + " colored lantern cards to make this dedication." ) ;
+				if (playerCard[i].getQuantity() < requiredCardPerColor) {
+					throw new GameRuleViolationException("You do not have enough " + color[i].toString()
+							+ " colored lantern cards to make this dedication.");
 				}
-				
-				gameCard[i] = game.getCards()[colors.indexOf(color[i])] ;
+
+				gameCard[i] = game.getCards()[colors.indexOf(color[i])];
 			}
-			
+
 			// Player gives lantern card to the game i.e pays for the dedication
-			for ( int i = 0 ; i != color.length; ++i ) {
+			for (int i = 0; i != color.length; ++i) {
 				playerCard[i].setQuantity(playerCard[i].getQuantity() - requiredCardPerColor);
 				gameCard[i].setQuantity(gameCard[i].getQuantity() + requiredCardPerColor);
 			}
-			
+
 			// Game gives player the earned dedication
-			
-			if (  dedicationStack.isEmpty() ) {
-				DedicationToken convertedToken = genericStack.pop() ;
-				convertedToken.setTokenType(dedicationType); 
+
+			if (dedicationStack.isEmpty()) {
+				DedicationToken convertedToken = genericStack.pop();
+				convertedToken.setTokenType(dedicationType);
 				player.getDedications().add(convertedToken);
 			} else {
-				player.getDedications().add(dedicationStack.pop()) ;
+				player.getDedications().add(dedicationStack.pop());
 			}
-			
+
 		} else {
-			throw new IllegalArgumentException ( dedicationType.toString() + " dedication requires"
-					+ requiredColors + " different colors" ) ;
+			throw new IllegalArgumentException(dedicationType.toString() + " dedication requires" + requiredColors
+					+ " different colors");
 		}
 	}
 
