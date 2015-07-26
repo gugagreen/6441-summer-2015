@@ -10,7 +10,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<main.class>ca.concordia.lanterns_slick2d.Game</main.class>
+		<main.class>ca.concordia.lanterns_slick2d.MainGame</main.class>
 		<!-- dependencies -->
 		<lanterns.version>0.0.1-SNAPSHOT</lanterns.version>
 		<jersey.version>1.9</jersey.version>
