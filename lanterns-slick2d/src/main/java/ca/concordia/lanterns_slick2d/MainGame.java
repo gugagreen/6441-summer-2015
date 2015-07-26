@@ -17,6 +17,7 @@ import static ca.concordia.lanterns_slick2d.constants.Constants.TILE_STACK_Y;
 
 import java.util.ArrayList;
 
+import ca.concordia.lanterns.services.GameEventListener;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -36,7 +37,7 @@ import ca.concordia.lanternsentities.enums.TileStack;
 /**
  * A game using Slick2d
  */
-public class MainGame extends BasicGame {
+public class MainGame extends BasicGame implements GameEventListener {
 
     /** Screen width */
     private static final int WIDTH = 1024;
@@ -44,6 +45,7 @@ public class MainGame extends BasicGame {
     private static final int HEIGHT = 768;
     private static final boolean FULL_SCREEN = false;
     private static final boolean SHOW_FPS = true;
+    private String eventMessage = null;
     
     private CardStacksView cardStacks;
     private FavorToken favors;
@@ -102,6 +104,9 @@ public class MainGame extends BasicGame {
         //Game game = client.getGame();
     	g.drawString(game.getFavors() + "x", 120, favors.getY() + 5);
     	g.drawString(game.getTiles().size() + "x", tileStack.getX() + 10, tileStack.getY() + 10);
+
+        //FIXME - set the correct coordinate for the event Message
+        g.drawString(eventMessage, 300, 300);
     }
     
     private void renderPlayers(GameContainer container, Graphics g) throws SlickException {
@@ -124,4 +129,9 @@ public class MainGame extends BasicGame {
         app.start();
     }
 
+    //Not sure did the right thing
+    @Override
+    public void displayEventMessage(String eventMessage) {
+        this.eventMessage = eventMessage;
+    }
 }

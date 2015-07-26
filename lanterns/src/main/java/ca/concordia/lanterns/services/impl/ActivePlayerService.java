@@ -1,11 +1,13 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.PlayerService;
+import ca.concordia.lanterns.services.GameEventListener;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LanternCardWrapper;
@@ -23,6 +25,8 @@ import ca.concordia.lanternsentities.enums.DedicationType;
 public class ActivePlayerService implements PlayerService {
 	
 	private static final List<Colour> colors = Arrays.asList(Colour.values());
+	private List<GameEventListener> gameEventListeners = new ArrayList<GameEventListener>();
+    private String eventMessage = null;
 
 	private static class SingletonHolder {
 		static final ActivePlayerService INSTANCE = new ActivePlayerService();
@@ -31,6 +35,18 @@ public class ActivePlayerService implements PlayerService {
 	public static ActivePlayerService getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
+
+    public void addListener (GameEventListener toAdd)
+    {
+        if(!gameEventListeners.contains(toAdd))
+            gameEventListeners.add(toAdd);
+    }
+
+    public void notifyObservers(String eventMessage)
+    {
+        for (GameEventListener obj : gameEventListeners)
+            obj.displayEventMessage(eventMessage);
+    }
 
 	/**
 	 * The rules for exchanging lantern cards
@@ -75,6 +91,9 @@ public class ActivePlayerService implements PlayerService {
 
 		gameReceiveCard.setQuantity(gameReceiveCard.getQuantity() + 1);
 		playerReceiveCard.setQuantity(playerReceiveCard.getQuantity() + 1);
+
+        eventMessage = player.getName() + " spent 2 favor tokens to exchange a " + giveCard.toString() + " lantern card to a " + receiveCard.toString() + " lantern card";
+        notifyObservers(eventMessage);
 	}
 
 	@Override
