@@ -11,18 +11,47 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 // FIXME - add interface
 public class GameClient {
 
 	// TODO - move all endpoint related constants to a common place (probably a properties file in entities project)
-	public static final String HOST = "localhost";
-	public static final String PORT = "8080";
-	public static final String REST_URL = "http://" + HOST + ":" + PORT + "/rest";
-	public static final String GAME_URL = REST_URL + "/game";
+	private Properties configProps;
 	
 	private static final Client client = Client.create();
-	
-	private static class SingletonHolder {
+
+    public Properties getConfigProps() {
+        return configProps;
+    }
+
+    public void setConfigProps() {
+
+        configProps = new Properties();
+        InputStream input = null;
+        String configFilePath = System.getProperty("user.dir") + "\\..\\lanternsentities\\src\\main\\properties\\config.properties";
+
+        try {
+            input = new FileInputStream(configFilePath);
+            // load a properties file
+            configProps.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static class SingletonHolder {
 		static final GameClient INSTANCE = new GameClient();
 	}
 	
@@ -31,13 +60,15 @@ public class GameClient {
 	}
 	
 	public Game createGame() {
+
+        setConfigProps();
 		MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
 		queryParams.add("p1", "one");
 		queryParams.add("p2", "two");
 		queryParams.add("p3", "three");
 		queryParams.add("p4", "four");
 		
-		ClientResponse response = doPost(GAME_URL, queryParams, null);
+		ClientResponse response = doPost(configProps.getProperty("gameURL"), queryParams, null);
 		
 		Game output = response.getEntity(Game.class);
 		
