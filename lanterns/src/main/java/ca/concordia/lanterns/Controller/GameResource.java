@@ -18,6 +18,11 @@ import ca.concordia.lanterns.services.impl.DefaultSetupService;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.enums.Colour;
 
+/**
+ * GameResource contains the methods that can be accessed by the client.
+ * 
+ *
+ */
 @Path("/game")
 public class GameResource {
 
@@ -89,6 +94,8 @@ public class GameResource {
 		}
 		return Response.status(Response.Status.OK.getStatusCode()).entity(game).build();
 	}
+	
+	
 
 	private void validateParamNotNull(String[] paramNames, Object[] params) {
 		for (int i = 0; i < params.length; i++) {

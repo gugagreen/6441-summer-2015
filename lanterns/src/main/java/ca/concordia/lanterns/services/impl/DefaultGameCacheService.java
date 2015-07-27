@@ -7,8 +7,13 @@ import ca.concordia.lanterns.dao.GameDao;
 import ca.concordia.lanterns.dao.impl.FileGameDao;
 import ca.concordia.lanterns.exception.LanternsException;
 import ca.concordia.lanterns.services.GameCacheService;
+import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanternsentities.Game;
 
+/**
+ * This is an implementation of {@link GameCacheService}.
+ *
+ */
 public class DefaultGameCacheService implements GameCacheService {
 
 	/** Pool that holds {@link Game} objects. */

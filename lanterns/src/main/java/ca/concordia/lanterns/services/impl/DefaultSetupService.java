@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+import ca.concordia.lanterns.services.GameCacheService;
 import ca.concordia.lanterns.services.SetupService;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
@@ -17,6 +18,10 @@ import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 import ca.concordia.lanternsentities.enums.TileStack;
 
+/**
+ * This is an implementation of {@link SetupService}.
+ *
+ */
 public class DefaultSetupService implements SetupService {
 	
 	private static class SingletonHolder {
@@ -40,7 +45,7 @@ public class DefaultSetupService implements SetupService {
 		game.init(sortedPlayerNames, generateGameId(sortedPlayerNames));
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		
-		startLake(game.getLake(), totalTiles[0], game.getPlayers().length);
+		startLake(game.getLake(), totalTiles[0]);
 		dealPlayerTiles(totalTiles, game.getPlayers());
 		drawTileStack(game.getTiles(), totalTiles, playerCount);
 		separateLanternCards(game.getCards(), playerCount);
@@ -128,7 +133,7 @@ public class DefaultSetupService implements SetupService {
 	}
 
 	@Override
-	public void startLake(final List<LakeTile> lake, final LakeTile initialTile, int playerCount) {
+	public void startLake(final List<LakeTile> lake, final LakeTile initialTile) {
 		// RED on initial tile will always be element 1. And will be pointing the first player. 
 		initialTile.setOrientation(1);
 		lake.add(initialTile);

@@ -15,8 +15,14 @@ import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanterns.services.GameCacheService;
 import ca.concordia.lanterns.services.ValidateGame;
 
+
+/**
+ * This is an implementation of {@link ValidateGame}.
+ *
+ */
 public class ValidateGameImpl implements ValidateGame {
 
 	public void validatePlayerCount(Game game) {

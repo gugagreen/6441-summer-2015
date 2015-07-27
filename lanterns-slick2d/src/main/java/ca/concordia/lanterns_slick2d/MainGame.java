@@ -57,7 +57,7 @@ public class MainGame extends StateBasedGame {
 			this.enterState(MainGame.STATE_PLAY);
 		} else {
 			// FIXME - add message to ui
-			System.out.println("No players");
+			throw new SlickException("No player names specified.");
 		}
 	}
 
