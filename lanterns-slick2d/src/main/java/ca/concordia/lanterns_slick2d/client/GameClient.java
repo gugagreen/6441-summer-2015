@@ -30,12 +30,11 @@ public class GameClient {
 		return SingletonHolder.INSTANCE;
 	}
 	
-	public Game createGame() {
+	public Game createGame(final String[] playerNames) {
 		MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
-		queryParams.add("p1", "one");
-		queryParams.add("p2", "two");
-		queryParams.add("p3", "three");
-		queryParams.add("p4", "four");
+		for (int i = 0; i < playerNames.length; i++) {
+			queryParams.add("p" + (i+1), playerNames[i]);
+		}
 		
 		ClientResponse response = doPost(GAME_URL, queryParams, null);
 		

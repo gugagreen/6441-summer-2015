@@ -14,5 +14,4 @@ public enum PlayerViewEnum {
 		this.y = y;
 	}
 	
-	
 }

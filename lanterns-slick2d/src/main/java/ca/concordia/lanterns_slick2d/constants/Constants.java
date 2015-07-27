@@ -8,6 +8,7 @@ public interface Constants {
 	String TILE_IMG_FOLDER = IMG_FOLDER + "tiles" + File.separator;
 	String TILE_BACK_IMG = TILE_IMG_FOLDER + "back-tile.png";
 	String TILE_PREFIX = "tiles_";
+	String CARD_IMG_FOLDER = IMG_FOLDER + "cards" + File.separator;
 	String JPG = ".jpg";
 	
 	int CARDS_X =10;

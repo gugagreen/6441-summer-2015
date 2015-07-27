@@ -5,7 +5,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import ca.concordia.lanterns_slick2d.constants.Constants;
 import ca.concordia.lanterns_slick2d.ui.buttons.Card;
+import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.enums.Colour;
 
 /**
@@ -13,10 +15,12 @@ import ca.concordia.lanternsentities.enums.Colour;
  */
 public class CardStacksView implements Game {
 
-	private Card[] cards;
+	private Card[] cardButtons;
 	private boolean vertical;
 	private int x;
 	private int y;
+	
+	private LanternCardWrapper[] cards;
 
 	/**
 	 * Constructor of CardStacks.
@@ -34,16 +38,16 @@ public class CardStacksView implements Game {
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		Colour[] colours = Colour.values();
-		cards = new Card[colours.length];
+		cardButtons = new Card[colours.length];
 		
 		for (int i = 0; i < colours.length; i++) {
-			String ref = "img/cards/" + colours[i].name().toLowerCase() + ".jpg";
+			String ref = Constants.CARD_IMG_FOLDER + colours[i].name().toLowerCase() + Constants.JPG;
 			if (vertical) {
 				int cardY = this.y + i * (10 + Card.HEIGHT);
-				cards[i] = new Card(container, ref, this.x, cardY);
+				cardButtons[i] = new Card(container, ref, this.x, cardY);
 			} else {
 				int cardX = this.x + i * (10 + Card.WIDTH);
-				cards[i] = new Card(container, ref, cardX, this.y);
+				cardButtons[i] = new Card(container, ref, cardX, this.y);
 			}
 		}
 	}
@@ -57,11 +61,13 @@ public class CardStacksView implements Game {
 
 	@Override
 	public void render(GameContainer container, Graphics g) {
-		for (int i = 0; i < cards.length; i++) {
-			Card card = cards[i];
+		for (int i = 0; i < cardButtons.length; i++) {
+			Card card = cardButtons[i];
 			card.render(container, g);
-			// FIXME - print real amount on each stack
-			g.drawString("8x", card.getX() + 10, card.getY() + 10);
+			if (cards != null) {
+				String qty = cards[i].getQuantity() + "x";
+				g.drawString(qty, card.getX() + 10, card.getY() + 10);
+			}
 		}
 	}
 
@@ -74,6 +80,10 @@ public class CardStacksView implements Game {
 	public String getTitle() {
 		// unimplemented
 		return null;
+	}
+
+	public void setCards(LanternCardWrapper[] cards) {
+		this.cards = cards;
 	}
 
 }

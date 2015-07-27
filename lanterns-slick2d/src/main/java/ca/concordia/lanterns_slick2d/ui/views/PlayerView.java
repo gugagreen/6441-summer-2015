@@ -18,12 +18,16 @@ public class PlayerView implements Game {
 	private int x;
 	private int y;
 
-	public PlayerView(Player player, boolean vertical, int x, int y) {
+	public PlayerView(boolean vertical, int x, int y) {
 		super();
-		this.player = player;
 		this.vertical = vertical;
 		this.x = x;
 		this.y = y;
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
+		this.cardStacks.setCards(player.getCards());
 	}
 
 	@Override
@@ -48,16 +52,18 @@ public class PlayerView implements Game {
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		// TODO Auto-generated method stub
+		// nothing by now
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		cardStacks.render(container, g);
     	tileStack.render(container, g);
-    	g.drawString(player.getName(), x, y);
-    	// FIXME - print real amount of favors and tiles
-    	g.drawString("3x", tileStack.getX() + 10, tileStack.getY() + 10);
+    	if (player != null) {
+    		g.drawString(player.getName(), x, y);
+    		String tileQty = player.getTiles().size() + "x";
+    		g.drawString(tileQty, tileStack.getX() + 10, tileStack.getY() + 10);
+    	}
 	}
 
 	@Override
