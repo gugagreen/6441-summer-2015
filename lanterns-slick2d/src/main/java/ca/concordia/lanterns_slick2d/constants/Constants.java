@@ -5,6 +5,7 @@ import java.io.File;
 public interface Constants {
 	String GAME_TITLE = "Lanterns - Team A";
 	String IMG_FOLDER = "img" + File.separator;
+    String BACKGROUND_IMG = IMG_FOLDER + "background.jpg";
 	String TILE_IMG_FOLDER = IMG_FOLDER + "tiles" + File.separator;
 	String TILE_BACK_IMG = TILE_IMG_FOLDER + "back-tile.png";
 	String TILE_PREFIX = "tiles_";
