@@ -18,4 +18,22 @@ public interface Constants {
 	int TILE_STACK_Y = 670;
 	int INIT_TILE_X = 500;
 	int INIT_TILE_Y = 350;
+
+	int PLAYER1_X = 100;
+    int PLAYER1_Y = 200;
+
+    int PLAYER2_X = 100;
+    int PLAYER2_Y = 250;
+
+    int PLAYER3_X = 100;
+    int PLAYER3_Y = 300;
+
+    int PLAYER4_X = 100;
+    int PLAYER4_Y = 350;
+
+    int PLAYER_WIDTH = 100;
+    int PLAYER_HEIGHT = 25;
+
+    int START_BUTTON_X = 500;
+    int START_BUTTON_Y = 300;
 }

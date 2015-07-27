@@ -1,5 +1,7 @@
 package ca.concordia.lanterns_slick2d.ui.states;
 
+import static ca.concordia.lanterns_slick2d.constants.Constants.*;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -38,11 +40,11 @@ public class Menu extends BasicGameState implements ComponentListener {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		font.loadGlyphs();
-		player1 = new TextField(container, font, 100, 200, 100, 25); // FIXME - set position from constants
-		player2 = new TextField(container, font, 100, 250, 100, 25); // FIXME - set position from constants
-		player3 = new TextField(container, font, 100, 300, 100, 25); // FIXME - set position from constants
-		player4 = new TextField(container, font, 100, 350, 100, 25); // FIXME - set position from constants
-		startButton = new Start(container, 500, 300); // FIXME - set position from constants
+		player1 = new TextField(container, font, PLAYER1_X, PLAYER1_Y, PLAYER_WIDTH, PLAYER_HEIGHT); // FIXME - set position from constants
+		player2 = new TextField(container, font, PLAYER2_X, PLAYER2_Y, PLAYER_WIDTH, PLAYER_HEIGHT); // FIXME - set position from constants
+		player3 = new TextField(container, font, PLAYER3_X, PLAYER3_Y, PLAYER_WIDTH, PLAYER_HEIGHT); // FIXME - set position from constants
+		player4 = new TextField(container, font, PLAYER4_X, PLAYER4_Y, PLAYER_WIDTH, PLAYER_HEIGHT); // FIXME - set position from constants
+		startButton = new Start(container, START_BUTTON_X, START_BUTTON_Y); // FIXME - set position from constants
 	}
 
 	@Override
