@@ -6,6 +6,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * This extends  {@link BasicGameState} to allow us to have a game state where all of the gameplay is finished.
+ *
+ */
 public class End extends BasicGameState {
 
 	private int id;

@@ -48,7 +48,11 @@ public class MainGame extends StateBasedGame {
 		this.addState(new Play(STATE_PLAY));
 		this.addState(new End(STATE_END));
 	}
-	
+	/**
+	 * A method that allows entry into the Playing state of the game.
+	 * @param playerNames Requires 2-4 player names
+	 * @throws SlickException Throws exception if no player names are given.
+	 */
 	public void enterPlay(String[] playerNames) throws SlickException {
 		if (playerNames != null) {
 			Game game = GameClient.getInstance().createGame(playerNames);

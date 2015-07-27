@@ -2,6 +2,10 @@ package ca.concordia.lanterns_slick2d.constants;
 
 import java.io.File;
 
+/**
+ * An interface with all the constants used in our game view.
+ * 
+ */
 public interface Constants {
 	String GAME_TITLE = "Lanterns - Team A";
 	String IMG_FOLDER = "img" + File.separator;

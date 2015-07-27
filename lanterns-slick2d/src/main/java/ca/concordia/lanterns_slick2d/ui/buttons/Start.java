@@ -3,6 +3,10 @@ package ca.concordia.lanterns_slick2d.ui.buttons;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
+/**
+ * Describes the start button in the client view.
+ *
+ */
 public class Start extends Button {
 	
 	public static final String IMG_PATH = "img/start_button.png";

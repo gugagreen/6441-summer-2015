@@ -28,7 +28,10 @@ import ca.concordia.lanterns_slick2d.ui.views.CardStacksView;
 import ca.concordia.lanterns_slick2d.ui.views.PlayerView;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.enums.TileStack;
-
+/**
+ * This extends  {@link BasicGameState} to allow us to have a game state where all of the gameplay takes place.
+ *
+ */
 public class Play extends BasicGameState {
 	
 	private int id;

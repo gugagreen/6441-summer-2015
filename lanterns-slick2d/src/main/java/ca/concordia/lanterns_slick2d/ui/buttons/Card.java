@@ -3,6 +3,10 @@ package ca.concordia.lanterns_slick2d.ui.buttons;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
+/**
+ * Describes the card buttons in the client view.
+ *
+ */
 public class Card extends Button {
 	
 	public static final float SCALE = 0.1f;
