@@ -44,10 +44,6 @@ public abstract class Button extends MouseOverArea {
 	@Override
 	public void render(GUIContext container, Graphics g) {
 		image.draw(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-
-		if (isClicked) {
-			g.drawString("> " + image.getResourceReference(), 300, getY() + 10);
-		}
 	}
 
 }
