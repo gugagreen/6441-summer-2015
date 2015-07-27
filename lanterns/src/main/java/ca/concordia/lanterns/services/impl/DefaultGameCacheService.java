@@ -6,27 +6,27 @@ import java.util.Map;
 import ca.concordia.lanterns.dao.GameDao;
 import ca.concordia.lanterns.dao.impl.FileGameDao;
 import ca.concordia.lanterns.exception.LanternsException;
-import ca.concordia.lanterns.services.GamePoolService;
+import ca.concordia.lanterns.services.GameCacheService;
 import ca.concordia.lanternsentities.Game;
 
-public class DefaultGamePoolService implements GamePoolService {
+public class DefaultGameCacheService implements GameCacheService {
 
 	/** Pool that holds {@link Game} objects. */
-	private static final Map<String, Game> gamePool = new HashMap<String, Game>();
+	private static final Map<String, Game> cache = new HashMap<String, Game>();
 	private static final GameDao dao = new FileGameDao();
 	
 	private static class SingletonHolder {
-		static final DefaultGamePoolService INSTANCE = new DefaultGamePoolService();
+		static final DefaultGameCacheService INSTANCE = new DefaultGameCacheService();
 	}
 	
-	public static DefaultGamePoolService getInstance() {
+	public static DefaultGameCacheService getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
 	
 	@Override
 	public Game getAvailableGame() {
-		for (Game game: gamePool.values()) {
-			// TODO
+		for (Game game: cache.values()) {
+			// TODO - only return games that are not started
 			// if (game.isStarted)
 		}
 		return null;
@@ -34,16 +34,16 @@ public class DefaultGamePoolService implements GamePoolService {
 	
 	@Override
 	public Game getGame(final String id) {
-		return gamePool.get(id);
+		return cache.get(id);
 	}
 	
 	@Override
 	public void addGame(final Game game) {
 		if ((game != null) && (game.getId() != null) && (!game.getId().trim().isEmpty())) {
-			synchronized (gamePool) {
+			synchronized (cache) {
 				// if game does not exist in pool, create it
 				if (getGame(game.getId()) == null) {
-					gamePool.put(game.getId(), game);
+					cache.put(game.getId(), game);
 				} else {
 					throw new LanternsException("Cannot add. Game already exists!");
 				}
@@ -60,7 +60,9 @@ public class DefaultGamePoolService implements GamePoolService {
 		// if game is not in pool yet, add it.
 		Game poolGame = getGame(game.getId());
 		if (poolGame == null) {
-			gamePool.put(game.getId(), game);
+			synchronized (cache) {
+				cache.put(game.getId(), game);
+			}
 		}
 		return game;
 	}
@@ -71,7 +73,9 @@ public class DefaultGamePoolService implements GamePoolService {
 		// if game is not in pool yet, add it.
 		Game poolGame = getGame(game.getId());
 		if (poolGame == null) {
-			gamePool.put(game.getId(), game);
+			synchronized (cache) {
+				cache.put(game.getId(), game);
+			}
 		}
 	}	
 	
