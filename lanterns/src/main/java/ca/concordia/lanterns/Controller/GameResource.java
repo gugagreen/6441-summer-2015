@@ -9,7 +9,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanterns.services.GameCacheService;
 import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanterns.services.SetupService;
