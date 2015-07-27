@@ -1,6 +1,7 @@
 package ca.concordia.lanterns_slick2d.ui.states;
 
 import java.util.ArrayList;
+import static ca.concordia.lanterns_slick2d.constants.Constants.*;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -42,7 +43,7 @@ public class Menu extends BasicGameState implements ComponentListener {
 			// FIXME - set position from constants
 			playerNames[i] = new TextField(container, font, 100, (200 + 50*i), 100, 25);
 		}
-		startButton = new Start(container, 500, 300); // FIXME - set position from constants
+		startButton = new Start(container, START_BUTTON_X, START_BUTTON_Y); // FIXME - set position from constants
 	}
 
 	@Override
