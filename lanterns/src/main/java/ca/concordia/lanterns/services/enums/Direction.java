@@ -9,7 +9,7 @@ import ca.concordia.lanternsentities.TileSide;
  *
  */
 public enum Direction {
-	NORTH(0, 0, 1), EAST(1, 1, 0), SOUTH(2, 0, -1), WEST(3, -1, 0);
+	NORTH(0, 1, 0), EAST(1, 0, 1), SOUTH(0, -1, 2), WEST(-1, 0, 3);
 	
 	/**
 	 * The first integer coordinates along which this direction lies.

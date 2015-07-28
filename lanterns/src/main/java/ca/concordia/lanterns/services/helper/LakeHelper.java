@@ -25,28 +25,33 @@ public class LakeHelper {
 		
 		firstNeighbourDirection.moveForward(location);
 		
-		dfs(firstNeighbour);
+		dfs(firstNeighbour, new Point());
 	}
 
-	private static void dfs(LakeTile tile) {
+	private static void dfs(LakeTile tile, Point cameFrom) {
 		visitedTiles.add(tile);
 
-		Point startLocation = new Point(location);
+		Point startLocation = new Point(cameFrom);
+
+		Point myLocation = new Point(location);
 
 		for (int i = 0; i != LakeTile.TOTAL_SIDES; ++i) {
 
 			LakeTile adjTile = tile.getSides()[i].getAdjacent();
 
 			if (adjTile != null && ! (visitedTiles.contains(adjTile))) {
+				
 				directions.get(i).moveForward(location);
 
-				dfs(adjTile);
+				dfs(adjTile, myLocation);
 			}
 		}
 
 		setAsAdjacent(tile);
 
-		location.setLocation(startLocation);
+		location.setLocation(cameFrom);
+		
+
 	}
 
 	private static void setAsAdjacent(LakeTile neighbour) {

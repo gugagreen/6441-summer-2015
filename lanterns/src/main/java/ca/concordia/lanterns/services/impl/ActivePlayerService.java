@@ -192,19 +192,19 @@ public class ActivePlayerService implements PlayerService {
 			firstPlayerTileSideIndex = LakeTile.TOTAL_SIDES
 					- (orientedPlayerTileSideIndex - playerTileSideIndex);
 		}
-
+		
 		playerTile.setOrientation(firstPlayerTileSideIndex);
-
+		
 		LakeHelper.setAdjacentLakeTiles(playerTile, existingTile,
-				directions.get(existingTileSideIndex));
+				directions.get(orientedPlayerTileSideIndex));
 
 		giveMatchingBonus(game, player, playerTile);
 		distributeLanternCards(game, id, playerTile);
 
-		game.getLake().add(playerTile);
-		player.getTiles().remove(playerTileIndex);
+//		game.getLake().add(playerTile);
+	//	player.getTiles().remove(playerTileIndex);
 		
-		giveNewTile(game, player);
+//		giveNewTile(game, player);
 	}
 	
 	private void giveNewTile(Game game, Player player) {
