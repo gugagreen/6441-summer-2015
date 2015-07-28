@@ -1,5 +1,8 @@
 package ca.concordia.lanterns_slick2d.client;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -7,6 +10,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import ca.concordia.lanternsentities.Game;
+import static ca.concordia.lanterns_slick2d.constants.Constants.*;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -31,24 +35,30 @@ public class GameClient {
         configProps = new Properties();
         InputStream input = null;
         // FIXME - bad path - does not work always - also really bad to have it in another project
-//        String configFilePath = System.getProperty("user.dir") + "\\..\\lanternsentities\\src\\main\\properties\\config.properties";
-//
-//        try {
-//            input = new FileInputStream(configFilePath);
-//            // load a properties file
-//            configProps.load(input);
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        } finally {
-//            if (input != null) {
-//                try {
-//                    input.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
+
+        try {
+            input = new FileInputStream(getConfigFile(CONFIGFILEPATH));
+            // load a properties file
+            configProps.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
+
+	private File getConfigFile (String configFileName)
+	{
+		ClassLoader classLoader = getClass().getClassLoader();
+		File configFile = new File(classLoader.getResource(configFileName).getFile());
+		return configFile;
+	}
 
     private static class SingletonHolder {
 		static final GameClient INSTANCE = new GameClient();
@@ -66,8 +76,8 @@ public class GameClient {
 		}
 		
 		// FIXME - use that later, when configProps path is fixed (instead of hardcoded path)
-		// ClientResponse response = doPost(configProps.getProperty("gameURL"), queryParams, null);
-		ClientResponse response = doPost("http://localhost:8080/rest/game", queryParams, null);
+        ClientResponse response = doPost(configProps.getProperty("gameURL"), queryParams, null);
+		//ClientResponse response = doPost("http://localhost:8080/rest/game", queryParams, null);
 		
 		Game output = response.getEntity(Game.class);
 		
