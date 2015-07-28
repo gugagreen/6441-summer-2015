@@ -27,6 +27,8 @@ import ca.concordia.lanterns_slick2d.ui.buttons.Tile;
 import ca.concordia.lanterns_slick2d.ui.views.CardStacksView;
 import ca.concordia.lanterns_slick2d.ui.views.PlayerView;
 import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LanternCardWrapper;
+import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.TileStack;
 /**
  * This extends  {@link BasicGameState} to allow us to have a game state where all of the gameplay takes place.
@@ -114,6 +116,15 @@ public class Play extends BasicGameState {
 		this.game = game;
 		for (int i = 0; i < game.getPlayers().length; i++) {
 			players[i].setPlayer(game.getPlayers()[i]);
+			
+			// FIXME - delete those traces
+			Player player = game.getPlayers()[i];
+			for (LanternCardWrapper card : player.getCards()) {
+				if (card.getQuantity() > 0) {
+					System.out.println(">> i=" + i + "\tid=" + player.getId()  + "\tname=" + player.getName()+ "\tid=" + card.getColour());
+				}
+			}
+			// FIXME - finish deleting here
 		}
 		this.cardStacks.setCards(game.getCards());
 	}

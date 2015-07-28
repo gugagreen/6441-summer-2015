@@ -9,7 +9,7 @@ import org.newdawn.slick.gui.GUIContext;
  */
 public class Tile extends Button {
 
-	public static final float SCALE = 0.1f;
+	public static final float SCALE = 0.08f;
 	// 530 x 805
 	public static final int ORIGINAL_WIDTH = 715;
 	public static final int ORIGINAL_HEIGHT = 715;
