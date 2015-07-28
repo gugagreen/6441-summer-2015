@@ -34,6 +34,9 @@ public class ActivePlayerService implements PlayerService {
 	private static final List<Colour> colors = Arrays.asList(Colour.values());
 	private static final List<Direction> directions = Arrays.asList(Direction
 			.values());
+	
+	// Initialized to the number of players in the game when the game enters the last round. i.e after all the lake tiles are in lake
+	private int lastRoundCount = -1;
 	private List<GameEventListener> gameEventListeners = new ArrayList<GameEventListener>();
 	private String eventMessage = null;
 
@@ -120,6 +123,8 @@ public class ActivePlayerService implements PlayerService {
 				+ " lantern card to a " + receiveCard.toString()
 				+ " lantern card";
 		notifyObservers(eventMessage);
+		
+		updateLastRoundCount(game);
 	}
 
 	@Override
@@ -152,6 +157,8 @@ public class ActivePlayerService implements PlayerService {
 		} else {
 			player.getDedications().add(dedicationStack.pop());
 		}
+		
+		updateLastRoundCount(game);
 	}
 
 	@Override
@@ -194,6 +201,22 @@ public class ActivePlayerService implements PlayerService {
 		giveMatchingBonus(game, player, playerTile);
 		distributeLanternCards(game, id, playerTile);
 
+		game.getLake().add(playerTile);
+		player.getTiles().remove(playerTileIndex);
+		
+		giveNewTile(game, player);
+	}
+	
+	private void giveNewTile(Game game, Player player) {
+		if (game.getTiles().isEmpty()) {
+			EndGameDetectService endGameService = new EndGameDetectService();
+			if (endGameService.isGameEnded(game)){
+				lastRoundCount = game.getPlayers().length - 1;
+			}
+		} else {
+			LakeTile newPlayerTile = game.getTiles().pop();
+			player.getTiles().add(newPlayerTile);
+		}
 	}
 	
 	//TODO refactor duplicate code
@@ -320,6 +343,17 @@ public class ActivePlayerService implements PlayerService {
 			return DedicationCost.SEVEN_UNIQUE;
 		} else {
 			throw new IllegalArgumentException("Invalid Dedication type");
+		}
+	}
+	
+	private void updateLastRoundCount(Game game) {
+		if (lastRoundCount != -1) {
+			if (lastRoundCount - 1 != -1) {
+				--lastRoundCount;
+			} else {
+				EndGameDetectService endGameService = new EndGameDetectService();
+				endGameService.getGameWinner(game);
+			}
 		}
 	}
 }
