@@ -39,7 +39,10 @@ public class ValidateGameImpl implements ValidateGame {
 			throw new IllegalArgumentException("Invalid number of players");
 		}
 	}
-
+	/**
+	 * Method used to validate that the correct number of lantern cards are in a game.
+	 * Lanterns card numbers are dependent on the number of players in the game.
+	 */
 	public void validateLanternCards(Game game) {
 		Player[] players = game.getPlayers();
 		LanternCardWrapper[] cards = game.getCards();
@@ -54,7 +57,7 @@ public class ValidateGameImpl implements ValidateGame {
 			if ((players.length == 4 && sum == 8) || (players.length == 3 && sum == 7) || (players.length == 2 && sum == 5))
 				continue;
 			else {
-				throw new IllegalArgumentException("Insufficient Lanter Cards for the color: " + Colour.values()[i].toString());
+				throw new IllegalArgumentException("Insufficient Lantern Cards for the color: " + Colour.values()[i].toString());
 			}
 		}
 	}
@@ -68,7 +71,7 @@ public class ValidateGameImpl implements ValidateGame {
 		}
 		throw new IllegalArgumentException("Incorrect Start Player Marker");
 	}
-
+	
 	@Override
 	public void validateFavorToken(final Game game) {
 		Player[] player = game.getPlayers();

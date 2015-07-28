@@ -19,6 +19,9 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
+/**
+ * Allows user input using console, controls game flow.
+ */
 public class GameController {
 	private Scanner keyboard;
 	private Game game;

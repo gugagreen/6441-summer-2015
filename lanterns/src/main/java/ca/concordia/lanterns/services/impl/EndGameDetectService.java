@@ -7,6 +7,7 @@ import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.EndGameService;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 
 /**
@@ -60,6 +61,21 @@ public class EndGameDetectService implements EndGameService {
 					if (player.getFavors() > winnerHolder.getFavors()) {
 						winnerHolder = player;
 					}
+                    //In the case of a further tie
+					if (player.getFavors() == winnerHolder.getFavors())
+                    {
+                        int playerRemainCard = 0;
+                        int winnerHolderRemainCard = 0;
+
+                        for (LanternCardWrapper lanternCardWrapper : player.getCards())
+                            playerRemainCard += lanternCardWrapper.getQuantity();
+
+                        for (LanternCardWrapper lanternCardWrapper : winnerHolder.getCards())
+                            winnerHolderRemainCard += lanternCardWrapper.getQuantity();
+
+                        if (playerRemainCard > winnerHolderRemainCard)
+                            winnerHolder = player;
+                    }
 				}
 	
 				sum = 0;
