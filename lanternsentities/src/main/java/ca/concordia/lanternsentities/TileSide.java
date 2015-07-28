@@ -41,7 +41,11 @@ public class TileSide {
 
 	@Override
 	public String toString() {
-		return "TileSide [colour=" + colour + ", adjacent=" + adjacent + "]";
+		String adjacentString = null;
+		if (adjacent != null) {
+			adjacentString = adjacent.toShortString();
+		}
+		return "TileSide [colour=" + colour + ", adjacent=" + adjacentString + "]";
 	}
 
 	public Colour getColour() {

@@ -1,21 +1,22 @@
 package ca.concordia.lanterns.Controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 import ca.concordia.lanterns.dao.impl.FileGameDao;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanterns.services.EndGameService;
-import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.TileSide;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
@@ -158,6 +159,8 @@ public class GameController {
 		placeTile(currentPlayer);
 		
 		System.out.println("Player '" + currentPlayer.getName() + "' turn is finished.");
+		System.out.println("Game state after this player turn:");
+		displayCurrentGameState(game);
 	}
 	
 	private void exchangeLantern(Player currentPlayer) {
@@ -206,7 +209,29 @@ public class GameController {
 	}
 	
 	private void placeTile(Player currentPlayer)  {
-		// FIXME - implement
+		// active player must place a tile
+		System.out.println("Now it is time to place a tile.");
+		System.out.println("Select one of your tiles:");
+		List<LakeTile> playerTiles = currentPlayer.getTiles();
+		int playerTileIndex = getValidInt(getTilesString(playerTiles), 0, playerTiles.size()-1);
+		
+		System.out.println("Select one of the lake tiles to put your tile next to:");
+		List<LakeTile> lakeTiles = game.getLake();
+		int existingTileIndex = getValidInt(getTilesString(lakeTiles), 0, lakeTiles.size()-1);
+		
+		System.out.println("Select the side of the lake tiles to put your tile next to:");
+		LakeTile lakeTile = lakeTiles.get(existingTileIndex);
+		int existingTileSideIndex = getValidInt(getTileSidesString(lakeTile), 0, lakeTile.getSides().length-1);
+		
+		System.out.println("Select the side your tile to put next to the lake tile:");
+		LakeTile playerTile = playerTiles.get(playerTileIndex);
+		int playerTileSideIndex = getValidInt(getTileSidesString(playerTile), 0, playerTile.getSides().length-1);
+		
+		try {
+			ActivePlayerService.getInstance().placeLakeTile(game, currentPlayer.getId(), playerTileIndex, existingTileIndex, existingTileSideIndex, playerTileSideIndex);
+		} catch (GameRuleViolationException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 	
 	private void showWinner(Set<Player> winners) {
@@ -246,6 +271,26 @@ public class GameController {
 		StringBuffer sb = new StringBuffer();
 		for (DedicationType type : DedicationType.values()) {
 			sb.append(type.ordinal() + "=" + type + "; ");
+		}
+		return sb.toString();
+	}
+	
+	private String getTilesString(List<LakeTile> tiles) {
+		StringBuffer sb = new StringBuffer();
+		
+		for (int i = 0; i < tiles.size(); i++) {
+			sb.append(i + "=" + tiles.get(i) + "; ");
+		}
+		return sb.toString();
+	}
+	
+	private String getTileSidesString(LakeTile tile) {
+		StringBuffer sb = new StringBuffer();
+		
+		TileSide[] sides = tile.getSides();
+		
+		for (int i = 0; i < sides.length; i++) {
+			sb.append(i + "=" + sides[i] + "; ");
 		}
 		return sb.toString();
 	}
