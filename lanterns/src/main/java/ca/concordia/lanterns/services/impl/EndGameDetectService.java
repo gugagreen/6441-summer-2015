@@ -20,7 +20,7 @@ public class EndGameDetectService {
                 count++;
         }
 
-        return count == playerNum;
+        return currentGame.getTiles().empty() && (count == playerNum);
     }
 
     public Player getGameWinner (Game currentGame)
@@ -37,15 +37,15 @@ public class EndGameDetectService {
             if (sum > mostHonor) {
                 mostHonor = sum;
                 winnerHolder = player;
-                sum = 0;
             }
             //In the case of a tie
             if (sum == mostHonor)
             {
                 if (player.getFavors() > winnerHolder.getFavors())
                     winnerHolder = player;
-                sum = 0;
             }
+
+            sum = 0;
         }
 
         return winnerHolder;
