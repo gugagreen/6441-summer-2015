@@ -29,6 +29,11 @@ public enum Direction {
 		this.tileSideIndex = tileSideIndex;
 	}
 	
+	/**
+	 * Can be used to obtain the index of an opposite side of a lake tile.
+	 * Useful when checking for adjacent tiles.
+	 * @return The index of the opposing  side of a lake tile index.
+	 */
 	public int getOppositeTileSideIndex() {
 		int oppositeTileSideIndex = (this.tileSideIndex + 2) % 4;
 

@@ -10,6 +10,11 @@ import ca.concordia.lanterns.services.enums.Direction;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.TileSide;
 
+/**
+ * 
+ * Enables setting of attributes to lake tiles.
+ *
+ */
 public class LakeHelper {
 
 	private static final List<Direction> directions = Arrays.asList(Direction
