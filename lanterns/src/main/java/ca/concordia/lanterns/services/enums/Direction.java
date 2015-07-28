@@ -2,7 +2,6 @@ package ca.concordia.lanterns.services.enums;
 
 import java.awt.Point;
 
-import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.TileSide;
 /**
  * This enum represents the four directions along which any {@link TileSide} can be oriented.
