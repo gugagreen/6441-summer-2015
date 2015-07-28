@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import ca.concordia.lanterns.services.ValidateGame;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
@@ -15,8 +16,6 @@ import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
-import ca.concordia.lanterns.services.GameCacheService;
-import ca.concordia.lanterns.services.ValidateGame;
 
 
 /**
@@ -116,6 +115,7 @@ public class ValidateGameImpl implements ValidateGame {
 
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void validateDedicationToken(final DedicationTokenWrapper[] dedications, final Player[] players) {
 		DedicationType[] type = DedicationType.values();

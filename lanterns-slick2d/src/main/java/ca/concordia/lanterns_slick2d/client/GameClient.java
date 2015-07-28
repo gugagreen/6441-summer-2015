@@ -1,5 +1,8 @@
 package ca.concordia.lanterns_slick2d.client;
 
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
@@ -10,11 +13,6 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 // FIXME - add interface
 public class GameClient {

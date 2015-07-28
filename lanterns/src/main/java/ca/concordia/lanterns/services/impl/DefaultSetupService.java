@@ -13,7 +13,6 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
-import ca.concordia.lanternsentities.TileSide;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 import ca.concordia.lanternsentities.enums.TileStack;
@@ -120,12 +119,12 @@ public class DefaultSetupService implements SetupService {
 			// first, remove initial tile, and add to the gameTiles
 			int initalIndex = totalTiles.indexOf(TileStack.T54);
 			TileStack initialTile = totalTiles.remove(initalIndex);
-			gameTiles[0] = initialTile.tile;
+			gameTiles[0] = initialTile.getTile();
 			
 			// then shuffle remaining tiles and assign to gameTiles
 			Collections.shuffle(totalTiles);
 			for (int i = 1; i < gameTiles.length; i++) {
-				gameTiles[i] = totalTiles.get(i).tile;
+				gameTiles[i] = totalTiles.get(i).getTile();
 			}
 		}
 
@@ -230,12 +229,6 @@ public class DefaultSetupService implements SetupService {
 		if ((lake != null) && (!lake.isEmpty())) {
 			LakeTile firstTile = lake.get(0);
 			
-			// FIXME - delete those traces
-			for (int i = 0 ; i < 4 ; i++) {
-				System.out.println("side [" + i + "] = " + firstTile.getSides()[i].getColour());
-			}
-			// FIXME - finish deleting here
-			
 			List<Colour> colours = Arrays.asList(Colour.values());
 			for ( int i = 0 ; i < players.length ; i++) {
 				// first tile will always be oriented to first player, so can use normal index to find colour
@@ -248,18 +241,6 @@ public class DefaultSetupService implements SetupService {
 		} else {
 			throw new IllegalArgumentException("Lake does not contain a first tile!");
 		}
-		
-		// FIXME - delete those traces
-		for ( int i = 0 ; i < players.length ; i++) {
-			Player player = players[i];
-			for (LanternCardWrapper card : player.getCards()) {
-				if (card.getQuantity() > 0) {
-					System.out.println(">> i=" + i + "\tid=" + player.getId()  + "\tname=" + player.getName()+ "\tid=" + card.getColour());
-				}
-			}
-		}
-		System.out.println("\n\n");
-		// FIXME - finish deleting here
 	}
 
 }
