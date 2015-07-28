@@ -89,13 +89,27 @@ public class LakeTile {
 		this.platform = platform;
 	}
 
-
+/** Allows for the rotation of a lake Tile.
+ * <p> Moves the tileSide[orientation] to the tileSide[0] and rotates the tile accordingly.
+ * <p>Assumes that tiles have default orientation with Side[0] facing Player ID 0
+ *  and rest of sides increase in count going clockwise.
+ *  
+ * @param orientation tileSide position that will get moved to 0th position.
+ */
 	public void setOrientation(int orientation) {
-		TileSide[] orientedSides = Arrays.copyOfRange(this.sides, orientation, TOTAL_SIDES + orientation) ;
-		for (int i = 0, j = TOTAL_SIDES - orientation; i != orientation && j != TOTAL_SIDES; ++i, ++j) {
-			orientedSides[j] = this.sides[i] ;
+		
+		try{
+			//Moves the orientation index to a new array 0 index and circles around the TileSide array to "rotate" the tile sides.
+			TileSide[] orientedSides = Arrays.copyOfRange(this.sides, orientation, TOTAL_SIDES + orientation) ;
+			for (int i = 0, j = TOTAL_SIDES - orientation; i != orientation && j != TOTAL_SIDES; ++i, ++j) {
+				orientedSides[j] = this.sides[i] ;
+			}
+			this.sides = orientedSides ;	
+		} 
+		catch(IndexOutOfBoundsException e){
+			throw new IndexOutOfBoundsException("Cannot Enter an orientation greater than Number of sides");
 		}
-		this.sides = orientedSides ;
+
 	}
 	
 }
