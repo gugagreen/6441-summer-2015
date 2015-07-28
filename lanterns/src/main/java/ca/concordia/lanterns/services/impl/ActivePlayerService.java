@@ -6,12 +6,10 @@ import java.util.List;
 import java.util.Stack;
 
 import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanterns.services.LakeSearch;
 import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanterns.services.GameEventListener;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.enums.Direction;
-import ca.concordia.lanterns.services.enums.LakeSearchImpl;
 import ca.concordia.lanterns.services.helper.LakeHelper;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
@@ -38,9 +36,6 @@ public class ActivePlayerService implements PlayerService {
 			.values());
 	private List<GameEventListener> gameEventListeners = new ArrayList<GameEventListener>();
 	private String eventMessage = null;
-
-	private int x = 0;
-	private int y = 0;
 
 	private static class SingletonHolder {
 		static final ActivePlayerService INSTANCE = new ActivePlayerService();
