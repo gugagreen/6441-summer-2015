@@ -6,13 +6,19 @@ import java.util.List;
 import java.util.Stack;
 
 import ca.concordia.lanterns.exception.GameRuleViolationException;
+import ca.concordia.lanterns.services.LakeSearch;
 import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanterns.services.GameEventListener;
 import ca.concordia.lanterns.services.enums.DedicationCost;
+import ca.concordia.lanterns.services.enums.Direction;
+import ca.concordia.lanterns.services.enums.LakeSearchImpl;
+import ca.concordia.lanterns.services.helper.LakeHelper;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.TileSide;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
@@ -28,8 +34,13 @@ import ca.concordia.lanternsentities.enums.DedicationType;
 public class ActivePlayerService implements PlayerService {
 
 	private static final List<Colour> colors = Arrays.asList(Colour.values());
+	private static final List<Direction> directions = Arrays.asList(Direction
+			.values());
 	private List<GameEventListener> gameEventListeners = new ArrayList<GameEventListener>();
 	private String eventMessage = null;
+
+	private int x = 0;
+	private int y = 0;
 
 	private static class SingletonHolder {
 		static final ActivePlayerService INSTANCE = new ActivePlayerService();
@@ -150,10 +161,110 @@ public class ActivePlayerService implements PlayerService {
 
 	@Override
 	public void placeLakeTile(Game game, int id, int playerTileIndex,
-			int lakeTileIndex, int lakeTileSideIndex, int playerTileSideIndex)
-			throws GameRuleViolationException {
-		// TODO Auto-generated method stub
+			int existingTileIndex, int existingTileSideIndex,
+			int playerTileSideIndex) throws GameRuleViolationException {
 
+		Player player = game.getPlayers()[id];
+		LakeTile playerTile = player.getTiles().get(playerTileIndex);
+		LakeTile existingTile = game.getLake().get(existingTileIndex);
+
+		if (existingTile.getSides()[existingTileIndex].getAdjacent() != null) {
+			throw new GameRuleViolationException(
+					"The specified place in the lake is occupied by another tile."
+							+ "Hence you can't place your tile at this place");
+		}
+
+		// The Index value of the TileSide indexed by playerTileSideIndex, when
+		// playerTile is kept in the lake according to requested orientation
+		int orientedPlayerTileSideIndex = directions.get(existingTileSideIndex)
+				.getOppositeTileSideIndex();
+
+		// The index value of the TileSide facing the first player when
+		// playerTile is kept in the lake
+		int firstPlayerTileSideIndex;
+
+		if (playerTileSideIndex >= orientedPlayerTileSideIndex) {
+			firstPlayerTileSideIndex = playerTileSideIndex
+					- orientedPlayerTileSideIndex;
+		} else {
+			firstPlayerTileSideIndex = LakeTile.TOTAL_SIDES
+					- (orientedPlayerTileSideIndex - playerTileSideIndex);
+		}
+
+		playerTile.setOrientation(firstPlayerTileSideIndex);
+
+		LakeHelper.setAdjacentLakeTiles(playerTile, existingTile,
+				directions.get(existingTileSideIndex));
+
+		giveMatchingBonus(game, player, playerTile);
+		distributeLanternCards(game, id, playerTile);
+
+	}
+	
+	//TODO refactor duplicate code
+	private void distributeLanternCards(Game game, int activePlayerID, LakeTile playerTile) {
+		TileSide[] sides = playerTile.getSides();
+		Player[] players = game.getPlayers();
+		
+		for (int i = activePlayerID; i != players.length; ++i) {
+			Colour sideColor = sides[i].getColour();
+			LanternCardWrapper gameCard = game.getCards()[colors.indexOf(sideColor)] ;
+			
+			if (gameCard.getQuantity() != 0) {
+				LanternCardWrapper playerCard = players[i].getCards()[colors.indexOf(sideColor)];
+				
+				gameCard.setQuantity(gameCard.getQuantity() - 1);
+				playerCard.setQuantity(playerCard.getQuantity() + 1);
+			}
+		}
+		
+		for (int i = 0; i != activePlayerID; ++i) {
+			Colour sideColor = sides[i].getColour();
+			LanternCardWrapper gameCard = game.getCards()[colors.indexOf(sideColor)] ;
+			
+			if (gameCard.getQuantity() != 0) {
+				LanternCardWrapper playerCard = players[i].getCards()[colors.indexOf(sideColor)];
+				
+				gameCard.setQuantity(gameCard.getQuantity() - 1);
+				playerCard.setQuantity(playerCard.getQuantity() + 1);
+			}
+		}
+	}
+
+	private void giveMatchingBonus(Game game, Player player, LakeTile playerTile) {
+		TileSide[] sides = playerTile.getSides();
+	
+		for (int i = 0; i != sides.length; ++i) {
+			LakeTile adjTile = sides[i].getAdjacent();
+			
+			if (adjTile != null) {
+				Colour adjColor = adjTile.getSides()[directions.get(i)
+						.getOppositeTileSideIndex()].getColour();
+
+				if (adjColor.equals(sides[i].getColour())) {
+				
+					LanternCardWrapper gameCard = game.getCards()[colors
+							.indexOf(adjColor)];
+					
+					if (gameCard.getQuantity() != 0) {
+						gameCard.setQuantity(gameCard.getQuantity() - 1);
+						LanternCardWrapper playerCard = player.getCards()[colors
+								.indexOf(adjColor)];
+						playerCard.setQuantity(playerCard.getQuantity() + 1);
+					}
+
+					if (adjTile.isPlatform() && game.getFavors() != 0) {
+						game.setFavors(game.getFavors() - 1);
+						player.setFavors(player.getFavors() + 1);
+					}
+
+				}
+			}
+		}
+		if (playerTile.isPlatform() && game.getFavors() != 0) {
+			game.setFavors(game.getFavors() - 1);
+			player.setFavors(player.getFavors() + 1);
+		}
 	}
 
 	// Helper method for makeDedication. It exchanges the lantern cards between
