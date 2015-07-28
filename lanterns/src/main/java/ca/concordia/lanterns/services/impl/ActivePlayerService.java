@@ -40,6 +40,10 @@ public class ActivePlayerService implements PlayerService {
 	private List<GameEventListener> gameEventListeners = new ArrayList<GameEventListener>();
 	private String eventMessage = null;
 
+	public int getLastRoundCount() {
+		return lastRoundCount ;
+	}
+	
 	private static class SingletonHolder {
 		static final ActivePlayerService INSTANCE = new ActivePlayerService();
 	}
@@ -201,10 +205,10 @@ public class ActivePlayerService implements PlayerService {
 		giveMatchingBonus(game, player, playerTile);
 		distributeLanternCards(game, id, playerTile);
 
-//		game.getLake().add(playerTile);
-	//	player.getTiles().remove(playerTileIndex);
+		game.getLake().add(playerTile);
+		player.getTiles().remove(playerTileIndex);
 		
-//		giveNewTile(game, player);
+		giveNewTile(game, player);
 	}
 	
 	private void giveNewTile(Game game, Player player) {

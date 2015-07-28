@@ -2,6 +2,7 @@ package ca.concordia.lanterns.services.impl;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,19 +37,20 @@ public class PlaceATileTest {
 		game.init(sortedPlayerNames, "Test"); 
 
 		// Custom initialization of lake
-		LakeTile[] tilesInLake = new LakeTile[3];
-		tilesInLake[0] = TileStack.T54.getTile();
-		tilesInLake[1] = TileStack.T11.getTile();
-		tilesInLake[2] = TileStack.T33.getTile();
-		tilesInLake[0].setOrientation(2);
-		tilesInLake[1].setOrientation(0);
-		tilesInLake[2].setOrientation(3);
-		tilesInLake[0].getSides()[0].setAdjacent(tilesInLake[1]);
-		tilesInLake[1].getSides()[2].setAdjacent(tilesInLake[0]);
-		tilesInLake[1].getSides()[3].setAdjacent(tilesInLake[2]);
-		tilesInLake[2].getSides()[1].setAdjacent(tilesInLake[1]);
+		List<LakeTile> tilesInLake = new ArrayList<LakeTile>();
+		tilesInLake.add(TileStack.T54.getTile());
+		tilesInLake.add(TileStack.T11.getTile());
+		tilesInLake.add(TileStack.T33.getTile());
 		
-		game.setLake(Arrays.asList(tilesInLake));
+		tilesInLake.get(0).setOrientation(2);
+		tilesInLake.get(1).setOrientation(0);
+		tilesInLake.get(2).setOrientation(3);
+		tilesInLake.get(0).getSides()[0].setAdjacent(tilesInLake.get(1));
+		tilesInLake.get(1).getSides()[2].setAdjacent(tilesInLake.get(0));
+		tilesInLake.get(1).getSides()[3].setAdjacent(tilesInLake.get(2));
+		tilesInLake.get(2).getSides()[1].setAdjacent(tilesInLake.get(1));
+		
+		game.setLake(tilesInLake);
 
 		// Added one tile to the stack of tiles in game.
 		game.getTiles().add(TileStack.T12.getTile());
@@ -70,6 +72,8 @@ public class PlaceATileTest {
 		// Record Data structures before placing a tile
 		List<LakeTile> lake = game.getLake();
 		int lakeSize = lake.size();
+		
+		LakeTile topTile = game.getTiles().peek() ;
 		
 		TileSide westZerothTile = lake.get(0).getSides()[3];
 		TileSide southSecondTile = lake.get(2).getSides()[2];
@@ -112,10 +116,10 @@ public class PlaceATileTest {
 		assertEquals(game.getPlayers()[3].getCards()[colors.indexOf(Colour.BLACK)].getQuantity(), 1);
 		assertEquals(game.getPlayers()[0].getCards()[colors.indexOf(Colour.PURPLE)].getQuantity(), 0);
 
-		
-		
-		
-//		fail("Not yet implemented");
+		assertSame(game.getLake().get(3),playerTile);
+		assertSame(topTile,player.getTiles().get(0));
+		assertTrue(game.getTiles().isEmpty());
+		assertEquals(service.getLastRoundCount(), -1) ;
 	}
 
 }
