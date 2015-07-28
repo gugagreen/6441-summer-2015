@@ -73,6 +73,11 @@ public class LakeTile {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "LakeTile [sides=" + Arrays.toString(sides) + ", platform=" + platform + "]";
+	}
+
 	public TileSide[] getSides() {
 		return sides;
 	}

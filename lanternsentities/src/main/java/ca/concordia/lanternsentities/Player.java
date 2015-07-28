@@ -1,6 +1,7 @@
 package ca.concordia.lanternsentities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ca.concordia.lanternsentities.enums.Colour;
@@ -63,6 +64,12 @@ public class Player {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", id=" + id + ", cards=" + Arrays.toString(cards) + ", dedications=" + dedications
+				+ ", tiles=" + tiles + ", favors=" + favors + "]";
 	}
 
 	public String getName() {

@@ -14,6 +14,11 @@ public class LanternCardWrapper {
 	public LanternCardWrapper() {
 	}
 
+	@Override
+	public String toString() {
+		return "Lantern [colour=" + colour + ", quantity=" + quantity + "]";
+	}
+
 	public Colour getColour() {
 		return colour;
 	}

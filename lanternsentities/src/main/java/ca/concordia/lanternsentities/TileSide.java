@@ -39,6 +39,11 @@ public class TileSide {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "TileSide [colour=" + colour + ", adjacent=" + adjacent + "]";
+	}
+
 	public Colour getColour() {
 		return colour;
 	}

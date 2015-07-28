@@ -18,6 +18,18 @@ public class DedicationTokenWrapper {
 		this.stack = new Stack<DedicationToken>();
 	}
 
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < stack.size(); i++) {
+			if (i != 0) {
+				sb.append(" ");
+			}
+			sb.append(stack.get(i));
+		}
+		return "Token Stack [" + sb.toString() + "]";
+	}
+
 	@XmlElement(name="token")
 	public Stack<DedicationToken> getStack() {
 		return stack;

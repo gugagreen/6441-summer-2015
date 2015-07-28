@@ -51,6 +51,11 @@ public class DedicationToken {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "DedicationToken [value=" + value + ", type=" + type + "]";
+	}
+
 	public int getTokenValue() {
 		return value;
 	}
