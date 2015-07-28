@@ -3,6 +3,10 @@ package ca.concordia.lanterns_slick2d.ui.buttons;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 
+/**
+ * Describes the Favor Token Button in the view.
+ *
+ */
 public class FavorToken extends Button {
 	
 	public static final String IMG_PATH = "img/favor_token.png";

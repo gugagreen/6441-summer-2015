@@ -316,7 +316,7 @@ public class ActivePlayerService implements PlayerService {
 		}
 	}
 
-	private DedicationCost getDedicationCost(DedicationType dedicationType) {
+	public DedicationCost getDedicationCost(DedicationType dedicationType) {
 		if (dedicationType.equals(DedicationType.FOUR_OF_A_KIND)) {
 			return DedicationCost.FOUR_OF_A_KIND;
 		} else if (dedicationType.equals(DedicationType.THREE_PAIRS)) {

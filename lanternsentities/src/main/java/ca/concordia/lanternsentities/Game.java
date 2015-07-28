@@ -1,6 +1,7 @@
 package ca.concordia.lanternsentities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -72,6 +73,19 @@ public class Game {
 		this.favors = TOTAL_FAVORS;
 	}
 	
+	@Override
+	public String toString() {
+		return "Game [id=" + id 
+				+ ", favors=" + favors
+				+ ", currentTurnPlayer=" + currentTurnPlayer 
+				+ ", started=" + started 
+				+ ", \nplayers=" + Arrays.toString(players) 
+				+ ", \nlake=" + lake 
+				+ ", \ntiles=" + tiles 
+				+ ", \ncards=" + Arrays.toString(cards) 
+				+ ", \ndedications=" + Arrays.toString(dedications) + "]";
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -94,6 +108,14 @@ public class Game {
 		} else {
 			throw new IllegalArgumentException("Number of Favor Tokens should be in the range [0..20]");
 		}
+	}
+	
+	public int getNextPlayer() {
+		int next = currentTurnPlayer + 1;
+		if (next >= players.length) {
+			next = 0;
+		}
+		return next;
 	}
 
 	public Player[] getPlayers() {

@@ -29,13 +29,31 @@ public enum TileStack {
 	T63("6-3", BLUE, WHITE, ORANGE, RED, false), T64("6-4", BLUE, PURPLE, BLACK, ORANGE, false),
 	T65("6-5", RED, WHITE, BLACK, ORANGE, false), T66("6-6", WHITE, GREEN, PURPLE, BLUE, false);
 	
-	public final String name;
-	public final LakeTile tile;
+	private final String name;
+	private final LakeTile tile;
 	
 	TileStack(String name, Colour colour1, Colour colour2, Colour colour3, Colour colour4, boolean platform) {
 		this.name = name;
 		this.tile = new LakeTile();
 		tile.init(new Colour[] {colour1, colour2, colour3, colour4}, platform);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Get a safe copy of the TileStack tile
+	 * @return	the tile
+	 */
+	public LakeTile getTile() {
+		LakeTile copy = new LakeTile();
+		Colour[] colours = new Colour[this.tile.getSides().length];
+		for (int i = 0; i < colours.length; i++) {
+			colours[i] = this.tile.getSides()[i].getColour();
+		}
+		copy.init(colours, this.tile.isPlatform());
+		return copy;
 	}
 	
 }

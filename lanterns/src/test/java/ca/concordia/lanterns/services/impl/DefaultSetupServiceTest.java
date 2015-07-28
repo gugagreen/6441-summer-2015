@@ -85,7 +85,7 @@ public class DefaultSetupServiceTest {
 		Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
-		service.startLake(lake, initialTile, 4);
+		service.startLake(lake, initialTile);
 		
 		assertEquals(1, lake.size());
 		assertEquals(initialTile, lake.get(0));
@@ -198,8 +198,7 @@ public class DefaultSetupServiceTest {
 		LakeTile initialTile = new LakeTile();
 		initialTile.init(colours, false);
 		
-		initialTile.setOrientation(0);
-		lake.add(initialTile);
+		service.startLake(lake, initialTile);
 		
 		final LanternCardWrapper[] cards = new LanternCardWrapper[colourValues.size()];
 		
@@ -215,18 +214,16 @@ public class DefaultSetupServiceTest {
 			cards[i] = wrapper;
 		}
 		
-		Player[] players = createPlayers(4);
+		Player[] players = createPlayers(2);
+
 		service.distributeInitialLanterns(lake, cards, players);
-		assertNotNull(lake);
-		assertNotNull(cards);
-		assertTrue( players.length > 0 );
+		
 		for (int i = 0; i < players.length; i++) {
 			Player player = players[i];
-			
-			Colour colour = initialTile.getSides()[i].getColour();
-			assertNotNull(colour);
+			Colour colour = lake.get(0).getSides()[i].getColour();
+
 			final LanternCardWrapper[] playerCards = player.getCards();
-			assertTrue( playerCards.length > 0 );
+
 			for (int j = 0; j < playerCards.length; j++) {
 				LanternCardWrapper colourStack = playerCards[j];
 				if (j == colourValues.indexOf(colour)) {

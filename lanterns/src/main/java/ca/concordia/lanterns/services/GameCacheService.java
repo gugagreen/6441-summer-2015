@@ -3,7 +3,7 @@ package ca.concordia.lanterns.services;
 import ca.concordia.lanterns.exception.LanternsException;
 import ca.concordia.lanternsentities.Game;
 
-public interface GamePoolService {
+public interface GameCacheService {
 
 	/**
 	 * Get one available {@link Game} (not started and with space for new players) from the pool.

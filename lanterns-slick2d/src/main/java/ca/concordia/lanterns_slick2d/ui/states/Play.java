@@ -21,16 +21,17 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import ca.concordia.lanterns_slick2d.client.GameClient;
 import ca.concordia.lanterns_slick2d.client.PlayerViewEnum;
 import ca.concordia.lanterns_slick2d.ui.buttons.FavorToken;
 import ca.concordia.lanterns_slick2d.ui.buttons.Tile;
 import ca.concordia.lanterns_slick2d.ui.views.CardStacksView;
 import ca.concordia.lanterns_slick2d.ui.views.PlayerView;
 import ca.concordia.lanternsentities.Game;
-import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.TileStack;
-
+/**
+ * This extends  {@link BasicGameState} to allow us to have a game state where all of the gameplay takes place.
+ *
+ */
 public class Play extends BasicGameState {
 	
 	private int id;
@@ -41,12 +42,10 @@ public class Play extends BasicGameState {
     private ArrayList<Tile> lake;
     private PlayerView[] players;
     
-    private GameClient client;
     private Game game;
     
     public Play(int id) {
     	this.id = id;
-        this.client = new GameClient();
         this.lake = new ArrayList<Tile>();
     }
 
@@ -57,27 +56,25 @@ public class Play extends BasicGameState {
 	
 	@Override
     public void init(GameContainer container, StateBasedGame sbg) throws SlickException {
-    	game = client.createGame();
-        cardStacks = new CardStacksView(true, CARDS_X, CARDS_Y);
+    	cardStacks = new CardStacksView(true, CARDS_X, CARDS_Y);
     	cardStacks.init(container);
         favors = new FavorToken(container, FAVORS_X, FAVORS_Y);
         tileStack = new Tile(container, TILE_BACK_IMG, TILE_STACK_X, TILE_STACK_Y);
-        initPlayers(game, container);
-        initLake(game, container);
+    	initPlayers(container);
+        initLake(container);
     }
     
-    private void initPlayers(final Game game, final GameContainer container) throws SlickException {
-    	Player[] ps = game.getPlayers();
-    	players = new PlayerView[ps.length];
+    private void initPlayers(final GameContainer container) throws SlickException {
+    	players = new PlayerView[4];
     	PlayerViewEnum[] pvEnum = PlayerViewEnum.values();
-    	for (int i = 0; i < ps.length; i++) {
-    		players[i] = new PlayerView(ps[i], pvEnum[i].vertical, pvEnum[i].x, pvEnum[i].y);
+    	for (int i = 0; i < 4; i++) {
+    		players[i] = new PlayerView(pvEnum[i].vertical, pvEnum[i].x, pvEnum[i].y);
     		players[i].init(container);
 		}
     }
     
-    private void initLake(final Game game, final GameContainer container) throws SlickException {
-    	String initialTilePath = TILE_IMG_FOLDER + TILE_PREFIX + TileStack.T54.name + JPG;
+    private void initLake(final GameContainer container) throws SlickException {
+    	String initialTilePath = TILE_IMG_FOLDER + TILE_PREFIX + TileStack.T54.getName() + JPG;
     	lake.add(new Tile(container, initialTilePath, INIT_TILE_X, INIT_TILE_Y));
     }
 
@@ -93,15 +90,17 @@ public class Play extends BasicGameState {
     	tileStack.render(container, g);
     	renderPlayers(container, g);
     	renderLake(container, g);
-    	// FIXME - print real amount of favors and tiles
-        //Game game = client.getGame();
-    	g.drawString(game.getFavors() + "x", 120, favors.getY() + 5);
-    	g.drawString(game.getTiles().size() + "x", tileStack.getX() + 10, tileStack.getY() + 10);
+    	if (game != null) {
+	    	g.drawString(game.getFavors() + "x", 120, favors.getY() + 5);
+	    	g.drawString(game.getTiles().size() + "x", tileStack.getX() + 10, tileStack.getY() + 10);
+    	}
     }
     
     private void renderPlayers(GameContainer container, Graphics g) throws SlickException {
-    	for (PlayerView pv : players) {
-    		pv.render(container, g);
+    	if ((game != null) && (game.getPlayers() != null)) {
+    		for (int i = 0; i < game.getPlayers().length; i++) {
+    			players[i].render(container, g);
+	    	}
     	}
     }
     
@@ -110,5 +109,13 @@ public class Play extends BasicGameState {
     		tile.render(container, g);
     	}
     }
+
+	public void setGame(Game game) {
+		this.game = game;
+		for (int i = 0; i < game.getPlayers().length; i++) {
+			players[i].setPlayer(game.getPlayers()[i]);
+		}
+		this.cardStacks.setCards(game.getCards());
+	}
 
 }

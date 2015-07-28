@@ -17,6 +17,10 @@ import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 import ca.concordia.lanternsentities.enums.TileStack;
 
+/**
+ * This is an implementation of {@link SetupService}.
+ *
+ */
 public class DefaultSetupService implements SetupService {
 	
 	private static class SingletonHolder {
@@ -40,7 +44,7 @@ public class DefaultSetupService implements SetupService {
 		game.init(sortedPlayerNames, generateGameId(sortedPlayerNames));
 		LakeTile[] totalTiles = generateTiles(playerCount);
 		
-		startLake(game.getLake(), totalTiles[0], game.getPlayers().length);
+		startLake(game.getLake(), totalTiles[0]);
 		dealPlayerTiles(totalTiles, game.getPlayers());
 		drawTileStack(game.getTiles(), totalTiles, playerCount);
 		separateLanternCards(game.getCards(), playerCount);
@@ -115,12 +119,12 @@ public class DefaultSetupService implements SetupService {
 			// first, remove initial tile, and add to the gameTiles
 			int initalIndex = totalTiles.indexOf(TileStack.T54);
 			TileStack initialTile = totalTiles.remove(initalIndex);
-			gameTiles[0] = initialTile.tile;
+			gameTiles[0] = initialTile.getTile();
 			
 			// then shuffle remaining tiles and assign to gameTiles
 			Collections.shuffle(totalTiles);
 			for (int i = 1; i < gameTiles.length; i++) {
-				gameTiles[i] = totalTiles.get(i).tile;
+				gameTiles[i] = totalTiles.get(i).getTile();
 			}
 		}
 
@@ -128,7 +132,7 @@ public class DefaultSetupService implements SetupService {
 	}
 
 	@Override
-	public void startLake(final List<LakeTile> lake, final LakeTile initialTile, int playerCount) {
+	public void startLake(final List<LakeTile> lake, final LakeTile initialTile) {
 		// RED on initial tile will always be element 1. And will be pointing the first player. 
 		initialTile.setOrientation(1);
 		lake.add(initialTile);
@@ -224,6 +228,7 @@ public class DefaultSetupService implements SetupService {
 	public void distributeInitialLanterns(final List<LakeTile> lake, final LanternCardWrapper[] cards, final Player[] players) {
 		if ((lake != null) && (!lake.isEmpty())) {
 			LakeTile firstTile = lake.get(0);
+			
 			List<Colour> colours = Arrays.asList(Colour.values());
 			for ( int i = 0 ; i < players.length ; i++) {
 				// first tile will always be oriented to first player, so can use normal index to find colour

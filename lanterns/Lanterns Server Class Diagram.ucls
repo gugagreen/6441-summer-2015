@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="ca.concordia.lanterns.Controller.GameController" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/Controller/GameController.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="117" width="208" x="240" y="266"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="ca.concordia.lanterns.Controller.GameResource" project="lanterns" 
+  <class id="1" language="java" name="ca.concordia.lanterns.Controller.GameResource" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/Controller/GameResource.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="153" width="319" x="2014" y="266"/>    
@@ -21,7 +11,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="ca.concordia.lanterns.Controller.LanternsExceptionMapper" project="lanterns" 
+  <class id="2" language="java" name="ca.concordia.lanterns.Controller.LanternsExceptionMapper" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/Controller/LanternsExceptionMapper.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="99" width="191" x="253" y="37"/>    
@@ -31,7 +21,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="4" language="java" name="ca.concordia.lanterns.dao.GameDao" project="lanterns" 
+  <interface id="3" language="java" name="ca.concordia.lanterns.dao.GameDao" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/dao/GameDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="99" width="168" x="488" y="603"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -40,7 +30,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="ca.concordia.lanterns.dao.impl.FileGameDao" project="lanterns" 
+  <class id="4" language="java" name="ca.concordia.lanterns.dao.impl.FileGameDao" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/dao/impl/FileGameDao.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="117" width="168" x="488" y="266"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -49,7 +39,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="ca.concordia.lanterns.exception.GameRuleViolationException" project="lanterns" 
+  <class id="5" language="java" name="ca.concordia.lanterns.exception.GameRuleViolationException" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/exception/GameRuleViolationException.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="99" width="199" x="1775" y="266"/>    
@@ -59,7 +49,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="ca.concordia.lanterns.exception.LanternsException" project="lanterns" 
+  <class id="6" language="java" name="ca.concordia.lanterns.exception.LanternsException" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/exception/LanternsException.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="117" width="207" x="1775" y="37"/>    
@@ -69,7 +59,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="ca.concordia.lanterns.readwrite.MarshallerManager" project="lanterns" 
+  <interface id="7" language="java" name="ca.concordia.lanterns.readwrite.MarshallerManager" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/readwrite/MarshallerManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="99" width="156" x="240" y="603"/>    
@@ -79,7 +69,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="ca.concordia.lanterns.readwrite.impl.JaxbGameMarshaller" project="lanterns" 
+  <class id="8" language="java" name="ca.concordia.lanterns.readwrite.impl.JaxbGameMarshaller" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/readwrite/impl/JaxbGameMarshaller.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="117" width="159" x="41" y="266"/>    
@@ -89,7 +79,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="10" language="java" name="ca.concordia.lanterns.services.GameEventListener" project="lanterns" 
+  <interface id="9" language="java" name="ca.concordia.lanterns.services.GameEventListener" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/GameEventListener.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="81" width="190" x="2542" y="603"/>    
@@ -99,7 +89,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="11" language="java" name="ca.concordia.lanterns.services.GamePoolService" project="lanterns" 
+  <interface id="10" language="java" name="ca.concordia.lanterns.services.GamePoolService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/GamePoolService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="153" width="168" x="696" y="603"/>    
@@ -109,7 +99,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="12" language="java" name="ca.concordia.lanterns.services.PlayerService" project="lanterns" 
+  <interface id="11" language="java" name="ca.concordia.lanterns.services.PlayerService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/PlayerService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="117" width="290" x="2014" y="603"/>    
@@ -119,7 +109,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="13" language="java" name="ca.concordia.lanterns.services.SetupService" project="lanterns" 
+  <interface id="12" language="java" name="ca.concordia.lanterns.services.SetupService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/SetupService.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="261" width="385" x="1589" y="603"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -128,7 +118,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="14" language="java" name="ca.concordia.lanterns.services.ValidateGame" project="lanterns" 
+  <interface id="13" language="java" name="ca.concordia.lanterns.services.ValidateGame" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/ValidateGame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="207" width="362" x="948" y="266"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -137,7 +127,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="15" language="java" name="ca.concordia.lanterns.services.impl.ActivePlayerService" project="lanterns" 
+  <class id="14" language="java" name="ca.concordia.lanterns.services.impl.ActivePlayerService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/ActivePlayerService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="225" width="290" x="2373" y="266"/>    
@@ -147,7 +137,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="ca.concordia.lanterns.services.impl.ActivePlayerService.SingletonHolder" 
+  <class id="15" language="java" name="ca.concordia.lanterns.services.impl.ActivePlayerService.SingletonHolder" 
     project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/ActivePlayerService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="158" x="2344" y="603"/>    
@@ -157,7 +147,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="ca.concordia.lanterns.services.impl.DefaultGamePoolService" project="lanterns" 
+  <class id="16" language="java" name="ca.concordia.lanterns.services.impl.DefaultGamePoolService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultGamePoolService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="207" width="212" x="696" y="266"/>    
@@ -167,7 +157,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="ca.concordia.lanterns.services.impl.DefaultGamePoolService.SingletonHolder" 
+  <class id="17" language="java" name="ca.concordia.lanterns.services.impl.DefaultGamePoolService.SingletonHolder" 
     project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultGamePoolService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="158" x="696" y="37"/>    
@@ -177,7 +167,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="ca.concordia.lanterns.services.impl.DefaultSetupService" project="lanterns" 
+  <class id="18" language="java" name="ca.concordia.lanterns.services.impl.DefaultSetupService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultSetupService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="297" width="385" x="1350" y="266"/>    
@@ -187,7 +177,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="ca.concordia.lanterns.services.impl.DefaultSetupService.SingletonHolder" 
+  <class id="19" language="java" name="ca.concordia.lanterns.services.impl.DefaultSetupService.SingletonHolder" 
     project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultSetupService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="81" width="158" x="1350" y="37"/>    
@@ -197,7 +187,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="ca.concordia.lanterns.services.impl.ValidateGameImpl" project="lanterns" 
+  <class id="20" language="java" name="ca.concordia.lanterns.services.impl.ValidateGameImpl" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/ValidateGameImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="189" width="362" x="948" y="37"/>    
@@ -207,117 +197,141 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="22">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="14"/>  
-  </realization>  
-  <association id="23">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="24" name="marshaller"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="26">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="20"/>  
-  </nesting>  
-  <association id="27">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="28" name="setupService"/>      
-      <multiplicity id="29" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="30">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="7"/>  
-  </generalization>  
-  <association id="31">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="32" name="playerService"/>      
-      <multiplicity id="33" minimum="0" maximum="1"/>    
+  <association id="21">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="22" name="setupService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="34">    
+  <realization id="24">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <association id="25">    
     <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="35" name="INSTANCE"/>      
-      <multiplicity id="36" minimum="0" maximum="1"/>    
+      <attribute id="26" name="dao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="27" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="37">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="38" name="gameEventListeners"/>      
-      <multiplicity id="39" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="40">    
-    <end type="SOURCE" refId="17"/>    
+  <realization id="28">    
+    <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="11"/>  
   </realization>  
-  <realization id="41">    
-    <end type="SOURCE" refId="15"/>    
+  <association id="29">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="30" name="INSTANCE">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="31" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="32">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="33" name="marshaller">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="34" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="35">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <nesting id="36">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <nesting id="37">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <association id="38">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="39" name="gameEventListeners">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="40" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="42" name="INSTANCE">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="43" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="44">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <realization id="45">    
+    <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="12"/>  
   </realization>  
-  <association id="42">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="43" name="dao"/>      
-      <multiplicity id="44" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="45">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="46" name="INSTANCE"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="48">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <association id="49">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="50" name="marshaller"/>      
-      <multiplicity id="51" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="52">    
+  <nesting id="46">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </nesting>  
+  <generalization id="47">    
     <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="53">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="54" name="INSTANCE"/>      
-      <multiplicity id="55" minimum="0" maximum="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="48">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="49" name="INSTANCE">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="50" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
+    <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="56">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="18"/>  
-  </nesting>  
-  <nesting id="57">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="16"/>  
-  </nesting>  
-  <realization id="58">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="13"/>  
+  <association id="51">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="52" name="playerService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="53" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="54">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

@@ -6,6 +6,10 @@ import java.awt.Font;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 
+/**
+ * Describes the Fonts used in our client view.
+ *
+ */
 public class FontHelper {
 	
 	public static final String ARIAL = "Arial";

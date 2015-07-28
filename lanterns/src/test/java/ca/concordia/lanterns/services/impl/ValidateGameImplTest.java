@@ -1,29 +1,17 @@
 package ca.concordia.lanterns.services.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 import java.util.Stack;
 
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 
 import ca.concordia.lanterns.services.ValidateGame;
-import ca.concordia.lanterns.services.PlayerService;
-import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.Player;
-import ca.concordia.lanterns.services.SetupService;
-import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanterns.services.PlayerService;
-import ca.concordia.lanternsentities.DedicationToken;
-import ca.concordia.lanternsentities.Game;
-import ca.concordia.lanternsentities.LanternCardWrapper;
-import ca.concordia.lanternsentities.Player;
-import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.DedicationType;
 
 public class ValidateGameImplTest {
 

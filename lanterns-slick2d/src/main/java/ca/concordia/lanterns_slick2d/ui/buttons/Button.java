@@ -7,6 +7,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.gui.MouseOverArea;
 
+/**
+ * An abstracted class of our game buttons.
+ *
+ */
 public abstract class Button extends MouseOverArea {
 
 	private final Image image;
@@ -40,10 +44,6 @@ public abstract class Button extends MouseOverArea {
 	@Override
 	public void render(GUIContext container, Graphics g) {
 		image.draw(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-
-		if (isClicked) {
-			g.drawString("> " + image.getResourceReference(), 300, getY() + 10);
-		}
 	}
 
 }

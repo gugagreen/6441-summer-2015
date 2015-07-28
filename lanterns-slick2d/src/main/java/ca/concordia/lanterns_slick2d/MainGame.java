@@ -7,19 +7,21 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import ca.concordia.lanterns_slick2d.client.GameClient;
 import ca.concordia.lanterns_slick2d.ui.states.End;
 import ca.concordia.lanterns_slick2d.ui.states.Menu;
 import ca.concordia.lanterns_slick2d.ui.states.Play;
+import ca.concordia.lanternsentities.Game;
 
 /**
  * A game using Slick2d
  */
 public class MainGame extends StateBasedGame {
-	
+
 	private static class SingletonHolder {
 		static final MainGame INSTANCE = new MainGame();
 	}
-	
+
 	public static MainGame getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
@@ -30,7 +32,7 @@ public class MainGame extends StateBasedGame {
 	private static final int HEIGHT = 768;
 	private static final boolean FULL_SCREEN = false;
 	private static final boolean SHOW_FPS = true;
-	
+
 	// states
 	public static final int STATE_MENU = 1;
 	public static final int STATE_PLAY = 2;
@@ -45,14 +47,21 @@ public class MainGame extends StateBasedGame {
 		this.addState(new Menu(STATE_MENU));
 		this.addState(new Play(STATE_PLAY));
 		this.addState(new End(STATE_END));
-		// this.enterState(STATE_PLAY);
 	}
-	
-	public void switchState(int newState) {
-		if ((newState == STATE_MENU) || (newState == STATE_PLAY) || (newState == STATE_END)) {
-			this.enterState(newState);
+	/**
+	 * A method that allows entry into the Playing state of the game.
+	 * @param playerNames Requires 2-4 player names
+	 * @throws SlickException Throws exception if no player names are given.
+	 */
+	public void enterPlay(String[] playerNames) throws SlickException {
+		if (playerNames != null) {
+			Game game = GameClient.getInstance().createGame(playerNames);
+			Play play = (Play) this.getState(MainGame.STATE_PLAY);
+			play.setGame(game);
+			this.enterState(MainGame.STATE_PLAY);
 		} else {
-			throw new IllegalArgumentException("Illegal game state: [" + newState + "]");
+			// FIXME - add message to ui
+			throw new SlickException("No player names specified.");
 		}
 	}
 
