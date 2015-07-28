@@ -2,13 +2,17 @@ package ca.concordia.lanterns.Controller;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Set;
 
 import ca.concordia.lanterns.dao.impl.FileGameDao;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
+import ca.concordia.lanterns.services.EndGameService;
 import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
+import ca.concordia.lanterns.services.impl.EndGameDetectService;
+import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
@@ -127,12 +131,19 @@ public class GameController {
 	}
 	
 	private void play() {
-		boolean isNotEnded = true; // FIXME - check if from service
-		while(isNotEnded) {
+		boolean isEnded = EndGameDetectService.getInstance().isGameEnded(game);
+		while(!isEnded) {
 			int currentIndex = game.getCurrentTurnPlayer();
 			Player currentPlayer = game.getPlayers()[currentIndex];
 			playTurn(currentPlayer);
 			game.setCurrentTurnPlayer(game.getNextPlayer());
+		}
+		// when game is ended, show the winner
+		try {
+			Set<Player> winners = EndGameDetectService.getInstance().getGameWinner(game);
+			showWinner(winners);
+		} catch (GameRuleViolationException e) {
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -141,7 +152,7 @@ public class GameController {
 		
 		exchangeLantern(currentPlayer);
 		makeDedication(currentPlayer);
-		// TODO - place a tile
+		placeTile(currentPlayer);
 		
 		System.out.println("Player '" + currentPlayer.getName() + "' turn is finished.");
 	}
@@ -188,6 +199,35 @@ public class GameController {
 			} catch (GameRuleViolationException e) {
 				System.err.println(e.getMessage());
 			}
+		}
+	}
+	
+	private void placeTile(Player currentPlayer)  {
+		// FIXME - implement
+	}
+	
+	private void showWinner(Set<Player> winners) {
+		System.out.println("Game is ended!");
+
+		System.out.println("Points for each player");
+		for (Player player : game.getPlayers()) {
+			int sumDedications = 0;
+			for (DedicationToken dedicationToken : player.getDedications()) {
+				sumDedications += dedicationToken.getTokenValue();
+			}
+			int sumCards = 0;
+			for (LanternCardWrapper card : player.getCards()) {
+				sumCards += card.getQuantity();
+			}
+			System.out.println("Player [" + player.getName()+ "]:\tdedications=" + sumDedications 
+					+ "\tfavors=" + player.getFavors() + "\tlanters=" + sumCards);
+		}
+		
+		if (winners.size() > 1) {
+			System.out.println("Game was a TIE!!!");
+		}
+		for (Player winner : winners) {
+			System.out.println("Congratulations player [" + winner.getName() + "]! You are the winner!!!");
 		}
 	}
 	
