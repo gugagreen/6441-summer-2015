@@ -7,6 +7,7 @@ import java.util.Set;
 
 import ca.concordia.lanterns.dao.impl.FileGameDao;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
+import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
@@ -38,7 +39,61 @@ public class GameController {
 //		marshaller.marshall(game, writer);
 //		System.out.println(writer.toString());
 		
-		System.out.println(game);
+		//System.out.println(game);
+		for(int i=0; i< game.getPlayers().length; i++){
+			System.out.println("_______________________________");
+			System.out.println("Player " + game.getPlayers()[i].getId() + ": " + game.getPlayers()[i].getName());
+
+			System.out.println("Favor Tokens: " + game.getPlayers()[i].getFavors());
+			dispPlayerLanterns(game, i);
+			dispPlayerLakeTiles(game, i);
+			dispPlayerDedications(game, i);
+			
+		}
+		
+		System.out.println("_______________________________");
+	}
+	
+	private static void dispPlayerLanterns(Game game, final int playerID){
+		
+		for(int i =0; i < game.getCards().length ; i++){
+			System.out.println("Lantern Card: " + game.getPlayers()[playerID].getCards()[i]);
+		}
+	}
+	
+	private static void dispPlayerLakeTiles(Game game, final int playerID){
+		
+		for(int i =0; i < game.getPlayers()[playerID].getTiles().size() ; i++){
+			
+			System.out.println("Lake Tile: " + i);
+			int cardSides = game.getPlayers()[playerID].getTiles().get(i).getSides().length;
+			for(int j = 0; j< cardSides ; j++){
+				System.out.println("	" + game.getPlayers()[playerID].getTiles().get(i).getSides()[j]);
+			}
+			
+			boolean tileHasPlatform = game.getPlayers()[playerID].getTiles().get(i).isPlatform();
+				if(tileHasPlatform){
+					System.out.println("	Lake Tile " + i + " has a platform");
+				}
+				else{
+					System.out.println("	Lake Tile " + i + " does not have a platform");
+				}
+			
+		}
+		
+	}
+	
+	private static void dispPlayerDedications(Game game, final int playerID){
+		
+		if(game.getPlayers()[playerID].getDedications().isEmpty()){
+			System.out.println(game.getPlayers()[playerID].getName() + " has no dedication tokens");
+		}
+		else{
+			
+				System.out.println("Dedications: " + game.getPlayers()[playerID].getDedications());
+
+		}
+		
 	}
 	
 	public void init() {
@@ -152,6 +207,7 @@ public class GameController {
 	}
 	
 	private void playTurn(Player currentPlayer) {
+		System.out.println("_______________________________");
 		System.out.println("It is player '" + currentPlayer.getName() + "' turn.");
 		
 		exchangeLantern(currentPlayer);
@@ -165,9 +221,17 @@ public class GameController {
 	
 	private void exchangeLantern(Player currentPlayer) {
 		System.out.println("You have [" + currentPlayer.getFavors() + "] favors.");
-		System.out.println("Here are your lanterns:" + Arrays.toString(currentPlayer.getCards()));
+		//System.out.println("Here are your lanterns:" + Arrays.toString(currentPlayer.getCards()));
 		
-		int doExchange = getValidInt("Do you want to make an exchange?\n1) Yes\n2) No", 1, 2);
+		
+		int doExchange = 2;
+		if(currentPlayer.getFavors() > 1){
+			dispPlayerLanterns(game, currentPlayer.getId());
+			doExchange = getValidInt("Do you want to make an exchange?\n1) Yes\n2) No", 1, 2);
+		}
+		else{
+			System.out.println("You do not have enough favour tokens to make an exchange this turn.");
+		}
 		
 		if (doExchange == 1) {
 			System.out.println("Select one card to give:");
@@ -185,7 +249,8 @@ public class GameController {
 	}
 	
 	private void makeDedication(Player currentPlayer)  {
-		System.out.println("Here are your lanterns:" + Arrays.toString(currentPlayer.getCards()));
+		//System.out.println("Here are your lanterns:" + Arrays.toString(currentPlayer.getCards()));
+		dispPlayerLanterns(game, currentPlayer.getId());
 		
 		int doDedication = getValidInt("Do you want to make a dedication?\n1) Yes\n2) No", 1, 2);
 		
@@ -211,9 +276,11 @@ public class GameController {
 	private void placeTile(Player currentPlayer)  {
 		// active player must place a tile
 		System.out.println("Now it is time to place a tile.");
-		System.out.println("Select one of your tiles:");
 		List<LakeTile> playerTiles = currentPlayer.getTiles();
-		int playerTileIndex = getValidInt(getTilesString(playerTiles), 0, playerTiles.size()-1);
+		dispPlayerLakeTiles(game, currentPlayer.getId());
+		int playerTileIndex = getValidInt("Select one of your tiles:", 0, playerTiles.size()-1);
+
+		
 		
 		System.out.println("Select one of the lake tiles to put your tile next to:");
 		List<LakeTile> lakeTiles = game.getLake();
