@@ -175,7 +175,7 @@ public class GameCommandClient {
 		exchangeLantern(currentPlayer);
 		makeDedication(currentPlayer);
 		if(game.getPlayers()[currentPlayer.getId()].getTiles().size() != 0){
-		placeTile(currentPlayer);
+			placeTile(currentPlayer);
 		}
 		System.out.println("Player '" + currentPlayer.getName() + "'s turn is finished.");
 		System.out.println("Game state after this player turn:");

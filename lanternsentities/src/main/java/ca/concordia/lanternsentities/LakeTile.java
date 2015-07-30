@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanternsentities.enums.Colour;
 
@@ -14,6 +16,7 @@ import ca.concordia.lanternsentities.enums.Colour;
  * @version 1.0
  *
  */
+@XmlRootElement
 public class LakeTile {
 
 	/**
@@ -23,6 +26,8 @@ public class LakeTile {
 
 	private TileSide[] sides;
 	private boolean platform;
+	
+	private String id;
 
 	/**
 	 * Each Lake tile has four sides, each side can have a colour, there are 7 different colours.
@@ -48,6 +53,8 @@ public class LakeTile {
 		} else {
 			throw new IllegalArgumentException("Invalid colours size!");
 		}
+		
+		this.id = this.toShortString();
 	}
 
 	@Override
@@ -114,7 +121,7 @@ public class LakeTile {
 
 	@Override
 	public String toString() {
-		return "LakeTile [sides=" + Arrays.toString(sides) + ", platform=" + platform + "]";
+		return "LakeTile [sides=" + Arrays.toString(sides) + ", platform=" + platform + "]*" + this.getId() + "*";
 	}
 
 	public String toShortString() {
@@ -149,13 +156,23 @@ public class LakeTile {
 	public void setSides(TileSide[] sides) {
 		this.sides = sides;
 	}
+	
 	@XmlElement(required =true, nillable = true)
 	public boolean isPlatform() {
 		return platform;
 	}
 
-	public void setPlatform(Boolean platform) {
+	public void setPlatform(boolean platform) {
 		this.platform = platform;
+	}
+
+	@XmlID
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**

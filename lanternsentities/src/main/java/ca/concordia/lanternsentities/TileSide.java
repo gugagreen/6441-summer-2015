@@ -1,11 +1,15 @@
 package ca.concordia.lanternsentities;
 
+import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import ca.concordia.lanternsentities.enums.Colour;
 /**
  * Tile Side entity
  * @version 1.0
  *
  */
+@XmlRootElement
 public class TileSide {
 	private Colour colour;
 	private LakeTile adjacent;
@@ -56,6 +60,7 @@ public class TileSide {
 		this.colour = colour;
 	}
 
+	@XmlIDREF
 	public LakeTile getAdjacent() {
 		return adjacent;
 	}
