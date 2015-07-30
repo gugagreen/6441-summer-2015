@@ -119,7 +119,6 @@ public class PlaceATileTest {
 		assertSame(game.getLake().get(3),playerTile);
 		assertSame(topTile,player.getTiles().get(0));
 		assertTrue(game.getTiles().isEmpty());
-		assertEquals(service.getLastRoundCount(), -1) ;
 	}
 
 }

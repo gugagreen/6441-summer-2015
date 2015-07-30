@@ -22,9 +22,8 @@ import ca.concordia.lanternsentities.enums.DedicationType;
 
 /**
  * This is an implementation of {@link PlayerService} based upon the rules of
- * the game as described in this <a
- * href=https://dl.dropboxusercontent.com/u/109385546
- * /Lanterns/preview/1-rulebook.pdf> rulebook</a>.
+ * the game as described in this 
+ * <a href=https://dl.dropboxusercontent.com/u/109385546/Lanterns/preview/1-rulebook.pdf> rulebook</a>.
  * 
  * @author parth
  *
@@ -35,14 +34,9 @@ public class ActivePlayerService implements PlayerService {
 	private static final List<Direction> directions = Arrays.asList(Direction
 			.values());
 	
-	// Initialized to the number of players in the game when the game enters the last round. i.e after all the lake tiles are in lake
-	private int lastRoundCount = -1;
 	private List<GameEventListener> gameEventListeners = new ArrayList<GameEventListener>();
 	private String eventMessage = null;
 
-	public int getLastRoundCount() {
-		return lastRoundCount ;
-	}
 	
 	private static class SingletonHolder {
 		static final ActivePlayerService INSTANCE = new ActivePlayerService();
@@ -128,7 +122,6 @@ public class ActivePlayerService implements PlayerService {
 				+ " lantern card";
 		notifyObservers(eventMessage);
 		
-		updateLastRoundCount(game);
 	}
 
 	@Override
@@ -162,7 +155,6 @@ public class ActivePlayerService implements PlayerService {
 			player.getDedications().add(dedicationStack.pop());
 		}
 		
-		updateLastRoundCount(game);
 	}
 
 	@Override
@@ -208,17 +200,8 @@ public class ActivePlayerService implements PlayerService {
 
 		game.getLake().add(playerTile);
 		player.getTiles().remove(playerTileIndex);
-		
-		giveNewTile(game, player);
-	}
-	
-	private void giveNewTile(Game game, Player player) {
-		if (game.getTiles().isEmpty()) {
-			EndGameDetectService endGameService = new EndGameDetectService();
-			if (endGameService.isGameEnded(game)){
-				lastRoundCount = game.getPlayers().length - 1;
-			}
-		} else {
+
+		if (! game.getTiles().isEmpty()){
 			LakeTile newPlayerTile = game.getTiles().pop();
 			player.getTiles().add(newPlayerTile);
 		}
@@ -356,14 +339,4 @@ public class ActivePlayerService implements PlayerService {
 		}
 	}
 	
-	private void updateLastRoundCount(Game game) {
-		if (lastRoundCount != -1) {
-			if (lastRoundCount - 1 != -1) {
-				--lastRoundCount;
-			} else {
-				EndGameDetectService endGameService = new EndGameDetectService();
-				endGameService.getGameWinner(game);
-			}
-		}
-	}
 }
