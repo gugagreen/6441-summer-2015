@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanternsentities.enums.Colour;
@@ -29,6 +31,7 @@ public class Game {
 	/** Stack of Lantern Cards to be distributed. */
 	private LanternCardWrapper[] cards;
 	/** Stack of Dedication Tokens to be distributed. */
+	
 	private DedicationTokenWrapper[] dedications;
 	/** Quantity of favors to be distributed to players. */
 	private int favors;
@@ -149,7 +152,7 @@ public class Game {
 	public void setCards(LanternCardWrapper[] cards) {
 		this.cards = cards;
 	}
-
+	@XmlElementWrapper(required = true, nillable = true)
 	public DedicationTokenWrapper[] getDedications() {
 		return dedications;
 	}

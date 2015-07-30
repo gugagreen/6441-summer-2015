@@ -2,6 +2,8 @@ package ca.concordia.lanternsentities;
 
 import java.util.Arrays;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.TileStack;
 
@@ -144,7 +146,7 @@ public class LakeTile {
 	public void setSides(TileSide[] sides) {
 		this.sides = sides;
 	}
-
+	@XmlElement(required =true, nillable = true)
 	public boolean isPlatform() {
 		return platform;
 	}

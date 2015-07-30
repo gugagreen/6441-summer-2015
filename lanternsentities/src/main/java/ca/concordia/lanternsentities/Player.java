@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 import ca.concordia.lanternsentities.enums.Colour;
 
 
@@ -95,11 +98,11 @@ public class Player {
 	public void setCards(LanternCardWrapper[] cards) {
 		this.cards = cards;
 	}
-
+	@XmlElementWrapper(required = true, nillable = true)
 	public List<DedicationToken> getDedications() {
 		return dedications;
 	}
-
+	
 	public void setDedications(List<DedicationToken> dedications) {
 		this.dedications = dedications;
 	}
