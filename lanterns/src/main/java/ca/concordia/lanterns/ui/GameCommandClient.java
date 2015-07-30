@@ -1,17 +1,11 @@
-package ca.concordia.lanterns.Controller;
+package ca.concordia.lanterns.ui;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import ca.concordia.lanterns.dao.impl.FileGameDao;
+import ca.concordia.lanterns.Controller.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanterns.services.PlayerService;
-import ca.concordia.lanterns.services.enums.DedicationCost;
-import ca.concordia.lanterns.services.impl.ActivePlayerService;
-import ca.concordia.lanterns.services.impl.DefaultSetupService;
-import ca.concordia.lanterns.services.impl.EndGameDetectService;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
@@ -22,87 +16,20 @@ import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
 /**
- * Allows user input using console, controls game flow.
+ * Serves as client for {@link GameController}. Acts using command line input.
  */
-public class GameController {
+public class GameCommandClient {
+
 	private Scanner keyboard;
 	private Game game;
-
-	// private static final MarshallerManager<Game> marshaller = new
-	// JaxbGameMarshaller();
-
-	public GameController() {
+	
+	private GameController controller;
+	
+	public GameCommandClient() {
 		keyboard = new Scanner(System.in);
+		controller = new GameController();
 	}
-
-	public static void displayCurrentGameState(Game game) {
-		// Writer writer = new StringWriter();
-		// marshaller.marshall(game, writer);
-		// System.out.println(writer.toString());
-
-		// System.out.println(game);
-		for (int i = 0; i < game.getPlayers().length; i++) {
-			System.out.println("_______________________________");
-			System.out.println("Player " + game.getPlayers()[i].getId() + ": " + game.getPlayers()[i].getName());
-
-			System.out.println("Favor Tokens: " + game.getPlayers()[i].getFavors());
-			dispPlayerLanterns(game, i);
-			dispPlayerLakeTiles(game, i);
-			dispPlayerDedications(game, i);
-			System.out.println("The lake currently has the following tiles in it:");
-			dispLake(game);
-		}
-
-		System.out.println("_______________________________");
-	}
-
-	private static void dispPlayerLanterns(Game game, final int playerID) {
-
-		for (int i = 0; i < game.getCards().length; i++) {
-			System.out.println("Lantern Card: " + game.getPlayers()[playerID].getCards()[i]);
-		}
-	}
-
-	private static void dispPlayerLakeTiles(Game game, final int playerID) {
-
-		for (int i = 0; i < game.getPlayers()[playerID].getTiles().size(); i++) {
-
-			System.out.println("Lake Tile: " + i);
-			int cardSides = game.getPlayers()[playerID].getTiles().get(i).getSides().length;
-			for (int j = 0; j < cardSides; j++) {
-				System.out.println("	" + game.getPlayers()[playerID].getTiles().get(i).getSides()[j]);
-			}
-
-			boolean tileHasPlatform = game.getPlayers()[playerID].getTiles().get(i).isPlatform();
-			if (tileHasPlatform) {
-				System.out.println("	Lake Tile " + i + " has a platform");
-			} else {
-				System.out.println("	Lake Tile " + i + " does not have a platform");
-			}
-
-		}
-
-	}
-
-	private static void dispLake(Game game) {
-
-		for (int i = 0; i < game.getLake().size(); i++) {
-			System.out.println(i + "=" + game.getLake().get(i));
-		}
-	}
-
-	private static void dispPlayerDedications(Game game, final int playerID) {
-
-		if (game.getPlayers()[playerID].getDedications().isEmpty()) {
-			System.out.println(game.getPlayers()[playerID].getName() + " has no dedication tokens");
-		} else {
-
-			System.out.println("Dedications: " + game.getPlayers()[playerID].getDedications());
-
-		}
-
-	}
-
+	
 	public void init() {
 		showMenu();
 
@@ -143,11 +70,29 @@ public class GameController {
 			playerNames[i] = hardcodeNames[i];
 		}
 
-		game = DefaultSetupService.getInstance().createGame(playerNames);
+		game = controller.createGame(playerNames);
+		
 		displayCurrentGameState(game);
 		System.out.println("Successfully Initialized game");
 
 		gameSelection();
+	}
+	
+	private void loadGame() {
+		String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
+
+		game = controller.loadGame(loadFileName);
+
+		displayCurrentGameState(game);
+		System.out.println("Successfully loaded game");
+
+		gameSelection();
+	}
+
+	private void quit() {
+		System.out.println("So long, farewell, auf Wiedersehen, goodbye!");
+		keyboard.close();
+		System.exit(0);
 	}
 
 	private void gameSelection() {
@@ -163,8 +108,8 @@ public class GameController {
 			if (game != null) {
 				String saveFileName = getValidString("Specify the name of the save file with the extension (.xml)");
 
-				FileGameDao write = new FileGameDao();
-				write.saveGame(saveFileName, game);
+				controller.saveGame(game, saveFileName);
+				
 				System.out.println("Saved game, quitting.");
 				quit();
 			}
@@ -179,26 +124,8 @@ public class GameController {
 		}
 	}
 
-	private void loadGame() {
-		String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
-
-		FileGameDao read = new FileGameDao();
-		game = read.loadGame(loadFileName);
-
-		displayCurrentGameState(game);
-		System.out.println("Successfully loaded game");
-
-		gameSelection();
-	}
-
-	private void quit() {
-		System.out.println("So long, farewell, auf Wiedersehen, goodbye!");
-		keyboard.close();
-		System.exit(0);
-	}
-
-	private void play() {
-		boolean isEnded = EndGameDetectService.getInstance().isGameEnded(game);
+	public void play() {
+		boolean isEnded = controller.isGameEnded(game);
 		while (!isEnded) {
 			int currentIndex = game.getCurrentTurnPlayer();
 			Player currentPlayer = game.getPlayers()[currentIndex];
@@ -207,7 +134,7 @@ public class GameController {
 		}
 		// when game is ended, show the winner
 		try {
-			Set<Player> winners = EndGameDetectService.getInstance().getGameWinner(game);
+			Set<Player> winners = controller.getGameWinner(game);
 			showWinner(winners);
 		} catch (GameRuleViolationException e) {
 			System.err.println(e.getMessage());
@@ -226,15 +153,13 @@ public class GameController {
 		System.out.println("Game state after this player turn:");
 		displayCurrentGameState(game);
 	}
-
+	
 	private void exchangeLantern(Player currentPlayer) {
 		System.out.println("You have [" + currentPlayer.getFavors() + "] favors.");
-		// System.out.println("Here are your lanterns:" +
-		// Arrays.toString(currentPlayer.getCards()));
 
 		int doExchange = 2;
 		if (currentPlayer.getFavors() > 1) {
-			dispPlayerLanterns(game, currentPlayer.getId());
+			displayPlayerLanterns(game, currentPlayer.getId());
 			doExchange = getValidInt("Do you want to make an exchange?\n1) Yes\n2) No", 1, 2);
 		} else {
 			System.out.println("You do not have enough favour tokens to make an exchange this turn.");
@@ -248,8 +173,7 @@ public class GameController {
 			int receiveCardIndex = getValidInt(coloursWithIndexesString(), 0, 6);
 			Colour receiveCard = Colour.values()[receiveCardIndex];
 			try {
-				ActivePlayerService.getInstance().exchangeLanternCard(game, currentPlayer.getId(), giveCard,
-						receiveCard);
+				controller.exchangeLanternCard(game, currentPlayer.getId(), giveCard, receiveCard);
 			} catch (GameRuleViolationException e) {
 				System.err.println(e.getMessage());
 			}
@@ -257,9 +181,7 @@ public class GameController {
 	}
 
 	private void makeDedication(Player currentPlayer) {
-		// System.out.println("Here are your lanterns:" +
-		// Arrays.toString(currentPlayer.getCards()));
-		dispPlayerLanterns(game, currentPlayer.getId());
+		displayPlayerLanterns(game, currentPlayer.getId());
 
 		int doDedication = getValidInt("Do you want to make a dedication?\n1) Yes\n2) No", 1, 2);
 
@@ -267,15 +189,15 @@ public class GameController {
 			System.out.println("Select one dedication type:");
 			int typeIndex = getValidInt(dedicationTypesString(), 0, 3);
 			DedicationType type = DedicationType.values()[typeIndex];
-			DedicationCost cost = ActivePlayerService.getInstance().getDedicationCost(type);
-			Colour[] colours = new Colour[cost.getRequiredColors()];
+			int requiredColours = controller.getRequiredColors(type);
+			Colour[] colours = new Colour[requiredColours];
 			for (int i = 0; i < colours.length; i++) {
 				System.out.println("Select one colour:");
 				int giveCardIndex = getValidInt(coloursWithIndexesString(), 0, 6);
 				colours[i] = Colour.values()[giveCardIndex];
 			}
 			try {
-				ActivePlayerService.getInstance().makeDedication(game, currentPlayer.getId(), type, colours);
+				controller.makeDedication(game, currentPlayer.getId(), type, colours);
 			} catch (GameRuleViolationException e) {
 				System.err.println(e.getMessage());
 			}
@@ -289,11 +211,11 @@ public class GameController {
 			
 			System.out.println("Now it is time to place a tile.");
 			List<LakeTile> playerTiles = currentPlayer.getTiles();
-			dispPlayerLakeTiles(game, currentPlayer.getId());
+			displayPlayerLakeTiles(game, currentPlayer.getId());
 			int playerTileIndex = getValidInt("Select one of your tiles:", 0, playerTiles.size() - 1);
 
 			System.out.println("Select one of the lake tiles to put your tile next to:");
-			dispLake(game);
+			displayLake(game);
 			List<LakeTile> lakeTiles = game.getLake();
 			int existingTileIndex = getValidInt("", 0, lakeTiles.size() - 1);
 
@@ -306,7 +228,7 @@ public class GameController {
 			int playerTileSideIndex = getValidInt(getTileSidesString(playerTile), 0, playerTile.getSides().length - 1);
 
 			try {
-				ActivePlayerService.getInstance().placeLakeTile(game, currentPlayer.getId(), playerTileIndex,
+				controller.placeLakeTile(game, currentPlayer.getId(), playerTileIndex,
 						existingTileIndex, existingTileSideIndex, playerTileSideIndex);
 				playerNotDone = false;
 			} catch (GameRuleViolationException e) {
@@ -358,15 +280,6 @@ public class GameController {
 		return sb.toString();
 	}
 
-	private String getTilesString(List<LakeTile> tiles) {
-		StringBuffer sb = new StringBuffer();
-
-		for (int i = 0; i < tiles.size(); i++) {
-			sb.append(i + "=" + tiles.get(i) + "; ");
-		}
-		return sb.toString();
-	}
-
 	private String getTileSidesString(LakeTile tile) {
 		StringBuffer sb = new StringBuffer();
 
@@ -378,7 +291,7 @@ public class GameController {
 		return sb.toString();
 	}
 
-	private int getValidInt(final String message, final int min, final int max) {
+	public int getValidInt(final String message, final int min, final int max) {
 		System.out.print(message);
 		int userChoice = 0;
 		boolean valid = false;
@@ -399,7 +312,7 @@ public class GameController {
 		return userChoice;
 	}
 
-	private String getValidString(final String message) {
+	public String getValidString(final String message) {
 		System.out.print(message);
 		String value = null;
 		boolean valid = false;
@@ -415,8 +328,63 @@ public class GameController {
 		return value;
 	}
 
-	public static void main(String[] args) {
-		GameController game = new GameController();
-		game.init();
+	public static void displayCurrentGameState(Game game) {
+		for (int i = 0; i < game.getPlayers().length; i++) {
+			System.out.println("_______________________________");
+			System.out.println("Player " + game.getPlayers()[i].getId() + ": " + game.getPlayers()[i].getName());
+
+			System.out.println("Favor Tokens: " + game.getPlayers()[i].getFavors());
+			displayPlayerLanterns(game, i);
+			displayPlayerLakeTiles(game, i);
+			displayPlayerDedications(game, i);
+			System.out.println("The lake currently has the following tiles in it:");
+			displayLake(game);
+		}
+
+		System.out.println("_______________________________");
 	}
+
+	private static void displayPlayerLanterns(Game game, final int playerID) {
+		for (int i = 0; i < game.getCards().length; i++) {
+			System.out.println("Lantern Card: " + game.getPlayers()[playerID].getCards()[i]);
+		}
+	}
+
+	private static void displayPlayerLakeTiles(Game game, final int playerID) {
+		for (int i = 0; i < game.getPlayers()[playerID].getTiles().size(); i++) {
+			System.out.println("Lake Tile: " + i);
+			int cardSides = game.getPlayers()[playerID].getTiles().get(i).getSides().length;
+			for (int j = 0; j < cardSides; j++) {
+				System.out.println("	" + game.getPlayers()[playerID].getTiles().get(i).getSides()[j]);
+			}
+
+			boolean tileHasPlatform = game.getPlayers()[playerID].getTiles().get(i).isPlatform();
+			if (tileHasPlatform) {
+				System.out.println("	Lake Tile " + i + " has a platform");
+			} else {
+				System.out.println("	Lake Tile " + i + " does not have a platform");
+			}
+		}
+
+	}
+
+	private static void displayLake(Game game) {
+		for (int i = 0; i < game.getLake().size(); i++) {
+			System.out.println(i + "=" + game.getLake().get(i));
+		}
+	}
+
+	private static void displayPlayerDedications(Game game, final int playerID) {
+		if (game.getPlayers()[playerID].getDedications().isEmpty()) {
+			System.out.println(game.getPlayers()[playerID].getName() + " has no dedication tokens");
+		} else {
+			System.out.println("Dedications: " + game.getPlayers()[playerID].getDedications());
+		}
+	}
+
+	public static void main(String[] args) {
+		GameCommandClient client = new GameCommandClient();
+		client.init();
+	}
+
 }
