@@ -175,7 +175,6 @@ public class ActivePlayerService implements PlayerService {
 		LakeTile existingTile = game.getLake().get(existingTileIndex);
 		TileSide existingSide = existingTile.getSides()[existingTileSideIndex];
 
-
 		if (existingSide.getAdjacent() != null) {
 			throw new GameRuleViolationException(
 					"The specified place in the lake is occupied by another tile."
