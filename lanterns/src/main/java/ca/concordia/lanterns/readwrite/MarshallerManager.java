@@ -5,7 +5,7 @@ import java.io.Writer;
 
 /**
  * Generic Marshaller Manager.
- * @param <T>
+ * @param <T> object type.
  */
 public interface MarshallerManager<T> {
 
@@ -18,7 +18,7 @@ public interface MarshallerManager<T> {
 	
 	/**
 	 * Creates an instance of an object of type {@link T} by unmarshalling the data contained in a {@link Reader}.
-	 * @param textRepresentation
+	 * @param textRepresentation 
 	 * @return	The new instance of {@link T}.
 	 */
 	T unmarshall(final Reader textRepresentation);

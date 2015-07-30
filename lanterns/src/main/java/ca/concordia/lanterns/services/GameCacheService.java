@@ -20,7 +20,7 @@ public interface GameCacheService {
 	
 	/**
 	 * Add a new {@link Game} to the pool.
-	 * @param game
+	 * @param game game object
 	 * @throws IllegalArgumentException	if game is invalid.
 	 * @throws LanternsException	if game already exists in the pool.
 	 */

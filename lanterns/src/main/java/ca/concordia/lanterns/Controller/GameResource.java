@@ -33,10 +33,10 @@ public class GameResource {
 	/**
 	 * POST endpoint to allow creating a game based on a list of users. Query parameters "p1" and "p2" are mandatory.
 	 * 
-	 * @param p1
-	 * @param p2
-	 * @param p3
-	 * @param p4
+	 * @param p1 First player before shuffle
+	 * @param p2 Second player before shuffle
+	 * @param p3 Third player before shuffle (optional)
+	 * @param p4 Fourth player before shuffle (optional)
 	 * @return The newly created game.
 	 */
 	@POST

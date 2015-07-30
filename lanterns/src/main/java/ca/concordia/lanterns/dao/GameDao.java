@@ -9,8 +9,8 @@ public interface GameDao {
 	
 	/**
 	 * Saves a {@link Game} object into a place (e.g. file, db) specified by the resource.
-	 * @param resource	
-	 * @param game
+	 * @param resource save game name
+	 * @param game game object
 	 */
 	void saveGame(String resource, Game game);
 	

@@ -337,11 +337,30 @@ public class GameCommandClient {
 			displayPlayerLanterns(game, i);
 			displayPlayerLakeTiles(game, i);
 			displayPlayerDedications(game, i);
-			System.out.println("The lake currently has the following tiles in it:");
-			displayLake(game);
+			
+			
 		}
 
-		System.out.println("_______________________________");
+		//System.out.println("_______________________________");
+		
+		System.out.println("###############################");
+		System.out.println("The Game Board contains: \n");
+		
+		System.out.println("Lantern Cards:");
+		for (int i = 0; i < game.getCards().length; i++) {
+			System.out.println(game.getCards()[i]);
+		}
+		
+		System.out.println("\nDedication Cards: " );
+		for (int i = 0; i < game.getDedications().length; i++) {
+			System.out.println(game.getDedications()[i]);
+		}
+		System.out.println("\nFavor Tokens: " + game.getFavors());
+		
+		System.out.println("\nThe lake currently has the following tiles in it:");
+		displayLake(game);
+		
+		System.out.println("###############################");
 	}
 
 	private static void displayPlayerLanterns(Game game, final int playerID) {

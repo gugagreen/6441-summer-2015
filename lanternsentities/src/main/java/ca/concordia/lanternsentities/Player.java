@@ -26,8 +26,8 @@ public class Player {
 	
 	/**
 	 * Initialize {@link Player} attributes.
-	 * @param name
-	 * @param id
+	 * @param name Player name (String)
+	 * @param id Player id (from 0-3)
 	 */
 	public void init(final String name, final int id) {
 		this.name = name;
