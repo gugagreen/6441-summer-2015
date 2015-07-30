@@ -24,6 +24,12 @@
 	- run tests: $ mvn test
 	- run code: $ mvn exec:java -Dexec.mainClass="ca.concordia.lanterns.Controller.GameController"
 	
+5) instructions for loading save files for specific rapid feature tests
+	- With the steps above start the application
+	- Choose option "2" (Load game from file)
+	- enter file name "featureTest.xml" (without quotes)
+	- This save allows for testing of Lantern card Exchange and Making a dedication with player 0
+
 	
 fyi: the source code and other artifacts for this project can be found in github, on this link:
 	- https://github.com/gugagreen/6441-summer-2015/
