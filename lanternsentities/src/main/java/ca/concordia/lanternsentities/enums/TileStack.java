@@ -57,13 +57,13 @@ public enum TileStack {
 		return copy;
 	}
 	
-	// FIXME - delete
+	// FIXME - delete this test
 	public static String[] get3Lines(TileStack ts) {
 		String[] lines = new String[3];
 		/*
-		 * [  W  ]
-		 * [K * K]
-		 * [  W  ]
+		 * [  W  ]		[ W ]
+		 * [K * K]		[K*K]
+		 * [  W  ]		[ W ]
 		 */
 		if (ts == null) {
 			lines[0] = "[     ]";
@@ -80,7 +80,7 @@ public enum TileStack {
 		return lines;
 	}
 	
-	// FIXME - delete
+	// FIXME - delete this test
 	public static void main(String[] args) {
 		int SIZE = 8;
 		TileStack[][] matrix = new TileStack[SIZE][];
@@ -88,12 +88,15 @@ public enum TileStack {
 		for (int i = 0; i < matrix.length; i++) {
 			matrix[i] = new TileStack[SIZE];
 		}
-		
-		matrix[1][1] = T54;
-		matrix[1][2] = T42;
 		StringBuffer[] lines1 = new StringBuffer[matrix.length];
 		StringBuffer[] lines2 = new StringBuffer[matrix.length];
 		StringBuffer[] lines3 = new StringBuffer[matrix.length];
+		
+		// dummy data
+		matrix[1][1] = T54;
+		matrix[1][2] = T42;
+		matrix[2][2] = T12;
+		
 		
 		for (int i = 0; i < matrix.length; i++) {
 			lines1[i] = new StringBuffer();
