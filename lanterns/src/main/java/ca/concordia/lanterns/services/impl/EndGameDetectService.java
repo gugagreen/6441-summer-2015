@@ -44,9 +44,11 @@ public class EndGameDetectService implements EndGameService {
 		if (isGameEnded(game)) {
 			Set<Player> winners = new HashSet<Player>();
 			Player winnerHolder = game.getPlayers()[0];
+			Player secondPlace = new Player();
 			int sum = 0;
 			int mostHonor = 0;
-	
+			
+			//testing dedications
 			for (Player player : game.getPlayers()) {
 				for (DedicationToken dedicationToken : player.getDedications()) {
 					sum += dedicationToken.getTokenValue();
@@ -56,30 +58,41 @@ public class EndGameDetectService implements EndGameService {
 					mostHonor = sum;
 					winnerHolder = player;
 				}
+				if(sum == mostHonor){
+					secondPlace = player;
+				}
+			}
 				// In the case of a tie
 				if (sum == mostHonor) {
-					if (player.getFavors() > winnerHolder.getFavors()) {
-						winnerHolder = player;
+					if (secondPlace.getFavors() > winnerHolder.getFavors()) {
+						winnerHolder = secondPlace;
 					}
                     //In the case of a further tie
-					if (player.getFavors() == winnerHolder.getFavors())
+					if (secondPlace.getFavors() == winnerHolder.getFavors())
                     {
                         int playerRemainCard = 0;
                         int winnerHolderRemainCard = 0;
 
-                        for (LanternCardWrapper lanternCardWrapper : player.getCards())
+                        for (LanternCardWrapper lanternCardWrapper : secondPlace.getCards())
                             playerRemainCard += lanternCardWrapper.getQuantity();
 
                         for (LanternCardWrapper lanternCardWrapper : winnerHolder.getCards())
                             winnerHolderRemainCard += lanternCardWrapper.getQuantity();
 
-                        if (playerRemainCard > winnerHolderRemainCard)
-                            winnerHolder = player;
+                        if (playerRemainCard > winnerHolderRemainCard){
+                        	winnerHolder = secondPlace;
+                        }
+                        else{
+                        	//game is a tie
+                        	winners.add(winnerHolder);
+                        	winners.add(secondPlace);
+                        	return winners;
+                        }
                     }
 				}
 	
 				sum = 0;
-			}
+			
 			// FIXME - implement other tie cases
 			
 			winners.add(winnerHolder);
