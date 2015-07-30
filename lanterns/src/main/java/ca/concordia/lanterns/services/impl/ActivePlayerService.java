@@ -173,8 +173,10 @@ public class ActivePlayerService implements PlayerService {
 		Player player = game.getPlayers()[id];
 		LakeTile playerTile = player.getTiles().get(playerTileIndex);
 		LakeTile existingTile = game.getLake().get(existingTileIndex);
+		TileSide existingSide = existingTile.getSides()[existingTileSideIndex];
 
-		if (existingTile.getSides()[existingTileIndex].getAdjacent() != null) {
+
+		if (existingSide.getAdjacent() != null) {
 			throw new GameRuleViolationException(
 					"The specified place in the lake is occupied by another tile."
 							+ "Hence you can't place your tile at this place");
@@ -256,6 +258,7 @@ public class ActivePlayerService implements PlayerService {
 	private void giveMatchingBonus(Game game, Player player, LakeTile playerTile) {
 		TileSide[] sides = playerTile.getSides();
 	
+		boolean isMatch = false ;
 		for (int i = 0; i != sides.length; ++i) {
 			LakeTile adjTile = sides[i].getAdjacent();
 			
@@ -264,7 +267,8 @@ public class ActivePlayerService implements PlayerService {
 						.getOppositeTileSideIndex()].getColour();
 
 				if (adjColor.equals(sides[i].getColour())) {
-				
+					
+					isMatch = true ;
 					LanternCardWrapper gameCard = game.getCards()[colors
 							.indexOf(adjColor)];
 					
@@ -283,9 +287,12 @@ public class ActivePlayerService implements PlayerService {
 				}
 			}
 		}
-		if (playerTile.isPlatform() && game.getFavors() != 0) {
-			game.setFavors(game.getFavors() - 1);
-			player.setFavors(player.getFavors() + 1);
+
+		if ( isMatch ) {
+			if (playerTile.isPlatform() && game.getFavors() != 0) {
+				game.setFavors(game.getFavors() - 1);
+				player.setFavors(player.getFavors() + 1);
+			}
 		}
 	}
 
