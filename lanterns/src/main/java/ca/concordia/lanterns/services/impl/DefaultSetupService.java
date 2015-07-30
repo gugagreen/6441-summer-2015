@@ -211,9 +211,10 @@ public class DefaultSetupService implements SetupService {
 					values = type.getValuesTwo();
 				}
 				
-				for (int value : values) {
+				//for (int value : values) {
+				for (int v = values.length - 1; v >= 0; v--) {
 					DedicationToken token = new DedicationToken();
-					token.init(value, type);
+					token.init(values[v], type);
 					dedicationStack.getStack().push(token);
 				}
 				
