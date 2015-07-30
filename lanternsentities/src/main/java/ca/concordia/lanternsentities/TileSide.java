@@ -45,7 +45,7 @@ public class TileSide {
 		if (adjacent != null) {
 			adjacentString = adjacent.toShortString();
 		}
-		return "TileSide [colour=" + colour + ", adjacent=" + adjacentString + "]";
+		return "[" + colour.key + "-" +  adjacentString + "]";
 	}
 
 	public Colour getColour() {

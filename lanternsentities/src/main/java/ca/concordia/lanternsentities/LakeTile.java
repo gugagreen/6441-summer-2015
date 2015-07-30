@@ -1,11 +1,12 @@
 package ca.concordia.lanternsentities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.TileStack;
 
 /**
  * Lake Tile entity
@@ -117,14 +118,16 @@ public class LakeTile {
 	}
 
 	public String toShortString() {
-		String shortString = "[Unable to find]";
-		for (TileStack ts : TileStack.values()) {
-			if (ts.getTile().equals(this)) {
-				shortString = "[" + ts.getName() + "]";
-				break;
-			}
+		StringBuffer sb = new StringBuffer();
+		for (TileSide side : sides) {
+			sb.append(side.getColour().key);
 		}
-		return shortString;
+		if (platform) {
+			sb.append("p");
+		} else {
+			sb.append(".");
+		}
+		return sb.toString();
 	}
 
 	@Override
@@ -180,6 +183,26 @@ public class LakeTile {
 			throw new IndexOutOfBoundsException("Cannot Enter an orientation greater than Number of sides");
 		}
 
+	}
+	
+	public static void main(String[] args) {
+		boolean plat1 = true;
+		Colour[] colours1 = new Colour[] {Colour.BLACK, Colour.WHITE, Colour.BLACK, Colour.WHITE};
+		LakeTile tile1 = new LakeTile();
+		tile1.init(colours1, plat1);
+		
+		boolean plat2 = false;
+		Colour[] colours2 = new Colour[] {Colour.RED, Colour.BLACK, Colour.GREEN, Colour.PURPLE};
+		LakeTile tile2 = new LakeTile();
+		tile2.init(colours2, plat2);
+
+		tile1.getSides()[0].setAdjacent(tile2);
+		tile2.getSides()[1].setAdjacent(tile1);
+		
+		List<LakeTile> lake = new ArrayList<LakeTile>();
+		lake.add(tile1);
+		lake.add(tile2);
+		System.out.println(lake);
 	}
 
 }

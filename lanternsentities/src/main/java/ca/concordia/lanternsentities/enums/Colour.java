@@ -1,8 +1,14 @@
 package ca.concordia.lanternsentities.enums;
 
 public enum Colour {
-	ORANGE, GREEN, PURPLE, WHITE, BLUE, RED, BLACK;
+	ORANGE('O'), GREEN('G'), PURPLE('P'), WHITE('W'), BLUE('B'), RED('R'), BLACK('K');
 	
+	public final char key;
+	
+	private Colour(char key) {
+		this.key = key;
+	}
+
 	/**
 	 * Get a {@link Colour} for its given name (case insensitive).
 	 * @param name	the name of the {@link Colour} to look for
