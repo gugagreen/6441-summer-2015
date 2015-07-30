@@ -21,4 +21,10 @@ public interface GameDao {
 	 */
 	Game loadGame(String resource);
 
+	/**
+	 * Loads a {@link Game} object from a given resource and validates it.
+	 * @param resource	Resource that specifies where the {@link Game} is stored.
+	 * @return	The {@link Game}.
+	 */
+	Game loadValidatedGame(String resource);
 }

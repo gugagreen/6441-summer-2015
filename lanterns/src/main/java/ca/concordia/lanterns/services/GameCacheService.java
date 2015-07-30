@@ -39,4 +39,11 @@ public interface GameCacheService {
 	 * @param game	The {@link Game} to be saved.
 	 */
 	void saveGame(final String resource, final Game game);
+
+	/**
+	 * Load {@link Game} from repository (i.e. file or db) validate the game and put it in the pool.
+	 * @param resource	The resource that identifies the game in the repository.
+	 * @return	The loaded {@link Game}.
+	 */
+	Game loadValidatedGame(String resource);
 }

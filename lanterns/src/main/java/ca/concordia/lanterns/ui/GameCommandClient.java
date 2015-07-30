@@ -34,7 +34,7 @@ public class GameCommandClient {
 		showMenu();
 
 		while (true) {
-			int userChoice = getValidInt("", 1, 3);
+			int userChoice = getValidInt("", 1, 4);
 			menuSelection(userChoice);
 		}
 	}
@@ -44,7 +44,9 @@ public class GameCommandClient {
 		System.out.println("Select the following: ");
 		System.out.println("1) Start a new game");
 		System.out.println("2) Load game from file");
-		System.out.println("3) Quit");
+		System.out.println("3) Load game from file and validate that file");
+		System.out.println("4) Quit");
+
 	}
 
 	private void menuSelection(final int userChoice) {
@@ -56,6 +58,8 @@ public class GameCommandClient {
 			loadGame();
 			break;
 		case 3:
+			loadValidatedGame();
+		case 4:
 			quit();
 		default:
 			System.out.println("Invalid Input, please try again.");
@@ -82,6 +86,17 @@ public class GameCommandClient {
 		String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
 
 		game = controller.loadGame(loadFileName);
+
+		displayCurrentGameState(game);
+		System.out.println("Successfully loaded game");
+
+		gameSelection();
+	}
+	
+	private void loadValidatedGame() {
+		String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
+
+		game = controller.loadValidatedGame(loadFileName);
 
 		displayCurrentGameState(game);
 		System.out.println("Successfully loaded game");
@@ -131,7 +146,19 @@ public class GameCommandClient {
 			Player currentPlayer = game.getPlayers()[currentIndex];
 			playTurn(currentPlayer);
 			game.setCurrentTurnPlayer(game.getNextPlayer());
+			isEnded = controller.isGameEnded(game);
 		}
+		
+		//after isEnded returns true there is one more turn to play for exchanges
+		for(int i = 0; i < game.getPlayers().length;i++){
+			
+				int currentIndex = game.getCurrentTurnPlayer();
+				Player currentPlayer = game.getPlayers()[currentIndex];
+				playTurn(currentPlayer);
+				game.setCurrentTurnPlayer(game.getNextPlayer());
+				
+		}
+		
 		// when game is ended, show the winner
 		try {
 			Set<Player> winners = controller.getGameWinner(game);
@@ -147,8 +174,9 @@ public class GameCommandClient {
 
 		exchangeLantern(currentPlayer);
 		makeDedication(currentPlayer);
+		if(game.getPlayers()[currentPlayer.getId()].getTiles().size() != 0){
 		placeTile(currentPlayer);
-
+		}
 		System.out.println("Player '" + currentPlayer.getName() + "'s turn is finished.");
 		System.out.println("Game state after this player turn:");
 		displayCurrentGameState(game);

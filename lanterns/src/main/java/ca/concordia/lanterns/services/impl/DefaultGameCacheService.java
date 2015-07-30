@@ -67,7 +67,30 @@ public class DefaultGameCacheService implements GameCacheService {
 			synchronized (cache) {
 				cache.put(game.getId(), game);
 			}
+	    
 		}
+		return game;
+	}
+	
+	//FIXME Refactor duplicated code from loadGame
+	@Override
+	public Game loadValidatedGame(final String resource) {
+		// load game from file
+		Game game = dao.loadGame(resource);
+		// if game is not in pool yet, add it.
+		Game poolGame = getGame(game.getId());
+		if (poolGame == null) {
+			synchronized (cache) {
+				cache.put(game.getId(), game);
+			}
+	    
+		}
+		ValidateGameImpl validator = new ValidateGameImpl();
+		//validator.validateDedicationToken(game.getDedications(), game.getPlayers());
+	    validator.validateFavorToken(game);
+	    validator.validateLakeTileStack(game.getPlayers(), game.getLake(), game.getTiles(), game.getCurrentTurnPlayer());
+	    validator.validateLanternCards(game);
+	    validator.validatePlayerCount(game);
 		return game;
 	}
 

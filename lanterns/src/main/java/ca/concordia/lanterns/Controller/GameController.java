@@ -25,6 +25,10 @@ public class GameController {
 	public Game loadGame(String loadFileName) {
 		return DefaultGameCacheService.getInstance().loadGame(loadFileName);
 	}
+	
+	public Game loadValidatedGame(String loadFileName) {
+		return DefaultGameCacheService.getInstance().loadValidatedGame(loadFileName);
+	}
 
 	public void saveGame(Game game, String saveFileName) {
 		DefaultGameCacheService.getInstance().saveGame(saveFileName, game);
