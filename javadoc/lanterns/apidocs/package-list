@@ -1,0 +1,11 @@
+ca.concordia.lanterns.Controller
+ca.concordia.lanterns.dao
+ca.concordia.lanterns.dao.impl
+ca.concordia.lanterns.exception
+ca.concordia.lanterns.readwrite
+ca.concordia.lanterns.readwrite.impl
+ca.concordia.lanterns.services
+ca.concordia.lanterns.services.enums
+ca.concordia.lanterns.services.helper
+ca.concordia.lanterns.services.impl
+ca.concordia.lanterns.ui
