@@ -151,7 +151,7 @@
         </cards>
         <cards>
             <colour>PURPLE</colour>
-            <quantity>0</quantity>
+            <quantity>5</quantity>
         </cards>
         <cards>
             <colour>WHITE</colour>
@@ -159,7 +159,7 @@
         </cards>
         <cards>
             <colour>BLUE</colour>
-            <quantity>0</quantity>
+            <quantity>1</quantity>
         </cards>
         <cards>
             <colour>RED</colour>
@@ -170,7 +170,7 @@
             <quantity>0</quantity>
         </cards>
         <dedications/>
-        <favors>0</favors>
+        <favors>2</favors>
         <id>0</id>
         <name>Alpha</name>
         <tiles>
@@ -200,15 +200,15 @@
         </cards>
         <cards>
             <colour>PURPLE</colour>
-            <quantity>0</quantity>
+            <quantity>5</quantity>
         </cards>
         <cards>
             <colour>WHITE</colour>
-            <quantity>1</quantity>
+            <quantity>3</quantity>
         </cards>
         <cards>
             <colour>BLUE</colour>
-            <quantity>0</quantity>
+            <quantity>2</quantity>
         </cards>
         <cards>
             <colour>RED</colour>
@@ -219,7 +219,7 @@
             <quantity>0</quantity>
         </cards>
         <dedications/>
-        <favors>0</favors>
+        <favors>4</favors>
         <id>1</id>
         <name>Bravo</name>
         <tiles>

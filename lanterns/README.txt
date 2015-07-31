@@ -20,9 +20,12 @@
 
 4) instructions for how to compile, build and run your code
 	- This project is set up using apache maven (https://maven.apache.org/). So any tasks could be done using it.
-	- compile: $ mvn clean compile
+	- Before anything, make sure the depency "lanternsentities" is installed.
+		Go to "lanternsentities" project folder and run: $ mvn clean install
+	- Then go back to the "lanterns" project folder.
+	- compile: $ mvn clean compile -U
 	- run tests: $ mvn test
-	- run code: $ mvn exec:java -Dexec.mainClass="ca.concordia.lanterns.Controller.GameController"
+	- run code: $ mvn exec:java -Dexec.mainClass="ca.concordia.lanterns.ui.GameCommandClient"
 	
 5) instructions for loading save files for specific rapid feature tests
 	- With the steps above, start the application
