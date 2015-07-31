@@ -11,9 +11,9 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class LanternsExceptionMapper implements ExceptionMapper<Exception> {
 
-	@Override
-	public Response toResponse(Exception exception) {
-		return Response.status(Status.INTERNAL_SERVER_ERROR).entity(exception.getMessage()).build();
-	}
+    @Override
+    public Response toResponse(Exception exception) {
+        return Response.status(Status.INTERNAL_SERVER_ERROR).entity(exception.getMessage()).build();
+    }
 
 }
