@@ -13,10 +13,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.ArrayList;
 
 import static ca.concordia.lanterns_slick2d.constants.Constants.*;
+
 /**
- * 
- * This is an implementation of {@link ComponentListener} 
- *
+ * This is an implementation of {@link ComponentListener}
  */
 public class Menu extends BasicGameState implements ComponentListener {
 

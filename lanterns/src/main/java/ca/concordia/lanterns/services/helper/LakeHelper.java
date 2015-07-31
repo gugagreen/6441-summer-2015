@@ -1,86 +1,84 @@
 package ca.concordia.lanterns.services.helper;
 
-import java.awt.Point;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.enums.Direction;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.TileSide;
 
+import java.awt.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
 /**
- * 
  * Enables setting of attributes to lake tiles.
- *
  */
 public class LakeHelper {
 
-	private static final List<Direction> directions = Arrays.asList(Direction
-			.values());
-	private static HashSet<LakeTile> visitedTiles;
-	private static LakeTile startTile;
-	private static Point location;
+    private static final List<Direction> directions = Arrays.asList(Direction
+            .values());
+    private static HashSet<LakeTile> visitedTiles;
+    private static LakeTile startTile;
+    private static Point location;
 
-	public static void setAdjacentLakeTiles(LakeTile newTile, LakeTile firstNeighbour, Direction firstNeighbourDirection) {
-		startTile = newTile;
-		location = new Point();
-		visitedTiles = new HashSet<LakeTile>();
-		
-		firstNeighbourDirection.moveForward(location);
-		
-		dfs(firstNeighbour, new Point());
-	}
+    public static void setAdjacentLakeTiles(LakeTile newTile, LakeTile firstNeighbour, Direction firstNeighbourDirection) {
+        startTile = newTile;
+        location = new Point();
+        visitedTiles = new HashSet<LakeTile>();
 
-	private static void dfs(LakeTile tile, Point cameFrom) {
-		visitedTiles.add(tile);
+        firstNeighbourDirection.moveForward(location);
 
-		Point startLocation = new Point(cameFrom);
+        dfs(firstNeighbour, new Point());
+    }
 
-		Point myLocation = new Point(location);
+    private static void dfs(LakeTile tile, Point cameFrom) {
+        visitedTiles.add(tile);
 
-		for (int i = 0; i != LakeTile.TOTAL_SIDES; ++i) {
+        Point startLocation = new Point(cameFrom);
 
-			LakeTile adjTile = tile.getSides()[i].getAdjacent();
+        Point myLocation = new Point(location);
 
-			if (adjTile != null && ! (visitedTiles.contains(adjTile))) {
-				
-				directions.get(i).moveForward(location);
+        for (int i = 0; i != LakeTile.TOTAL_SIDES; ++i) {
 
-				dfs(adjTile, myLocation);
-			}
-		}
+            LakeTile adjTile = tile.getSides()[i].getAdjacent();
 
-		setAsAdjacent(tile);
+            if (adjTile != null && !(visitedTiles.contains(adjTile))) {
 
-		location.setLocation(cameFrom);
-		
+                directions.get(i).moveForward(location);
 
-	}
+                dfs(adjTile, myLocation);
+            }
+        }
 
-	private static void setAsAdjacent(LakeTile neighbour) {
+        setAsAdjacent(tile);
 
-		for (int i = 0; i != directions.size(); ++i) {
+        location.setLocation(cameFrom);
 
-			Point neighbourPoint = directions.get(i).getPoint();
 
-			if (location.equals(neighbourPoint)) {
+    }
 
-				TileSide neighbourSide = neighbour.getSides()[directions.get(i)
-						.getOppositeTileSideIndex()];
-				TileSide startTileSide = startTile.getSides()[directions.get(i)
-						.getTileSideIndex()];
+    private static void setAsAdjacent(LakeTile neighbour) {
 
-				if (neighbourSide.getAdjacent() == null
-						&& startTileSide.getAdjacent() == null) {
-					neighbourSide.setAdjacent(startTile);
-					startTileSide.setAdjacent(neighbour);
-					break;
-				} else {
-					throw new GameRuleViolationException ("The placement of the lake is invalid");
-				}
-			}
-		}
-	}
+        for (int i = 0; i != directions.size(); ++i) {
+
+            Point neighbourPoint = directions.get(i).getPoint();
+
+            if (location.equals(neighbourPoint)) {
+
+                TileSide neighbourSide = neighbour.getSides()[directions.get(i)
+                        .getOppositeTileSideIndex()];
+                TileSide startTileSide = startTile.getSides()[directions.get(i)
+                        .getTileSideIndex()];
+
+                if (neighbourSide.getAdjacent() == null
+                        && startTileSide.getAdjacent() == null) {
+                    neighbourSide.setAdjacent(startTile);
+                    startTileSide.setAdjacent(neighbour);
+                    break;
+                } else {
+                    throw new GameRuleViolationException("The placement of the lake is invalid");
+                }
+            }
+        }
+    }
 }

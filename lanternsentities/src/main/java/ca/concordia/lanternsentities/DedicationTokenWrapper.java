@@ -1,41 +1,41 @@
 package ca.concordia.lanternsentities;
 
-import java.util.Stack;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Stack;
 
 /**
  * Dedication Token Wrapper
+ *
  * @version 1.0
  */
 @XmlRootElement
 public class DedicationTokenWrapper {
 
-	private Stack<DedicationToken> stack;
-	
-	public DedicationTokenWrapper() {
-		this.stack = new Stack<DedicationToken>();
-	}
+    private Stack<DedicationToken> stack;
 
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < stack.size(); i++) {
-			if (i != 0) {
-				sb.append(" ");
-			}
-			sb.append(stack.get(i));
-		}
-		return "Token Stack [" + sb.toString() + "]";
-	}
+    public DedicationTokenWrapper() {
+        this.stack = new Stack<DedicationToken>();
+    }
 
-	@XmlElement(name="token")
-	public Stack<DedicationToken> getStack() {
-		return stack;
-	}
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < stack.size(); i++) {
+            if (i != 0) {
+                sb.append(" ");
+            }
+            sb.append(stack.get(i));
+        }
+        return "Token Stack [" + sb.toString() + "]";
+    }
 
-	public void setStack(Stack<DedicationToken> stack) {
-		this.stack = stack;
-	}
+    @XmlElement(name = "token")
+    public Stack<DedicationToken> getStack() {
+        return stack;
+    }
+
+    public void setStack(Stack<DedicationToken> stack) {
+        this.stack = stack;
+    }
 }
