@@ -28,27 +28,9 @@ public class ActivePlayerService implements PlayerService {
     private static final List<Direction> directions = Arrays.asList(Direction
             .values());
 
-    private List<GameEventListener> gameEventListeners = new ArrayList<GameEventListener>();
-    private String eventMessage = null;
 
     public static ActivePlayerService getInstance() {
         return SingletonHolder.INSTANCE;
-    }
-
-    public void addListener(GameEventListener toAdd) {
-        if (!gameEventListeners.contains(toAdd)) {
-            gameEventListeners.add(toAdd);
-        }
-    }
-
-    public void notifyObservers(String eventMessage) {
-        if (!gameEventListeners.isEmpty()) {
-            for (GameEventListener obj : gameEventListeners) {
-                obj.displayEventMessage(eventMessage);
-            }
-        } else {
-            System.out.println("please add some observers first");
-        }
     }
 
     /**
@@ -104,12 +86,6 @@ public class ActivePlayerService implements PlayerService {
 
         gameReceiveCard.setQuantity(gameReceiveCard.getQuantity() + 1);
         playerReceiveCard.setQuantity(playerReceiveCard.getQuantity() + 1);
-
-        eventMessage = player.getName()
-                + " spent 2 favor tokens to exchange a " + giveCard.toString()
-                + " lantern card to a " + receiveCard.toString()
-                + " lantern card";
-        notifyObservers(eventMessage);
 
     }
 
@@ -181,10 +157,12 @@ public class ActivePlayerService implements PlayerService {
 
         playerTile.setOrientation(firstPlayerTileSideIndex);
 
+        // Detect and set all the LakeTiles that are adjacent to this lake tile when it will be in the lake.
         LakeHelper.setAdjacentLakeTiles(playerTile, existingTile,
                 directions.get(orientedPlayerTileSideIndex));
 
         giveMatchingBonus(game, player, playerTile);
+
         distributeLanternCards(game, id, playerTile);
 
         game.getLake().add(playerTile);
@@ -196,7 +174,7 @@ public class ActivePlayerService implements PlayerService {
         }
     }
 
-    //TODO refactor duplicate code
+    // Helper method- Distributes lantern cards based on player orientation every time a laketile is placed in the lake
     private void distributeLanternCards(Game game, int activePlayerID, LakeTile playerTile) {
         TileSide[] sides = playerTile.getSides();
         Player[] players = game.getPlayers();
@@ -226,6 +204,7 @@ public class ActivePlayerService implements PlayerService {
         }
     }
 
+    // Gives bonus to current player if the player performed a match of colors while placing a lake tile
     private void giveMatchingBonus(Game game, Player player, LakeTile playerTile) {
         TileSide[] sides = playerTile.getSides();
 
