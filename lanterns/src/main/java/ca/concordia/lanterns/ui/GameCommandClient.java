@@ -299,6 +299,7 @@ public class GameCommandClient {
             }
             try {
                 controller.makeDedication(game, currentPlayer.getId(), type, colours);
+                displayPlayerDedications(game, currentPlayer.getId());
             } catch (GameRuleViolationException e) {
                 System.err.println(e.getMessage());
             }
