@@ -86,9 +86,10 @@ public class DefaultSetupServiceTest {
     public void testDealPlayerTiles() {
         final Player[] players = createPlayers(3);
         final LakeTile[] totalTiles = new LakeTile[36];
+        Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
         for (int i = 0; i < totalTiles.length; i++) {
             totalTiles[i] = new LakeTile();
-            totalTiles[i].init(new Colour[4], false);
+            totalTiles[i].init(colours, false);
         }
 
         service.dealPlayerTiles(totalTiles, players);
