@@ -359,6 +359,7 @@ public class GameCommandClient {
 
         if (winners.size() > 1) {
             System.out.println("Game was a TIE!!!");
+            return;
         }
         for (Player winner : winners) {
             System.out.println("Congratulations player [" + winner.getName() + "]! You are the winner!!!");

@@ -70,8 +70,12 @@ public class EndGameDetectService implements EndGameService {
                         for (LanternCardWrapper lanternCardWrapper : winnerHolder.getCards())
                             winnerHolderRemainCard += lanternCardWrapper.getQuantity();
 
-                        if (playerRemainCard > winnerHolderRemainCard)
+                        if (playerRemainCard > winnerHolderRemainCard){
                             winnerHolder = player;
+                        }
+                        else if (playerRemainCard == winnerHolderRemainCard){
+                        	winners.add(player);
+                        }
                     }
                 }
 
