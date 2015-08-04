@@ -1,12 +1,21 @@
 package ca.concordia.lanterns.services.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+
 import ca.concordia.lanterns.services.SetupService;
-import ca.concordia.lanternsentities.*;
+import ca.concordia.lanternsentities.DedicationToken;
+import ca.concordia.lanternsentities.DedicationTokenWrapper;
+import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LakeTile;
+import ca.concordia.lanternsentities.LanternCardWrapper;
+import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 import ca.concordia.lanternsentities.enums.TileStack;
-
-import java.util.*;
 
 /**
  * This is an implementation of {@link SetupService}.
@@ -30,7 +39,7 @@ public class DefaultSetupService implements SetupService {
         game.init(sortedPlayerNames, generateGameId(sortedPlayerNames));
         LakeTile[] totalTiles = generateTiles(playerCount);
 
-        startLake(game.getLake(), totalTiles[0]);
+        startLake(game, totalTiles[0]);
         dealPlayerTiles(totalTiles, game.getPlayers());
         drawTileStack(game.getTiles(), totalTiles, playerCount);
         separateLanternCards(game.getCards(), playerCount);
@@ -118,10 +127,10 @@ public class DefaultSetupService implements SetupService {
     }
 
     @Override
-    public void startLake(final List<LakeTile> lake, final LakeTile initialTile) {
+    public void startLake(final Game game, final LakeTile initialTile) {
         // RED on initial tile will always be element 1. And will be pointing the first player.
         initialTile.setOrientation(1);
-        lake.add(initialTile);
+        game.setLake(new LakeTile[][] {{initialTile}});
     }
 
     @Override
@@ -211,9 +220,9 @@ public class DefaultSetupService implements SetupService {
     }
 
     @Override
-    public void distributeInitialLanterns(final List<LakeTile> lake, final LanternCardWrapper[] cards, final Player[] players) {
-        if ((lake != null) && (!lake.isEmpty())) {
-            LakeTile firstTile = lake.get(0);
+    public void distributeInitialLanterns(final LakeTile[][] lake, final LanternCardWrapper[] cards, final Player[] players) {
+        if ((lake != null) && (lake.length > 0) && (lake[0].length > 0)) {
+            LakeTile firstTile = lake[0][0];
 
             List<Colour> colours = Arrays.asList(Colour.values());
             for (int i = 0; i < players.length; i++) {

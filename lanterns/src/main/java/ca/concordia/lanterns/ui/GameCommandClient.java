@@ -5,6 +5,7 @@ import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanternsentities.*;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanternsentities.helper.MatrixOrganizer;
 
 import java.util.List;
 import java.util.Scanner;
@@ -34,8 +35,6 @@ public class GameCommandClient {
             displayPlayerLanterns(game, i);
             displayPlayerLakeTiles(game, i);
             displayPlayerDedications(game, i);
-
-
         }
 
         //System.out.println("_______________________________");
@@ -67,27 +66,53 @@ public class GameCommandClient {
     }
 
     private static void displayPlayerLakeTiles(Game game, final int playerID) {
-        for (int i = 0; i < game.getPlayers()[playerID].getTiles().size(); i++) {
+    	List<LakeTile> playerTiles = game.getPlayers()[playerID].getTiles();
+        for (int i = 0; i < playerTiles.size(); i++) {
             System.out.println("Lake Tile: " + i);
-            int cardSides = game.getPlayers()[playerID].getTiles().get(i).getSides().length;
-            for (int j = 0; j < cardSides; j++) {
-                System.out.println("	" + game.getPlayers()[playerID].getTiles().get(i).getSides()[j]);
-            }
-
-            boolean tileHasPlatform = game.getPlayers()[playerID].getTiles().get(i).isPlatform();
-            if (tileHasPlatform) {
-                System.out.println("	Lake Tile " + i + " has a platform");
-            } else {
-                System.out.println("	Lake Tile " + i + " does not have a platform");
+            LakeTile tile = playerTiles.get(i);
+            String[] lines = LakeTile.get3Lines(tile);
+            for(String line : lines) {
+            	System.out.println(line);
             }
         }
 
     }
 
     private static void displayLake(Game game) {
-        for (int i = 0; i < game.getLake().size(); i++) {
-            System.out.println(i + "=" + game.getLake().get(i));
-        }
+        LakeTile[][] matrix = game.getLake();
+        
+        StringBuffer[] lines1 = new StringBuffer[matrix.length];
+		StringBuffer[] lines2 = new StringBuffer[matrix.length];
+		StringBuffer[] lines3 = new StringBuffer[matrix.length];
+		
+		for (int i = 0; i < matrix.length; i++) {
+			lines1[i] = new StringBuffer();
+			lines2[i] = new StringBuffer();
+			lines3[i] = new StringBuffer();
+
+			for (int j = 0; j < matrix[i].length; j++) {
+				String[] tileLines = LakeTile.get3Lines(matrix[i][j]);
+				lines1[i].append(tileLines[0]);
+				lines2[i].append(tileLines[1]);
+				lines3[i].append(tileLines[2]);
+			}
+		}
+
+		for (int i = 0; i < matrix.length; i++) {
+			System.out.println(lines1[i]);
+			System.out.println(lines2[i]);
+			System.out.println(lines3[i]);
+			System.out.println();
+		}
+		
+		System.out.println("ids");
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				if (matrix[i][j] != null) {
+					System.out.println(matrix[i][j].getId());
+				}
+			}
+		}
     }
 
     private static void displayPlayerDedications(Game game, final int playerID) {
@@ -318,11 +343,17 @@ public class GameCommandClient {
 
             System.out.println("Select one of the lake tiles to put your tile next to:");
             displayLake(game);
-            List<LakeTile> lakeTiles = game.getLake();
-            int existingTileIndex = getValidInt("", 0, lakeTiles.size() - 1);
+            
+            LakeTile lakeTile = null;
+            while (lakeTile == null) {
+            	String lakeTileId = getValidString("");
+            	lakeTile = MatrixOrganizer.findTile(game.getLake(), lakeTileId);
+            	if (lakeTile == null) {
+            		System.out.println("Invalid tile id. Please try again:");
+            	}
+            }
 
             System.out.println("Select the side of the lake tiles to put your tile next to:");
-            LakeTile lakeTile = lakeTiles.get(existingTileIndex);
             int existingTileSideIndex = getValidInt(getTileSidesString(lakeTile), 0, lakeTile.getSides().length - 1);
 
             System.out.println("Select the side your tile to put next to the lake tile:");
@@ -331,7 +362,7 @@ public class GameCommandClient {
 
             try {
                 controller.placeLakeTile(game, currentPlayer.getId(), playerTileIndex,
-                        existingTileIndex, existingTileSideIndex, playerTileSideIndex);
+                		lakeTile.getId(), existingTileSideIndex, playerTileSideIndex);
                 playerNotDone = false;
             } catch (GameRuleViolationException e) {
                 System.err.println(e.getMessage());

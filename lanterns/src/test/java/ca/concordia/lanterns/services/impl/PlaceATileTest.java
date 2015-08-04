@@ -7,6 +7,8 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.TileSide;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.TileStack;
+import ca.concordia.lanternsentities.helper.MatrixOrganizer;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +16,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static ca.concordia.lanternsentities.enums.Colour.BLACK;
+import static ca.concordia.lanternsentities.enums.Colour.BLUE;
+import static ca.concordia.lanternsentities.enums.Colour.GREEN;
+import static ca.concordia.lanternsentities.enums.Colour.ORANGE;
+import static ca.concordia.lanternsentities.enums.Colour.PURPLE;
+import static ca.concordia.lanternsentities.enums.Colour.RED;
+import static ca.concordia.lanternsentities.enums.Colour.WHITE;
+import static  ca.concordia.lanternsentities.helper.MatrixOrganizer.Direction.*;
 import static org.junit.Assert.*;
 
 public class PlaceATileTest {
@@ -36,23 +46,24 @@ public class PlaceATileTest {
         game.init(sortedPlayerNames, "Test");
 
         // Custom initialization of lake
-        List<LakeTile> tilesInLake = new ArrayList<LakeTile>();
-        tilesInLake.add(TileStack.T54.getTile());
-        tilesInLake.add(TileStack.T11.getTile());
-        tilesInLake.add(TileStack.T33.getTile());
+        LakeTile T54 = TileStack.T54.getTile(); // "BRWK."
+        LakeTile T11 = TileStack.T11.getTile(); // "GBKO."
+        LakeTile T33 = TileStack.T33.getTile(); // "OPWW*"
 
-        tilesInLake.get(0).setOrientation(2);
-        tilesInLake.get(1).setOrientation(0);
-        tilesInLake.get(2).setOrientation(3);
-        tilesInLake.get(0).getSides()[0].setAdjacent(tilesInLake.get(1));
-        tilesInLake.get(1).getSides()[2].setAdjacent(tilesInLake.get(0));
-        tilesInLake.get(1).getSides()[3].setAdjacent(tilesInLake.get(2));
-        tilesInLake.get(2).getSides()[1].setAdjacent(tilesInLake.get(1));
+        T54.setOrientation(2);
+        T11.setOrientation(0);
+        T33.setOrientation(3);
 
-        game.setLake(tilesInLake);
+        game.setLake(new LakeTile[][] {{T54}});
+        game.setLake(MatrixOrganizer.addElement(game.getLake(), T11, NORTH, 0, 0));
+        game.setLake(MatrixOrganizer.addElement(game.getLake(), T33, WEST, 0, 0));
+        
+        // [OPWW*][GBKO.]
+        // [     ][BRWK.]
+        
 
         // Added one tile to the stack of tiles in game.
-        game.getTiles().add(TileStack.T12.getTile());
+        game.getTiles().add(TileStack.T12.getTile()); // "WKOK."
 
         setUpService.separateLanternCards(game.getCards(), playerCount);
 
@@ -61,7 +72,7 @@ public class PlaceATileTest {
         game.setCurrentTurnPlayer(1);
 
         // Custom tile for current Player
-        game.getPlayers()[1].getTiles().add(TileStack.T42.getTile());
+        game.getPlayers()[1].getTiles().add(TileStack.T42.getTile()); // "RKKP*"
     }
 
     @Test
@@ -69,13 +80,14 @@ public class PlaceATileTest {
 
         Player player = game.getPlayers()[1];
         // Record Data structures before placing a tile
-        List<LakeTile> lake = game.getLake();
-        int lakeSize = lake.size();
+        LakeTile[][] lake = game.getLake();
+        // [OPWW*][GBKO.]
+        // [     ][BRWK.]
 
         LakeTile topTile = game.getTiles().peek();
 
-        TileSide westZerothTile = lake.get(0).getSides()[3];
-        TileSide southSecondTile = lake.get(2).getSides()[2];
+        TileSide westZerothTile = MatrixOrganizer.findTile(lake, "BRWK.").getSides()[WEST.ordinal()];
+        TileSide southSecondTile = MatrixOrganizer.findTile(lake, "OPWW*").getSides()[SOUTH.ordinal()];
         assertNull(westZerothTile.getAdjacent());
         assertNull(southSecondTile.getAdjacent());
 
@@ -92,16 +104,21 @@ public class PlaceATileTest {
 
         ActivePlayerService service = new ActivePlayerService();
         try {
-            service.placeLakeTile(game, 1, 0, 2, 2, 3);
-            ;
+            service.placeLakeTile(game, 1, 0, "BRWK.", 2, WEST.ordinal());
         } catch (GameRuleViolationException e) {
             fail("A Valid Tile placement failed");
         }
+        
+        lake = game.getLake();
+        // [OPWW*][GBKO.]
+        // [RKKP*][BRWK.]
+        westZerothTile = MatrixOrganizer.findTile(lake, "BRWK.").getSides()[WEST.ordinal()];
+        southSecondTile = MatrixOrganizer.findTile(lake, "OPWW*").getSides()[SOUTH.ordinal()];
 
         assertSame(westZerothTile.getAdjacent(), playerTile);
         assertSame(southSecondTile.getAdjacent(), playerTile);
-        assertSame(playerTile.getSides()[0].getAdjacent(), lake.get(2));
-        assertSame(playerTile.getSides()[1].getAdjacent(), lake.get(0));
+        assertSame(playerTile.getSides()[NORTH.ordinal()].getAdjacent(), MatrixOrganizer.findTile(lake, "OPWW*"));
+        assertSame(playerTile.getSides()[EAST.ordinal()].getAdjacent(), MatrixOrganizer.findTile(lake, "BRWK."));
 
         assertEquals(purpleQuantity - 1, game.getCards()[colors.indexOf(Colour.PURPLE)].getQuantity());
         assertEquals(redQuantity - 2, game.getCards()[colors.indexOf(Colour.RED)].getQuantity());
@@ -116,7 +133,7 @@ public class PlaceATileTest {
         assertEquals(game.getPlayers()[3].getCards()[colors.indexOf(Colour.BLACK)].getQuantity(), 1);
         assertEquals(game.getPlayers()[0].getCards()[colors.indexOf(Colour.PURPLE)].getQuantity(), 0);
 
-        assertSame(game.getLake().get(3), playerTile);
+        assertSame(MatrixOrganizer.findTile(game.getLake(), "RBBP*"), playerTile);
         assertSame(topTile, player.getTiles().get(0));
         assertTrue(game.getTiles().isEmpty());
     }

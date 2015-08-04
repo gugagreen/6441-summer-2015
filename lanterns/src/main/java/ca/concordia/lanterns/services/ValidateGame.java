@@ -61,11 +61,11 @@ public interface ValidateGame {
      *
      * @param players           each player should have 3 lake cards in their hand at the start of the game.
      * @param lake              The lake may contain anywhere from 1 to all lake Tiles.
-     * @param lakeTile          There are different numbers of lake tiles in the game based on the number of players.
+     * @param tileStack          Stack of tiles not picked up yet.
      * @param currentTurnPlayer The player currently playing his turn must put down a lake tile.
      */
-    void validateLakeTileStack(final Player[] players, final List<LakeTile> lake,
-                               final Stack<LakeTile> lakeTile, final int currentTurnPlayer);
+    void validateLakeTileStack(final Player[] players, final LakeTile[][] lake,
+                               final Stack<LakeTile> tileStack, final int currentTurnPlayer);
 
 
 }

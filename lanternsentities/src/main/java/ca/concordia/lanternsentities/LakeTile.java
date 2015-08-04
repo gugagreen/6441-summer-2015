@@ -1,13 +1,13 @@
 package ca.concordia.lanternsentities;
 
-import ca.concordia.lanternsentities.enums.Colour;
+import java.util.Arrays;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.TileStack;
 
 /**
  * Lake Tile entity
@@ -26,26 +26,6 @@ public class LakeTile {
     private boolean platform;
 
     private String id;
-
-    public static void main(String[] args) {
-        boolean plat1 = true;
-        Colour[] colours1 = new Colour[]{Colour.BLACK, Colour.WHITE, Colour.BLACK, Colour.WHITE};
-        LakeTile tile1 = new LakeTile();
-        tile1.init(colours1, plat1);
-
-        boolean plat2 = false;
-        Colour[] colours2 = new Colour[]{Colour.RED, Colour.BLACK, Colour.GREEN, Colour.PURPLE};
-        LakeTile tile2 = new LakeTile();
-        tile2.init(colours2, plat2);
-
-        tile1.getSides()[0].setAdjacent(tile2);
-        tile2.getSides()[1].setAdjacent(tile1);
-
-        List<LakeTile> lake = new ArrayList<LakeTile>();
-        lake.add(tile1);
-        lake.add(tile2);
-        System.out.println(lake);
-    }
 
     /**
      * Each Lake tile has four sides, each side can have a colour, there are 7 different colours.
@@ -145,7 +125,7 @@ public class LakeTile {
             sb.append(side.getColour().key);
         }
         if (platform) {
-            sb.append("p");
+            sb.append("*");
         } else {
             sb.append(".");
         }
@@ -215,5 +195,84 @@ public class LakeTile {
         }
 
     }
+    
+
+
+	/**
+	 * Writes a TileStack into an array of 3 strings, in the following format:<p>
+	 * <ul>
+	 * 	<li>If the TileStack is null:
+	 * 		<ul>
+	 * 			<li><code>[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</code></li>
+	 * 			<li><code>[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</code></li>
+	 * 			<li><code>[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</code></li>
+	 * 		</ul>
+	 * 	</li>
+	 * 	<li>If the TileStack is not null:
+	 * 		<ul>
+	 * 			<li><code>[&nbsp;&nbsp;N&nbsp;&nbsp;]</code></li>
+	 * 			<li><code>[W&nbsp;p&nbsp;E]</code></li>
+	 * 			<li><code>[&nbsp;&nbsp;S&nbsp;&nbsp;]</code></li>
+	 * 		</ul>
+	 * 		Where the {N,E,S,W} will be the {@link Colour#key} on the side North, East, 
+	 * South or West. Ant the {p} will be "*" if the tile has a platform of "." if it doesn't.  
+	 * 	</li>
+	 * </ul>
+	 * @param ts
+	 * @return	The 3 lines array.
+	 */
+	public static String[] get3Lines(LakeTile lt) {
+		String[] lines = new String[3];
+		if (lt == null) {
+			lines[0] = "[     ]";
+			lines[1] = "[     ]";
+			lines[2] = "[     ]";
+		} else {
+			TileSide[] ss = lt.getSides();
+			char plat = lt.isPlatform() ? '*' : '.';
+			lines[0] = "[  " + ss[3].getColour().key + "  ]";
+			lines[1] = "[" + ss[2].getColour().key + " " + plat + " " + ss[0].getColour().key + "]";
+			lines[2] = "[  " + ss[1].getColour().key + "  ]";
+		}
+		return lines;
+	}
+
+	// FIXME - delete this test
+	public static void main(String[] args) {
+		int SIZE = 5;
+		LakeTile[][] matrix = new LakeTile[SIZE][];
+		// init lines
+		for (int i = 0; i < matrix.length; i++) {
+			matrix[i] = new LakeTile[SIZE];
+		}
+		StringBuffer[] lines1 = new StringBuffer[matrix.length];
+		StringBuffer[] lines2 = new StringBuffer[matrix.length];
+		StringBuffer[] lines3 = new StringBuffer[matrix.length];
+
+		// dummy data
+		matrix[1][1] = TileStack.T54.getTile();
+		matrix[1][2] = TileStack.T42.getTile();
+		matrix[2][2] = TileStack.T12.getTile();
+
+		for (int i = 0; i < matrix.length; i++) {
+			lines1[i] = new StringBuffer();
+			lines2[i] = new StringBuffer();
+			lines3[i] = new StringBuffer();
+
+			for (int j = 0; j < matrix[i].length; j++) {
+				String[] tileLines = LakeTile.get3Lines(matrix[i][j]);
+				lines1[i].append(tileLines[0]);
+				lines2[i].append(tileLines[1]);
+				lines3[i].append(tileLines[2]);
+			}
+		}
+
+		for (int i = 0; i < matrix.length; i++) {
+			System.out.println(lines1[i]);
+			System.out.println(lines2[i]);
+			System.out.println(lines3[i]);
+			System.out.println();
+		}
+	}
 
 }

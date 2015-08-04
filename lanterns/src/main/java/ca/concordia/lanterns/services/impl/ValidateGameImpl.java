@@ -4,6 +4,7 @@ import ca.concordia.lanterns.services.ValidateGame;
 import ca.concordia.lanternsentities.*;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanternsentities.helper.MatrixOrganizer;
 
 import java.util.*;
 
@@ -78,10 +79,10 @@ public class ValidateGameImpl implements ValidateGame {
     }
 
     @Override
-    public void validateLakeTileStack(final Player[] players, final List<LakeTile> lake, final Stack<LakeTile> lakeTile,
+    public void validateLakeTileStack(final Player[] players, final LakeTile[][] lake, final Stack<LakeTile> tileStack,
                                       final int currentTurnPlayer) {
-        int sum = 0;
-        sum = sum + lake.size() + lakeTile.size();
+    	int lakeSize = MatrixOrganizer.count(lake);
+        int sum = lakeSize + tileStack.size();
         for (int i = 0; i != players.length; ++i) {
             sum = sum + players[i].getTiles().size();
         }
@@ -98,9 +99,9 @@ public class ValidateGameImpl implements ValidateGame {
         //Validates that all players have 3 lake tiles for the beginning of the game, after this point players are allowed to have 2,1,0 tiles until game ends.
         for (int i = 0; i != players.length; ++i) {
 
-            if ((players.length == 4 && lake.size() < 21) || (players.length == 3 && lake.size() < 19) || (players.length == 2 && lake.size() < 17)) {
+            if ((players.length == 4 && lakeSize < 21) || (players.length == 3 && lakeSize < 19) || (players.length == 2 && lakeSize < 17)) {
 
-                if (players[i].getTiles().size() != 3 && !lake.isEmpty() && players[i].getId() != currentTurnPlayer) {
+                if ((players[i].getTiles().size() != 3) && (lakeSize > 0) && (players[i].getId() != currentTurnPlayer)) {
                     throw new IllegalArgumentException("Player: " + players[i].getName() + "has insufficient Lake Tiles");
                 }
             }
