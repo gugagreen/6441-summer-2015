@@ -15,83 +15,91 @@ import java.util.Set;
  */
 public class EndGameDetectService implements EndGameService {
 
-    public static EndGameDetectService getInstance() {
-        return SingletonHolder.INSTANCE;
-    }
+	public static EndGameDetectService getInstance() {
+		return SingletonHolder.INSTANCE;
+	}
 
-    public boolean isGameEnded(Game game) {
-        int playerNum = game.getPlayers().length;
-        int count = 0;
+	public boolean isGameEnded(Game game) {
+		int playerNum = game.getPlayers().length;
+		int count = 0;
 
-        for (Player player : game.getPlayers()) {
-            if (player.getTiles().isEmpty()) {
-                count++;
-            }
-        }
+		for (Player player : game.getPlayers()) {
+			if (player.getTiles().isEmpty()) {
+				count++;
+			}
+		}
 
-        boolean isLastTurn = game.getTiles().empty() && (count == playerNum);
-        boolean isLastPlayer = game.getCurrentTurnPlayer() == (game.getPlayers().length - 1);
+		boolean isLastTurn = game.getTiles().empty() && (count == playerNum);
+		boolean isLastPlayer = game.getCurrentTurnPlayer() == (game.getPlayers().length - 1);
 
-        // if it is the last turn and it is the last player, game is ended
-        return (isLastTurn && isLastPlayer);
-    }
+		// if it is the last turn and it is the last player, game is ended
+		return (isLastTurn && isLastPlayer);
+	}
 
-    public Set<Player> getGameWinner(Game game) {
+	public Set<Player> getGameWinner(Game game) {
+		if (isGameEnded(game)) {
+			Set<Player> winners = new HashSet<Player>();
 
-        if (isGameEnded(game)) {
-            Set<Player> winners = new HashSet<Player>();
-            Player winnerHolder = game.getPlayers()[0];
-            int sum = 0;
-            int mostHonor = 0;
+			for (Player player : game.getPlayers()) {
+				// if it is the first player, just add it
+				if (winners.isEmpty()) {
+					winners.add(player);
+					// otherwise, compare with existent winners
+				} else {
+					Player winnerHolder = winners.iterator().next();
+					int sum = countDedications(player);
+					int mostHonor = countDedications(winnerHolder);
+					
+					// if current player has the most dedications, it is the winner
+					if (sum > mostHonor) {
+						winners = new HashSet<Player>();
+						winners.add(player);
+						// otherwise, go to tie break
+					} else if (sum == mostHonor) {
+						// if current player has the most favors, it is the winner
+						if (player.getFavors() > winnerHolder.getFavors()) {
+							winners = new HashSet<Player>();
+							winners.add(player);
+							// otherwise, go to tie break
+						} else if (player.getFavors() == winnerHolder.getFavors()) {
+							int playerRemainCard = countCards(player);
+							int winnerHolderRemainCard = countCards(winnerHolder);
+							// if current player has the most cards, it is the winner
+							if (playerRemainCard > winnerHolderRemainCard) {
+								winners = new HashSet<Player>();
+								winners.add(player);
+								// otherwise, it is a tie
+							} else if (playerRemainCard == winnerHolderRemainCard) {
+								winners.add(player);
+							}
+						}
+					}
+				}
+			}
 
-            for (Player player : game.getPlayers()) {
-                for (DedicationToken dedicationToken : player.getDedications()) {
-                    sum += dedicationToken.getTokenValue();
-                }
+			return winners;
+		} else {
+			throw new GameRuleViolationException("Game is not ended yet. Cannot calculate winner.");
+		}
+	}
+	
+	private int countDedications(Player player) {
+		int sum = 0;
+		for (DedicationToken dedicationToken : player.getDedications()) {
+			sum += dedicationToken.getTokenValue();
+		}
+		return sum;
+	}
+	
+	private int countCards(Player player) {
+		int sum = 0;
+		for (LanternCardWrapper lanternCardWrapper : player.getCards()) {
+			sum += lanternCardWrapper.getQuantity();
+		}
+		return sum;
+	}
 
-                if (sum > mostHonor) {
-                    mostHonor = sum;
-                    winnerHolder = player;
-                }
-                // In the case of a tie
-                if (sum == mostHonor) {
-                    if (player.getFavors() > winnerHolder.getFavors()) {
-                        winnerHolder = player;
-                    }
-                    //In the case of a further tie
-                    if (player.getFavors() == winnerHolder.getFavors())
-                    {
-                        int playerRemainCard = 0;
-                        int winnerHolderRemainCard = 0;
-
-                        for (LanternCardWrapper lanternCardWrapper : player.getCards())
-                            playerRemainCard += lanternCardWrapper.getQuantity();
-
-                        for (LanternCardWrapper lanternCardWrapper : winnerHolder.getCards())
-                            winnerHolderRemainCard += lanternCardWrapper.getQuantity();
-
-                        if (playerRemainCard > winnerHolderRemainCard){
-                            winnerHolder = player;
-                        }
-                        else if (playerRemainCard == winnerHolderRemainCard){
-                        	winners.add(player);
-                        }
-                    }
-                }
-
-                sum = 0;
-            }
-            // FIXME - implement other tie cases
-
-            winners.add(winnerHolder);
-
-            return winners;
-        } else {
-            throw new GameRuleViolationException("Game is not ended yet. Cannot calculate winner.");
-        }
-    }
-
-    private static class SingletonHolder {
-        static final EndGameDetectService INSTANCE = new EndGameDetectService();
-    }
+	private static class SingletonHolder {
+		static final EndGameDetectService INSTANCE = new EndGameDetectService();
+	}
 }
