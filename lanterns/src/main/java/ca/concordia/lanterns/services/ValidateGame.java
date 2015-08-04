@@ -1,12 +1,11 @@
 package ca.concordia.lanterns.services;
 
+import java.util.Stack;
+
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.Player;
-
-import java.util.List;
-import java.util.Stack;
 
 /**
  * Generic Validate Game interface. Validates if information in game object is valid.

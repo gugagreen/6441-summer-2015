@@ -1,18 +1,17 @@
 package ca.concordia.lanterns.services.impl;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Stack;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import ca.concordia.lanterns.services.ValidateGame;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.helper.MatrixOrganizer;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.List;
-import java.util.Stack;
-
-import static org.junit.Assert.assertEquals;
 
 public class ValidateGameImplTest {
 
@@ -66,8 +65,6 @@ public class ValidateGameImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testValidLakeTileQuantity() throws IllegalArgumentException {
-    	// FIXME - test does not test anything
-
         // Get correct number of players (3)
         Player[] correctPlayers = game.getPlayers();
 

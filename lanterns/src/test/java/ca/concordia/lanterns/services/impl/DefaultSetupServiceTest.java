@@ -1,19 +1,26 @@
 package ca.concordia.lanterns.services.impl;
 
-import ca.concordia.lanternsentities.*;
-import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.DedicationType;
-import ca.concordia.lanternsentities.helper.MatrixOrganizer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.concordia.lanternsentities.DedicationToken;
+import ca.concordia.lanternsentities.DedicationTokenWrapper;
+import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LakeTile;
+import ca.concordia.lanternsentities.LanternCardWrapper;
+import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanternsentities.helper.MatrixOrganizer;
 
 public class DefaultSetupServiceTest {
 
