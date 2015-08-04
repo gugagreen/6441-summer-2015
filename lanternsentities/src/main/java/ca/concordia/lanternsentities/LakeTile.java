@@ -195,8 +195,6 @@ public class LakeTile {
         }
 
     }
-    
-
 
 	/**
 	 * Writes a TileStack into an array of 3 strings, in the following format:<p>

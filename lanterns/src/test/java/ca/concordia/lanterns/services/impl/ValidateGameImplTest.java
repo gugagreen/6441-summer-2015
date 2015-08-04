@@ -4,6 +4,8 @@ import ca.concordia.lanterns.services.ValidateGame;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.helper.MatrixOrganizer;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,15 +34,15 @@ public class ValidateGameImplTest {
 
     @Test
     public void testValidateLakeTileCreation() {
-
+    	// FIXME - test does not test anything
+    	
         Player[] players = game.getPlayers();
-        List<LakeTile> lake = game.getLake();
         Stack<LakeTile> lakeTile = game.getTiles();
         int currentTurnPlayer = 1;
 
         // Checking to see that all useful entities were properly instantiated
         assertEquals(players.length, 3);
-        assertEquals(lake.size(), 1);
+        assertEquals(MatrixOrganizer.count(game.getLake()), 1);
         assertEquals(lakeTile.size(), 18);
 
         // Checking to see if all players have exactly 3 lake tiles (since we
@@ -52,19 +54,19 @@ public class ValidateGameImplTest {
         // Checking to make sure that the proper total number of lake tiles is
         // in the game
         int sum = 0;
-        sum = sum + lake.size() + lakeTile.size();
+        sum = sum + MatrixOrganizer.count(game.getLake()) + lakeTile.size();
         for (int i = 0; i != players.length; ++i) {
             sum = sum + players[i].getTiles().size();
         }
 
         assertEquals(sum, 28);
 
-        gameValidator.validateLakeTileStack(players, lake, lakeTile, currentTurnPlayer);
-
+        gameValidator.validateLakeTileStack(players, game.getLake(), lakeTile, currentTurnPlayer);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testValidLakeTileQuantity() throws IllegalArgumentException {
+    	// FIXME - test does not test anything
 
         // Get correct number of players (3)
         Player[] correctPlayers = game.getPlayers();
@@ -76,11 +78,10 @@ public class ValidateGameImplTest {
         Player[] players = twoPlayers;
 
         // instantiate rest of game as though everything was a normal new game
-        List<LakeTile> lake = game.getLake();
         Stack<LakeTile> lakeTile = game.getTiles();
         int currentTurnPlayer = 1;
 
-        gameValidator.validateLakeTileStack(players, lake, lakeTile, currentTurnPlayer);
+        gameValidator.validateLakeTileStack(players, game.getLake(), lakeTile, currentTurnPlayer);
 
     }
 
@@ -93,11 +94,10 @@ public class ValidateGameImplTest {
         //TODO Change one players number of LakeTiles to have less than 3
 
         // instantiate rest of game as though everything was a normal new game
-        List<LakeTile> lake = game.getLake();
         Stack<LakeTile> lakeTile = game.getTiles();
         int currentTurnPlayer = 0;
 
-        gameValidator.validateLakeTileStack(players, lake, lakeTile, currentTurnPlayer);
+        gameValidator.validateLakeTileStack(players, game.getLake(), lakeTile, currentTurnPlayer);
 
         //FIXME remove line below when test exists
         throw new IllegalArgumentException();
@@ -113,11 +113,10 @@ public class ValidateGameImplTest {
         //TODO Change one players number of LakeTiles to have more than 3
 
         // instantiate rest of game as though everything was a normal new game
-        List<LakeTile> lake = game.getLake();
         Stack<LakeTile> lakeTile = game.getTiles();
         int currentTurnPlayer = 0;
 
-        gameValidator.validateLakeTileStack(players, lake, lakeTile, currentTurnPlayer);
+        gameValidator.validateLakeTileStack(players, game.getLake(), lakeTile, currentTurnPlayer);
 
         //FIXME remove line below when test exists
         throw new IllegalArgumentException();
