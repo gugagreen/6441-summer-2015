@@ -9,6 +9,7 @@ import java.awt.*;
  *
  * @author parth
  */
+// FIXME - delete this class completely. Use MatrixOrganizer instead.
 public enum Direction {
     NORTH(0, 1, 0), EAST(1, 0, 1), SOUTH(0, -1, 2), WEST(-1, 0, 3);
 

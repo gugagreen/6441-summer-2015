@@ -1,19 +1,22 @@
 package ca.concordia.lanterns.services.impl;
 
-import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanterns.services.GameEventListener;
-import ca.concordia.lanterns.services.PlayerService;
-import ca.concordia.lanterns.services.enums.DedicationCost;
-import ca.concordia.lanterns.services.enums.Direction;
-import ca.concordia.lanterns.services.helper.LakeHelper;
-import ca.concordia.lanternsentities.*;
-import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.DedicationType;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
+
+import ca.concordia.lanterns.exception.GameRuleViolationException;
+import ca.concordia.lanterns.services.PlayerService;
+import ca.concordia.lanterns.services.enums.DedicationCost;
+import ca.concordia.lanterns.services.enums.Direction;
+import ca.concordia.lanternsentities.DedicationToken;
+import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LakeTile;
+import ca.concordia.lanternsentities.LanternCardWrapper;
+import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.TileSide;
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanternsentities.helper.MatrixOrganizer;
 
 /**
  * This is an implementation of {@link PlayerService} based upon the rules of
@@ -124,12 +127,12 @@ public class ActivePlayerService implements PlayerService {
 
     @Override
     public void placeLakeTile(Game game, int id, int playerTileIndex,
-                              int existingTileIndex, int existingTileSideIndex,
+                              String lakeTileId, int existingTileSideIndex,
                               int playerTileSideIndex) throws GameRuleViolationException {
 
         Player player = game.getPlayers()[id];
         LakeTile playerTile = player.getTiles().get(playerTileIndex);
-        LakeTile existingTile = game.getLake().get(existingTileIndex);
+        LakeTile existingTile = MatrixOrganizer.findTile(game.getLake(), lakeTileId);
         TileSide existingSide = existingTile.getSides()[existingTileSideIndex];
 
         if (existingSide.getAdjacent() != null) {
@@ -157,15 +160,16 @@ public class ActivePlayerService implements PlayerService {
 
         playerTile.setOrientation(firstPlayerTileSideIndex);
 
-        // Detect and set all the LakeTiles that are adjacent to this lake tile when it will be in the lake.
-        LakeHelper.setAdjacentLakeTiles(playerTile, existingTile,
-                directions.get(orientedPlayerTileSideIndex));
+        // add tile to lake in the right position
+        MatrixOrganizer.Direction matrixDirection =  MatrixOrganizer.Direction.values()[existingTileSideIndex];
+        int[] lineColumn = MatrixOrganizer.getLineColumn(game.getLake(), lakeTileId);
+       game.setLake(MatrixOrganizer.addElement(game.getLake(), playerTile, matrixDirection, lineColumn[0], lineColumn[1]));
 
         giveMatchingBonus(game, player, playerTile);
 
         distributeLanternCards(game, id, playerTile);
 
-        game.getLake().add(playerTile);
+        //game.getLake().add(playerTile);
         player.getTiles().remove(playerTileIndex);
 
         if (!game.getTiles().isEmpty()) {

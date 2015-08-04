@@ -55,8 +55,8 @@ public interface PlayerService {
      * @param id                  - the id of the player who places the Lake Tile
      * @param playerTileIndex     - the index of the Lake Tile the player wishes to place from the list
      *                            of Lake Tiles available to the player.
-     * @param lakeTileIndex       - the index of the Lake Tile adjacent to which the player wishes to
-     *                            place the new Tile. This index must be from the list of Lake Tile already in the lake.
+     * @param lakeTileId       - the id of the Lake Tile adjacent to which the player wishes to
+     *                            place the new Tile. This id must be from the list of Lake Tile already in the lake.
      * @param lakeTileSideIndex   - the index of the {@link TileSide} of Lake tile indexed by
      *                            lakeTileIndex. The lake tile indexed by playerTileIndex will be placed adjacent to this Tile
      *                            Side of Lake Tile.
@@ -65,7 +65,7 @@ public interface PlayerService {
      *                            Side of Lake Tile.
      * @throws GameRuleViolationException - when the rule for placing a tile is violated.
      */
-    public void placeLakeTile(Game game, int id, int playerTileIndex, int lakeTileIndex,
+    public void placeLakeTile(Game game, int id, int playerTileIndex, String lakeTileId,
                               int lakeTileSideIndex, int playerTileSideIndex) throws GameRuleViolationException;
 
 }

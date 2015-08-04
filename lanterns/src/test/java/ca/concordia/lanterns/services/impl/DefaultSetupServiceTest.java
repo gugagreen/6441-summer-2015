@@ -3,6 +3,8 @@ package ca.concordia.lanterns.services.impl;
 import ca.concordia.lanternsentities.*;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
+import ca.concordia.lanternsentities.helper.MatrixOrganizer;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,14 +74,15 @@ public class DefaultSetupServiceTest {
 
     @Test
     public void testStartLake() {
-        List<LakeTile> lake = new ArrayList<LakeTile>();
+    	Game game = new Game();
+        game.init(new String[] {"a","b"}, "test");
         Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
         LakeTile initialTile = new LakeTile();
         initialTile.init(colours, false);
-        service.startLake(lake, initialTile);
+        service.startLake(game, initialTile);
 
-        assertEquals(1, lake.size());
-        assertEquals(initialTile, lake.get(0));
+        assertEquals(1, MatrixOrganizer.count(game.getLake()));
+        assertEquals(initialTile, game.getLake()[0][0]);
     }
 
     @Test
@@ -186,11 +189,12 @@ public class DefaultSetupServiceTest {
         List<Colour> colourValues = Arrays.asList(Colour.values());
         Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
 
-        final List<LakeTile> lake = new ArrayList<LakeTile>();
+        Game game = new Game();
+        game.init(new String[] {"a","b"}, "test");
         LakeTile initialTile = new LakeTile();
         initialTile.init(colours, false);
 
-        service.startLake(lake, initialTile);
+        service.startLake(game, initialTile);
 
         final LanternCardWrapper[] cards = new LanternCardWrapper[colourValues.size()];
 
@@ -208,11 +212,11 @@ public class DefaultSetupServiceTest {
 
         Player[] players = createPlayers(2);
 
-        service.distributeInitialLanterns(lake, cards, players);
+        service.distributeInitialLanterns(game.getLake(), cards, players);
 
         for (int i = 0; i < players.length; i++) {
             Player player = players[i];
-            Colour colour = lake.get(0).getSides()[i].getColour();
+            Colour colour = game.getLake()[0][0].getSides()[i].getColour();
 
             final LanternCardWrapper[] playerCards = player.getCards();
 

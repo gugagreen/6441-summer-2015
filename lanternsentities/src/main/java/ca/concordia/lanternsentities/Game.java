@@ -1,14 +1,13 @@
 package ca.concordia.lanternsentities;
 
-import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.DedicationType;
+import java.util.Arrays;
+import java.util.Stack;
 
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.DedicationType;
 
 
 /**
@@ -28,7 +27,7 @@ public class Game {
     /**
      * Lake where tiles are being displayed for all users.
      */
-    private List<LakeTile> lake;
+    private LakeTile[][] lake;
     /**
      * Stack of Lake Tiles to be distributed.
      */
@@ -71,7 +70,7 @@ public class Game {
             this.players[i].init(playerNames[i], i);
         }
 
-        this.lake = new ArrayList<LakeTile>();
+        this.lake = new LakeTile[0][0];
 
         this.tiles = new Stack<LakeTile>();
 
@@ -145,11 +144,11 @@ public class Game {
         this.players = players;
     }
 
-    public List<LakeTile> getLake() {
+    public LakeTile[][] getLake() {
         return lake;
     }
 
-    public void setLake(List<LakeTile> lake) {
+    public void setLake(LakeTile[][] lake) {
         this.lake = lake;
     }
 

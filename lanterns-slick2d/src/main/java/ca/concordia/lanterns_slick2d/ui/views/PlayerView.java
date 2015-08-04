@@ -1,12 +1,13 @@
 package ca.concordia.lanterns_slick2d.ui.views;
 
-import ca.concordia.lanterns_slick2d.constants.Constants;
-import ca.concordia.lanterns_slick2d.ui.buttons.Tile;
-import ca.concordia.lanternsentities.Player;
 import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
+import ca.concordia.lanterns_slick2d.constants.Constants;
+import ca.concordia.lanterns_slick2d.ui.buttons.Tile;
+import ca.concordia.lanternsentities.Player;
 
 /**
  * A UI entity that implements {@link Game} and controls the player view.

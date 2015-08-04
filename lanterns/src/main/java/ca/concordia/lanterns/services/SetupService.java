@@ -1,9 +1,12 @@
 package ca.concordia.lanterns.services;
 
-import ca.concordia.lanternsentities.*;
-
-import java.util.List;
 import java.util.Stack;
+
+import ca.concordia.lanternsentities.DedicationTokenWrapper;
+import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LakeTile;
+import ca.concordia.lanternsentities.LanternCardWrapper;
+import ca.concordia.lanternsentities.Player;
 
 public interface SetupService {
 
@@ -42,10 +45,10 @@ public interface SetupService {
      * Place the starting Lake Tile in the center of the play area face down. Flip the tile face up and orient it so that one
      * player is facing the red side and each other player is facing a different side.
      *
-     * @param lake
+     * @param game
      * @param initialTile
      */
-    void startLake(final List<LakeTile> lake, final LakeTile initialTile);
+    void startLake(final Game game, final LakeTile initialTile);
 
     /**
      * Setup step #2:
@@ -127,5 +130,5 @@ public interface SetupService {
      * @param cards   lantern cards available to be distributed
      * @param players the players in the game.
      */
-    void distributeInitialLanterns(final List<LakeTile> lake, final LanternCardWrapper[] cards, final Player[] players);
+    void distributeInitialLanterns(final LakeTile[][] lake, final LanternCardWrapper[] cards, final Player[] players);
 }

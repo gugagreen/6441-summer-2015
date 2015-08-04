@@ -61,9 +61,9 @@ public class GameController {
         ActivePlayerService.getInstance().makeDedication(game, id, dedicationType, colours);
     }
 
-    public void placeLakeTile(Game game, int id, int playerTileIndex, int existingTileIndex, int existingTileSideIndex,
+    public void placeLakeTile(Game game, int id, int playerTileIndex, String lakeTileId, int existingTileSideIndex,
                               int playerTileSideIndex) throws GameRuleViolationException {
-        ActivePlayerService.getInstance().placeLakeTile(game, id, playerTileIndex, existingTileIndex, existingTileSideIndex,
+        ActivePlayerService.getInstance().placeLakeTile(game, id, playerTileIndex, lakeTileId, existingTileSideIndex,
                 playerTileSideIndex);
     }
 }
