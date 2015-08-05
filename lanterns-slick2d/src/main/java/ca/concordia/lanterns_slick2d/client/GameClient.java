@@ -21,7 +21,6 @@ import static ca.concordia.lanterns_slick2d.constants.Constants.CONFIGFILEPATH;
 public class GameClient {
 
     private static final Client client = Client.create();
-    // TODO - move all endpoint related constants to a common place (probably a properties file in entities project)
     private Properties configProps;
 
     public static GameClient getInstance() {
@@ -36,7 +35,6 @@ public class GameClient {
 
         configProps = new Properties();
         InputStream input = null;
-        // FIXME - bad path - does not work always - also really bad to have it in another project
 
         try {
             input = new FileInputStream(getConfigFile(CONFIGFILEPATH));
@@ -68,9 +66,7 @@ public class GameClient {
             queryParams.add("p" + (i + 1), playerNames[i]);
         }
 
-        // FIXME - use that later, when configProps path is fixed (instead of hardcoded path)
         ClientResponse response = doPost(configProps.getProperty("gameURL"), queryParams, null);
-        //ClientResponse response = doPost("http://localhost:8080/rest/game", queryParams, null);
 
         Game output = response.getEntity(Game.class);
 

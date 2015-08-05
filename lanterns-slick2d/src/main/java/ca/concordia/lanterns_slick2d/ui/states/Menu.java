@@ -43,7 +43,7 @@ public class Menu extends BasicGameState implements ComponentListener {
             // FIXME - set position from constants
             playerNames[i] = new TextField(container, font, 100, (200 + 50 * i), 100, 25);
         }
-        startButton = new Start(container, START_BUTTON_X, START_BUTTON_Y); // FIXME - set position from constants
+        startButton = new Start(container, START_BUTTON_X, START_BUTTON_Y);
         backGround = new Image(BACKGROUND_IMG, false, Image.FILTER_NEAREST);
     }
 
