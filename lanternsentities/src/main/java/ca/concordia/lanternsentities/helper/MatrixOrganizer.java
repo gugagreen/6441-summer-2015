@@ -95,9 +95,18 @@ public class MatrixOrganizer {
 	 * @return The matrix with the value placed, or, if the matrix has been expanded, a new matrix with a copy of the values of
 	 *         the original one on it, plus the new value in place.
 	 * @throws IllegalArgumentException
-	 *             if the position the new element is being placed is already filled.
+	 *             If the matrix was not initialized; if the position [line,column] is invalid; or if the position 
+	 *             the new element is being placed is already filled.
 	 */
 	public static LakeTile[][] addElement(LakeTile[][] matrix, LakeTile value, Direction direction, int line, int column) {
+		if(isEmpty(matrix)) {
+			throw new IllegalArgumentException("Matrix should have been initialized with at least one element.");
+		}
+		if ((line >= matrix.length) || (column >= matrix[0].length)) {
+			throw new IllegalArgumentException("There is no position in matrix with line [" + line + "] and column [" 
+					+ column + "]");
+		}
+		
 		LakeTile[][] newboard = null;
 		int nLine = line;
 		int nColumn = column;
@@ -230,61 +239,5 @@ public class MatrixOrganizer {
     	}
     	return opposite;
     }
-
-	// FIXME - remove
-//	public void print(LakeTile[][] matrix) {
-//		for (int i = 0; i < matrix.length; i++) {
-//			for (int j = 0; j < matrix[i].length; j++) {
-//				System.out.print(matrix[i][j] + "\t");
-//			}
-//			System.out.println("\t");
-//		}
-//		System.out.println("*****");
-//	}
-
-	// FIXME - move to test
-	// public static void main(String[] args) {
-	// MatrixOrganizer<Integer> d = new MatrixOrganizer<Integer>();
-	//
-	// Object[][] matrix = new Integer[][] { { 1 } };
-	// d.print(matrix);
-	//
-	// // east - increase
-	// System.out.println("EAST");
-	// matrix = d.addElement(matrix, 2, Direction.EAST, 0, 0);
-	// d.print(matrix);
-	// // south - increase
-	// System.out.println("SOUTH");
-	// matrix = d.addElement(matrix, 3, Direction.SOUTH, 0, 0);
-	// d.print(matrix);
-	// // west - increase
-	// System.out.println("WEST");
-	// matrix = d.addElement(matrix, 4, Direction.WEST, 0, 0);
-	// d.print(matrix);
-	// // north - increase
-	// System.out.println("NORTH");
-	// matrix = d.addElement(matrix, 5, Direction.NORTH, 0, 0);
-	// d.print(matrix);
-	// // east - stay
-	// System.out.println("EAST");
-	// matrix = d.addElement(matrix, 6, Direction.EAST, 0, 1);
-	// d.print(matrix);
-	// // south - stay
-	// System.out.println("SOUTH");
-	// matrix = d.addElement(matrix, 7, Direction.SOUTH, 1, 0);
-	// d.print(matrix);
-	// // west - stay
-	// System.out.println("WEST");
-	// matrix = d.addElement(matrix, 8, Direction.WEST, 0, 2);
-	// d.print(matrix);
-	// // north - error
-	// try {
-	// System.out.println("NORTH - error");
-	// matrix = d.addElement(matrix, 9, Direction.NORTH, 1, 1);
-	// d.print(matrix);
-	// } catch (IllegalArgumentException e) {
-	// System.err.println("Got error as expected: " + e.getMessage());
-	// }
-	// }
 
 }
