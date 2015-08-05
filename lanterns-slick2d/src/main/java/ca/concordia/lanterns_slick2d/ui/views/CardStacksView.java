@@ -43,10 +43,10 @@ public class CardStacksView implements Game {
         for (int i = 0; i < colours.length; i++) {
             String ref = Constants.CARD_IMG_FOLDER + colours[i].name().toLowerCase() + Constants.JPG;
             if (vertical) {
-                int cardY = this.y + i * (10 + Card.HEIGHT);
+                int cardY = this.y + i * (10 + (int)(Card.HEIGHT * Card.SCALE));
                 cardButtons[i] = new Card(container, ref, this.x, cardY);
             } else {
-                int cardX = this.x + i * (10 + Card.WIDTH);
+                int cardX = this.x + i * (10 + (int)(Card.WIDTH * Card.SCALE));
                 cardButtons[i] = new Card(container, ref, cardX, this.y);
             }
         }
