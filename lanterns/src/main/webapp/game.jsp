@@ -3,40 +3,47 @@
 
 <html>
 <head>
-	<style type="text/css">
-		.rotate0 {
-			-webkit-transform: rotate(0deg);
-			transform: rotate(0deg);
+<style type="text/css">
+.rotate0 {
+	-webkit-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
+.rotate90 {
+	-webkit-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+
+.rotate180 {
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.rotate270 {
+	-webkit-transform: rotate(270deg);
+	transform: rotate(270deg);
+}
+</style>
+
+<script type="text/javascript">
+	function rotate(id) {
+		var img = document.getElementById("img_" + id);
+		var direction = document.getElementById("dir_" + id);
+		if (direction.value == 0) {
+			img.setAttribute("class", "rotate90");
+			direction.value = 1;
+		} else if (direction.value == 1) {
+			img.setAttribute("class", "rotate180");
+			direction.value = 2;
+		} else if (direction.value == 2) {
+			img.setAttribute("class", "rotate270");
+			direction.value = 3;
+		} else if (direction.value == 3) {
+			img.setAttribute("class", "rotate0");
+			direction.value = 0;
 		}
-		.rotate90 {
-			-webkit-transform: rotate(90deg);
-			transform: rotate(90deg);
-		}
-		.rotate180 {
-			-webkit-transform: rotate(180deg);
-			transform: rotate(180deg);
-		}
-		.rotate270 {
-			-webkit-transform: rotate(270deg);
-			transform: rotate(270deg);
-		}
-	</style>
-	
-	<script type="text/javascript">
-		function rotate(id, direction) {
-			alert(id + "," + direction);
-			var img = document.getElementById(id);
-			if (direction == 0) {
-				img.setAttribute("class", "rotate0");
-			} else if (direction == 1) {
-				img.setAttribute("class", "rotate90");
-			} else if (direction == 2) {
-				img.setAttribute("class", "rotate180");
-			} else if (direction == 3) {
-				img.setAttribute("class", "rotate270");
-			}
-		}
-	</script>
+	}
+</script>
 </head>
 
 <body>
@@ -61,38 +68,39 @@
 		<c:out value="${game.favors}" />
 
 		<c:set var="gameLake" value="${game.lake}" scope="request" />
-		
-		<p/>
+
+		<p />
 		<!-- FIXME - dummy for testing matrix -->
-		<%!
-		public class Tile {
-			String id;
-			String path;
-			int direction;
-			
-			public Tile(String id, String path, int direction) {
-				this.id = id;
-				this.path = path;
-				this.direction = direction;
-			}
-			public String getId() {
-				return this.id;
-			}
-			public String getPath() {
-				return this.path;
-			}
-			public int getDirection() {
-				return this.direction;
-			}
+		<%!public class Tile {
+		String id;
+		String path;
+		int direction;
+
+		public Tile(String id, String path, int direction) {
+			this.id = id;
+			this.path = path;
+			this.direction = direction;
 		}
-		%>
+
+		public String getId() {
+			return this.id;
+		}
+
+		public String getPath() {
+			return this.path;
+		}
+
+		public int getDirection() {
+			return this.direction;
+		}
+	}%>
 		<%
-		Tile t51 = new Tile("T51", "/img/tiles_5-1.jpg", 2);
-		Tile t52 = new Tile("T52", "/img/tiles_5-2.jpg", 3);
-		Tile t53 = new Tile("T53", "/img/tiles_5-3.jpg", 0);
-		Tile t54 = new Tile("T54", "/img/tiles_5-4.jpg", 0);
-		Tile[][] tiles = new Tile[][] {{t51,t52},{t53,t54}};
-		pageContext.setAttribute("matrix", tiles, pageContext.SESSION_SCOPE);
+			Tile t51 = new Tile("T51", "/img/tiles_5-1.jpg", 2);
+				Tile t52 = new Tile("T52", "/img/tiles_5-2.jpg", 3);
+				Tile t53 = new Tile("T53", "/img/tiles_5-3.jpg", 0);
+				Tile t54 = new Tile("T54", "/img/tiles_5-4.jpg", 2);
+				Tile[][] tiles = new Tile[][] { { t51, t52 }, { t53, t54 } };
+				pageContext.setAttribute("matrix", tiles, pageContext.SESSION_SCOPE);
 		%>
 
 		<div
@@ -100,10 +108,14 @@
 			<table border="1">
 				<c:forEach begin="0" end="${fn:length(matrix) -1}" varStatus="ii">
 					<tr>
-						<c:forEach begin="0" end="${fn:length(matrix[ii.index]) -1}" varStatus="jj">
-							<c:set var="tile" value="${matrix[ii.index][jj.index]}"/>
-							<td><img id="${tile.id}" src="${tile.path}" width="50"height="50" 
-								onclick="rotate('${tile.id}', '${tile.direction}');"/></td>
+						<c:forEach begin="0" end="${fn:length(matrix[ii.index]) -1}"
+							varStatus="jj">
+							<c:set var="tile" value="${matrix[ii.index][jj.index]}" />
+							<td><input id="dir_${tile.id}" type="hidden"
+								value="${tile.direction}" />
+								<img id="img_${tile.id}"
+								src="${tile.path}" width="50" height="50"
+								onclick="rotate('${tile.id}');" onload="rotate('${tile.id}');"/></td>
 						</c:forEach>
 					</tr>
 				</c:forEach>
