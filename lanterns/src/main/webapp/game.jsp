@@ -2,6 +2,43 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
+<head>
+	<style type="text/css">
+		.rotate0 {
+			-webkit-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+		.rotate90 {
+			-webkit-transform: rotate(90deg);
+			transform: rotate(90deg);
+		}
+		.rotate180 {
+			-webkit-transform: rotate(180deg);
+			transform: rotate(180deg);
+		}
+		.rotate270 {
+			-webkit-transform: rotate(270deg);
+			transform: rotate(270deg);
+		}
+	</style>
+	
+	<script type="text/javascript">
+		function rotate(id, direction) {
+			alert(id + "," + direction);
+			var img = document.getElementById(id);
+			if (direction == 0) {
+				img.setAttribute("class", "rotate0");
+			} else if (direction == 1) {
+				img.setAttribute("class", "rotate90");
+			} else if (direction == 2) {
+				img.setAttribute("class", "rotate180");
+			} else if (direction == 3) {
+				img.setAttribute("class", "rotate270");
+			}
+		}
+	</script>
+</head>
+
 <body>
 	<h2>Game!</h2>
 
@@ -24,25 +61,52 @@
 		<c:out value="${game.favors}" />
 
 		<c:set var="gameLake" value="${game.lake}" scope="request" />
+		
+		<p/>
+		<!-- FIXME - dummy for testing matrix -->
+		<%!
+		public class Tile {
+			String id;
+			String path;
+			int direction;
+			
+			public Tile(String id, String path, int direction) {
+				this.id = id;
+				this.path = path;
+				this.direction = direction;
+			}
+			public String getId() {
+				return this.id;
+			}
+			public String getPath() {
+				return this.path;
+			}
+			public int getDirection() {
+				return this.direction;
+			}
+		}
+		%>
+		<%
+		Tile t51 = new Tile("T51", "/img/tiles_5-1.jpg", 2);
+		Tile t52 = new Tile("T52", "/img/tiles_5-2.jpg", 3);
+		Tile t53 = new Tile("T53", "/img/tiles_5-3.jpg", 0);
+		Tile t54 = new Tile("T54", "/img/tiles_5-4.jpg", 0);
+		Tile[][] tiles = new Tile[][] {{t51,t52},{t53,t54}};
+		pageContext.setAttribute("matrix", tiles, pageContext.SESSION_SCOPE);
+		%>
 
-		<div STYLE="height: 100px; width: 100px; font-size: 12px; overflow: auto;">
+		<div
+			STYLE="height: 300px; width: 100px; font-size: 12px; overflow: auto;">
 			<table border="1">
-				<tr>
-					<td>lalarica banana frita</td>
-					<td>T12</td>
-				</tr>
-				<tr>
-					<td>T21</td>
-					<td>T22</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td>nothing here</td>
-				</tr>
-				<tr>
-					<td><img alt="initial" src="/img/tiles_5-4.jpg" width="50" height="50"/></td>
-					<td>neither here</td>
-				</tr>
+				<c:forEach begin="0" end="${fn:length(matrix) -1}" varStatus="ii">
+					<tr>
+						<c:forEach begin="0" end="${fn:length(matrix[ii.index]) -1}" varStatus="jj">
+							<c:set var="tile" value="${matrix[ii.index][jj.index]}"/>
+							<td><img id="${tile.id}" src="${tile.path}" width="50"height="50" 
+								onclick="rotate('${tile.id}', '${tile.direction}');"/></td>
+						</c:forEach>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 
