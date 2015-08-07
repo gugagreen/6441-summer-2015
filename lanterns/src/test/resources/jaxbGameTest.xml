@@ -1,49 +1,143 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <game>
-    <cards/>
-    <cards/>
-    <cards/>
-    <cards/>
-    <cards/>
-    <cards/>
-    <cards/>
-    <dedications/>
-    <dedications/>
-    <dedications/>
-    <dedications/>
+    <cards>
+        <colour>ORANGE</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>GREEN</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>PURPLE</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>WHITE</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>BLUE</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>RED</colour>
+        <quantity>0</quantity>
+    </cards>
+    <cards>
+        <colour>BLACK</colour>
+        <quantity>0</quantity>
+    </cards>
+    <currentTurnPlayer>0</currentTurnPlayer>
+    <dedications>
+        <dedications/>
+        <dedications/>
+        <dedications/>
+        <dedications/>
+    </dedications>
     <favors>20</favors>
-    <lake/>
+    <id>testGame</id>
     <players>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
+        <cards>
+            <colour>ORANGE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>GREEN</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>PURPLE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>WHITE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLUE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>RED</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLACK</colour>
+            <quantity>0</quantity>
+        </cards>
+        <dedications/>
         <favors>0</favors>
+        <id>0</id>
         <name>p1</name>
     </players>
     <players>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
+        <cards>
+            <colour>ORANGE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>GREEN</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>PURPLE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>WHITE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLUE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>RED</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLACK</colour>
+            <quantity>0</quantity>
+        </cards>
+        <dedications/>
         <favors>0</favors>
+        <id>1</id>
         <name>p2</name>
     </players>
     <players>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
-        <cards/>
+        <cards>
+            <colour>ORANGE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>GREEN</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>PURPLE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>WHITE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLUE</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>RED</colour>
+            <quantity>0</quantity>
+        </cards>
+        <cards>
+            <colour>BLACK</colour>
+            <quantity>0</quantity>
+        </cards>
+        <dedications/>
         <favors>0</favors>
+        <id>2</id>
         <name>p3</name>
     </players>
+    <started>false</started>
 </game>

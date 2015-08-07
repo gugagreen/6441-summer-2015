@@ -11,8 +11,13 @@
 
 	<properties>
 		<!-- dependencies -->
+<<<<<<< HEAD
 		<servlet-api.version>2.5</servlet-api.version>
 		<jstl.version>1.2</jstl.version>
+=======
+		<lanterns.version>0.0.1-SNAPSHOT</lanterns.version>
+		<jersey.version>1.9</jersey.version>
+>>>>>>> master
 		<junit.version>4.12</junit.version>
 		<junitparams.version>1.0.4</junitparams.version>
 		<xmlunit.version>1.6</xmlunit.version>
@@ -24,10 +29,14 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet-api.version}</version>
-			<scope>provided</scope>
+			<groupId>ca.concordia</groupId>
+			<artifactId>lanternsentities</artifactId>
+			<version>${lanterns.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -73,6 +82,14 @@
 					</webApp>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -86,7 +103,7 @@
 				<configuration>
 					<links>
 						<link>http://commons.apache.org/lang/api</link>
-						<link>http://java.sun.com/j2se/1.5.0/docs/api</link>
+						<link>http://java.sun.com/j2se/1.7.0/docs/api</link>
 					</links>
 				</configuration>
 			</plugin>

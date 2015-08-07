@@ -1,0 +1,24 @@
+-classpath
+'/Users/i840044/.m2/repository/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar:/Users/i840044/.m2/repository/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar:/Users/i840044/.m2/repository/xmlunit/xmlunit/1.6/xmlunit-1.6.jar:/Users/i840044/.m2/repository/ca/concordia/lanternsentities/0.0.1-SNAPSHOT/lanternsentities-0.0.1-SNAPSHOT.jar:/Users/i840044/.m2/repository/asm/asm/3.1/asm-3.1.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/i840044/dev/gmg/6441-summer-2015/lanterns/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2015. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/i840044/dev/gmg/6441-summer-2015/lanterns/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'lanterns Maven Webapp 0.0.1-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/7/docs/api' '/Users/i840044/dev/gmg/6441-summer-2015/lanterns/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'lanterns Maven Webapp 0.0.1-SNAPSHOT API'
