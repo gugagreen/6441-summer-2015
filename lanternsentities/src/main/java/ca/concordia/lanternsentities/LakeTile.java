@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.TileStack;
 
 /**
  * Lake Tile entity
@@ -233,44 +232,6 @@ public class LakeTile {
 			lines[2] = "[  " + ss[1].getColour().key + "  ]";
 		}
 		return lines;
-	}
-
-	// FIXME - delete this test
-	public static void main(String[] args) {
-		int SIZE = 5;
-		LakeTile[][] matrix = new LakeTile[SIZE][];
-		// init lines
-		for (int i = 0; i < matrix.length; i++) {
-			matrix[i] = new LakeTile[SIZE];
-		}
-		StringBuffer[] lines1 = new StringBuffer[matrix.length];
-		StringBuffer[] lines2 = new StringBuffer[matrix.length];
-		StringBuffer[] lines3 = new StringBuffer[matrix.length];
-
-		// dummy data
-		matrix[1][1] = TileStack.T54.getTile();
-		matrix[1][2] = TileStack.T42.getTile();
-		matrix[2][2] = TileStack.T12.getTile();
-
-		for (int i = 0; i < matrix.length; i++) {
-			lines1[i] = new StringBuffer();
-			lines2[i] = new StringBuffer();
-			lines3[i] = new StringBuffer();
-
-			for (int j = 0; j < matrix[i].length; j++) {
-				String[] tileLines = LakeTile.get3Lines(matrix[i][j]);
-				lines1[i].append(tileLines[0]);
-				lines2[i].append(tileLines[1]);
-				lines3[i].append(tileLines[2]);
-			}
-		}
-
-		for (int i = 0; i < matrix.length; i++) {
-			System.out.println(lines1[i]);
-			System.out.println(lines2[i]);
-			System.out.println(lines3[i]);
-			System.out.println();
-		}
 	}
 
 }
