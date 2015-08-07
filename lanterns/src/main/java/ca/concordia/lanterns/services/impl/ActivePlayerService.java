@@ -7,7 +7,6 @@ import java.util.Stack;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanterns.services.enums.DedicationCost;
-import ca.concordia.lanterns.services.enums.Direction;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
@@ -17,6 +16,7 @@ import ca.concordia.lanternsentities.TileSide;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 import ca.concordia.lanternsentities.helper.MatrixOrganizer;
+import ca.concordia.lanternsentities.helper.MatrixOrganizer.Direction;
 
 /**
  * This is an implementation of {@link PlayerService} based upon the rules of
@@ -28,9 +28,6 @@ import ca.concordia.lanternsentities.helper.MatrixOrganizer;
 public class ActivePlayerService implements PlayerService {
 
     private static final List<Colour> colors = Arrays.asList(Colour.values());
-    private static final List<Direction> directions = Arrays.asList(Direction
-            .values());
-
 
     public static ActivePlayerService getInstance() {
         return SingletonHolder.INSTANCE;
@@ -143,8 +140,9 @@ public class ActivePlayerService implements PlayerService {
 
         // The Index value of the TileSide indexed by playerTileSideIndex, when
         // playerTile is kept in the lake according to requested orientation
-        int orientedPlayerTileSideIndex = directions.get(existingTileSideIndex)
-                .getOppositeTileSideIndex();
+        Direction existingTileDirection = Direction.values()[existingTileSideIndex];
+        Direction oppositeExistingDirection = MatrixOrganizer.getOppositeTileSideIndex(existingTileDirection);
+        int orientedPlayerTileSideIndex = oppositeExistingDirection.ordinal();
 
         // The index value of the TileSide facing the first player when
         // playerTile is kept in the lake
@@ -160,10 +158,9 @@ public class ActivePlayerService implements PlayerService {
 
         playerTile.setOrientation(firstPlayerTileSideIndex);
 
-        // add tile to lake in the right position
-        MatrixOrganizer.Direction matrixDirection =  MatrixOrganizer.Direction.values()[existingTileSideIndex];
+        // add tile to lake in the right position  
         int[] lineColumn = MatrixOrganizer.getLineColumn(game.getLake(), lakeTileId);
-       game.setLake(MatrixOrganizer.addElement(game.getLake(), playerTile, matrixDirection, lineColumn[0], lineColumn[1]));
+       game.setLake(MatrixOrganizer.addElement(game.getLake(), playerTile, existingTileDirection, lineColumn[0], lineColumn[1]));
 
         giveMatchingBonus(game, player, playerTile);
 
@@ -217,11 +214,12 @@ public class ActivePlayerService implements PlayerService {
             LakeTile adjTile = sides[i].getAdjacent();
 
             if (adjTile != null) {
-                Colour adjColor = adjTile.getSides()[directions.get(i)
-                        .getOppositeTileSideIndex()].getColour();
+                Direction oppositeDirection = MatrixOrganizer.getOppositeTileSideIndex(Direction.values()[i]);
+                int oppositeSide = oppositeDirection.ordinal();
+            	
+                Colour adjColor = adjTile.getSides()[oppositeSide].getColour();
 
                 if (adjColor.equals(sides[i].getColour())) {
-
                     isMatch = true;
                     LanternCardWrapper gameCard = game.getCards()[colors
                             .indexOf(adjColor)];

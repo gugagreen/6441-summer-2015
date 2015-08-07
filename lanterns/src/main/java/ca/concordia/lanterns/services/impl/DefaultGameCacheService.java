@@ -26,10 +26,10 @@ public class DefaultGameCacheService implements GameCacheService {
 
     @Override
     public Game getAvailableGame() {
-        for (Game game : cache.values()) {
-            // TODO - only return games that are not started
+        // TODO - only return games that are not started
+        //for (Game game : cache.values()) {
             // if (game.isStarted)
-        }
+        //}
         return null;
     }
 

@@ -44,8 +44,9 @@ public class GameCommandClient {
 
         System.out.println("Lantern Cards:");
         for (int i = 0; i < game.getCards().length; i++) {
-            System.out.println(game.getCards()[i]);
+            System.out.print(game.getCards()[i] + "\t");
         }
+        System.out.println();
 
         System.out.println("\nDedication Cards: ");
         for (int i = 0; i < game.getDedications().length; i++) {
@@ -60,9 +61,11 @@ public class GameCommandClient {
     }
 
     private static void displayPlayerLanterns(Game game, final int playerID) {
+    	System.out.print("Lantern Cards:");
         for (int i = 0; i < game.getCards().length; i++) {
-            System.out.println("Lantern Card: " + game.getPlayers()[playerID].getCards()[i]);
+            System.out.print("\t" + game.getPlayers()[playerID].getCards()[i]);
         }
+        System.out.println();
     }
 
     private static void displayPlayerLakeTiles(Game game, final int playerID) {

@@ -21,11 +21,13 @@ public class DedicationTokenWrapper {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < stack.size(); i++) {
-            if (i != 0) {
-                sb.append(" ");
+        DedicationToken first = stack.get(0);
+        if (first != null) {
+        	sb.append(first.getTokenType()+"=[" + first.getTokenValue());
+            for (int i = 1; i < stack.size(); i++) {
+                sb.append("," + stack.get(i).getTokenValue());
             }
-            sb.append(stack.get(i));
+            sb.append("]");
         }
         return "Token Stack [" + sb.toString() + "]";
     }

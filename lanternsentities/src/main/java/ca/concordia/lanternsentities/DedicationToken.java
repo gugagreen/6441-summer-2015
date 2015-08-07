@@ -53,7 +53,7 @@ public class DedicationToken {
 
     @Override
     public String toString() {
-        return "DedicationToken [value=" + value + ", type=" + type + "]";
+        return "Dedication [" + type + "=" + value +"]";
     }
 
     public int getTokenValue() {
