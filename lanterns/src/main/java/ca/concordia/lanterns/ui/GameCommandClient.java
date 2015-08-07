@@ -2,8 +2,10 @@ package ca.concordia.lanterns.ui;
 
 import ca.concordia.lanterns.Controller.GameController;
 import ca.concordia.lanterns.ai.AI;
+import ca.concordia.lanterns.ai.impl.GreedyAI;
 import ca.concordia.lanterns.ai.impl.HumanPlayer;
 import ca.concordia.lanterns.ai.impl.RandomAI;
+import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanternsentities.*;
 import ca.concordia.lanternsentities.enums.Colour;
@@ -181,7 +183,9 @@ public class GameCommandClient {
 
         game = controller.createGame(playerNames);
         
+        
         setPlayerIntelligence(numberOfPlayers);
+        
 
         displayCurrentGameState(game);
         System.out.println("Successfully Initialized game");
@@ -194,7 +198,34 @@ public class GameCommandClient {
         //using for tests with only random AI in the game
         //TODO modify to ask input for specific AI type on specific players;
         for (int i = 0; i < numberOfPlayers; i++) {
-			playerIntelligence[i] = new RandomAI(game, game.getPlayers()[i]);
+        	System.out.println("For player " +game.getPlayers()[i].getName());
+        	System.out.println("Specify the Behavior you desire:");
+        	System.out.println("1) Human Player");
+        	System.out.println("2) Random AI");
+        	//TODO modify as more AI options become available
+        	//System.out.println("3) Greedy AI ");
+        	//System.out.println("4) Unfriendly AI");
+        	//System.out.println("5) Unknown AI");
+        	//TODO modify end bound as more AI options become available
+        	int playerChoice = getValidInt("", 1, 2);
+        	
+        	
+            switch (playerChoice) {
+            case 1:
+            	playerIntelligence[i] = new HumanPlayer(game, game.getPlayers()[i]);
+                break;
+            case 2:
+            	playerIntelligence[i] = new RandomAI(game, game.getPlayers()[i]);
+                break;
+            case 3:
+            	playerIntelligence[i] = new GreedyAI(game, game.getPlayers()[i]);
+            case 4:
+            	playerIntelligence[i] = new UnfriendlyAI(game, game.getPlayers()[i]);
+            default:
+                System.out.println("Invalid Input, please try again.");
+        	
+            }
+			
         }
     }
 
