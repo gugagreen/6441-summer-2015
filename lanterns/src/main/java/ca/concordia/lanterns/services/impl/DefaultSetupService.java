@@ -139,7 +139,7 @@ public class DefaultSetupService implements SetupService {
         if (totalTiles.length > toAssign) {
             while (toAssign > 0) {
                 for (Player player : players) {
-                    player.getTiles().add(totalTiles[1 + toAssign--]);
+                    player.getTiles().add(totalTiles[toAssign--]);
                 }
             }
         } else {
