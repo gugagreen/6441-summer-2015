@@ -3,6 +3,7 @@ package ca.concordia.lanterns.ui;
 import ca.concordia.lanterns.Controller.GameController;
 import ca.concordia.lanterns.ai.AI;
 import ca.concordia.lanterns.ai.impl.HumanPlayer;
+import ca.concordia.lanterns.ai.impl.RandomAI;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanternsentities.*;
 import ca.concordia.lanternsentities.enums.Colour;
@@ -176,20 +177,25 @@ public class GameCommandClient {
         for (int i = 0; i < numberOfPlayers; i++) {
             playerNames[i] = hardcodeNames[i];
         }
-        playerIntelligence = new AI[numberOfPlayers];
+
 
         game = controller.createGame(playerNames);
         
-        
-        for (int i = 0; i < numberOfPlayers; i++) {
-        	
-			playerIntelligence[i] = new HumanPlayer(game, game.getPlayers()[i]);
-        }
+        setPlayerIntelligence(numberOfPlayers);
 
         displayCurrentGameState(game);
         System.out.println("Successfully Initialized game");
 
         gameSelection();
+    }
+    
+    private void setPlayerIntelligence(int numberOfPlayers){
+        playerIntelligence = new AI[numberOfPlayers];
+        //using for tests with only random AI in the game
+        //TODO modify to ask input for specific AI type on specific players;
+        for (int i = 0; i < numberOfPlayers; i++) {
+			playerIntelligence[i] = new RandomAI(game, game.getPlayers()[i]);
+        }
     }
 
     private void loadGame() {
