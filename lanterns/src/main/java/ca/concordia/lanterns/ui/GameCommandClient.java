@@ -1,6 +1,8 @@
 package ca.concordia.lanterns.ui;
 
 import ca.concordia.lanterns.Controller.GameController;
+import ca.concordia.lanterns.ai.AI;
+import ca.concordia.lanterns.ai.impl.HumanPlayer;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanternsentities.*;
 import ca.concordia.lanternsentities.enums.Colour;
@@ -18,7 +20,7 @@ public class GameCommandClient {
 
     private Scanner keyboard;
     private Game game;
-
+    private AI[] playerIntelligence;
     private GameController controller;
 
     public GameCommandClient() {
@@ -174,8 +176,15 @@ public class GameCommandClient {
         for (int i = 0; i < numberOfPlayers; i++) {
             playerNames[i] = hardcodeNames[i];
         }
+        playerIntelligence = new AI[numberOfPlayers];
 
         game = controller.createGame(playerNames);
+        
+        
+        for (int i = 0; i < numberOfPlayers; i++) {
+        	
+			playerIntelligence[i] = new HumanPlayer(game, game.getPlayers()[i]);
+        }
 
         displayCurrentGameState(game);
         System.out.println("Successfully Initialized game");
@@ -270,109 +279,19 @@ public class GameCommandClient {
     }
 
     private void playTurn(Player currentPlayer) {
+    	
+    	
         System.out.println("_______________________________");
         System.out.println("It is player '" + currentPlayer.getName() + "'s turn.");
 
-        exchangeLantern(currentPlayer);
-        makeDedication(currentPlayer);
+        playerIntelligence[currentPlayer.getId()].performExchange();
+        playerIntelligence[currentPlayer.getId()].performDedication();
         if (game.getPlayers()[currentPlayer.getId()].getTiles().size() != 0) {
-            placeTile(currentPlayer);
+        	playerIntelligence[currentPlayer.getId()].performTilePlay();
         }
         System.out.println("Player '" + currentPlayer.getName() + "'s turn is finished.");
         System.out.println("Game state after this player turn:");
         displayCurrentGameState(game);
-    }
-
-    private void exchangeLantern(Player currentPlayer) {
-        System.out.println("You have [" + currentPlayer.getFavors() + "] favors.");
-
-        int doExchange = 2;
-        if (currentPlayer.getFavors() > 1) {
-            displayPlayerLanterns(game, currentPlayer.getId());
-            doExchange = getValidInt("Do you want to make an exchange?\n1) Yes\n2) No", 1, 2);
-        } else {
-            System.out.println("You do not have enough favour tokens to make an exchange this turn.");
-        }
-
-        if (doExchange == 1) {
-            System.out.println("Select one card to give:");
-            int giveCardIndex = getValidInt(coloursWithIndexesString(), 0, 6);
-            Colour giveCard = Colour.values()[giveCardIndex];
-            System.out.println("Select one card to receive:");
-            int receiveCardIndex = getValidInt(coloursWithIndexesString(), 0, 6);
-            Colour receiveCard = Colour.values()[receiveCardIndex];
-            try {
-                controller.exchangeLanternCard(game, currentPlayer.getId(), giveCard, receiveCard);
-            } catch (GameRuleViolationException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    private void makeDedication(Player currentPlayer) {
-        displayPlayerLanterns(game, currentPlayer.getId());
-
-        int doDedication = getValidInt("Do you want to make a dedication?\n1) Yes\n2) No", 1, 2);
-
-        if (doDedication == 1) {
-            System.out.println("Select one dedication type:");
-            int typeIndex = getValidInt(dedicationTypesString(), 0, 3);
-            DedicationType type = DedicationType.values()[typeIndex];
-            int requiredColours = controller.getRequiredColors(type);
-            Colour[] colours = new Colour[requiredColours];
-            for (int i = 0; i < colours.length; i++) {
-                System.out.println("Select one colour:");
-                int giveCardIndex = getValidInt(coloursWithIndexesString(), 0, 6);
-                colours[i] = Colour.values()[giveCardIndex];
-            }
-            try {
-                controller.makeDedication(game, currentPlayer.getId(), type, colours);
-                displayPlayerDedications(game, currentPlayer.getId());
-            } catch (GameRuleViolationException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    private void placeTile(Player currentPlayer) {
-        // active player must place a tile
-        Boolean playerNotDone = true;
-        while (playerNotDone) {
-
-            System.out.println("Now it is time to place a tile.");
-            List<LakeTile> playerTiles = currentPlayer.getTiles();
-            displayPlayerLakeTiles(game, currentPlayer.getId());
-            int playerTileIndex = getValidInt("Select one of your tiles:", 0, playerTiles.size() - 1);
-
-            System.out.println("Select one of the lake tiles to put your tile next to:");
-            displayLake(game);
-            
-            LakeTile lakeTile = null;
-            while (lakeTile == null) {
-            	String lakeTileId = getValidString("");
-            	lakeTile = MatrixOrganizer.findTile(game.getLake(), lakeTileId);
-            	if (lakeTile == null) {
-            		System.out.println("Invalid tile id. Please try again:");
-            	}
-            }
-
-            System.out.println("Select the side of the lake tiles to put your tile next to:");
-            int existingTileSideIndex = getValidInt(getTileSidesString(lakeTile), 0, lakeTile.getSides().length - 1);
-
-            System.out.println("Select the side your tile to put next to the lake tile:");
-            LakeTile playerTile = playerTiles.get(playerTileIndex);
-            int playerTileSideIndex = getValidInt(getTileSidesString(playerTile), 0, playerTile.getSides().length - 1);
-
-            try {
-                controller.placeLakeTile(game, currentPlayer.getId(), playerTileIndex,
-                		lakeTile.getId(), existingTileSideIndex, playerTileSideIndex);
-                playerNotDone = false;
-            } catch (GameRuleViolationException e) {
-                System.err.println(e.getMessage());
-                System.out.println();
-                System.out.println("Please reselect your tile and try again.");
-            }
-        }
     }
 
     private void showWinner(Set<Player> winners) {
@@ -401,33 +320,7 @@ public class GameCommandClient {
         }
     }
 
-    private String coloursWithIndexesString() {
-        StringBuffer sb = new StringBuffer();
-        for (Colour colour : Colour.values()) {
-            sb.append(colour.ordinal() + "=" + colour + "; ");
-        }
-        return sb.toString();
-    }
-
-    private String dedicationTypesString() {
-        StringBuffer sb = new StringBuffer();
-        for (DedicationType type : DedicationType.values()) {
-            sb.append(type.ordinal() + "=" + type + "; ");
-        }
-        return sb.toString();
-    }
-
-    private String getTileSidesString(LakeTile tile) {
-        StringBuffer sb = new StringBuffer();
-
-        TileSide[] sides = tile.getSides();
-
-        for (int i = 0; i < sides.length; i++) {
-            sb.append(i + "=" + sides[i] + "; ");
-        }
-        return sb.toString();
-    }
-
+ 
     public int getValidInt(final String message, final int min, final int max) {
         System.out.print(message);
         int userChoice = 0;
