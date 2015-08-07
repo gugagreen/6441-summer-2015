@@ -5,21 +5,17 @@
 <table>
 	<thead>
 		<tr>
-			<th>ORANGE</th>
-			<th>GREEN</th>
-			<th>PURPLE</th>
-			<th>GRAY</th>
-			<th>BLUE</th>
-			<th>RED</th>
-			<th>BLACK</th>
+			<c:forEach begin="1" end="${fn:length(gameCards)}" varStatus="loop">
+				<th><c:out value="${gameCards[loop.index-1].colour}"/></th>
+			</c:forEach>
+		</tr>
 	</thead>
-	
 	<tbody>
-	<tr>
-		<c:forEach begin="1" end="${fn:length(gameCards)}" varStatus="loop">
-			<td><c:out value="${fn:length(gameCards[loop.index-1].stack)}"/></td>
-		</c:forEach>
-	</tr>
+		<tr>
+			<c:forEach begin="1" end="${fn:length(gameCards)}" varStatus="loop">
+				<td><c:out value="${gameCards[loop.index-1].quantity}"/></td>
+			</c:forEach>
+		</tr>
 	</tbody>
 </table>
 

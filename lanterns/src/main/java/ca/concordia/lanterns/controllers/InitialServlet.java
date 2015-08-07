@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ca.concordia.lanterns.entities.Game;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
+import ca.concordia.lanternsentities.Game;
 
 public class InitialServlet extends HttpServlet {
 

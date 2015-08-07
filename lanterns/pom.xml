@@ -11,13 +11,10 @@
 
 	<properties>
 		<!-- dependencies -->
-<<<<<<< HEAD
 		<servlet-api.version>2.5</servlet-api.version>
 		<jstl.version>1.2</jstl.version>
-=======
 		<lanterns.version>0.0.1-SNAPSHOT</lanterns.version>
 		<jersey.version>1.9</jersey.version>
->>>>>>> master
 		<junit.version>4.12</junit.version>
 		<junitparams.version>1.0.4</junitparams.version>
 		<xmlunit.version>1.6</xmlunit.version>
@@ -37,6 +34,12 @@
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
 			<version>${jersey.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet-api.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
