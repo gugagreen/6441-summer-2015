@@ -13,6 +13,7 @@
 		<!-- dependencies -->
 		<servlet-api.version>2.5</servlet-api.version>
 		<jstl.version>1.2</jstl.version>
+		<jsp-api.version>2.0</jsp-api.version>
 		<lanterns.version>0.0.1-SNAPSHOT</lanterns.version>
 		<jersey.version>1.9</jersey.version>
 		<junit.version>4.12</junit.version>
@@ -45,6 +46,11 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

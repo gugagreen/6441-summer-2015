@@ -29,6 +29,13 @@ import ca.concordia.lanternsentities.enums.TileStack;
 import ca.concordia.lanternsentities.helper.MatrixOrganizer;
 
 public class PlaceATileTest {
+    
+    
+    private static LakeTile T11 = TileStack.T11.getTile(); // "GBKO."
+    private static LakeTile T12 = TileStack.T12.getTile(); // "WKOK."
+    private static LakeTile T33 = TileStack.T33.getTile(); // "OPWW*"
+    private static LakeTile T42 = TileStack.T42.getTile(); // "RKKP*"
+    private static LakeTile T54 = TileStack.T54.getTile(); // "BRWK."
 
     private static final List<Colour> colors = Arrays.asList(Colour.values());
     private Game game;
@@ -48,9 +55,7 @@ public class PlaceATileTest {
         game.init(sortedPlayerNames, "Test");
 
         // Custom initialization of lake
-        LakeTile T54 = TileStack.T54.getTile(); // "BRWK."
-        LakeTile T11 = TileStack.T11.getTile(); // "GBKO."
-        LakeTile T33 = TileStack.T33.getTile(); // "OPWW*"
+        
 
         T54.setOrientation(3);
         T11.setOrientation(0);
@@ -64,7 +69,7 @@ public class PlaceATileTest {
         // [     ][BRWK.]
 
         // Added one tile to the stack of tiles in game.
-        game.getTiles().add(TileStack.T12.getTile()); // "WKOK."
+        game.getTiles().add(T12); // "WKOK."
 
         setUpService.separateLanternCards(game.getCards(), playerCount);
 
@@ -73,7 +78,7 @@ public class PlaceATileTest {
         game.setCurrentTurnPlayer(1);
 
         // Custom tile for current Player
-        game.getPlayers()[1].getTiles().add(TileStack.T42.getTile()); // "RKKP*"
+        game.getPlayers()[1].getTiles().add(T42); // "RKKP*"
     }
 
     @Test
@@ -87,8 +92,8 @@ public class PlaceATileTest {
 
         LakeTile topTile = game.getTiles().peek();
 
-        TileSide westZerothTile = MatrixOrganizer.findTile(lake, "BRWK.").getSides()[WEST.ordinal()];
-        TileSide southSecondTile = MatrixOrganizer.findTile(lake, "OPWW*").getSides()[SOUTH.ordinal()];
+        TileSide westZerothTile = MatrixOrganizer.findTile(lake, T54.getId()).getSides()[WEST.ordinal()];
+        TileSide southSecondTile = MatrixOrganizer.findTile(lake, T33.getId()).getSides()[SOUTH.ordinal()];
         assertNull(westZerothTile.getAdjacent());
         assertNull(southSecondTile.getAdjacent());
 
@@ -104,7 +109,7 @@ public class PlaceATileTest {
 
         ActivePlayerService service = new ActivePlayerService();
         try {
-            service.placeLakeTile(game, 1, 0, "BRWK.", WEST.ordinal(), EAST.ordinal());
+            service.placeLakeTile(game, 1, 0, T54.getId(), WEST.ordinal(), EAST.ordinal());
         } catch (GameRuleViolationException e) {
             fail("A Valid Tile placement failed");
         }
@@ -121,28 +126,28 @@ public class PlaceATileTest {
         // [K * R][R . K]
         // [  K  ][  B  ]
         
-        westZerothTile = MatrixOrganizer.findTile(lake, "BRWK.").getSides()[WEST.ordinal()];
-        southSecondTile = MatrixOrganizer.findTile(lake, "OPWW*").getSides()[SOUTH.ordinal()];
+        westZerothTile = MatrixOrganizer.findTile(lake, T54.getId()).getSides()[WEST.ordinal()];
+        southSecondTile = MatrixOrganizer.findTile(lake, T33.getId()).getSides()[SOUTH.ordinal()];
 
         assertSame(westZerothTile.getAdjacent(), playerTile);
         assertSame(southSecondTile.getAdjacent(), playerTile);
-        assertSame(playerTile.getSides()[NORTH.ordinal()].getAdjacent(), MatrixOrganizer.findTile(lake, "OPWW*"));
-        assertSame(playerTile.getSides()[EAST.ordinal()].getAdjacent(), MatrixOrganizer.findTile(lake, "BRWK."));
+        assertSame(playerTile.getSides()[NORTH.ordinal()].getAdjacent(), MatrixOrganizer.findTile(lake, T33.getId()));
+        assertSame(playerTile.getSides()[EAST.ordinal()].getAdjacent(), MatrixOrganizer.findTile(lake, T54.getId()));
 
         assertEquals(purpleQuantity - 1, getGameColourQty(game, PURPLE));
         assertEquals(redQuantity - 2, getGameColourQty(game, RED));
         assertEquals(blackQuantity - 2, getGameColourQty(game, BLACK));
-        assertEquals(favorQuantity - 1, game.getFavors());
+        assertEquals(favorQuantity - 2, game.getFavors());
 
         assertEquals(1, getPlayerColourQty(game, player.getId(), BLACK));
         assertEquals(1, getPlayerColourQty(game, player.getId(), RED));
-        assertEquals(1, player.getFavors());
+        assertEquals(2, player.getFavors());
 
         assertEquals(getPlayerColourQty(game, 2, BLACK), 1);
         assertEquals(getPlayerColourQty(game, 3, PURPLE), 1);
         assertEquals(getPlayerColourQty(game, 0, RED), 1);
 
-        assertSame(MatrixOrganizer.findTile(game.getLake(), "RKKP*"), playerTile);
+        assertSame(MatrixOrganizer.findTile(game.getLake(), T42.getId()), playerTile);
         assertSame(topTile, player.getTiles().get(0));
         assertTrue(game.getTiles().isEmpty());
     }

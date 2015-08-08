@@ -15,9 +15,8 @@ public class LakeTileTest {
     private LakeTile lakeTile;
 
     @Before
-    public void Setup() {
+    public void setup() {
         this.lakeTile = new LakeTile();
-        assertNotNull(colours);
         this.lakeTile.init(colours, true);
     }
 
@@ -36,8 +35,6 @@ public class LakeTileTest {
 
     @Test
     public void testEqualsObject() {
-        assertFalse(this.lakeTile.equals(null));
-        assertFalse(othercolours.equals(colours));
         String testString = new String();
         assertFalse(this.lakeTile.equals(testString));
 

@@ -19,8 +19,7 @@ public class InitialServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] players = getPlayersFromForm(request);
-		DefaultSetupService service = new DefaultSetupService();
-		Game game = service.createGame(players);
+		Game game = DefaultSetupService.getInstance().createGame(players);
 
 		HttpSession session = request.getSession();
 		session.setAttribute("game", game);

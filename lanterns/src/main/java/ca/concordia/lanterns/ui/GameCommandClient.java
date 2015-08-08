@@ -83,7 +83,6 @@ public class GameCommandClient {
 
     private static void displayLake(Game game) {
         LakeTile[][] matrix = game.getLake();
-        
         StringBuffer[] lines1 = new StringBuffer[matrix.length];
 		StringBuffer[] lines2 = new StringBuffer[matrix.length];
 		StringBuffer[] lines3 = new StringBuffer[matrix.length];
@@ -94,6 +93,12 @@ public class GameCommandClient {
 			lines3[i] = new StringBuffer();
 
 			for (int j = 0; j < matrix[i].length; j++) {
+				if (j == 0) {
+					lines1[i].append("\t");
+					lines2[i].append(i + "\t");
+					lines3[i].append("\t");
+				}
+				
 				String[] tileLines = LakeTile.get3Lines(matrix[i][j]);
 				lines1[i].append(tileLines[0]);
 				lines2[i].append(tileLines[1]);
@@ -101,20 +106,18 @@ public class GameCommandClient {
 			}
 		}
 
+		if (matrix.length > 0) {
+			System.out.print("\t");
+			for (int i = 0; i < matrix[0].length; i++) {
+				System.out.printf("%4d   ", i);
+			}
+			System.out.println();
+		}
 		for (int i = 0; i < matrix.length; i++) {
 			System.out.println(lines1[i]);
 			System.out.println(lines2[i]);
 			System.out.println(lines3[i]);
 			System.out.println();
-		}
-		
-		System.out.println("ids");
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix[i].length; j++) {
-				if (matrix[i][j] != null) {
-					System.out.println(matrix[i][j].getId());
-				}
-			}
 		}
     }
 
@@ -349,8 +352,9 @@ public class GameCommandClient {
             
             LakeTile lakeTile = null;
             while (lakeTile == null) {
-            	String lakeTileId = getValidString("");
-            	lakeTile = MatrixOrganizer.findTile(game.getLake(), lakeTileId);
+            	int line = getValidInt("line: ", 0, game.getLake().length -1);
+            	int column = getValidInt("column: ", 0, game.getLake()[0].length -1);
+            	lakeTile = game.getLake()[line][column];
             	if (lakeTile == null) {
             		System.out.println("Invalid tile id. Please try again:");
             	}

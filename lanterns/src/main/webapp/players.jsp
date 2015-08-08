@@ -5,4 +5,5 @@
 <c:forEach begin="1" end="${fn:length(gamePlayers)}" varStatus="loop">
 	<c:set var="player" value="${gamePlayers[loop.index-1]}"/>
 	Player ${loop.index}: ${player.name}<br/>
+	<p/>
 </c:forEach>
