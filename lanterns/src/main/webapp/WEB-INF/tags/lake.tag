@@ -1,16 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-<p><b>Lake:</b></p>
+<%@ attribute name="lake" required="true" type="ca.concordia.lanternsentities.LakeTile[][]" %>
 
 
 <div STYLE="height: 300px; width: 100px; font-size: 12px; overflow: auto;">
 	<table border="1">
-		<c:forEach begin="0" end="${fn:length(gameLake) -1}" varStatus="ii">
+		<c:forEach begin="0" end="${fn:length(lake) -1}" varStatus="ii">
 			<tr>
-				<c:forEach begin="0" end="${fn:length(gameLake[ii.index]) -1}"
+				<c:forEach begin="0" end="${fn:length(lake[ii.index]) -1}"
 					varStatus="jj">
-					<c:set var="tile" value="${gameLake[ii.index][jj.index]}" />
+					<c:set var="tile" value="${lake[ii.index][jj.index]}" />
 					<td><input id="dir_${tile.id}" type="hidden"
 								value="${tile.direction}" />
 								<img id="img_${tile.id}"

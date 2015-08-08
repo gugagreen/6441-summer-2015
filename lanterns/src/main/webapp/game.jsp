@@ -43,16 +43,31 @@
 			</tr>
 			<tr>
 				<td>
-					<c:set var="gamePlayers" value="${game.players}" scope="request" />
-					<jsp:include page="players.jsp" />
+					<table width="100%">
+						<c:set var="gamePlayers" value="${game.players}" scope="request" />
+						<tr>
+							<td>&nbsp;</td>
+							<td><h:players player="${game.players[3]}" /></td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><h:players player="${game.players[2]}" /></td>
+							<td><h:lake lake="${game.lake}"/></td>
+							<td><h:players player="${game.players[0]}" /></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td><h:players player="${game.players[1]}" /></td>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
 			
-					<c:set var="gameLake" value="${game.lake}" scope="request" />
-					<jsp:include page="lake.jsp" />
+					
 				</td>
 			</tr>
 			<tr>
 				<td>
-					Area for current player
+					Area for user
 				</td>
 			</tr>
 		</table>

@@ -57,11 +57,11 @@
 div.centertext {
 	height: 80px;
 	position: relative;
-	background: rgba(255,255,255,.2);
 }
 
 div.centertext p {
-	color: black;
+	color: #888888;
+    text-shadow: 0 1px black, 1px 0 black;
 	font-weight: bold;
 	font-size: 20px;
 	margin: 0;
