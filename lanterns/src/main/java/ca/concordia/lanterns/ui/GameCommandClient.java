@@ -74,7 +74,7 @@ public class GameCommandClient {
         System.out.println();
     }
 
-    private static void displayPlayerLakeTiles(Game game, final int playerID) {
+    public static void displayPlayerLakeTiles(Game game, final int playerID) {
     	List<LakeTile> playerTiles = game.getPlayers()[playerID].getTiles();
         for (int i = 0; i < playerTiles.size(); i++) {
             System.out.println("Lake Tile: " + i);
@@ -87,7 +87,7 @@ public class GameCommandClient {
 
     }
 
-    private static void displayLake(Game game) {
+    public static void displayLake(Game game) {
         LakeTile[][] matrix = game.getLake();
         StringBuffer[] lines1 = new StringBuffer[matrix.length];
 		StringBuffer[] lines2 = new StringBuffer[matrix.length];
