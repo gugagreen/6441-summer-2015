@@ -16,7 +16,6 @@ public class RandomTile implements TilePlayBehavior {
 
 	@Override
 	public void placeTile(Game game, Player currentPlayer) throws GameRuleViolationException {
-
 		//making sure that player is not trying to place tiles without tiles
 		if (!currentPlayer.getTiles().isEmpty()) {
 			// choosing a random player tile
@@ -47,7 +46,6 @@ public class RandomTile implements TilePlayBehavior {
 	private List<String> possibleLakeTile(Game game) {
 		List<String> possibleLakeTiles = new ArrayList<String>();
 		LakeTile[][] matrix = game.getLake();
-
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[i].length; j++) {
 				if (matrix[i][j] != null) {
@@ -57,7 +55,7 @@ public class RandomTile implements TilePlayBehavior {
 		}
 		return possibleLakeTiles;
 	}
-
+	
 	private List<String> usableLakeTilesIds(Game game) {
 		List<String> possibleLakeTiles = possibleLakeTile(game);
 		List<String> usableLakeTiles = new ArrayList<String>();

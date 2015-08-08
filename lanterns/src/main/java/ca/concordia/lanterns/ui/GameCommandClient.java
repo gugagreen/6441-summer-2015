@@ -88,7 +88,6 @@ public class GameCommandClient {
 
     private static void displayLake(Game game) {
         LakeTile[][] matrix = game.getLake();
-        
         StringBuffer[] lines1 = new StringBuffer[matrix.length];
 		StringBuffer[] lines2 = new StringBuffer[matrix.length];
 		StringBuffer[] lines3 = new StringBuffer[matrix.length];
@@ -99,27 +98,31 @@ public class GameCommandClient {
 			lines3[i] = new StringBuffer();
 
 			for (int j = 0; j < matrix[i].length; j++) {
+				if (j == 0) {
+					lines1[i].append("\t");
+					lines2[i].append(i + "\t");
+					lines3[i].append("\t");
+				}
+				
 				String[] tileLines = LakeTile.get3Lines(matrix[i][j]);
 				lines1[i].append(tileLines[0]);
 				lines2[i].append(tileLines[1]);
 				lines3[i].append(tileLines[2]);
 			}
 		}
-
+		
+		if (matrix.length > 0) {
+			System.out.print("\t");
+			for (int i = 0; i < matrix[0].length; i++) {
+				System.out.printf("%4d   ", i);
+			}
+			System.out.println();
+		}
 		for (int i = 0; i < matrix.length; i++) {
 			System.out.println(lines1[i]);
 			System.out.println(lines2[i]);
 			System.out.println(lines3[i]);
 			System.out.println();
-		}
-		
-		System.out.println("ids");
-		for (int i = 0; i < matrix.length; i++) {
-			for (int j = 0; j < matrix[i].length; j++) {
-				if (matrix[i][j] != null) {
-					System.out.println(matrix[i][j].getId());
-				}
-			}
 		}
     }
 
@@ -180,12 +183,9 @@ public class GameCommandClient {
             playerNames[i] = hardcodeNames[i];
         }
 
-
         game = controller.createGame(playerNames);
         
-        
         setPlayerIntelligence(numberOfPlayers);
-        
 
         displayCurrentGameState(game);
         System.out.println("Successfully Initialized game");
@@ -316,8 +316,6 @@ public class GameCommandClient {
     }
 
     private void playTurn(Player currentPlayer) {
-    	
-    	
         System.out.println("_______________________________");
         System.out.println("It is player '" + currentPlayer.getName() + "'s turn.");
 
@@ -330,7 +328,7 @@ public class GameCommandClient {
         System.out.println("Game state after this player turn:");
         displayCurrentGameState(game);
     }
-
+    
     private void showWinner(Set<Player> winners) {
         System.out.println("Game is ended!");
 
@@ -357,7 +355,6 @@ public class GameCommandClient {
         }
     }
 
- 
     public int getValidInt(final String message, final int min, final int max) {
         System.out.print(message);
         int userChoice = 0;

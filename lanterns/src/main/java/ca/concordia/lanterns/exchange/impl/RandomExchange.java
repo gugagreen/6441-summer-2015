@@ -16,9 +16,7 @@ public class RandomExchange implements ExchangeBehavior {
 
 	@Override
 	public void makeExchange(Game game, Player currentPlayer) throws GameRuleViolationException {
-
 		if(allowExchange()){
-		
 			//Select one card to give
 			int giveCardIndex = randomLanternIndex(possibleLanternIndex(game, currentPlayer));
 			Colour giveCard = Colour.values()[giveCardIndex];
@@ -27,7 +25,6 @@ public class RandomExchange implements ExchangeBehavior {
 			Colour receiveCard = Colour.values()[receiveCardIndex];
 					
 			ActivePlayerService.getInstance().exchangeLanternCard(game, currentPlayer.getId(), giveCard, receiveCard);
-	
 		}
     }
 

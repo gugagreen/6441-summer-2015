@@ -23,6 +23,8 @@ public class LakeTile {
 
     private TileSide[] sides;
     private boolean platform;
+    /** says original index of the current first tile*/
+    private int direction;
 
     private String id;
 
@@ -35,7 +37,7 @@ public class LakeTile {
      */
     public void init(Colour[] colours, boolean platform) {
         this.platform = platform;
-        sides = new TileSide[TOTAL_SIDES];
+        this.sides = new TileSide[TOTAL_SIDES];
 
         // populate sides
         if (colours != null && colours.length == TOTAL_SIDES) {
@@ -49,6 +51,7 @@ public class LakeTile {
         }
 
         this.id = this.toShortString();
+        this.direction = 0;
     }
 
     @Override
@@ -115,7 +118,7 @@ public class LakeTile {
 
     @Override
     public String toString() {
-        return "LakeTile [sides=" + Arrays.toString(sides) + ", platform=" + platform + "]*" + this.getId() + "*";
+        return "LakeTile [sides=" + Arrays.toString(sides) + ", platform=" + platform + ", id=" + this.getId() + "]";
     }
 
     public String toShortString() {
@@ -124,9 +127,9 @@ public class LakeTile {
             sb.append(side.getColour().key);
         }
         if (platform) {
-            sb.append("*");
+            sb.append("$");
         } else {
-            sb.append(".");
+            sb.append("_");
         }
         return sb.toString();
     }
@@ -169,7 +172,17 @@ public class LakeTile {
         this.id = id;
     }
 
-    /**
+
+    @XmlElement
+    public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
+	}
+
+	/**
      * Allows for the rotation of a lake Tile.
      * <p/>
      * Moves the tileSide[orientation] to the tileSide[0] and rotates the tile accordingly.
@@ -189,6 +202,7 @@ public class LakeTile {
                 orientedSides[j] = this.sides[i];
             }
             this.sides = orientedSides;
+            this.direction = (this.direction + orientation) % TOTAL_SIDES;
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("Cannot Enter an orientation greater than Number of sides");
         }
@@ -226,7 +240,7 @@ public class LakeTile {
 			lines[2] = "[     ]";
 		} else {
 			TileSide[] ss = lt.getSides();
-			char plat = lt.isPlatform() ? '*' : '.';
+			char plat = lt.isPlatform() ? '$' : '_';
 			lines[0] = "[  " + ss[3].getColour().key + "  ]";
 			lines[1] = "[" + ss[2].getColour().key + " " + plat + " " + ss[0].getColour().key + "]";
 			lines[2] = "[  " + ss[1].getColour().key + "  ]";

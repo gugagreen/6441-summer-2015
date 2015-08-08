@@ -28,7 +28,7 @@ public enum TileStack {
 			"4-6", BLUE, RED, WHITE, BLACK, false),
 	// sheet 5
 	T51("5-1", BLUE, WHITE, GREEN, PURPLE, false), T52("5-2", ORANGE, BLUE, ORANGE, BLUE, true), T53("5-3", BLACK, WHITE, BLACK,
-			WHITE, true), T54("5-4", BLUE, RED, WHITE, BLACK, false), T55("5-5", PURPLE, BLACK, WHITE, ORANGE, false), T56("5-6",
+			WHITE, true), T54("5-4", BLUE, RED, WHITE, BLACK, true), T55("5-5", PURPLE, BLACK, WHITE, ORANGE, false), T56("5-6",
 			RED, ORANGE, PURPLE, WHITE, false),
 	// sheet 6
 	T61("6-1", PURPLE, PURPLE, BLACK, PURPLE, false), T62("6-2", ORANGE, BLACK, PURPLE, RED, false), T63("6-3", BLUE, WHITE,
