@@ -1,6 +1,6 @@
 package ca.concordia.lanterns.ai;
 
-import ca.concordia.lanterns.Controller.GameController;
+import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.dedication.DedicationBehavior;
 import ca.concordia.lanterns.exchange.ExchangeBehavior;
 import ca.concordia.lanterns.tileplacement.TilePlayBehavior;

@@ -1,4 +1,4 @@
-package ca.concordia.lanterns.Controller;
+package ca.concordia.lanterns.controllers;
 
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.enums.DedicationCost;
