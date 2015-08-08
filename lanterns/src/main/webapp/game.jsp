@@ -5,59 +5,32 @@
 
 <html>
 <head>
+	<title>Lanterns - Team A</title>
 	<link href="../css/game.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="../js/game.js"></script>
 </head>
 
 <body>
-	<h2>Game!</h2>
-
 	<c:if test="${not empty game}">
 		<table>
-			<tr>
-				<td><h:lanterns cards="${game.cards}" /></td>
-			</tr>
-			<tr>
-				<td>
-					<table width="100%">
-						<tr>
-							<td>
-								<div id="tiles" class="tiles">
-									<div class="centertext"><p>${fn:length(game.tiles)}</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<div id="favors" class="favors">
-									<div class="centertext"><p>${game.favors}</p>
-									</div>
-								</div>
-							</td>
-							<td>
-								<c:set var="gameDedications" value="${game.dedications}" scope="request" />
-								TODO - dedications
-							</td>
-						</tr>	
-					</table>
-				</td>
-			</tr>
+			<h:status cards="${game.cards}" tiles="${game.tiles}" favors="${game.favors}" vertical="false"/>
 			<tr>
 				<td>
 					<table width="100%">
 						<c:set var="gamePlayers" value="${game.players}" scope="request" />
 						<tr>
 							<td>&nbsp;</td>
-							<td><h:players player="${game.players[3]}" /></td>
+							<td><h:players player="${game.players[3]}" vertical="false" /></td>
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
-							<td><h:players player="${game.players[2]}" /></td>
+							<td><h:players player="${game.players[2]}" vertical="true" /></td>
 							<td><h:lake lake="${game.lake}"/></td>
-							<td><h:players player="${game.players[0]}" /></td>
+							<td><h:players player="${game.players[0]}" vertical="true" /></td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
-							<td><h:players player="${game.players[1]}" /></td>
+							<td><h:players player="${game.players[1]}" vertical="false" /></td>
 							<td>&nbsp;</td>
 						</tr>
 					</table>
@@ -66,7 +39,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td  align="center">
+					Area for user<p/>
+					Area for user<p/>
 					Area for user
 				</td>
 			</tr>

@@ -27,6 +27,11 @@ public class GameCommandClient {
     private AI[] playerIntelligence;
     private GameController controller;
 
+    public static void main(String[] args) {
+        GameCommandClient client = new GameCommandClient();
+        client.init();
+    }
+
     public GameCommandClient() {
         keyboard = new Scanner(System.in);
         controller = new GameController();
@@ -133,11 +138,6 @@ public class GameCommandClient {
         } else {
             System.out.println("Dedications: " + game.getPlayers()[playerID].getDedications());
         }
-    }
-
-    public static void main(String[] args) {
-        GameCommandClient client = new GameCommandClient();
-        client.init();
     }
 
     public void init() {
