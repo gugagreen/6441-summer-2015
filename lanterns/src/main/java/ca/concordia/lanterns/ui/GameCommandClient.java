@@ -1,5 +1,9 @@
 package ca.concordia.lanterns.ui;
 
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+
 import ca.concordia.lanterns.Controller.GameController;
 import ca.concordia.lanterns.ai.AI;
 import ca.concordia.lanterns.ai.impl.GreedyAI;
@@ -7,14 +11,11 @@ import ca.concordia.lanterns.ai.impl.HumanPlayer;
 import ca.concordia.lanterns.ai.impl.RandomAI;
 import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanternsentities.*;
-import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.DedicationType;
-import ca.concordia.lanternsentities.helper.MatrixOrganizer;
-
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import ca.concordia.lanternsentities.DedicationToken;
+import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LakeTile;
+import ca.concordia.lanternsentities.LanternCardWrapper;
+import ca.concordia.lanternsentities.Player;
 
 /**
  * Serves as client for {@link GameController}. Acts using command line input.
