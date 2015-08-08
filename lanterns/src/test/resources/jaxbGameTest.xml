@@ -28,12 +28,15 @@
         <colour>BLACK</colour>
         <quantity>0</quantity>
     </cards>
-    <dedications/>
-    <dedications/>
-    <dedications/>
-    <dedications/>
+    <currentTurnPlayer>0</currentTurnPlayer>
+    <dedications>
+        <dedications/>
+        <dedications/>
+        <dedications/>
+        <dedications/>
+    </dedications>
     <favors>20</favors>
-    <lake/>
+    <id>testGame</id>
     <players>
         <cards>
             <colour>ORANGE</colour>
@@ -63,7 +66,9 @@
             <colour>BLACK</colour>
             <quantity>0</quantity>
         </cards>
+        <dedications/>
         <favors>0</favors>
+        <id>0</id>
         <name>p1</name>
     </players>
     <players>
@@ -95,7 +100,9 @@
             <colour>BLACK</colour>
             <quantity>0</quantity>
         </cards>
+        <dedications/>
         <favors>0</favors>
+        <id>1</id>
         <name>p2</name>
     </players>
     <players>
@@ -127,7 +134,10 @@
             <colour>BLACK</colour>
             <quantity>0</quantity>
         </cards>
+        <dedications/>
         <favors>0</favors>
+        <id>2</id>
         <name>p3</name>
     </players>
+    <started>false</started>
 </game>

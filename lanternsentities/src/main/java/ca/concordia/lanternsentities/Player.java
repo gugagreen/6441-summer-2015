@@ -1,111 +1,127 @@
 package ca.concordia.lanternsentities;
 
+import ca.concordia.lanternsentities.enums.Colour;
+
+import javax.xml.bind.annotation.XmlElementWrapper;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import ca.concordia.lanternsentities.enums.Colour;
-import ca.concordia.lanternsentities.enums.PlayerID;
 
 /**
  * Player entity
- * @version 1.0 
  *
+ * @version 1.0
  */
 public class Player {
 
-	private String name;
-	private PlayerID id ;
-	private LanternCardWrapper[] cards;
-	private List<DedicationToken> dedications;
-	private List<LakeTile> tiles;
-	private int favors;
-	
-	/**
-	 * @param name
-	 */
-	public void init(final String name, final PlayerID id) {
-		this.name = name;
-		this.id = id ;
-		
-		Colour[] colours = Colour.values();
-		this.cards = new LanternCardWrapper[colours.length];
-		for (int i = 0; i < cards.length; i++) {
-			LanternCardWrapper lantern = new LanternCardWrapper();
-			lantern.setColour(colours[i]);
-			this.cards[i] = lantern;
-		}
-		this.dedications = new ArrayList<DedicationToken>();
-		this.tiles = new ArrayList<LakeTile>();
-	}
+    private String name;
+    private int id;
+    private LanternCardWrapper[] cards;
+    private List<DedicationToken> dedications;
+    private List<LakeTile> tiles;
+    private int favors;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
+    /**
+     * Initialize {@link Player} attributes.
+     *
+     * @param name Player name (String)
+     * @param id   Player id (from 0-3)
+     */
+    public void init(final String name, final int id) {
+        this.name = name;
+        this.id = id;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Player other = (Player) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
+        Colour[] colours = Colour.values();
+        this.cards = new LanternCardWrapper[colours.length];
+        for (int i = 0; i < cards.length; i++) {
+            LanternCardWrapper lantern = new LanternCardWrapper();
+            lantern.setColour(colours[i]);
+            this.cards[i] = lantern;
+        }
+        this.dedications = new ArrayList<DedicationToken>();
+        this.tiles = new ArrayList<LakeTile>();
+    }
 
-	public String getName() {
-		return name;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Player other = (Player) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
 
-	public PlayerID getID () {
-		return id ;
-	}
-	
-	public LanternCardWrapper[] getCards() {
-		return cards;
-	}
+    @Override
+    public String toString() {
+        return "Player [name=" + name + ", id=" + id + ", cards=" + Arrays.toString(cards) + ", dedications=" + dedications
+                + ", tiles=" + tiles + ", favors=" + favors + "]";
+    }
 
-	public void setCards(LanternCardWrapper[] cards) {
-		this.cards = cards;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<DedicationToken> getDedications() {
-		return dedications;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDedications(List<DedicationToken> dedications) {
-		this.dedications = dedications;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public List<LakeTile> getTiles() {
-		return tiles;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setTiles(List<LakeTile> tiles) {
-		this.tiles = tiles;
-	}
+    public LanternCardWrapper[] getCards() {
+        return cards;
+    }
 
-	public int getFavors() {
-		return favors;
-	}
+    public void setCards(LanternCardWrapper[] cards) {
+        this.cards = cards;
+    }
 
-	public void setFavors(int favors) {
-		this.favors = favors;
-	}
-	
-	
+    @XmlElementWrapper(required = true, nillable = true)
+    public List<DedicationToken> getDedications() {
+        return dedications;
+    }
+
+    public void setDedications(List<DedicationToken> dedications) {
+        this.dedications = dedications;
+    }
+
+    public List<LakeTile> getTiles() {
+        return tiles;
+    }
+
+    public void setTiles(List<LakeTile> tiles) {
+        this.tiles = tiles;
+    }
+
+    public int getFavors() {
+        return favors;
+    }
+
+    public void setFavors(int favors) {
+        this.favors = favors;
+    }
+
+
 }
