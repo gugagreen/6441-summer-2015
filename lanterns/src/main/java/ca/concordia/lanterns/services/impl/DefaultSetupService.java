@@ -26,6 +26,10 @@ public class DefaultSetupService implements SetupService {
         return SingletonHolder.INSTANCE;
     }
 
+    private static class SingletonHolder {
+        static final DefaultSetupService INSTANCE = new DefaultSetupService();
+    }
+
     /**
      * Create game creates game using player name
      */
@@ -236,10 +240,6 @@ public class DefaultSetupService implements SetupService {
         } else {
             throw new IllegalArgumentException("Lake does not contain a first tile!");
         }
-    }
-
-    private static class SingletonHolder {
-        static final DefaultSetupService INSTANCE = new DefaultSetupService();
     }
 
 }

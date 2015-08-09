@@ -1,65 +1,25 @@
-package ca.concordia.lanterns.exchange.impl;
+package ca.concordia.lanterns.dedication;
 
-import ca.concordia.lanterns.ai.impl.GreedyAI;
-import ca.concordia.lanterns.controllers.GameController;
-import ca.concordia.lanterns.exchange.ExchangeBehavior;
-import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 
-public class GreedyExchange implements ExchangeBehavior {
+
+public class DedicationForecaster {
 	
-	GameController controller = new GameController();
+	public static DedicationForecaster getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
 
-	@Override
-	public void makeExchange(Game game, Player player) {
-		// if there are enough tokens to make exchange
-		if (player.getFavors() >= 2) {
-			if (shouldTryExchange(player)) {
-				LanternCardWrapper[] giveReceive = getNextDedication(player);
-				if (giveReceive != null) {
-					controller.exchangeLanternCard(game, player.getId(), giveReceive[0].getColour(), giveReceive[1].getColour());
-				}
-			}
-		}
-	}
-
-	/**
-	 * If dedication is already possible, no need to make exchange
-	 * @param player
-	 * @return	true if exchange is not currently possible
-	 */
-	private boolean shouldTryExchange(Player player) {
-		boolean[] dedicationsPossible = GreedyAI.dedicationPossible(player);
-		boolean shouldExchange = true;
-		
-		for (boolean possible : dedicationsPossible) {
-			if (possible) {
-				shouldExchange = false;
-				break;
-			}
-		}
-		return shouldExchange;
-	}
-
-	/**
-	 * Find out if there is any dedication one card away from completion.
-	 * @param player
-	 * @return	The required card for the next dedication, or null if there is no dedication one card away. 
-	 */
-	private LanternCardWrapper[] getNextDedication(Player player) {
-		LanternCardWrapper[] giveReceive = getNextFourOfAKind(player);
-		if (giveReceive == null) {
-			giveReceive = getNextThreePairs(player);
-			
-			if (giveReceive == null) {
-				giveReceive = getNextSevenUnique(player);
-			}
-		}
-		return giveReceive;
-	}
-	
-	private LanternCardWrapper[] getNextFourOfAKind(Player player) {
+    private static class SingletonHolder {
+        static final DedicationForecaster INSTANCE = new DedicationForecaster();
+    }
+    
+    /**
+     * Get necessary exchange to make a four of a kind dedication to given player.
+     * @param player
+     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive].
+     */
+    public LanternCardWrapper[] getNextFourOfAKind(Player player) {
 		LanternCardWrapper[] giveReceive = null;
 		LanternCardWrapper give = null;
 		LanternCardWrapper receive = null;
@@ -88,7 +48,12 @@ public class GreedyExchange implements ExchangeBehavior {
 		return giveReceive;
 	}
 	
-	private LanternCardWrapper[] getNextThreePairs(Player player) {
+    /**
+     * Get necessary exchange to make a three pairs dedication to given player.
+     * @param player
+     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive].
+     */
+    public LanternCardWrapper[] getNextThreePairs(Player player) {
 		LanternCardWrapper[] giveReceive = null;
 		LanternCardWrapper pair1 = null;
 		LanternCardWrapper pair2 = null;
@@ -133,7 +98,12 @@ public class GreedyExchange implements ExchangeBehavior {
 		return giveReceive;
 	}
 	
-	private LanternCardWrapper[] getNextSevenUnique(Player player) {
+    /**
+     * Get necessary exchange to make a seven unique dedication to given player.
+     * @param player
+     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive].
+     */
+    public LanternCardWrapper[] getNextSevenUnique(Player player) {
 		LanternCardWrapper[] giveReceive = null;
 		LanternCardWrapper give = null;
 		LanternCardWrapper receive = null;
