@@ -13,11 +13,72 @@ public class DedicationForecaster {
     private static class SingletonHolder {
         static final DedicationForecaster INSTANCE = new DedicationForecaster();
     }
+	
+	public boolean[] dedicationPossible(Player player){
+		boolean[] dedicationsPossible = new boolean[3];
+		
+		dedicationsPossible[0] = fourOfKindPossible(player);
+		dedicationsPossible[1] = threePairPossible(player);
+		dedicationsPossible[2] = sevenUniquePossible(player);
+		return dedicationsPossible;
+
+	}
+	
+	public boolean fourOfKindPossible(Player player){
+		for (LanternCardWrapper lanternCardWrapper : player.getCards()) {
+			if(lanternCardWrapper.getQuantity() > 3){
+				boolean dedicationPossible = true;
+				return dedicationPossible;
+			}
+		}
+		boolean dedicationPossible = false;
+		return dedicationPossible;
+		
+	}
+	
+	public boolean threePairPossible(Player player){
+		int pairStacks = 0;
+		for (LanternCardWrapper lanternCardWrapper : player.getCards()) {
+			if(lanternCardWrapper.getQuantity() > 1){
+				pairStacks++;
+			}
+		}
+		
+		return (pairStacks > 2);
+	}
+	
+	public boolean sevenUniquePossible(Player player){
+		int uniqueStacks = 0;
+		for (LanternCardWrapper lanternCardWrapper : player.getCards()) {
+			if(lanternCardWrapper.getQuantity() > 0){
+				uniqueStacks++;
+			}
+		}
+		return (uniqueStacks == 7);
+	}
+
+	/**
+	 * Find out if there is any dedication one card away from completion.
+	 * @param player
+	 * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive], or null if there is no dedication one card away. 
+	 */
+	public LanternCardWrapper[] getNextDedication(Player player) {
+		LanternCardWrapper[] giveReceive = getNextFourOfAKind(player);
+		if (giveReceive == null) {
+			giveReceive = getNextThreePairs(player);
+			
+			if (giveReceive == null) {
+				giveReceive = getNextSevenUnique(player);
+			}
+		}
+		return giveReceive;
+	}
     
     /**
      * Get necessary exchange to make a four of a kind dedication to given player.
      * @param player
-     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive].
+     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive], 
+     * or null if there is no dedication one card away. 
      */
     public LanternCardWrapper[] getNextFourOfAKind(Player player) {
 		LanternCardWrapper[] giveReceive = null;
@@ -51,7 +112,8 @@ public class DedicationForecaster {
     /**
      * Get necessary exchange to make a three pairs dedication to given player.
      * @param player
-     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive].
+     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive], 
+     * or null if there is no dedication one card away. 
      */
     public LanternCardWrapper[] getNextThreePairs(Player player) {
 		LanternCardWrapper[] giveReceive = null;
@@ -101,7 +163,8 @@ public class DedicationForecaster {
     /**
      * Get necessary exchange to make a seven unique dedication to given player.
      * @param player
-     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive].
+     * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive], 
+     * or null if there is no dedication one card away. 
      */
     public LanternCardWrapper[] getNextSevenUnique(Player player) {
 		LanternCardWrapper[] giveReceive = null;
