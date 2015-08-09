@@ -4,7 +4,7 @@ import ca.concordia.lanterns.dedication.DedicationBehavior;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 
-public class BestDedication implements DedicationBehavior {
+public class GreedyDedication implements DedicationBehavior {
 
 	@Override
 	public void makeDedication(Game game, Player currentPlayer, boolean[] dedicationsPossible) {

@@ -27,8 +27,7 @@ public abstract class AI {
 	}
 	
 	public void performDedication(){
-		
-		boolean[] dedicationsPossible = dedicationPossible();
+		boolean[] dedicationsPossible = dedicationPossible(currentPlayer);
 		//checking if any of the 3 types of dedications are possible
 		if(dedicationsPossible[0]||dedicationsPossible[1]||dedicationsPossible[2]){
 			this.dedicationBehavior.makeDedication(game, currentPlayer, dedicationsPossible);
@@ -52,18 +51,18 @@ public abstract class AI {
 		this.tilePlayBehavior = tilePlayMood;
 	}
 	
-	public boolean[] dedicationPossible(){
+	public static boolean[] dedicationPossible(Player player){
 		boolean[] dedicationsPossible = new boolean[3];
 		
-		dedicationsPossible[0] = fourOfKindPossible();
-		dedicationsPossible[1] = threePairPossible();
-		dedicationsPossible[2] = sevenUniquePossible();
+		dedicationsPossible[0] = fourOfKindPossible(player);
+		dedicationsPossible[1] = threePairPossible(player);
+		dedicationsPossible[2] = sevenUniquePossible(player);
 		return dedicationsPossible;
 
 	}
 	
-	public boolean fourOfKindPossible(){
-		for (LanternCardWrapper lanternCardWrapper : this.currentPlayer.getCards()) {
+	public static boolean fourOfKindPossible(Player player){
+		for (LanternCardWrapper lanternCardWrapper : player.getCards()) {
 			if(lanternCardWrapper.getQuantity()>3){
 				boolean dedicationPossible = true;
 				return dedicationPossible;
@@ -74,9 +73,9 @@ public abstract class AI {
 		
 	}
 	
-	public boolean threePairPossible(){
+	public static boolean threePairPossible(Player player){
 		int pairStacks = 0;
-		for (LanternCardWrapper lanternCardWrapper : this.currentPlayer.getCards()) {
+		for (LanternCardWrapper lanternCardWrapper : player.getCards()) {
 			if(lanternCardWrapper.getQuantity()>1){
 				pairStacks++;
 			}
@@ -91,9 +90,9 @@ public abstract class AI {
 		}
 	}
 	
-	public boolean sevenUniquePossible(){
+	public static boolean sevenUniquePossible(Player player){
 		int uniqueStacks = 0;
-		for (LanternCardWrapper lanternCardWrapper : this.currentPlayer.getCards()) {
+		for (LanternCardWrapper lanternCardWrapper : player.getCards()) {
 			if(lanternCardWrapper.getQuantity()>0){
 				uniqueStacks++;
 			}
