@@ -2,6 +2,7 @@ package ca.concordia.lanterns.services.impl;
 
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.EndGameService;
+import ca.concordia.lanterns.services.EndGameStrategy;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LanternCardWrapper;
@@ -18,22 +19,21 @@ public class EndGameDetectService implements EndGameService {
 	public static EndGameDetectService getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
+    private EndGameStrategy endGameStrategy;
+
+    //The default end game strategy is the normal way, please do remember to set the strategy first.
+    private EndGameDetectService()
+    {
+        this.endGameStrategy = new NormalEndGameStrategy();
+    }
+
+    public void setEndGameStrategy(EndGameStrategy endGameStrategy)
+    {
+        this.endGameStrategy = endGameStrategy;
+    }
 
 	public boolean isGameEnded(Game game) {
-		int playerNum = game.getPlayers().length;
-		int count = 0;
-
-		for (Player player : game.getPlayers()) {
-			if (player.getTiles().isEmpty()) {
-				count++;
-			}
-		}
-
-		boolean isLastTurn = game.getTiles().empty() && (count == playerNum);
-		boolean isLastPlayer = game.getCurrentTurnPlayer() == (game.getPlayers().length - 1);
-
-		// if it is the last turn and it is the last player, game is ended
-		return (isLastTurn && isLastPlayer);
+		return endGameStrategy.isGameEnded(game);
 	}
 
 	public Set<Player> getGameWinner(Game game) {
