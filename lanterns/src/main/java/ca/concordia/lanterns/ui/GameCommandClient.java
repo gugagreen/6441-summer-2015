@@ -11,12 +11,11 @@ import ca.concordia.lanterns.ai.impl.RandomAI;
 import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
 import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanternsentities.DedicationToken;
-import ca.concordia.lanternsentities.Game;
-import ca.concordia.lanternsentities.LakeTile;
-import ca.concordia.lanternsentities.LanternCardWrapper;
-import ca.concordia.lanternsentities.Player;
-import ca.concordia.lanternsentities.TileSide;
+import ca.concordia.lanterns.services.impl.EndGameDetectService;
+import ca.concordia.lanterns.services.impl.NHonorPointsEndGameStrategy;
+import ca.concordia.lanterns.services.impl.NLakeTilesEndGameStrategy;
+import ca.concordia.lanterns.services.impl.NormalEndGameStrategy;
+import ca.concordia.lanternsentities.*;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
@@ -420,6 +419,45 @@ public class GameCommandClient {
         }
         System.out.println(value);
         return value;
+    }
+
+    private void setEndGameStrategy()
+    {
+        System.out.println("Please select an end game strategy");
+        System.out.println("1) The normal way");
+        System.out.println("2) N Lake Tiles placed on the board strategy");
+        System.out.println("3) N Honor points earned strategy");
+
+        int userChoice = keyboard.nextInt();
+        int nLakeTiles = 0;
+        int nHonorPoint = 0;
+
+        switch (userChoice)
+        {
+            case 1:
+                EndGameDetectService.getInstance().setEndGameStrategy(new NormalEndGameStrategy());
+                break;
+            case 2:
+                nLakeTiles = getValidInt("Please enter the value N", 2, game.getTiles().size()/game.getPlayers().length);
+                EndGameDetectService.getInstance().setEndGameStrategy(new NLakeTilesEndGameStrategy(nLakeTiles));
+                break;
+            case 3:
+                nHonorPoint = getValidInt("Please enter the value N", 4, sumDedicationValues()/game.getPlayers().length);
+                EndGameDetectService.getInstance().setEndGameStrategy(new NHonorPointsEndGameStrategy(nHonorPoint));
+                break;
+        }
+
+    }
+
+    private int sumDedicationValues()
+    {
+        int sum = 0;
+
+        for(DedicationTokenWrapper dedicationTokenWrapper : game.getDedications())
+           for(DedicationToken dedicationToken : dedicationTokenWrapper.getStack())
+               sum += dedicationToken.getTokenValue();
+
+        return sum;
     }
 
 }
