@@ -1,6 +1,5 @@
 package ca.concordia.lanterns.ai;
 
-import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.dedication.DedicationBehavior;
 import ca.concordia.lanterns.exchange.ExchangeBehavior;
 import ca.concordia.lanterns.tileplacement.TilePlayBehavior;
@@ -14,13 +13,11 @@ public abstract class AI {
 	protected TilePlayBehavior tilePlayBehavior;
 	protected Game game;
 	protected Player currentPlayer;
-	private GameController controller;
 	
 	public AI(Game game, Player currentPlayer){
 		this.game = game;
 		this.currentPlayer = currentPlayer;
-		this.controller = new GameController();
-		}
+	}
 	
 	public void performExchange(){
 		//Players require a minimum of 2 favors to make an exchange

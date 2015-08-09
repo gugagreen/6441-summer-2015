@@ -16,13 +16,16 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.TileSide;
+import ca.concordia.lanternsentities.enums.Colour;
+import ca.concordia.lanternsentities.enums.DedicationType;
 
 /**
  * Serves as client for {@link GameController}. Acts using command line input.
  */
 public class GameCommandClient {
 
-    private Scanner keyboard;
+    private static Scanner keyboard;
     private Game game;
     private AI[] playerIntelligence;
     private GameController controller;
@@ -71,7 +74,7 @@ public class GameCommandClient {
         System.out.println("###############################");
     }
 
-    private static void displayPlayerLanterns(Game game, final int playerID) {
+    public static void displayPlayerLanterns(Game game, final int playerID) {
     	System.out.print("Lantern Cards:");
         for (int i = 0; i < game.getCards().length; i++) {
             System.out.print("\t" + game.getPlayers()[playerID].getCards()[i]);
@@ -212,19 +215,18 @@ public class GameCommandClient {
         	
         	
             switch (playerChoice) {
-            case 1:
-            	playerIntelligence[i] = new HumanPlayer(game, game.getPlayers()[i]);
-                break;
-            case 2:
-            	playerIntelligence[i] = new RandomAI(game, game.getPlayers()[i]);
-                break;
-            case 3:
-            	playerIntelligence[i] = new GreedyAI(game, game.getPlayers()[i]);
-            case 4:
-            	playerIntelligence[i] = new UnfriendlyAI(game, game.getPlayers()[i]);
-            default:
-                System.out.println("Invalid Input, please try again.");
-        	
+	            case 1:
+	            	playerIntelligence[i] = new HumanPlayer(game, game.getPlayers()[i]);
+	                break;
+	            case 2:
+	            	playerIntelligence[i] = new RandomAI(game, game.getPlayers()[i]);
+	                break;
+	            case 3:
+	            	playerIntelligence[i] = new GreedyAI(game, game.getPlayers()[i]);
+	            case 4:
+	            	playerIntelligence[i] = new UnfriendlyAI(game, game.getPlayers()[i]);
+	            default:
+	                System.out.println("Invalid Input, please try again.");
             }
 			
         }
@@ -356,7 +358,34 @@ public class GameCommandClient {
         }
     }
 
-    public int getValidInt(final String message, final int min, final int max) {
+	public static String dedicationTypesString() {
+		StringBuffer sb = new StringBuffer();
+		for (DedicationType type : DedicationType.values()) {
+			sb.append(type.ordinal() + "=" + type + "; ");
+		}
+		return sb.toString();
+	}
+
+	public static String coloursWithIndexesString() {
+		StringBuffer sb = new StringBuffer();
+		for (Colour colour : Colour.values()) {
+			sb.append(colour.ordinal() + "=" + colour + "; ");
+		}
+		return sb.toString();
+	}
+    
+	public static String getTileSidesString(LakeTile tile) {
+        StringBuffer sb = new StringBuffer();
+
+        TileSide[] sides = tile.getSides();
+
+        for (int i = 0; i < sides.length; i++) {
+            sb.append(i + "=" + sides[i] + "; ");
+        }
+        return sb.toString();
+    }
+
+    public static int getValidInt(final String message, final int min, final int max) {
         System.out.print(message);
         int userChoice = 0;
         boolean valid = false;
@@ -377,7 +406,7 @@ public class GameCommandClient {
         return userChoice;
     }
 
-    public String getValidString(final String message) {
+    public static String getValidString(final String message) {
         System.out.print(message);
         String value = null;
         boolean valid = false;
