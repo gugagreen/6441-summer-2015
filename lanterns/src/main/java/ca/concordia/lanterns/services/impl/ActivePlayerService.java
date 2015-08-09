@@ -91,7 +91,7 @@ public class ActivePlayerService implements PlayerService {
 
     @Override
     public void makeDedication(Game game, int id,
-                               DedicationType dedicationType, Colour[] color)
+                               DedicationType dedicationType, Colour[] colours)
             throws GameRuleViolationException {
 
         Player player = game.getPlayers()[id];
@@ -109,7 +109,7 @@ public class ActivePlayerService implements PlayerService {
                             + " are out of stock. Hence, you can't make this dedication");
         }
 
-        payDedicationCost(dedicationType, color, player, game);
+        payDedicationCost(dedicationType, colours, player, game);
 
         // Game gives player the earned dedication
         if (dedicationStack.isEmpty()) {
@@ -253,12 +253,12 @@ public class ActivePlayerService implements PlayerService {
     // Throws appropriate exception when player do not have enough dedication
     // cards.
     private void payDedicationCost(DedicationType dedicationType,
-                                   Colour[] color, Player player, Game game)
+                                   Colour[] colours, Player player, Game game)
             throws GameRuleViolationException {
 
         DedicationCost cost = getDedicationCost(dedicationType);
 
-        if (color.length == cost.getRequiredColors()) {
+        if (colours.length == cost.getRequiredColors()) {
             LanternCardWrapper[] playerCard = new LanternCardWrapper[cost
                     .getRequiredColors()];
             LanternCardWrapper[] gameCard = new LanternCardWrapper[cost
@@ -266,8 +266,8 @@ public class ActivePlayerService implements PlayerService {
 
             // Get references to lantern cards of mentioned colors from player
             // as well as game
-            for (int i = 0; i != color.length; ++i) {
-                playerCard[i] = player.getCards()[colors.indexOf(color[i])];
+            for (int i = 0; i != colours.length; ++i) {
+                playerCard[i] = player.getCards()[colors.indexOf(colours[i])];
 
                 // check if player have enough cards for required colors to make
                 // the dedication
@@ -275,15 +275,15 @@ public class ActivePlayerService implements PlayerService {
                         .getRequiredCardPerColor()) {
                     throw new GameRuleViolationException(
                             "You do not have enough "
-                                    + color[i].toString()
+                                    + colours[i].toString()
                                     + " colored lantern cards to make this dedication.");
                 }
 
-                gameCard[i] = game.getCards()[colors.indexOf(color[i])];
+                gameCard[i] = game.getCards()[colors.indexOf(colours[i])];
             }
 
             // Player gives lantern card to the game i.e pays for the dedication
-            for (int i = 0; i != color.length; ++i) {
+            for (int i = 0; i != colours.length; ++i) {
                 playerCard[i].setQuantity(playerCard[i].getQuantity()
                         - cost.getRequiredCardPerColor());
                 gameCard[i].setQuantity(gameCard[i].getQuantity()

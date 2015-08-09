@@ -40,10 +40,10 @@ public interface PlayerService {
      * @param id             - the id of the player who wish to make a dedication
      * @param dedicationType - the {@link DedicationType} the describes the type of
      *                       dedication the player wishes to make.
-     * @param color          - indicates the {@link Colour} of the lantern cards involved in the dedication.
+     * @param colours          - indicates the {@link Colour} of the lantern cards involved in the dedication.
      * @throws GameRuleViolationException - when the rule for making a dedication is violated.
      */
-    public void makeDedication(Game game, int id, DedicationType dedicationType, Colour[] color)
+    public void makeDedication(Game game, int id, DedicationType dedicationType, Colour[] colours)
             throws GameRuleViolationException;
 
 

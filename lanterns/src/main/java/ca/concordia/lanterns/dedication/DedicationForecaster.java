@@ -20,20 +20,20 @@ public class DedicationForecaster {
 		dedicationsPossible[0] = fourOfKindPossible(player);
 		dedicationsPossible[1] = threePairPossible(player);
 		dedicationsPossible[2] = sevenUniquePossible(player);
+		
 		return dedicationsPossible;
 
 	}
 	
 	public boolean fourOfKindPossible(Player player){
+		boolean dedicationPossible = false;
 		for (LanternCardWrapper lanternCardWrapper : player.getCards()) {
 			if(lanternCardWrapper.getQuantity() > 3){
-				boolean dedicationPossible = true;
-				return dedicationPossible;
+				dedicationPossible = true;
+				break;
 			}
 		}
-		boolean dedicationPossible = false;
 		return dedicationPossible;
-		
 	}
 	
 	public boolean threePairPossible(Player player){
