@@ -8,8 +8,10 @@ public class GreedyTile implements TilePlayBehavior {
 
 	@Override
 	public void placeTile(Game game, Player currentPlayer) {
-		// TODO Auto-generated method stub
-		
+		// FIXME - implement
+		// algorithm
+		// 1) check if dedication is already possible (get random)
+		// 2) check if there is a dedication close (get missing card)
+		// 3) if none of those, get random
 	}
-	//TODO
 }

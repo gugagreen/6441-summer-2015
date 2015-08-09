@@ -40,7 +40,7 @@ public class EndGameDetectServiceTest {
     public void testIsGameEnded() {
 
         // looking at unmodified new game from setUp(), game should be at first turn.
-        EndGameDetectService endGameService = new EndGameDetectService();
+        EndGameDetectService endGameService = EndGameDetectService.getInstance();
         assertFalse(endGameService.isGameEnded(this.game));
     }
 
@@ -59,7 +59,7 @@ public class EndGameDetectServiceTest {
 
         // looking at modified new game from setUp(), game should be at first turn, player 2 has a dedication token, others do
         // not.
-        EndGameDetectService endGameService = new EndGameDetectService();
+        EndGameDetectService endGameService = EndGameDetectService.getInstance();
 
         Player potentialWinner = this.game.getPlayers()[1];
         Set<Player> winners = endGameService.getGameWinner(this.game);
