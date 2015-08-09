@@ -10,7 +10,8 @@ import ca.concordia.lanternsentities.enums.DedicationType;
 
 public class GreedyDedication implements DedicationBehavior {
 	
-	GameController controller = new GameController();
+	// FIXME - inject controller from super
+	private GameController controller = new GameController();
 
 	@Override
 	public void makeDedication(Game game, Player player, boolean[] dedicationsPossible) {

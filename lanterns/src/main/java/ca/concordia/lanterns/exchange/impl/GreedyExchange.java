@@ -9,7 +9,8 @@ import ca.concordia.lanternsentities.Player;
 
 public class GreedyExchange implements ExchangeBehavior {
 	
-	GameController controller = new GameController();
+	// FIXME - inject controller from super
+	private GameController controller = new GameController();
 
 	@Override
 	public void makeExchange(Game game, Player player) {
