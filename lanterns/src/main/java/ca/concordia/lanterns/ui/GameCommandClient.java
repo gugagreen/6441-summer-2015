@@ -158,7 +158,7 @@ public class GameCommandClient {
     }
 
     private void showMenu() {
-        System.out.println("GROUP A SOEN 6441 LANTERNS BUILD 2");
+        System.out.println("GROUP A SOEN 6441 LANTERNS BUILD 3");
         System.out.println("Select the following: ");
         System.out.println("1) Start a new game");
         System.out.println("2) Load game from file");
@@ -204,7 +204,6 @@ public class GameCommandClient {
     
     private void setPlayerIntelligence(int numberOfPlayers){
         playerIntelligence = new AI[numberOfPlayers];
-        //using for tests with only random AI in the game
         for (int i = 0; i < numberOfPlayers; i++) {
         	System.out.println("For player " +game.getPlayers()[i].getName());
         	String selectAI = "Specify the Behavior you desire:"
