@@ -7,6 +7,10 @@ import ca.concordia.lanterns.tileplacement.impl.RandomTile;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 
+/**
+ * The random player always makes a random lake tile move. 
+ * and will randomly choose to make random dedications or exchanges if capable.
+ */
 public class RandomAI extends AI {
 	public RandomAI(Game game, Player currentPlayer){
 		super(game, currentPlayer);

@@ -7,6 +7,10 @@ import ca.concordia.lanterns.tileplacement.impl.PlayerTile;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 
+/**
+ * The human player gets to read the current state of the game and
+ *  input their choice of moves into the game using an input device.
+ */
 public class HumanPlayer extends AI {
 
 	public HumanPlayer(Game game, Player currentPlayer) {
