@@ -3,10 +3,6 @@ package ca.concordia.lanterns.ui;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.function.ToDoubleBiFunction;
-
-import org.junit.experimental.theories.Theories;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import ca.concordia.lanterns.ai.AI;
 import ca.concordia.lanterns.ai.impl.GreedyAI;

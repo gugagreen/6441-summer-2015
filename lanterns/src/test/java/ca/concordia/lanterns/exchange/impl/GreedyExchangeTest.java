@@ -26,6 +26,29 @@ public class GreedyExchangeTest {
 	}
 	
 	@Test
+	public void exchangeNotNecessary() {
+		// setup game with 3 pairs already possible (no need to exchange to get a dedication)
+		game.setFavors(game.getFavors() -2);
+		player.setFavors(2);
+		LanternCardWrapper[] cards = player.getCards();
+		// set first 3 cards as pairs
+		// leave next 3 cards with quantity=1, and last with quantity=0, 
+		// so player would be ready for exchange (7 unique)
+		int[] quantities = new int[] {3,3,3,1,1,1,0};
+		for (int i = 0; i < cards.length; i++) {
+			cards[i].setQuantity(quantities[i]);;
+		}
+		
+		// then try to make a exchange
+		exchange.makeExchange(game, player);
+		
+		// no exchange should have happend
+		for (int i = 0; i < cards.length; i++) {
+			assertEquals(quantities[i], cards[i].getQuantity());
+		}
+	}
+	
+	@Test
 	public void exchangeForFourOfAKind() {
 		// setup so player is one away from 4 of a kind
 		game.setFavors(game.getFavors() -2);
@@ -52,6 +75,7 @@ public class GreedyExchangeTest {
 		// then try to make a exchange
 		exchange.makeExchange(game, player);
 		
+		// exchange should have been made
 		assertEquals(4, receive.getQuantity());
 		assertEquals(0, give.getQuantity());
 	}

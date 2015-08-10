@@ -7,6 +7,9 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 
+/**
+ * Behavior that tries to get an exchange that will help to make a dedication.
+ */
 public class GreedyExchange implements ExchangeBehavior {
 	
 	// FIXME - inject controller from super
