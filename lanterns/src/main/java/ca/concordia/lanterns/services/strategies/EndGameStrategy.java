@@ -1,4 +1,4 @@
-package ca.concordia.lanterns.services;
+package ca.concordia.lanterns.services.strategies;
 
 import ca.concordia.lanternsentities.Game;
 

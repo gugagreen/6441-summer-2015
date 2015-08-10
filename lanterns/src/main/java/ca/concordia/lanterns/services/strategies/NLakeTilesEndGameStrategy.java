@@ -1,6 +1,5 @@
-package ca.concordia.lanterns.services.impl;
+package ca.concordia.lanterns.services.strategies;
 
-import ca.concordia.lanterns.services.EndGameStrategy;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 
