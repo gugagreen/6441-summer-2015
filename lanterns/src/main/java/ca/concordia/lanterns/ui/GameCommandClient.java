@@ -3,6 +3,10 @@ package ca.concordia.lanterns.ui;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.function.ToDoubleBiFunction;
+
+import org.junit.experimental.theories.Theories;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 import ca.concordia.lanterns.ai.AI;
 import ca.concordia.lanterns.ai.impl.GreedyAI;
@@ -44,7 +48,11 @@ public class GameCommandClient {
         keyboard = new Scanner(System.in);
         controller = new GameController();
     }
-
+    
+    /**
+     * Takes care of displaying the game state in the console when required .
+     * For example after player turns.
+     */
     public static void displayCurrentGameState(Game game) {
         for (int i = 0; i < game.getPlayers().length; i++) {
             System.out.println("_______________________________");
@@ -79,6 +87,11 @@ public class GameCommandClient {
         System.out.println("###############################");
     }
 
+    /**
+     * Takes in a game and a single player ID and displays the players current lantern cards.
+     * @param game Current game Object.
+     * @param playerID Current player ID.
+     */
     public static void displayPlayerLanterns(Game game, final int playerID) {
     	System.out.print("Lantern Cards:");
         for (int i = 0; i < game.getCards().length; i++) {
@@ -87,6 +100,12 @@ public class GameCommandClient {
         System.out.println();
     }
 
+
+    /**
+     * Takes in a game and a single player ID and displays the players current Lake Tiles.
+     * @param game Current game Object.
+     * @param playerID Current player ID.
+     */
     public static void displayPlayerLakeTiles(Game game, final int playerID) {
     	List<LakeTile> playerTiles = game.getPlayers()[playerID].getTiles();
         for (int i = 0; i < playerTiles.size(); i++) {
@@ -100,6 +119,10 @@ public class GameCommandClient {
 
     }
 
+    /**
+     * Takes in a game and displays the current Lake.
+     * @param game Current game Object.
+     */
     public static void displayLake(Game game) {
         LakeTile[][] matrix = game.getLake();
         StringBuffer[] lines1 = new StringBuffer[matrix.length];
@@ -140,6 +163,11 @@ public class GameCommandClient {
 		}
     }
 
+    /**
+     * Takes in a game and a single player ID and displays the players current Dedication cards.
+     * @param game Current game Object.
+     * @param playerID Current player ID.
+     */
     private static void displayPlayerDedications(Game game, final int playerID) {
         if (game.getPlayers()[playerID].getDedications().isEmpty()) {
             System.out.println(game.getPlayers()[playerID].getName() + " has no dedication tokens");
@@ -156,7 +184,10 @@ public class GameCommandClient {
             menuSelection(userChoice);
         }
     }
-
+    
+    /**
+     * Presents the starting menu in the console.
+     */
     private void showMenu() {
         System.out.println("GROUP A SOEN 6441 LANTERNS BUILD 3");
         System.out.println("Select the following: ");
@@ -184,6 +215,10 @@ public class GameCommandClient {
         }
     }
 
+    /**
+     * StartGame requires user input to select the number of players and will then request
+     * information on what type of player will be playing.
+     */
     private void startGame() {
         int numberOfPlayers = getValidInt("Specify the number of players (2-4)", 2, 4);
         String[] playerNames = new String[numberOfPlayers];
@@ -201,7 +236,10 @@ public class GameCommandClient {
 
         gameSelection();
     }
-    
+    /**
+     * Requests information from the user for setting the AI or player intelligence to each player.
+     * @param numberOfPlayers Number of players is required to know how many users intelligence must be set.
+     */
     private void setPlayerIntelligence(int numberOfPlayers){
         playerIntelligence = new AI[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
@@ -237,6 +275,9 @@ public class GameCommandClient {
         }
     }
 
+    /**
+     * Textual request for loadGame file name if a load is requested. 
+     */
     private void loadGame() {
         String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
 
@@ -248,6 +289,9 @@ public class GameCommandClient {
         gameSelection();
     }
 
+    /**
+     * Identical to loadGame but also validates the game file.
+     */
     private void loadValidatedGame() {
         String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
 
@@ -264,7 +308,10 @@ public class GameCommandClient {
         keyboard.close();
         System.exit(0);
     }
-
+    
+    /**
+     * Allows the user to select whether they wish to continue playing the game, save the game, or simply quit.
+     */
     private void gameSelection() {
         int newGameOption = getValidInt("Select one option:\n1) Play\n2) Save Game\n3) Quit", 1, 3);
 
@@ -293,7 +340,10 @@ public class GameCommandClient {
                 return;
         }
     }
-
+    
+    /**
+     * Begins game play and will alternate players until end conditions are met.
+     */
     public void play() {
         boolean isEnded = controller.isGameEnded(game);
         while (!isEnded) {
@@ -323,6 +373,10 @@ public class GameCommandClient {
         }
     }
 
+    /**
+     * Requests input for each player move for the current player.
+     * @param currentPlayer Player currently taking his turn.
+     */
     private void playTurn(Player currentPlayer) {
         System.out.println("_______________________________");
         System.out.println("It is player '" + currentPlayer.getName() + "'s turn.");
@@ -337,6 +391,10 @@ public class GameCommandClient {
         displayCurrentGameState(game);
     }
     
+    /**
+     * Displays which player won the game once the game is over.
+     * @param winners In case of a tie more than one 'winner' is possible.
+     */
     private void showWinner(Set<Player> winners) {
         System.out.println("Game is ended!");
 
@@ -427,6 +485,9 @@ public class GameCommandClient {
         return value;
     }
 
+    /**
+     * Requests user input for choosing between the various end game rules.
+     */
     private void setEndGameStrategy()
     {
         System.out.println("Please select an end game strategy");
