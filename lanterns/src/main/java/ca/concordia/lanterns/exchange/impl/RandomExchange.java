@@ -28,6 +28,11 @@ public class RandomExchange implements ExchangeBehavior {
 		}
     }
 
+	/**
+	 * Randomly determines whether the random AI will choose to make an exchange.
+	 * This takes place only when an exchange is possible.
+	 * @return a randomly determined boolean value.
+	 */
 	private static boolean allowExchange() {
 		Random rand = new Random();
 		boolean makeExchange = rand.nextBoolean();
@@ -35,6 +40,11 @@ public class RandomExchange implements ExchangeBehavior {
 		return makeExchange;	
 	}
 	
+	/**
+	 * Using a list of allowable Lantern cards in the players hand randomly determines which card will be exchanged.
+	 * @param allowablePlayerLanterns List of non zero lantern card stacks in the players hand.
+	 * @return An exchangeable random lantern card.
+	 */
 	private static int randomLanternIndex(List<Integer> allowablePlayerLanterns){
 		Random rand = new Random();
 		int randLantern = rand.nextInt(allowablePlayerLanterns.size());
@@ -42,6 +52,12 @@ public class RandomExchange implements ExchangeBehavior {
 		return allowablePlayerLanterns.get(randLantern) ;
 	}
 	
+	/**
+	 * Makes a list of possible lantern cards to exchange in the players hand.
+	 * @param game Current game state.
+	 * @param currentPlayer Player currently trying to make an exchange.
+	 * @return a list of possible lantern card indices to exchange.
+	 */
 	private List<Integer> possibleLanternIndex(Game game, Player currentPlayer){
 		List<Integer> allowPlayerLanterns = new ArrayList<Integer>(); 
 		
@@ -53,6 +69,11 @@ public class RandomExchange implements ExchangeBehavior {
 		return allowPlayerLanterns;
 	}
 	
+	/**
+	 * Makes a list of possible lantern cards to exchange on the table.
+	 * @param game Current game state.
+	 * @return a list of possible lantern card indices to exchange with.
+	 */
 	private List<Integer> possibleTableLanternsIndex(Game game){
 		List<Integer> allowTableLanterns = new ArrayList<Integer>(); 
 		
@@ -64,6 +85,12 @@ public class RandomExchange implements ExchangeBehavior {
 		return allowTableLanterns;
 	}
 	
+	/**
+	 * Using a list of allowable Lantern cards on the table, randomly determines which card will be exchanged.
+	 * @param excludedIndex The card index that the player is exchanging as we do not want a zero sum exchange.
+	 * @param possibleTableLanterns The list of possible table Lantern cards.
+	 * @return a random table Lantern card index.
+	 */
 	private int randIndexWithExclusion(int excludedIndex, List<Integer> possibleTableLanterns){
 		boolean searchingRand = true;
 		int newIndex = randomLanternIndex(possibleTableLanterns);	

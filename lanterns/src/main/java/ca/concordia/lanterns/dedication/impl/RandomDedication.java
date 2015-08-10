@@ -26,21 +26,35 @@ public class RandomDedication implements DedicationBehavior {
 			ActivePlayerService.getInstance().makeDedication(game, currentPlayer.getId(), type, colours);
 		}
 	}
-
+	/**
+	 * Randomly determines if the random AI will make a dedication or not this turn.
+	 * Only takes place if a dedication is possible.
+	 * @return a randomly determined boolean value. 
+	 */
 	private static boolean allowDedication() {
 		Random rand = new Random();
 		boolean makeDedication = rand.nextBoolean();
 
 		return makeDedication;
 	}
-
+	
+	/**
+	 * Selects a random dedication index to play.
+	 * @return A value between 0-2 that covers all possible dedications.
+	 */
 	private int randDedicationIndex() {
 		Random rand = new Random();
 		int randDedicationIndex = rand.nextInt(3);
 
 		return randDedicationIndex;
 	}
-
+	
+	/**
+	 * Checks to make sure that the randomly chosen dedication is possible.
+	 * If not, it finds another dedication until one is possible. 
+	 * @param dedicationsPossible Boolean value that tells if a dedication can be made this turn.
+	 * @return A random dedication index value that has been verified to be possible for this player.
+	 */
 	private int checkedDedicationIndex(boolean[] dedicationsPossible) {
 		boolean checkingRandIndex = true;
 		int randIndex = randDedicationIndex();
@@ -55,7 +69,13 @@ public class RandomDedication implements DedicationBehavior {
 		}
 		return randIndex;
 	}
-
+	
+	/**
+	 * Based on which dedication was chosen randomly, this gets the appropriate lantern cards to make the dedication.
+	 * @param type Takes in the dedication type chose.
+	 * @param currentPlayer Which player is currently making the dedication.
+	 * @return The Colour list of the lantern cards required to make the dedication.
+	 */
 	private Colour[] getDedicationLanterns(DedicationType type, Player currentPlayer) {
 		int requiredColours = getRequiredColors(type);
 		Colour[] colours = new Colour[requiredColours];
@@ -104,7 +124,11 @@ public class RandomDedication implements DedicationBehavior {
 		return colours;
 
 	}
-
+	
+	/**
+	 * Gets a random colour lantern card for the dedications in which that is possible.
+	 * @return a random colour index value (0-6).
+	 */
 	private int getRandomColour() {
 		Random rand = new Random();
 		int randColourIndex = rand.nextInt(7);
