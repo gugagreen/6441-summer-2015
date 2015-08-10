@@ -202,15 +202,15 @@ public class GameCommandClient {
         //TODO modify to ask input for specific AI type on specific players;
         for (int i = 0; i < numberOfPlayers; i++) {
         	System.out.println("For player " +game.getPlayers()[i].getName());
-        	System.out.println("Specify the Behavior you desire:");
-        	System.out.println("1) Human Player");
-        	System.out.println("2) Random AI");
+        	String selectAI = "Specify the Behavior you desire:"
+        			+ "\n1) Human Player"
+        			+ "\n2) Random AI"
+        			+ "\n3) Greedy AI ";
         	//TODO modify as more AI options become available
-        	//System.out.println("3) Greedy AI ");
-        	//System.out.println("4) Unfriendly AI");
-        	//System.out.println("5) Unknown AI");
+        	// + "\n4) Unfriendly AI"
+        	// + "\n5) Unknown AI"
         	//TODO modify end bound as more AI options become available
-        	int playerChoice = getValidInt("", 1, 2);
+        	int playerChoice = getValidInt(selectAI, 1, 3);
         	
         	
             switch (playerChoice) {
@@ -222,8 +222,10 @@ public class GameCommandClient {
 	                break;
 	            case 3:
 	            	playerIntelligence[i] = new GreedyAI(game, game.getPlayers()[i]);
+	            	break;
 	            case 4:
 	            	playerIntelligence[i] = new UnfriendlyAI(game, game.getPlayers()[i]);
+	            	break;
 	            default:
 	                System.out.println("Invalid Input, please try again.");
             }
