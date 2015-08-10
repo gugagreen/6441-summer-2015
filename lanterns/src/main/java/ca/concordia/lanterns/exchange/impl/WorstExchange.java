@@ -11,5 +11,4 @@ public class WorstExchange implements ExchangeBehavior{
 		// TODO Auto-generated method stub
 		
 	}
-	//TODO
 }

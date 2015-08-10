@@ -8,7 +8,6 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 
-// FIXME - move UI part to GameCommandClient
 public class PlayerExchange implements ExchangeBehavior {
 
 	@Override

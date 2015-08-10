@@ -10,7 +10,6 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.Player;
 
-// FIXME - move UI part to GameCommandClient
 public class PlayerTile implements TilePlayBehavior {
 
 	@Override

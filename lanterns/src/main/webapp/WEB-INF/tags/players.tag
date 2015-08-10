@@ -7,4 +7,5 @@
 <c:if test="${not empty player}">
 	Player ${player.id}: ${player.name}<p/>
 	<table><h:status cards="${player.cards}" tiles="${player.tiles}" favors="${player.favors}" vertical="${vertical}"/></table>
+	<h:playerTiles tiles="${player.tiles}" />
 </c:if>

@@ -15,7 +15,13 @@ import ca.concordia.lanterns.services.impl.EndGameDetectService;
 import ca.concordia.lanterns.services.impl.NHonorPointsEndGameStrategy;
 import ca.concordia.lanterns.services.impl.NLakeTilesEndGameStrategy;
 import ca.concordia.lanterns.services.impl.NormalEndGameStrategy;
-import ca.concordia.lanternsentities.*;
+import ca.concordia.lanternsentities.DedicationToken;
+import ca.concordia.lanternsentities.DedicationTokenWrapper;
+import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.LakeTile;
+import ca.concordia.lanternsentities.LanternCardWrapper;
+import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.TileSide;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
@@ -187,7 +193,7 @@ public class GameCommandClient {
         }
 
         game = controller.createGame(playerNames);
-        
+        // FIXME - set player intelligence into game
         setPlayerIntelligence(numberOfPlayers);
 
         displayCurrentGameState(game);
@@ -199,7 +205,6 @@ public class GameCommandClient {
     private void setPlayerIntelligence(int numberOfPlayers){
         playerIntelligence = new AI[numberOfPlayers];
         //using for tests with only random AI in the game
-        //TODO modify to ask input for specific AI type on specific players;
         for (int i = 0; i < numberOfPlayers; i++) {
         	System.out.println("For player " +game.getPlayers()[i].getName());
         	String selectAI = "Specify the Behavior you desire:"

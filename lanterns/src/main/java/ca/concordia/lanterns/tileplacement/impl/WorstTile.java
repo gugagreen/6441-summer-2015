@@ -11,5 +11,4 @@ public class WorstTile implements TilePlayBehavior {
 		// TODO Auto-generated method stub
 		
 	}
-	//TODO
 }

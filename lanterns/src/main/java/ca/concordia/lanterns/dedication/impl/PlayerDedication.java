@@ -10,7 +10,6 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
-// FIXME - move UI part to GameCommandClient
 public class PlayerDedication implements DedicationBehavior {
 
 	@Override
