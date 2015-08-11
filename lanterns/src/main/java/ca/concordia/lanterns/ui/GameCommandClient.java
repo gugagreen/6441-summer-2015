@@ -4,11 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import ca.concordia.lanterns.ai.AI;
-import ca.concordia.lanterns.ai.impl.GreedyAI;
-import ca.concordia.lanterns.ai.impl.HumanPlayer;
-import ca.concordia.lanterns.ai.impl.RandomAI;
-import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
 import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
@@ -22,6 +17,8 @@ import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.TileSide;
+import ca.concordia.lanternsentities.ai.AI;
+import ca.concordia.lanternsentities.enums.AIType;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
@@ -32,7 +29,6 @@ public class GameCommandClient {
 
     private static Scanner keyboard;
     private Game game;
-    private AI[] playerIntelligence;
     private GameController controller;
 
     public static void main(String[] args) {
@@ -222,53 +218,36 @@ public class GameCommandClient {
         for (int i = 0; i < numberOfPlayers; i++) {
             playerNames[i] = hardcodeNames[i];
         }
-
-        game = controller.createGame(playerNames);
-        // FIXME - set player intelligence into game
-        setPlayerIntelligence(numberOfPlayers);
+        
+        AIType[] aiTypes = getPlayerIntelligences(playerNames);
+        game = controller.createGame(playerNames, aiTypes);
 
         displayCurrentGameState(game);
         System.out.println("Successfully Initialized game");
 
         gameSelection();
     }
+    
     /**
      * Requests information from the user for setting the AI or player intelligence to each player.
      * @param numberOfPlayers Number of players is required to know how many users intelligence must be set.
      */
-    private void setPlayerIntelligence(int numberOfPlayers){
-        playerIntelligence = new AI[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) {
-        	System.out.println("For player " +game.getPlayers()[i].getName());
-        	String selectAI = "Specify the Behavior you desire:"
-        			+ "\n1) Human Player"
-        			+ "\n2) Random AI"
-        			+ "\n3) Greedy AI ";
-        	//TODO modify as more AI options become available
-        	// + "\n4) Unfriendly AI"
-        	// + "\n5) Unknown AI"
-        	//TODO modify end bound as more AI options become available
-        	int playerChoice = getValidInt(selectAI, 1, 3);
+    private AIType[] getPlayerIntelligences(String[] playerNames){
+    	AIType[] selectedAITypes = new AIType[playerNames.length];
+        for (int i = 0; i < playerNames.length; i++) {
+        	System.out.println("For player " + playerNames[i]);
         	
-        	
-            switch (playerChoice) {
-	            case 1:
-	            	playerIntelligence[i] = new HumanPlayer(game, game.getPlayers()[i]);
-	                break;
-	            case 2:
-	            	playerIntelligence[i] = new RandomAI(game, game.getPlayers()[i]);
-	                break;
-	            case 3:
-	            	playerIntelligence[i] = new GreedyAI(game, game.getPlayers()[i]);
-	            	break;
-	            case 4:
-	            	playerIntelligence[i] = new UnfriendlyAI(game, game.getPlayers()[i]);
-	            	break;
-	            default:
-	                System.out.println("Invalid Input, please try again.");
-            }
+        	StringBuffer sb = new StringBuffer("Specify the Behavior you desire:");
+        	AIType[] aiTypes = AIType.values();
+        	for (AIType aiType : aiTypes) {
+        		sb.append("\n" + aiType.ordinal() + ") " + aiType.name().toLowerCase());
+        	}
+        	int playerChoice = getValidInt(sb.toString(), 0, aiTypes.length-1);
+        	selectedAITypes[i] = aiTypes[playerChoice];
 			
         }
+        
+        return selectedAITypes;
     }
 
     /**
@@ -377,10 +356,10 @@ public class GameCommandClient {
         System.out.println("_______________________________");
         System.out.println("It is player '" + currentPlayer.getName() + "'s turn.");
 
-        playerIntelligence[currentPlayer.getId()].performExchange();
-        playerIntelligence[currentPlayer.getId()].performDedication();
+        game.getAiPlayers()[currentPlayer.getId()].performExchange();
+        game.getAiPlayers()[currentPlayer.getId()].performDedication();
         if (game.getPlayers()[currentPlayer.getId()].getTiles().size() != 0) {
-        	playerIntelligence[currentPlayer.getId()].performTilePlay();
+        	game.getAiPlayers()[currentPlayer.getId()].performTilePlay();
         }
         System.out.println("Player '" + currentPlayer.getName() + "'s turn is finished.");
         System.out.println("Game state after this player turn:");

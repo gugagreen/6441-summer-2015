@@ -19,11 +19,14 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.concordia.lanterns.ai.impl.HumanPlayer;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.TileSide;
+import ca.concordia.lanternsentities.ai.AI;
+import ca.concordia.lanternsentities.enums.AIType;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.TileStack;
 import ca.concordia.lanternsentities.helper.MatrixOrganizer;
@@ -45,14 +48,23 @@ public class PlaceATileTest {
         DefaultSetupService setUpService = new DefaultSetupService();
 
         String[] playerNames = {"a", "b", "c", "d"};
+        AIType[] aiTypes = {AIType.HUMAN, AIType.HUMAN, AIType.HUMAN, AIType.HUMAN};
 
         // Initalize a new game by using some of the services of default setup but not all of them.
-        setUpService.validatePlayersSet(playerNames);
+        setUpService.validatePlayersSetAISet(playerNames, aiTypes);
         String[] sortedPlayerNames = setUpService.decidePlayersOrder(playerNames);
         int playerCount = sortedPlayerNames.length;
         game = new Game();
+        // init ais
+        AI[] ais = new AI[playerNames.length];
+        for (int i = 0; i < ais.length; i++) {
+        	Player player = new Player();
+        	player.init(playerNames[i], i);
+        	ais[i] = new HumanPlayer(game, player);
+        }
+        
         //Initialize player data structures as well as favors for game
-        game.init(sortedPlayerNames, "Test");
+        game.init(ais, "Test");
 
         // Custom initialization of lake
         T54.setOrientation(3);

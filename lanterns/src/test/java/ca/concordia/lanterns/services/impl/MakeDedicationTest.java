@@ -1,5 +1,6 @@
 package ca.concordia.lanterns.services.impl;
 
+import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanternsentities.DedicationToken;
@@ -8,6 +9,7 @@ import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,15 +28,13 @@ public class MakeDedicationTest {
     //TODO Refactor all the tests.
     @Before
     public void setUp() {
-        String[] playerNames = {"A", "B", "C"};
-
-        game = new Game();
-        game.init(playerNames, "makeDedicationTest");
-        this.service = new ActivePlayerService();
+    	game = GameStubber.createGameStub();
+        
+    	this.service = new ActivePlayerService();
 
         // Setup only dedication tokens
         DefaultSetupService setUpService = new DefaultSetupService();
-        setUpService.setDedicationTokens(game.getDedications(), playerNames.length);
+        setUpService.setDedicationTokens(game.getDedications(), GameStubber.getPlayerNames().length);
 
         //The following setup allows first player to make any of the three kinds of dedication
         Player firstPlayer = game.getPlayers()[0];

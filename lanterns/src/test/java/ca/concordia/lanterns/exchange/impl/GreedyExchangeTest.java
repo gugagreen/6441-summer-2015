@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LanternCardWrapper;
@@ -20,8 +21,7 @@ public class GreedyExchangeTest {
 	@Before
 	public void setup() {
 		this.exchange = new GreedyExchange();
-		String[] playerNames = new String[] {"Alpha", "Bravo", "Charlie"};
-		this.game = DefaultSetupService.getInstance().createGame(playerNames);
+		this.game = DefaultSetupService.getInstance().createGame(GameStubber.getPlayerNames(), GameStubber.getAITypes());
 		this.player = game.getPlayers()[0];
 	}
 	

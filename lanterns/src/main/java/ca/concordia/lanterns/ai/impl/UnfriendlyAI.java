@@ -1,16 +1,19 @@
 package ca.concordia.lanterns.ai.impl;
 
-import ca.concordia.lanterns.ai.AI;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import ca.concordia.lanterns.dedication.impl.WorstDedication;
 import ca.concordia.lanterns.exchange.impl.WorstExchange;
 import ca.concordia.lanterns.tileplacement.impl.WorstTile;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.AI;
+import ca.concordia.lanternsentities.enums.AIType;
 
-
+@XmlRootElement
 public class UnfriendlyAI extends AI {
 	public UnfriendlyAI(Game game, Player currentPlayer){
-		super(game, currentPlayer);
+		super(AIType.UNFRIENDLY, game, currentPlayer);
 		this.exchangeBehavior = new WorstExchange(); 
 		this.dedicationBehavior = new WorstDedication();
 		this.tilePlayBehavior = new WorstTile();

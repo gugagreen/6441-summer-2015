@@ -7,6 +7,8 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.AI;
+import ca.concordia.lanternsentities.enums.AIType;
 
 public interface SetupService {
 
@@ -27,9 +29,10 @@ public interface SetupService {
      * Creates a new game
      *
      * @param playerNames The name of the players that will participate on the game. Should be between 2-4.
+     * @param aiTypes	The types of the {@link AI} to be used in the game. Should be of the same size as playerNames.
      * @return The game that was just created.
      */
-    Game createGame(final String[] playerNames);
+    Game createGame(final String[] playerNames, final AIType[] aiTypes);
 
     /**
      * Randomically assign one position for each player.

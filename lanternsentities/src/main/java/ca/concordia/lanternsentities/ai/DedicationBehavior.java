@@ -1,4 +1,4 @@
-package ca.concordia.lanterns.dedication;
+package ca.concordia.lanternsentities.ai;
 
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;

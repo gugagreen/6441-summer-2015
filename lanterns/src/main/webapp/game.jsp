@@ -16,7 +16,7 @@
 			<h:status cards="${game.cards}" tiles="${game.tiles}" favors="${game.favors}" vertical="false"/>
 			<tr>
 				<td>
-					<table width="100%">
+					<table style="width: 100%;">
 						<c:set var="gamePlayers" value="${game.players}" scope="request" />
 						<tr>
 							<td>&nbsp;</td>
@@ -34,8 +34,6 @@
 							<td>&nbsp;</td>
 						</tr>
 					</table>
-			
-					
 				</td>
 			</tr>
 			<tr>

@@ -1,13 +1,13 @@
 package ca.concordia.lanterns.tileplacement.impl;
 
 import ca.concordia.lanterns.controllers.GameController;
-import ca.concordia.lanterns.dedication.DedicationForecaster;
-import ca.concordia.lanterns.tileplacement.TilePlayBehavior;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.TileSide;
+import ca.concordia.lanternsentities.ai.DedicationForecaster;
+import ca.concordia.lanternsentities.ai.TilePlayBehavior;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.helper.MatrixOrganizer;
 import ca.concordia.lanternsentities.helper.MatrixOrganizer.Direction;

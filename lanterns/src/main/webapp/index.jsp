@@ -3,13 +3,15 @@
 	<title>Lanterns - Team A</title>
 </head>
 <body>
-	<h2>Hello World!</h2>
-	<form action="initial" method="post">
-		Player 1: <input id="p1" name="p1" type="text"><br/>
-		Player 2: <input id="p2" name="p2" type="text"><br/>
-		Player 3: <input id="p3" name="p3" type="text"><br/>
-		Player 4: <input id="p4" name="p4" type="text"><br/>
-		<input type="submit" value="Start">
-	</form>
+	<h2>GROUP A SOEN 6441 LANTERNS BUILD 3</h2>
+	<p><b>Select the following:</b></p>
+	<a href="/startGame">
+		<input type="button" id="startGame" value="Start a new game" />
+	</a>
+	<br/>
+	<a href="http://www.google.com">
+		<input type="button" id="loadGame" value="Load game from file" />
+	</a>
+	<button id="loadGameValidation" onclick="location.href = 'www.wikipedia.com';">Load game from file with validation</button>
 </body>
 </html>

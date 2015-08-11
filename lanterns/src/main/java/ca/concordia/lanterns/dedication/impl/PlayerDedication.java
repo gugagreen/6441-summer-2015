@@ -1,12 +1,12 @@
 package ca.concordia.lanterns.dedication.impl;
 
-import ca.concordia.lanterns.dedication.DedicationBehavior;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanterns.ui.GameCommandClient;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.DedicationBehavior;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 

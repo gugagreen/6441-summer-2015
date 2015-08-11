@@ -16,7 +16,7 @@
 
 	<servlet-mapping>
 		<servlet-name>initialServlet</servlet-name>
-		<url-pattern>/initial</url-pattern>
+		<url-pattern>/startGame</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

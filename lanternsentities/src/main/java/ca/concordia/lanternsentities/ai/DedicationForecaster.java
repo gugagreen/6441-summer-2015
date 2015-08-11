@@ -1,4 +1,4 @@
-package ca.concordia.lanterns.dedication;
+package ca.concordia.lanternsentities.ai;
 
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;

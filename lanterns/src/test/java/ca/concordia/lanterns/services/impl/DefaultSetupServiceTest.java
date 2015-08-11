@@ -12,12 +12,15 @@ import java.util.Stack;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.concordia.lanterns.ai.impl.HumanPlayer;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.AI;
+import ca.concordia.lanternsentities.enums.AIType;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 import ca.concordia.lanternsentities.helper.MatrixOrganizer;
@@ -33,9 +36,11 @@ public class DefaultSetupServiceTest {
 
     @Test
     public void testCreateGameSuccess() {
-        final String[] playerNames = createPlayerNames(4);
+    	int quantity = 4;
+        final String[] playerNames = createPlayerNames(quantity);
+        final AIType[] aiTypes = createAITypes(quantity);
 
-        Game game = service.createGame(playerNames);
+        Game game = service.createGame(playerNames, aiTypes);
 
         assertNotNull(game);
         assertNotNull(game.getPlayers());
@@ -82,7 +87,9 @@ public class DefaultSetupServiceTest {
     @Test
     public void testStartLake() {
     	Game game = new Game();
-        game.init(new String[] {"a","b"}, "test");
+    	String[] playerNames = createPlayerNames(2);
+    	AI[] ais = createAIs(game, playerNames);
+        game.init(ais, "test");
         Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
         LakeTile initialTile = new LakeTile();
         initialTile.init(colours, false);
@@ -197,7 +204,9 @@ public class DefaultSetupServiceTest {
         Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
 
         Game game = new Game();
-        game.init(new String[] {"a","b"}, "test");
+        String[] playerNames = createPlayerNames(2);
+    	AI[] ais = createAIs(game, playerNames);
+        game.init(ais, "test");
         LakeTile initialTile = new LakeTile();
         initialTile.init(colours, false);
 
@@ -246,6 +255,14 @@ public class DefaultSetupServiceTest {
         }
         return playerNames;
     }
+    
+    private AIType[] createAITypes(int quantity) {
+    	AIType[] aiTypes = new AIType[quantity];
+    	 for (int i = 0; i < quantity; i++) {
+    		 aiTypes[i] = AIType.HUMAN;
+         }
+         return aiTypes;
+    }
 
     private Player[] createPlayers(int quantity) {
         Player[] players = new Player[quantity];
@@ -254,5 +271,15 @@ public class DefaultSetupServiceTest {
             players[i].init(Integer.toString(i), i);
         }
         return players;
+    }
+    
+    private AI[] createAIs(Game game, String[] playerNames) {
+    	AI[] ais = new AI[playerNames.length];
+        for (int i = 0; i < ais.length; i++) {
+        	Player player = new Player();
+        	player.setName(playerNames[i]);
+        	ais[i] = new HumanPlayer(game, player);
+        }
+        return ais;
     }
 }

@@ -1,26 +1,33 @@
-package ca.concordia.lanterns.ai;
+package ca.concordia.lanternsentities.ai;
 
-import ca.concordia.lanterns.dedication.DedicationBehavior;
-import ca.concordia.lanterns.dedication.DedicationForecaster;
-import ca.concordia.lanterns.exchange.ExchangeBehavior;
-import ca.concordia.lanterns.tileplacement.TilePlayBehavior;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.enums.AIType;
 
 /**
  * AI class allows each player to have the choice of 4 specific behaviors if they are a computer player,
  * or to be controlled by a human player.
  */
-public abstract class AI {
+@XmlRootElement
+public class AI {
 	protected DedicationBehavior dedicationBehavior;
 	protected ExchangeBehavior exchangeBehavior;
 	protected TilePlayBehavior tilePlayBehavior;
 	protected Game game;
 	protected Player player;
+	private AIType type;
 	
-	public AI(Game game, Player currentPlayer){
+	public AI() {
+	}
+	
+	public AI(AIType type, Game game, Player currentPlayer){
 		this.game = game;
 		this.player = currentPlayer;
+		this.type = type;
 	}
 	
 	/**
@@ -40,6 +47,7 @@ public abstract class AI {
 	 */
 	public void performDedication() {
 		boolean[] dedicationsPossible = DedicationForecaster.getInstance().dedicationPossible(player);
+		
 		//checking if any of the 3 types of dedications are possible
 		if(dedicationsPossible[0] || dedicationsPossible[1] || dedicationsPossible[2]) {
 			this.dedicationBehavior.makeDedication(game, player, dedicationsPossible);
@@ -64,4 +72,32 @@ public abstract class AI {
 	public void setTilePlayBehavior(TilePlayBehavior tilePlayMood) {
 		this.tilePlayBehavior = tilePlayMood;
 	}
+
+	@XmlTransient
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	@XmlElement
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public AIType getType() {
+		return type;
+	}
+
+	public void setType(AIType type) {
+		this.type = type;
+	}
+	
+	
 }

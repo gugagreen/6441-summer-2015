@@ -6,6 +6,7 @@ import java.util.Stack;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import ca.concordia.lanternsentities.ai.AI;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
@@ -21,9 +22,9 @@ public class Game {
 
     private String id;
     /**
-     * Players in the game.
+     * AI Players in the game.
      */
-    private Player[] players;
+    private AI[] aiPlayers;
     /**
      * Lake where tiles are being displayed for all users.
      */
@@ -61,14 +62,10 @@ public class Game {
      * @param playerNames Names of each current player (ordered by login time)
      * @param id          The game id.
      */
-    public void init(final String[] playerNames, final String id) {
+    public void init(final AI[] ais, final String id) {
         this.id = id;
 
-        this.players = new Player[playerNames.length];
-        for (int i = 0; i < playerNames.length; i++) {
-            this.players[i] = new Player();
-            this.players[i].init(playerNames[i], i);
-        }
+        this.aiPlayers = ais;
 
         this.lake = new LakeTile[0][0];
 
@@ -96,7 +93,7 @@ public class Game {
                 + ", favors=" + favors
                 + ", currentTurnPlayer=" + currentTurnPlayer
                 + ", started=" + started
-                + ", \nplayers=" + Arrays.toString(players)
+                + ", \naiPlayers=" + Arrays.toString(aiPlayers)
                 + ", \nlake=" + lake
                 + ", \ntiles=" + tiles
                 + ", \ncards=" + Arrays.toString(cards)
@@ -130,21 +127,29 @@ public class Game {
 
     public int getNextPlayer() {
         int next = currentTurnPlayer + 1;
-        if (next >= players.length) {
+        if (next >= aiPlayers.length) {
             next = 0;
         }
         return next;
     }
 
     public Player[] getPlayers() {
-        return players;
+    	Player[] players = new Player[aiPlayers.length];
+    	for (int i = 0; i < players.length; i++) {
+			players[i] = aiPlayers[i].getPlayer();
+		}
+    	return players;
     }
 
-    public void setPlayers(Player[] players) {
-        this.players = players;
-    }
+    public AI[] getAiPlayers() {
+		return aiPlayers;
+	}
 
-    public LakeTile[][] getLake() {
+	public void setAiPlayers(AI[] aiPlayers) {
+		this.aiPlayers = aiPlayers;
+	}
+
+	public LakeTile[][] getLake() {
         return lake;
     }
 

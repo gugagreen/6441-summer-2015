@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Random;
 
 import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanterns.exchange.ExchangeBehavior;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.ExchangeBehavior;
 import ca.concordia.lanternsentities.enums.Colour;
 
 

@@ -8,6 +8,7 @@ import ca.concordia.lanterns.services.impl.DefaultSetupService;
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.enums.AIType;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
@@ -18,8 +19,8 @@ import java.util.Set;
  */
 public class GameController {
 
-    public Game createGame(String[] playerNames) {
-        return DefaultSetupService.getInstance().createGame(playerNames);
+    public Game createGame(String[] playerNames, AIType[] aiTypes) {
+        return DefaultSetupService.getInstance().createGame(playerNames, aiTypes);
     }
 
     public Game loadGame(String loadFileName) {

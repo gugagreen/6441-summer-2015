@@ -1,10 +1,12 @@
 package ca.concordia.lanterns.services.impl;
 
+import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.DedicationType;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,11 +20,8 @@ public class EndGameDetectServiceTest {
 
     @Before
     public void setUp() {
-        String[] playerNames = {"A", "B", "C"};
         DefaultSetupService service = new DefaultSetupService();
-
-        this.game = new Game();
-        this.game = service.createGame(playerNames);
+        this.game = service.createGame(GameStubber.getPlayerNames(), GameStubber.getAITypes());
     }
 
     private void endGame(Game game) {

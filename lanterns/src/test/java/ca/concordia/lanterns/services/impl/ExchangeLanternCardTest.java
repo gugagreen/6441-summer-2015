@@ -1,11 +1,13 @@
 package ca.concordia.lanterns.services.impl;
 
+import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.PlayerService;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,10 +22,9 @@ public class ExchangeLanternCardTest {
 
     @Before
     public void setUp() {
-        String[] playerNames = {"A", "B", "C"};
         DefaultSetupService service = new DefaultSetupService();
 
-        this.game = service.createGame(playerNames);
+        this.game = service.createGame(GameStubber.getPlayerNames(), GameStubber.getAITypes());
         this.service = new ActivePlayerService();
 
         game.setFavors(16);

@@ -1,8 +1,8 @@
 package ca.concordia.lanterns.dedication.impl;
 
-import ca.concordia.lanterns.dedication.DedicationBehavior;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.DedicationBehavior;
 
 public class WorstDedication implements DedicationBehavior {
 

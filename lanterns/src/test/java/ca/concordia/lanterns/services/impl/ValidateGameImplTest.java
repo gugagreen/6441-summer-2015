@@ -7,6 +7,7 @@ import java.util.Stack;
 import org.junit.Before;
 import org.junit.Test;
 
+import ca.concordia.lanterns.GameStubber;
 import ca.concordia.lanterns.services.ValidateGame;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
@@ -20,14 +21,11 @@ public class ValidateGameImplTest {
 
     @Before
     public void Setup() {
-        String[] playerNames = {"A", "B", "C"};
-
-        game = new Game();
-        game.init(playerNames, "validateGame");
+        game = GameStubber.createGameStub();
         this.gameValidator = new ValidateGameImpl();
 
         DefaultSetupService setUpService = new DefaultSetupService();
-        this.game = setUpService.createGame(playerNames);
+        this.game = setUpService.createGame(GameStubber.getPlayerNames(), GameStubber.getAITypes());
 
     }
 

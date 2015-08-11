@@ -4,11 +4,11 @@ import java.util.List;
 
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
-import ca.concordia.lanterns.tileplacement.TilePlayBehavior;
 import ca.concordia.lanterns.ui.GameCommandClient;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.TilePlayBehavior;
 
 public class PlayerTile implements TilePlayBehavior {
 

@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
+import ca.concordia.lanterns.ai.impl.GreedyAI;
+import ca.concordia.lanterns.ai.impl.HumanPlayer;
+import ca.concordia.lanterns.ai.impl.RandomAI;
+import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
 import ca.concordia.lanterns.services.SetupService;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
@@ -13,6 +17,8 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.AI;
+import ca.concordia.lanternsentities.enums.AIType;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 import ca.concordia.lanternsentities.enums.TileStack;
@@ -30,17 +36,16 @@ public class DefaultSetupService implements SetupService {
         static final DefaultSetupService INSTANCE = new DefaultSetupService();
     }
 
-    /**
-     * Create game creates game using player name
-     */
     @Override
-    public Game createGame(String[] playerNames) {
-        validatePlayersSet(playerNames);
+    public Game createGame(String[] playerNames, final AIType[] aiTypes) {
+        validatePlayersSetAISet(playerNames, aiTypes);
         String[] sortedPlayerNames = decidePlayersOrder(playerNames);
         int playerCount = sortedPlayerNames.length;
 
         Game game = new Game();
-        game.init(sortedPlayerNames, generateGameId(sortedPlayerNames));
+        String gameId = generateGameId(sortedPlayerNames);
+        AI[] ais = generateAIs(aiTypes, sortedPlayerNames, game);
+        game.init(ais, gameId);
         LakeTile[] totalTiles = generateTiles(playerCount);
 
         startLake(game, totalTiles[0]);
@@ -50,6 +55,38 @@ public class DefaultSetupService implements SetupService {
         setDedicationTokens(game.getDedications(), playerCount);
         distributeInitialLanterns(game.getLake(), game.getCards(), game.getPlayers());
         return game;
+    }
+    
+    private AI[] generateAIs(final AIType[] aiTypes, String[] sortedPlayerNames, final Game game) {
+    	AI[] ais = new AI[aiTypes.length];
+    	for (int i = 0; i < aiTypes.length; i++) {
+    		ais[i] = generateAI(aiTypes[i], sortedPlayerNames[i], i, game);
+		}
+    	return ais;
+    }
+    
+    private AI generateAI(final AIType aiType, final String playerName, final int playerId, final Game game) {
+    	AI ai = null;
+    	Player player = new Player();
+    	player.init(playerName, playerId);
+    	
+    	switch (aiType) {
+        case HUMAN:
+        	ai = new HumanPlayer(game, player);
+            break;
+        case RANDOM:
+        	ai = new RandomAI(game, player);
+            break;
+        case GREEDY:
+        	ai = new GreedyAI(game, player);
+        	break;
+        case UNFRIENDLY:
+        	ai = new UnfriendlyAI(game, player);
+        	break;
+        default:
+            throw new IllegalArgumentException("Invalid AIType [" + aiType + "]");
+    	}
+    	return ai;
     }
 
     private String generateGameId(final String[] sortedPlayerNames) {
@@ -66,9 +103,12 @@ public class DefaultSetupService implements SetupService {
      *
      * @param playerNames
      */
-    protected void validatePlayersSet(String[] playerNames) {
-        if ((playerNames == null) || (playerNames.length < 2) || (playerNames.length > 4)) {
-            throw new IllegalArgumentException("Number of players should be between 2 and 4!");
+    protected void validatePlayersSetAISet(final String[] playerNames, final AIType[] aiTypes) {
+    	
+        if ((playerNames == null) || (aiTypes == null) || (playerNames.length < 2) 
+        		|| (playerNames.length > 4) || (playerNames.length != aiTypes.length)) {
+            throw new IllegalArgumentException("Number of players and AI types should be "
+            		+ "between 2 and 4 and should match!");
         } else {
             // verify if there is any duplicated name
             for (int i = 0; i < playerNames.length; i++) {

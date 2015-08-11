@@ -12,14 +12,27 @@ import javax.servlet.http.HttpSession;
 
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
 import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.enums.AIType;
 
 public class InitialServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 5002873556572170900L;
 
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AIType[] ais = AIType.values();
+		HttpSession session = request.getSession();
+		session.setAttribute("ais", ais);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("startGame.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] players = getPlayersFromForm(request);
-		Game game = DefaultSetupService.getInstance().createGame(players);
+		AIType[] aiTypes = getAIsFromForm(request);
+		Game game = DefaultSetupService.getInstance().createGame(players, aiTypes);
 
 		HttpSession session = request.getSession();
 		session.setAttribute("game", game);
@@ -36,6 +49,20 @@ public class InitialServlet extends HttpServlet {
 			}
 		}
 		return playersList.toArray(new String[playersList.size()]);
+	}
+	
+	private AIType[] getAIsFromForm(HttpServletRequest request) {
+		ArrayList<AIType> aiList = new ArrayList<AIType>();
+		for (int i = 0; i < 4; i++) {
+			String cbx = request.getParameter("ai_cbx_" + (1+i));
+			if (notEmpty(cbx)) {
+				AIType selected = AIType.getAIType(cbx); 
+				if (selected != null) {
+					aiList.add(selected);
+				}
+			}
+		}
+		return aiList.toArray(new AIType[aiList.size()]);
 	}
 	
 	private boolean notEmpty(String s) {
