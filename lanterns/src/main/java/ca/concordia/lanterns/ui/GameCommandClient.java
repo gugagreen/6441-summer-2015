@@ -9,6 +9,7 @@ import ca.concordia.lanterns.ai.impl.GreedyAI;
 import ca.concordia.lanterns.ai.impl.HumanPlayer;
 import ca.concordia.lanterns.ai.impl.RandomAI;
 import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
+import ca.concordia.lanterns.ai.impl.UnpredictableAI;
 import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
@@ -243,12 +244,12 @@ public class GameCommandClient {
         	String selectAI = "Specify the Behavior you desire:"
         			+ "\n1) Human Player"
         			+ "\n2) Random AI"
-        			+ "\n3) Greedy AI ";
+        			+ "\n3) Greedy AI "
+        			+ "\n4) Unpredictable AI";
         	//TODO modify as more AI options become available
-        	// + "\n4) Unfriendly AI"
-        	// + "\n5) Unknown AI"
+        			//+ "\n5) Unfriendly AI"
         	//TODO modify end bound as more AI options become available
-        	int playerChoice = getValidInt(selectAI, 1, 3);
+        	int playerChoice = getValidInt(selectAI, 1, 4);
         	
         	
             switch (playerChoice) {
@@ -262,8 +263,12 @@ public class GameCommandClient {
 	            	playerIntelligence[i] = new GreedyAI(game, game.getPlayers()[i]);
 	            	break;
 	            case 4:
-	            	playerIntelligence[i] = new UnfriendlyAI(game, game.getPlayers()[i]);
+	            	playerIntelligence[i] = new UnpredictableAI(game, game.getPlayers()[i]);
 	            	break;
+	            	//TODO modify when last AI is added.
+	            //case 5:
+	            //	playerIntelligence[i] = new UnfriendlyAI(game, game.getPlayers()[i]);
+	            //	break;
 	            default:
 	                System.out.println("Invalid Input, please try again.");
             }
