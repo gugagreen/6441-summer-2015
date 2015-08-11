@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import ca.concordia.lanterns.ai.impl.GreedyAI;
+import ca.concordia.lanterns.ai.impl.HumanPlayer;
+import ca.concordia.lanterns.ai.impl.RandomAI;
+import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
+import ca.concordia.lanterns.ai.impl.UnpredictableAI;
 import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
@@ -244,7 +249,6 @@ public class GameCommandClient {
         	}
         	int playerChoice = getValidInt(sb.toString(), 0, aiTypes.length-1);
         	selectedAITypes[i] = aiTypes[playerChoice];
-			
         }
         
         return selectedAITypes;

@@ -10,6 +10,7 @@ import ca.concordia.lanterns.ai.impl.GreedyAI;
 import ca.concordia.lanterns.ai.impl.HumanPlayer;
 import ca.concordia.lanterns.ai.impl.RandomAI;
 import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
+import ca.concordia.lanterns.ai.impl.UnpredictableAI;
 import ca.concordia.lanterns.services.SetupService;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
@@ -82,6 +83,9 @@ public class DefaultSetupService implements SetupService {
         	break;
         case UNFRIENDLY:
         	ai = new UnfriendlyAI(game, player);
+        	break;
+        case UNPREDICTABLE:
+        	ai = new UnpredictableAI(game, player);
         	break;
         default:
             throw new IllegalArgumentException("Invalid AIType [" + aiType + "]");
