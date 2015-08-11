@@ -37,7 +37,8 @@ public class WorstExchange implements ExchangeBehavior{
 	}
 	
 	private boolean isDedicationThreat(DedicationType dedicationType, Player player){
-		
+		//TODO
+		return false;
 	}
 	
 	private DedicationType[] sortDedications(DedicationTokenWrapper[] gameDedications){

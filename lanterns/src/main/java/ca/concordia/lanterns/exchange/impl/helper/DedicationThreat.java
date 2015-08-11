@@ -34,11 +34,11 @@ public class DedicationThreat {
 		DedicationThreat threat = null;
 		
 		if (dedicationType == DedicationType.FOUR_OF_A_KIND){
-			threat = getFourOfAKind(player, game);
+			threat = getFourOfAkind(player, game);
 		} else if(dedicationType == DedicationType.THREE_PAIRS){
-			threat = getThreePairs(player, game);
+//			threat = getThreePairs(player, game);
 		} else if(dedicationType == DedicationType.SEVEN_UNIQUE){
-			threat = getSevenUnique(player, game);
+//			threat = getSevenUnique(player, game);
 		}
 		
 		return threat;
