@@ -6,13 +6,6 @@ import ca.concordia.lanternsentities.Game;
 public interface GameCacheService {
 
     /**
-     * Get one available {@link Game} (not started and with space for new players) from the pool.
-     *
-     * @return The {@link Game}.
-     */
-    Game getAvailableGame();
-
-    /**
      * Get one {@link Game} from the pool given its id.
      *
      * @param id The {@link Game#getId()}.
@@ -30,7 +23,7 @@ public interface GameCacheService {
     void addGame(final Game game);
 
     /**
-     * Load {@link Game} from repository (i.e. file or db) and put it in the pool.
+     * Load {@link Game} from repository (i.e. file or db) validate the game and put it in the pool.
      *
      * @param resource The resource that identifies the game in the repository.
      * @return The loaded {@link Game}.
@@ -44,12 +37,4 @@ public interface GameCacheService {
      * @param game     The {@link Game} to be saved.
      */
     void saveGame(final String resource, final Game game);
-
-    /**
-     * Load {@link Game} from repository (i.e. file or db) validate the game and put it in the pool.
-     *
-     * @param resource The resource that identifies the game in the repository.
-     * @return The loaded {@link Game}.
-     */
-    Game loadValidatedGame(String resource);
 }

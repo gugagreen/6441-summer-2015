@@ -29,8 +29,6 @@ public class JaxbGameMarshallerTest {
         Writer writer = new StringWriter();
         marshaller.marshall(game, writer);
         String result = writer.toString().trim();
-        
-        System.out.println(result);
 
         assertNotNull(result);
         assertTrue(result.length() > 0);

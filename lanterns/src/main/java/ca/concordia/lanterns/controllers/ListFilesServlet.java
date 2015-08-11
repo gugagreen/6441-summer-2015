@@ -21,6 +21,7 @@ public class ListFilesServlet extends HttpServlet {
 			File[] files = dir.listFiles();
 			
 			HttpSession session = request.getSession();
+			session.setAttribute("dir", FileUploadServlet.UPLOAD_DIRECTORY);
 			session.setAttribute("files", files);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("listfiles.jsp");

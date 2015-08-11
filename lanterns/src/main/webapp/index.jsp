@@ -6,12 +6,11 @@
 	<h2>GROUP A SOEN 6441 LANTERNS BUILD 3</h2>
 	<p><b>Select the following:</b></p>
 	<a href="/startGame">
-		<input type="button" id="startGame" value="Start a new game" />
+		<input type="button" id="startGame" value="New game" />
 	</a>
-	<br/>
-	<a href="http://www.google.com">
-		<input type="button" id="loadGame" value="Load game from file" />
+	<p/>
+	<a href="/listFiles">
+		<input type="button" id="loadGame" value="Load game" />
 	</a>
-	<button id="loadGameValidation" onclick="location.href = 'www.wikipedia.com';">Load game from file with validation</button>
 </body>
 </html>

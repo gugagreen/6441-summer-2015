@@ -25,15 +25,6 @@ public class DefaultGameCacheService implements GameCacheService {
     }
 
     @Override
-    public Game getAvailableGame() {
-        // TODO - only return games that are not started
-        //for (Game game : cache.values()) {
-            // if (game.isStarted)
-        //}
-        return null;
-    }
-
-    @Override
     public Game getGame(final String id) {
         return cache.get(id);
     }
@@ -58,6 +49,7 @@ public class DefaultGameCacheService implements GameCacheService {
     public Game loadGame(final String resource) {
         // load game from file
         Game game = dao.loadGame(resource);
+        validateGame(game);
         // if game is not in pool yet, add it.
         Game poolGame = getGame(game.getId());
         if (poolGame == null) {
@@ -68,27 +60,14 @@ public class DefaultGameCacheService implements GameCacheService {
         }
         return game;
     }
-
-    //FIXME Refactor duplicated code from loadGame
-    @Override
-    public Game loadValidatedGame(final String resource) {
-        // load game from file
-        Game game = dao.loadGame(resource);
-        // if game is not in pool yet, add it.
-        Game poolGame = getGame(game.getId());
-        if (poolGame == null) {
-            synchronized (cache) {
-                cache.put(game.getId(), game);
-            }
-
-        }
-        ValidateGameImpl validator = new ValidateGameImpl();
+    
+    private void validateGame(Game game) {
+    	ValidateGameImpl validator = new ValidateGameImpl();
         //validator.validateDedicationToken(game.getDedications(), game.getPlayers());
         validator.validateFavorToken(game);
         validator.validateLakeTileStack(game.getPlayers(), game.getLake(), game.getTiles(), game.getCurrentTurnPlayer());
         validator.validateLanternCards(game);
         validator.validatePlayerCount(game);
-        return game;
     }
 
     @Override

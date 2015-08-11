@@ -8,6 +8,7 @@
 <title>File List</title>
 </head>
 <body>
+	<h2>List of files in: ${dir}</h2>
 	<c:forEach items="${files}" var="file">
 		<c:out value="${file.name}"/><br/>
 	</c:forEach>

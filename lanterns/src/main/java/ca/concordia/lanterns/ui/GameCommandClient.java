@@ -4,11 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-import ca.concordia.lanterns.ai.impl.GreedyAI;
-import ca.concordia.lanterns.ai.impl.HumanPlayer;
-import ca.concordia.lanterns.ai.impl.RandomAI;
-import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
-import ca.concordia.lanterns.ai.impl.UnpredictableAI;
 import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
@@ -22,7 +17,6 @@ import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.TileSide;
-import ca.concordia.lanternsentities.ai.AI;
 import ca.concordia.lanternsentities.enums.AIType;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
@@ -189,9 +183,8 @@ public class GameCommandClient {
         System.out.println("GROUP A SOEN 6441 LANTERNS BUILD 3");
         System.out.println("Select the following: ");
         System.out.println("1) Start a new game");
-        System.out.println("2) Load game from file");
-        System.out.println("3) Load game from file and validate that file");
-        System.out.println("4) Quit");
+        System.out.println("2) Load game from file and validate it");
+        System.out.println("3) Quit");
 
     }
 
@@ -204,8 +197,6 @@ public class GameCommandClient {
                 loadGame();
                 break;
             case 3:
-                loadValidatedGame();
-            case 4:
                 quit();
             default:
                 System.out.println("Invalid Input, please try again.");
@@ -261,20 +252,6 @@ public class GameCommandClient {
         String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
 
         game = controller.loadGame(loadFileName);
-
-        displayCurrentGameState(game);
-        System.out.println("Successfully loaded game");
-
-        gameSelection();
-    }
-
-    /**
-     * Identical to loadGame but also validates the game file.
-     */
-    private void loadValidatedGame() {
-        String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
-
-        game = controller.loadValidatedGame(loadFileName);
 
         displayCurrentGameState(game);
         System.out.println("Successfully loaded game");
@@ -480,6 +457,8 @@ public class GameCommandClient {
 
         switch (userChoice)
         {
+        	// FIXME - none of the classes on the service layer should be seen here. Use the controller to 
+        	// retrieve the info you need
             case 1:
                 EndGameDetectService.getInstance().setEndGameStrategy(new NormalEndGameStrategy());
                 break;
