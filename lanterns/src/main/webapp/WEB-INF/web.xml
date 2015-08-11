@@ -36,6 +36,6 @@
 
 	<servlet-mapping>
 		<servlet-name>listFilesServlet</servlet-name>
-		<url-pattern>/listfiles</url-pattern>
+		<url-pattern>/listFiles</url-pattern>
 	</servlet-mapping>
 </web-app>
