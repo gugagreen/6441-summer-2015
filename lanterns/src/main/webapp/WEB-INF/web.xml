@@ -38,4 +38,14 @@
 		<servlet-name>listFilesServlet</servlet-name>
 		<url-pattern>/listFiles</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>gameServlet</servlet-name>
+		<servlet-class>ca.concordia.lanterns.controllers.GameServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>gameServlet</servlet-name>
+		<url-pattern>/game</url-pattern>
+	</servlet-mapping>
 </web-app>
