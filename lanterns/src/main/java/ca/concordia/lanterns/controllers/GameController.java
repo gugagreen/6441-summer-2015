@@ -77,7 +77,12 @@ public class GameController {
         ActivePlayerService.getInstance().placeLakeTile(game, id, playerTileIndex, lakeTileId, existingTileSideIndex,
                 playerTileSideIndex);
     }
-
+    
+    /**
+     * Sets the end of game strategy.
+     *
+     * @param {@link Game} object.
+     */
     public void setEndGameStrategy(Game game)
     {
         System.out.println("Please select an end game strategy [Integer 1-3 only]");
@@ -108,7 +113,13 @@ public class GameController {
                 break;
         }
     }
-
+    
+    /**
+     * It resets the players intelligence(AI).
+     *
+     * @param {@link Game} object.
+     */
+    
     public void reSetPlayersAI(Game game)
     {
         String[] playerNames = new String[game.getPlayers().length];
@@ -142,7 +153,13 @@ public class GameController {
             }
         }
     }
-
+    
+    /**
+     * Loads a {@link Game} object from a given resource.
+     *
+     * @param The {@link Game} object.
+     * @return Sum of dedication tokens/values.
+     */
     private int sumDedicationValues(Game game)
     {
         int sum = 0;
