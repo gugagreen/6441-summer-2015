@@ -2,6 +2,7 @@ package ca.concordia.lanterns.services.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Stack;
 
@@ -55,6 +56,7 @@ public class ValidateGameImplTest {
         // in the game
         int sum = 0;
         sum = sum + MatrixOrganizer.count(game.getLake()) + lakeTile.size();
+        assertNotEquals(sum, 0);
         for (int i = 0; i != players.length; ++i) {
             sum = sum + players[i].getTiles().size();
         }
