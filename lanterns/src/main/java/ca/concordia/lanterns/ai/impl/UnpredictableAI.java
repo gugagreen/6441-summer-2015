@@ -8,6 +8,11 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.ai.AI;
 import ca.concordia.lanternsentities.enums.AIType;
 
+/**
+ * The Unpredictable player makes a random  , greedy and unfriendly lake tile move. 
+ * and will  choose to make unpredictable dedications or exchanges if capable.
+ */
+
 public class UnpredictableAI extends AI{
 
 	public UnpredictableAI(Game game, Player currentPlayer) {
