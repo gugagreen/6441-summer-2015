@@ -1,13 +1,22 @@
 package ca.concordia.lanterns.controllers;
 
-import ca.concordia.lanterns.ai.impl.*;
+import static ca.concordia.lanterns.ui.GameCommandClient.getPlayerIntelligences;
+import static ca.concordia.lanterns.ui.GameCommandClient.getValidInt;
+
+import java.util.Scanner;
+import java.util.Set;
+
+import ca.concordia.lanterns.ai.impl.GreedyAI;
+import ca.concordia.lanterns.ai.impl.HumanPlayer;
+import ca.concordia.lanterns.ai.impl.RandomAI;
+import ca.concordia.lanterns.ai.impl.UnfriendlyAI;
+import ca.concordia.lanterns.ai.impl.UnpredictableAI;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanterns.services.impl.DefaultGameCacheService;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
-import ca.concordia.lanterns.services.strategies.EndGameStrategy;
 import ca.concordia.lanterns.services.strategies.NHonorPointsEndGameStrategy;
 import ca.concordia.lanterns.services.strategies.NLakeTilesEndGameStrategy;
 import ca.concordia.lanterns.services.strategies.NormalEndGameStrategy;
@@ -15,16 +24,9 @@ import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
-import ca.concordia.lanternsentities.ai.AI;
 import ca.concordia.lanternsentities.enums.AIType;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
-
-import java.util.Scanner;
-import java.util.Set;
-
-import static ca.concordia.lanterns.ui.GameCommandClient.getPlayerIntelligences;
-import static ca.concordia.lanterns.ui.GameCommandClient.getValidInt;
 
 /**
  * Basic game controller that is responsible for accessing game services.

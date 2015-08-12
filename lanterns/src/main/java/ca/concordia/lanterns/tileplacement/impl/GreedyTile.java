@@ -14,7 +14,6 @@ import ca.concordia.lanternsentities.helper.MatrixOrganizer.Direction;
 
 public class GreedyTile implements TilePlayBehavior {
 
-	// FIXME - inject controller from super
 	private GameController controller = new GameController();
 
 	@Override
