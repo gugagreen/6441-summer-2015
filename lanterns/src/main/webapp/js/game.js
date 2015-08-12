@@ -25,13 +25,12 @@ function setRotation(id, directionIndex) {
 }
 
 function prepareAction(selectedAction, owner) {
-	var myDiv = selectedAction + "_div";
-	//var myDiv = document.getElementById();
-	var actionDivs = ["exchange_div", "dedication_div", "place_div"];
+	var myDiv = selectedAction;
+	var actions = ["exchange", "dedication", "place"];
 	
-	actionDivs.forEach(function(actionDiv) {
-		var currentDiv = document.getElementById(actionDiv + "_" + owner);
-		if (myDiv === actionDiv) {
+	actions.forEach(function(action) {
+		var currentDiv = document.getElementById(action + "_div_" + owner);
+		if (myDiv === action) {
 			currentDiv.style["pointer-events"] = "auto";
 			currentDiv.style["opacity"] = 1.0;
 		} else {

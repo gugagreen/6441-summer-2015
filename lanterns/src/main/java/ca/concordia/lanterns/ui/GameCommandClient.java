@@ -6,12 +6,7 @@ import java.util.Set;
 
 import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanterns.services.impl.EndGameDetectService;
-import ca.concordia.lanterns.services.strategies.NHonorPointsEndGameStrategy;
-import ca.concordia.lanterns.services.strategies.NLakeTilesEndGameStrategy;
-import ca.concordia.lanterns.services.strategies.NormalEndGameStrategy;
 import ca.concordia.lanternsentities.DedicationToken;
-import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
@@ -322,7 +317,6 @@ public class GameCommandClient {
             Player currentPlayer = game.getPlayers()[currentIndex];
             playTurn(currentPlayer);
             game.setCurrentTurnPlayer(game.getNextPlayer());
-
         }
 
         // when game is ended, show the winner

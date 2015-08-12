@@ -1,6 +1,8 @@
 package ca.concordia.lanterns.services.impl;
 
-import ca.concordia.lanterns.exception.GameRuleViolationException;
+import java.util.HashSet;
+import java.util.Set;
+
 import ca.concordia.lanterns.services.EndGameService;
 import ca.concordia.lanterns.services.strategies.EndGameStrategy;
 import ca.concordia.lanterns.services.strategies.NormalEndGameStrategy;
@@ -8,9 +10,6 @@ import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LanternCardWrapper;
 import ca.concordia.lanternsentities.Player;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Ruixiang on 7/27/2015.
@@ -38,7 +37,7 @@ public class EndGameDetectService implements EndGameService {
 	}
 
 	public Set<Player> getGameWinner(Game game) {
-		if (isGameEnded(game)) {
+		//if (isGameEnded(game)) {
 			Set<Player> winners = new HashSet<Player>();
 
 			for (Player player : game.getPlayers()) {
@@ -79,9 +78,9 @@ public class EndGameDetectService implements EndGameService {
 			}
 
 			return winners;
-		} else {
-			throw new GameRuleViolationException("Game is not ended yet. Cannot calculate winner.");
-		}
+		//} else {
+		//	throw new GameRuleViolationException("Game is not ended yet. Cannot calculate winner.");
+		//}
 	}
 	
 	private int countDedications(Player player) {

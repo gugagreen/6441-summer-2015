@@ -12,7 +12,6 @@ import ca.concordia.lanternsentities.ai.ExchangeBehavior;
  */
 public class GreedyExchange implements ExchangeBehavior {
 	
-	// FIXME - inject controller from super
 	private GameController controller = new GameController();
 
 	@Override
@@ -22,10 +21,26 @@ public class GreedyExchange implements ExchangeBehavior {
 			if (shouldTryExchange(player)) {
 				LanternCardWrapper[] giveReceive = DedicationForecaster.getInstance().getNextDedication(player);
 				if (giveReceive != null) {
-					controller.exchangeLanternCard(game, player.getId(), giveReceive[0].getColour(), giveReceive[1].getColour());
+					// if game board still have receive card available, exchange
+					if (isDesiredCardAvailable(game, giveReceive[1])) {
+						controller.exchangeLanternCard(game, player.getId(), giveReceive[0].getColour(), giveReceive[1].getColour());
+					}
 				}
 			}
 		}
+	}
+	
+	private boolean isDesiredCardAvailable(Game game, LanternCardWrapper receive) {
+		boolean available = false;
+		for (LanternCardWrapper lantern : game.getCards()) {
+			if (lantern.getColour().equals(receive.getColour())) {
+				if (lantern.getQuantity() > 0) {
+					available = true;
+				}
+				break;
+			}
+		}
+		return available;
 	}
 
 	/**

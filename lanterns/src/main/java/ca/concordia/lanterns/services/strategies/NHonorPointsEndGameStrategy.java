@@ -18,17 +18,22 @@ public class NHonorPointsEndGameStrategy implements EndGameStrategy {
     @Override
     public boolean isGameEnded(Game game) {
 
-        int sum = 0;
-        for (Player player : game.getPlayers()) {
-            for (DedicationToken dedicationToken : player.getDedications())
-                sum += dedicationToken.getTokenValue();
+        NormalEndGameStrategy normalEndGameStrategy = new NormalEndGameStrategy();
 
-            if (sum >= nHonorPoint)
-                return true;
+        if (!normalEndGameStrategy.isGameEnded(game)) {
 
-            sum = 0;
+            int sum = 0;
+            for (Player player : game.getPlayers()) {
+                for (DedicationToken dedicationToken : player.getDedications())
+                    sum += dedicationToken.getTokenValue();
+
+                if (sum >= nHonorPoint)
+                    return true;
+
+                sum = 0;
+            }
+            return false;
         }
-
-        return false;
+        return true;
     }
 }
