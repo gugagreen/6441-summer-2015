@@ -158,7 +158,7 @@ public class GameController {
      * Loads a {@link Game} object from a given resource.
      *
      * @param The {@link Game} object.
-     * @return Sum of dedication tokens/values.
+     * @return Sum of dedication tokens/values .
      */
     private int sumDedicationValues(Game game)
     {
