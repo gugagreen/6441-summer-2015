@@ -44,8 +44,9 @@ public class ActivePlayerService implements PlayerService {
     @Override
     public void exchangeLanternCard(Game game, int id, Colour giveCard,
                                     Colour receiveCard) throws GameRuleViolationException {
-        Player player = game.getPlayers()[id];
-        int playerFavorToken = player.getFavors();
+
+    	Player player = game.getPlayers()[id];
+    	int playerFavorToken = player.getFavors();
 
         if (playerFavorToken < 2) {
             throw new GameRuleViolationException(

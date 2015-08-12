@@ -2,6 +2,7 @@ package ca.concordia.lanterns.exchange.impl;
 
 import java.util.Arrays;
 
+import ca.concordia.lanterns.exchange.impl.helper.DedicationThreat;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
@@ -13,7 +14,10 @@ public class WorstExchange implements ExchangeBehavior{
 
 	@Override
 	public void makeExchange(Game game, Player currentPlayer) {
-		// TODO Auto-generated method stub
+		
+		if (currentPlayer.getFavors() < 2) {
+			return;
+		}
 		
 		DedicationType[] sortedGameDedications = sortDedications (game.getDedications());
 		
@@ -26,19 +30,20 @@ public class WorstExchange implements ExchangeBehavior{
 			nextPlayerIndex = nextPlayerIndex % 4 ;
 			
 			for (DedicationType dedicationType: sortedGameDedications){
-				if (isDedicationThreat(dedicationType, players[i])){
-					
+				DedicationThreat threat = DedicationThreat.getThreat(dedicationType, players[nextPlayerIndex], game);
+				if (threat != null){
+					boolean isStopped = threat.stopThreat(players[nextPlayerIndex].getId());
+					if (isStopped) {
+						return;
+					}
 				}
 			}
 			
 			++nextPlayerIndex;
 			++i;
 		}
-	}
-	
-	private boolean isDedicationThreat(DedicationType dedicationType, Player player){
-		//TODO
-		return false;
+		
+		//TODO Some form of default exchange
 	}
 	
 	private DedicationType[] sortDedications(DedicationTokenWrapper[] gameDedications){
