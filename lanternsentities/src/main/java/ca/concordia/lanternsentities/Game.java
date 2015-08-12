@@ -197,5 +197,15 @@ public class Game {
     public void setStarted(boolean started) {
         this.started = started;
     }
+    
+    public Player getPlayer(int playerID){
+    	for (Player p: this.getPlayers()){
+			if (p.getId() == playerID){
+				return p;
+			}
+		}
+    	
+    	return null;
+    }
 
 }
