@@ -144,6 +144,8 @@ public class PlaceATileTest {
         
         westZerothTile = MatrixOrganizer.findTile(lake, T54.getId()).getSides()[WEST.ordinal()];
         southSecondTile = MatrixOrganizer.findTile(lake, T33.getId()).getSides()[SOUTH.ordinal()];
+        assertNotNull(westZerothTile);
+        assertNotNull(southSecondTile);
 
         assertSame(westZerothTile.getAdjacent(), playerTile);
         assertSame(southSecondTile.getAdjacent(), playerTile);
