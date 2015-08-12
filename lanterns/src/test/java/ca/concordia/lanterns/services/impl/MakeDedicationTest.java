@@ -141,6 +141,7 @@ public class MakeDedicationTest {
     public void insufficientPlayerLanternCard() {
         Player firstPlayer = game.getPlayers()[0];
         LanternCardWrapper[] card = firstPlayer.getCards();
+        assertNotNull(card);
         card[0].setQuantity(3);
         card[2].setQuantity(1);
         card[6].setQuantity(0);
@@ -212,7 +213,7 @@ public class MakeDedicationTest {
             }
 
             DedicationToken currentTopToken = game.getDedications()[k].getStack().peek();
-
+            assertNotNull(currentTopToken);
             assertSame(lastReceivedToken, currentLastToken);
             assertSame(topToken, currentTopToken);
 
