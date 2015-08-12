@@ -61,6 +61,56 @@ public class DedicationThreat {
 		
 		return threat;
 	}
+
+	/**
+	 * Tries to stop this threat
+	 * @param playerID - id of the player who wish to stop this threat
+	 * @return true - If the threat is stopped(i.e a successful and meaningful exchange), false - otherwise (Not enough cards with player or threat is already realised)
+	 */
+	public boolean stopThreat(int playerID) {
+		Player player = null;
+		for (Player p: game.getPlayers()){
+			if (p.getId() == playerID){
+				player = p;
+				break;
+			}
+		}
+		
+		if (player == null){
+			throw new IllegalArgumentException("The game do not have a player with ID: " + playerID);
+		}
+		
+		if (player.getFavors() < 2) {
+			return false;
+		} 
+		
+		if (! (this.possibleEarning == this.game.getDedications()[dedicationType.indexOf(this.possibleEarning.getTokenType())].getStack().peek())) {
+			return false;
+		}
+		
+		List<Colour> colors = Arrays.asList(Colour.values());
+		LanternCardWrapper absentColourCard = game.getCards()[colors.indexOf(absentColour)];
+		LanternCardWrapper playerCard = null;
+		for (LanternCardWrapper pc: player.getCards()){
+			if ( (! (pc.getColour().equals(absentColourCard.getColour())) ) && pc.getQuantity() >= 1){
+				playerCard = pc;
+				break;
+			}
+		}
+		
+		if (playerCard == null) {
+			return false;
+		}
+		
+		if (absentColourCard.getQuantity() != 1){
+			return false;
+		}
+		
+		PlayerService services = new ActivePlayerService();
+		services.exchangeLanternCard(game, playerID, playerCard.getColour(), absentColourCard.getColour());
+		
+		return true;
+	}
 	
 	private static DedicationThreat getFourOfAkind(Player player, Game game){
 		DedicationThreat threat = null;
@@ -82,6 +132,9 @@ public class DedicationThreat {
 						absentColour = playerCards[i].getColour();
 						minGameCardQuantity = gameCardQuantity;
 				}
+			} else if (playerCards[i].getQuantity() >= DedicationCost.FOUR_OF_A_KIND.getRequiredCardPerColor()) {
+				absentColour = null;
+				break;
 			}
 		}
 		
@@ -179,48 +232,4 @@ public class DedicationThreat {
 		return threat;
 	}
 	
-	public boolean stopThreat(int playerID) {
-		Player player = null;
-		for (Player p: game.getPlayers()){
-			if (p.getId() == playerID){
-				player = p;
-				break;
-			}
-		}
-		
-		if (player == null){
-			throw new IllegalArgumentException("The game do not have a player with ID: " + playerID);
-		}
-		
-		if (player.getFavors() < 2) {
-			return false;
-		} 
-		
-		if (! (this.possibleEarning == this.game.getDedications()[dedicationType.indexOf(this.possibleEarning.getTokenType())].getStack().peek())) {
-			return false;
-		}
-		
-		List<Colour> colors = Arrays.asList(Colour.values());
-		LanternCardWrapper absentColourCard = game.getCards()[colors.indexOf(absentColour)];
-		LanternCardWrapper playerCard = null;
-		for (LanternCardWrapper pc: player.getCards()){
-			if ( (! (pc.getColour().equals(absentColourCard.getColour())) ) && pc.getQuantity() >= 1){
-				playerCard = pc;
-				break;
-			}
-		}
-		
-		if (playerCard == null) {
-			return false;
-		}
-
-		if (absentColourCard.getQuantity() != 1){
-			return false;
-		}
-		
-		PlayerService services = new ActivePlayerService();
-		services.exchangeLanternCard(game, playerID, playerCard.getColour(), absentColourCard.getColour());
-		
-		return true;
-	}
 }
