@@ -1,5 +1,6 @@
 package ca.concordia.lanterns.controllers;
 
+import ca.concordia.lanterns.ai.impl.*;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
@@ -14,6 +15,7 @@ import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
+import ca.concordia.lanternsentities.ai.AI;
 import ca.concordia.lanternsentities.enums.AIType;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
@@ -21,6 +23,7 @@ import ca.concordia.lanternsentities.enums.DedicationType;
 import java.util.Scanner;
 import java.util.Set;
 
+import static ca.concordia.lanterns.ui.GameCommandClient.getPlayerIntelligences;
 import static ca.concordia.lanterns.ui.GameCommandClient.getValidInt;
 
 /**
@@ -94,13 +97,47 @@ public class GameController {
                 EndGameDetectService.getInstance().setEndGameStrategy(new NormalEndGameStrategy());
                 break;
             case 2:
-                nLakeTiles = getValidInt("Please enter the value N", 2, game.getTiles().size()/game.getPlayers().length);
+                nLakeTiles = getValidInt("Please enter the value N:", 2, game.getTiles().size()/game.getPlayers().length);
                 EndGameDetectService.getInstance().setEndGameStrategy(new NLakeTilesEndGameStrategy(nLakeTiles));
                 break;
             case 3:
-                nHonorPoint = getValidInt("Please enter the value N", 4, sumDedicationValues(game)/game.getPlayers().length);
+                nHonorPoint = getValidInt("Please enter the value N:", 4, sumDedicationValues(game)/game.getPlayers().length);
                 EndGameDetectService.getInstance().setEndGameStrategy(new NHonorPointsEndGameStrategy(nHonorPoint));
                 break;
+        }
+    }
+
+    public void reSetPlayersAI(Game game)
+    {
+        String[] playerNames = new String[game.getPlayers().length];
+
+        for (int i = 0; i < playerNames.length; i++) {
+            playerNames[i] = game.getPlayers()[i].getName();
+        }
+
+        AIType[] aiTypes = getPlayerIntelligences(playerNames);
+
+        for (int i = 0; i < aiTypes.length; i++) {
+
+            switch (aiTypes[i]) {
+                case HUMAN:
+                    game.getAiPlayers()[i] = new HumanPlayer(game, game.getAiPlayers()[i].getPlayer());
+                    break;
+                case RANDOM:
+                    game.getAiPlayers()[i] = new RandomAI(game, game.getAiPlayers()[i].getPlayer());
+                    break;
+                case GREEDY:
+                    game.getAiPlayers()[i] = new GreedyAI(game, game.getAiPlayers()[i].getPlayer());
+                    break;
+                case UNFRIENDLY:
+                    game.getAiPlayers()[i] = new UnfriendlyAI(game, game.getAiPlayers()[i].getPlayer());
+                    break;
+                case UNPREDICTABLE:
+                    game.getAiPlayers()[i] = new UnpredictableAI(game, game.getAiPlayers()[i].getPlayer());
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid AIType [" + aiTypes[i] + "]");
+            }
         }
     }
 

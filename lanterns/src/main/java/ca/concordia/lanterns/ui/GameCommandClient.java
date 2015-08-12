@@ -218,6 +218,8 @@ public class GameCommandClient {
         AIType[] aiTypes = getPlayerIntelligences(playerNames);
         game = controller.createGame(playerNames, aiTypes);
 
+        controller.setEndGameStrategy(game);
+
         displayCurrentGameState(game);
         System.out.println("Successfully Initialized game");
 
@@ -228,7 +230,7 @@ public class GameCommandClient {
      * Requests information from the user for setting the AI or player intelligence to each player.
      * @param playerNames is required to know how many users intelligence must be set.
      */
-    private AIType[] getPlayerIntelligences(String[] playerNames){
+    public static AIType[] getPlayerIntelligences(String[] playerNames){
     	AIType[] selectedAITypes = new AIType[playerNames.length];
         for (int i = 0; i < playerNames.length; i++) {
         	System.out.println("For player " + playerNames[i]);
@@ -252,6 +254,9 @@ public class GameCommandClient {
         String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
 
         game = controller.loadGame(loadFileName);
+
+        controller.reSetPlayersAI(game);
+        controller.setEndGameStrategy(game);
 
         displayCurrentGameState(game);
         System.out.println("Successfully loaded game");
@@ -405,7 +410,7 @@ public class GameCommandClient {
     }
 
     public static int getValidInt(final String message, final int min, final int max) {
-        System.out.print(message);
+        System.out.println(message);
         int userChoice = 0;
         boolean valid = false;
         while (!valid) {
