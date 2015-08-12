@@ -1,6 +1,7 @@
 package ca.concordia.lanterns.services.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Stack;
 
@@ -32,7 +33,9 @@ public class ValidateGameImplTest {
     @Test
     public void testValidateLakeTileCreation() {
     	// FIXME - test does not test anything
-    	
+    	assertNotNull(game.getPlayers());
+    	assertNotNull(game.getTiles());
+    	assertNotNull(game.getLake());
         Player[] players = game.getPlayers();
         Stack<LakeTile> lakeTile = game.getTiles();
         int currentTurnPlayer = 1;
@@ -64,6 +67,9 @@ public class ValidateGameImplTest {
     @Test(expected = IllegalArgumentException.class)
     public void testValidLakeTileQuantity() throws IllegalArgumentException {
         // Get correct number of players (3)
+    	assertNotNull(game.getPlayers());
+    	assertNotNull(game.getTiles());
+    	assertNotNull(game.getLake());
         Player[] correctPlayers = game.getPlayers();
 
         // create new array with room only for 2 players to remove one of the
@@ -82,7 +88,10 @@ public class ValidateGameImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testLessPlayerLakeTiles() throws IllegalArgumentException {
-
+    	
+    	assertNotNull(game.getPlayers());
+    	assertNotNull(game.getTiles());
+    	assertNotNull(game.getLake());
         // Get correct number of players (3)
         Player[] players = game.getPlayers();
 
@@ -101,7 +110,9 @@ public class ValidateGameImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testMorePlayerLakeTiles() throws IllegalArgumentException {
-
+    	assertNotNull(game.getPlayers());
+    	assertNotNull(game.getTiles());
+    	assertNotNull(game.getLake());
         // Get correct number of players (3)
         Player[] players = game.getPlayers();
 

@@ -56,6 +56,8 @@ public class MakeDedicationTest {
 
     @Test
     public void validMakeDedication() {
+    	
+       	assertNotNull(game.getCards());
         Player firstPlayer = game.getPlayers()[0];
 
         for (int k = 0; k != dType.size(); ++k) {
