@@ -39,7 +39,8 @@ public class DefaultSetupServiceTest {
     	int quantity = 4;
         final String[] playerNames = createPlayerNames(quantity);
         final AIType[] aiTypes = createAITypes(quantity);
-
+        assertNotNull(aiTypes);
+        assertNotNull(playerNames);  
         Game game = service.createGame(playerNames, aiTypes);
 
         assertNotNull(game);
@@ -49,6 +50,8 @@ public class DefaultSetupServiceTest {
         assertNotNull(game.getDedications());
         assertNotNull(game.getLake());
         assertNotNull(game.getTiles());
+        assertNotNull(game.getFavors());
+        
         //... validate content
         assertEquals(Game.TOTAL_FAVORS, game.getFavors());
     }
@@ -102,6 +105,7 @@ public class DefaultSetupServiceTest {
     @Test
     public void testDealPlayerTiles() {
         final Player[] players = createPlayers(3);
+        assertNotNull(players);
         final LakeTile[] totalTiles = new LakeTile[36];
         Colour[] colours = {Colour.RED, Colour.BLACK, Colour.BLUE, Colour.WHITE};
         for (int i = 0; i < totalTiles.length; i++) {
@@ -205,7 +209,9 @@ public class DefaultSetupServiceTest {
 
         Game game = new Game();
         String[] playerNames = createPlayerNames(2);
+        assertEquals(playerNames.length,2);
     	AI[] ais = createAIs(game, playerNames);
+    	assertNotNull(ais);
         game.init(ais, "test");
         LakeTile initialTile = new LakeTile();
         initialTile.init(colours, false);
@@ -249,6 +255,7 @@ public class DefaultSetupServiceTest {
     }
 
     private String[] createPlayerNames(int quantity) {
+    	assertNotNull(quantity);
         String[] playerNames = new String[quantity];
         for (int i = 0; i < quantity; i++) {
             playerNames[i] = Integer.toString(i);
@@ -257,6 +264,7 @@ public class DefaultSetupServiceTest {
     }
     
     private AIType[] createAITypes(int quantity) {
+    	assertNotNull(quantity);
     	AIType[] aiTypes = new AIType[quantity];
     	 for (int i = 0; i < quantity; i++) {
     		 aiTypes[i] = AIType.HUMAN;
@@ -265,6 +273,7 @@ public class DefaultSetupServiceTest {
     }
 
     private Player[] createPlayers(int quantity) {
+    	assertNotNull(quantity);
         Player[] players = new Player[quantity];
         for (int i = 0; i < quantity; i++) {
             players[i] = new Player();
@@ -274,6 +283,8 @@ public class DefaultSetupServiceTest {
     }
     
     private AI[] createAIs(Game game, String[] playerNames) {
+    	assertNotNull(game);
+    	assertNotNull(playerNames);
     	AI[] ais = new AI[playerNames.length];
         for (int i = 0; i < ais.length; i++) {
         	Player player = new Player();
