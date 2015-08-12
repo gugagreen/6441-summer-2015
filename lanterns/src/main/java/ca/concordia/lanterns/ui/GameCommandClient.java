@@ -446,29 +446,30 @@ public class GameCommandClient {
      */
     private void setEndGameStrategy()
     {
-        System.out.println("Please select an end game strategy");
+        System.out.println("Please select an end game strategy [Integer 1-3 only]");
         System.out.println("1) The normal way");
         System.out.println("2) N Lake Tiles placed on the board strategy");
         System.out.println("3) N Honor points earned strategy");
 
-        int userChoice = keyboard.nextInt();
+        int userChoice = 0;
         int nLakeTiles = 0;
         int nHonorPoint = 0;
 
+        while (userChoice < 1 || userChoice > 3)
+            userChoice = keyboard.nextInt();
+
         switch (userChoice)
         {
-        	// FIXME - none of the classes on the service layer should be seen here. Use the controller to 
-        	// retrieve the info you need
             case 1:
-                EndGameDetectService.getInstance().setEndGameStrategy(new NormalEndGameStrategy());
+                controller.setEndGameStrategy(new NormalEndGameStrategy());
                 break;
             case 2:
                 nLakeTiles = getValidInt("Please enter the value N", 2, game.getTiles().size()/game.getPlayers().length);
-                EndGameDetectService.getInstance().setEndGameStrategy(new NLakeTilesEndGameStrategy(nLakeTiles));
+                controller.setEndGameStrategy(new NLakeTilesEndGameStrategy(nLakeTiles));
                 break;
             case 3:
                 nHonorPoint = getValidInt("Please enter the value N", 4, sumDedicationValues()/game.getPlayers().length);
-                EndGameDetectService.getInstance().setEndGameStrategy(new NHonorPointsEndGameStrategy(nHonorPoint));
+                controller.setEndGameStrategy(new NHonorPointsEndGameStrategy(nHonorPoint));
                 break;
         }
 

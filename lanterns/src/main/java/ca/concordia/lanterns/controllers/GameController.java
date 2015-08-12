@@ -6,6 +6,7 @@ import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanterns.services.impl.DefaultGameCacheService;
 import ca.concordia.lanterns.services.impl.DefaultSetupService;
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
+import ca.concordia.lanterns.services.strategies.EndGameStrategy;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.AIType;
@@ -62,5 +63,10 @@ public class GameController {
                               int playerTileSideIndex) throws GameRuleViolationException {
         ActivePlayerService.getInstance().placeLakeTile(game, id, playerTileIndex, lakeTileId, existingTileSideIndex,
                 playerTileSideIndex);
+    }
+
+    public void setEndGameStrategy(EndGameStrategy endGameStrategy)
+    {
+        EndGameDetectService.getInstance().setEndGameStrategy(endGameStrategy);
     }
 }
