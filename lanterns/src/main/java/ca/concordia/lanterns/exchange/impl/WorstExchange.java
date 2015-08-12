@@ -35,7 +35,7 @@ public class WorstExchange implements ExchangeBehavior{
 		}
 
 		// sort the game dedications
-		DedicationType[] sortedGameDedications = sortDedications (game.getDedications());
+		DedicationType[] sortedGameDedications = DedicationTokenWrapper.sortDedications (game.getDedications());
 		
 		int nextPlayerIndex = game.getCurrentTurnPlayer() + 1;
 		Player[] players = game.getPlayers();
@@ -64,33 +64,5 @@ public class WorstExchange implements ExchangeBehavior{
 		}
 		
 		//TODO Some form of default exchange
-	}
-	
-	// Get a decreasingly sorted list of dedication type depending on the dedication value at the top of dedication stacks in the game
-	private DedicationType[] sortDedications(DedicationTokenWrapper[] gameDedications){
-		int[] sortedGameDedications = new int[gameDedications.length - 1];
-		DedicationType[] sortedType = new DedicationType[gameDedications.length - 1];
-		
-		int key;
-		int j;
-		sortedGameDedications[0] = gameDedications[0].getStack().peek().getTokenValue();
-		sortedType[0] = gameDedications[0].getStack().peek().getTokenType();
-		
-		for (int i = 1; i != gameDedications.length - 1; ++i){
-			DedicationToken top = gameDedications[i].getStack().peek();
-				key = top.getTokenValue();
-				
-				j = i - 1;
-				while (j != -1 && sortedGameDedications[j] < key){
-					sortedGameDedications[j+1] = sortedGameDedications[j];
-					sortedType[j+1] = sortedType[j];
-					--j ;
-				}
-				sortedGameDedications[j+1] = key;
-				sortedType[j+1] = top.getTokenType();
-		}
-		
-		
-		return sortedType;	
 	}
 }

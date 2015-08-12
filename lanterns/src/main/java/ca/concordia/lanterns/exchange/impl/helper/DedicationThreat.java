@@ -39,6 +39,18 @@ public class DedicationThreat {
 		this.game = game;
 	}
 	
+	public DedicationToken getPossibleEarning() {
+		return this.possibleEarning;
+	}
+	
+	public Colour getAbsentColour() {
+		return this.absentColour;
+	}
+	
+	public Game getGame() {
+		return this.game;
+	}
+	
 	/**
 	 * Checks if the player has a possibility of making a dedication of type dedicationType in the near future.
 	 * @param dedicationType - Type of dedication that should be checked
@@ -68,13 +80,7 @@ public class DedicationThreat {
 	 * @return true - If the threat is stopped(i.e a successful and meaningful exchange), false - otherwise (Not enough cards with player or threat is already realised)
 	 */
 	public boolean stopThreat(int playerID) {
-		Player player = null;
-		for (Player p: game.getPlayers()){
-			if (p.getId() == playerID){
-				player = p;
-				break;
-			}
-		}
+		Player player = game.getPlayer(playerID);
 		
 		if (player == null){
 			throw new IllegalArgumentException("The game do not have a player with ID: " + playerID);
@@ -138,7 +144,8 @@ public class DedicationThreat {
 			}
 		}
 		
-		if (absentColour != null){
+		// There should be exactly one lantern card left in the game
+		if (absentColour != null && minGameCardQuantity == 1){
 			int tokenValue = game.getDedications()[dedicationType.indexOf(DedicationType.FOUR_OF_A_KIND)].getStack().peek().getTokenValue();
 			
 			DedicationToken possibleEarning = new DedicationToken();
@@ -185,7 +192,7 @@ public class DedicationThreat {
 			}
 		}
 		
-		if (absentColour != null) {
+		if (absentColour != null && minGameCardQuantity == 1) {
 			int tokenValue = game.getDedications()[dedicationType.indexOf(DedicationType.THREE_PAIRS)].getStack().peek().getTokenValue();
 			
 			DedicationToken possibleEarning = new DedicationToken();
@@ -206,6 +213,7 @@ public class DedicationThreat {
 		
 		int missingCardCount = 0;
 		Colour absentColour = null;
+		int missingCardGameCardQuantity = 0;
 		
 		for (int i = 0; i != playerCards.length; ++i){
 			int gameCardQuantity = gameCards[i].getQuantity();
@@ -213,6 +221,7 @@ public class DedicationThreat {
 			if (playerCards[i].getQuantity() == requiredCardPerColour - 1 && gameCardQuantity >= 1){
 				
 				absentColour = playerCards[i].getColour();
+				missingCardGameCardQuantity = gameCardQuantity;
 				++missingCardCount;
 				if (missingCardCount == 2){
 					absentColour = null;
@@ -221,7 +230,7 @@ public class DedicationThreat {
 			}
 		}
 		
-		if (absentColour != null) {
+		if (absentColour != null && missingCardGameCardQuantity == 1) {
 			int tokenValue = game.getDedications()[dedicationType.indexOf(DedicationType.SEVEN_UNIQUE)].getStack().peek().getTokenValue();
 			
 			DedicationToken possibleEarning = new DedicationToken();
