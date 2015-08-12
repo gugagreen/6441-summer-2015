@@ -226,7 +226,7 @@ public class GameCommandClient {
     
     /**
      * Requests information from the user for setting the AI or player intelligence to each player.
-     * @param numberOfPlayers Number of players is required to know how many users intelligence must be set.
+     * @param playerNames is required to know how many users intelligence must be set.
      */
     private AIType[] getPlayerIntelligences(String[] playerNames){
     	AIType[] selectedAITypes = new AIType[playerNames.length];
@@ -440,50 +440,4 @@ public class GameCommandClient {
         System.out.println(value);
         return value;
     }
-
-    /**
-     * Requests user input for choosing between the various end game rules.
-     */
-    private void setEndGameStrategy()
-    {
-        System.out.println("Please select an end game strategy [Integer 1-3 only]");
-        System.out.println("1) The normal way");
-        System.out.println("2) N Lake Tiles placed on the board strategy");
-        System.out.println("3) N Honor points earned strategy");
-
-        int userChoice = 0;
-        int nLakeTiles = 0;
-        int nHonorPoint = 0;
-
-        while (userChoice < 1 || userChoice > 3)
-            userChoice = keyboard.nextInt();
-
-        switch (userChoice)
-        {
-            case 1:
-                controller.setEndGameStrategy(new NormalEndGameStrategy());
-                break;
-            case 2:
-                nLakeTiles = getValidInt("Please enter the value N", 2, game.getTiles().size()/game.getPlayers().length);
-                controller.setEndGameStrategy(new NLakeTilesEndGameStrategy(nLakeTiles));
-                break;
-            case 3:
-                nHonorPoint = getValidInt("Please enter the value N", 4, sumDedicationValues()/game.getPlayers().length);
-                controller.setEndGameStrategy(new NHonorPointsEndGameStrategy(nHonorPoint));
-                break;
-        }
-
-    }
-
-    private int sumDedicationValues()
-    {
-        int sum = 0;
-
-        for(DedicationTokenWrapper dedicationTokenWrapper : game.getDedications())
-           for(DedicationToken dedicationToken : dedicationTokenWrapper.getStack())
-               sum += dedicationToken.getTokenValue();
-
-        return sum;
-    }
-
 }
