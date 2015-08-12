@@ -13,6 +13,12 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
+/**
+ * Represents a threat/possibility of some {@link Player} making a dedication in near future.
+ * <p>A {@link Player} is said to threaten a dedication if it requires atmost one more Lantern card to make the dedication of some type</p>
+ * @author par_pat
+ *
+ */
 public class DedicationThreat {
 	
 	private static final List<DedicationType> dedicationType = Arrays.asList(DedicationType.values());
@@ -26,12 +32,20 @@ public class DedicationThreat {
 	// The game in context of which their is a threat
 	private Game game;
 	
+	// Only internal methods should be able to create a DedicationThreat
 	private DedicationThreat(DedicationToken posssibleEarning, Colour absentColour, Game game){
 		this.possibleEarning = possibleEarning;
 		this.absentColour = absentColour;
 		this.game = game;
 	}
 	
+	/**
+	 * Checks if the player has a possibility of making a dedication of type dedicationType in the near future.
+	 * @param dedicationType - Type of dedication that should be checked
+	 * @param player - The player in who could make the dedication
+	 * @param game - The game in context
+	 * @return {@link DedicationThreat} - If the player do threaten a dedication of type dedicationType, null -otherwise
+	 */
 	public static DedicationThreat getThreat(DedicationType dedicationType, Player player, Game game){
 		DedicationThreat threat = null;
 		
@@ -200,7 +214,7 @@ public class DedicationThreat {
 			return false;
 		}
 
-		if (absentColourCard.getQuantity() == 0){
+		if (absentColourCard.getQuantity() != 1){
 			return false;
 		}
 		
