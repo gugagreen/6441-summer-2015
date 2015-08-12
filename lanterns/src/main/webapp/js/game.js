@@ -1,5 +1,6 @@
 /**
- * Rotate an tile image give its id.
+ * Rotate an tile image clockwise.
+ * @param id	The id of the image to rotate.
  */
 function rotate(id) {
 	var direction = document.getElementById("dir_" + id);
@@ -8,6 +9,11 @@ function rotate(id) {
 	setRotation(id, directionIndex);
 }
 
+/**
+ * Set rotation of tile image.
+ * @param id	The id of the image to set rotation.
+ * @param directionIndex	direction {0,1,2,3} will determine the rotation in degrees: [0,270], [1,0], [2,90], [3,180].
+ */
 function setRotation(id, directionIndex) {
 	var img = document.getElementById("img_" + id);
 	var direction = document.getElementById("dir_" + id);
@@ -17,3 +23,54 @@ function setRotation(id, directionIndex) {
 	img.setAttribute("class", "rotate"+degrees);
 	direction.value = directionIndex;
 }
+
+function prepareAction(selectedAction, owner) {
+	var myDiv = selectedAction + "_div";
+	//var myDiv = document.getElementById();
+	var actionDivs = ["exchange_div", "dedication_div", "place_div"];
+	
+	actionDivs.forEach(function(actionDiv) {
+		var currentDiv = document.getElementById(actionDiv + "_" + owner);
+		if (myDiv === actionDiv) {
+			currentDiv.style["pointer-events"] = "auto";
+			currentDiv.style["opacity"] = 1.0;
+		} else {
+			currentDiv.style["pointer-events"] = "none";
+			currentDiv.style["opacity"] = 0.5;
+		}
+	});
+}
+
+function exchange(owner) {
+	// TODO - validate
+	takeAction("exchange");
+}
+
+function dedication(owner) {
+	// TODO - validate
+	takeAction("dedication");
+}
+
+function place(owner) {
+	// TODO - validate
+	takeAction("place");
+}
+
+function takeAction(selectedAction) {
+	var gameForm = document.getElementById("gameForm");
+	gameForm.playerAction.value = selectedAction;
+	gameForm.submit();
+}
+
+// setInterval(function(){ alert("Hello"); }, 3000);
+
+
+function onPageLoad() {
+	var currentPlayer = document.getElementById("currentPlayer");
+	// FIXME - set correct action after load 
+	prepareAction("exchange", currentPlayer.value);
+}
+
+// last thing, on page load
+window.onload=onPageLoad;
+
