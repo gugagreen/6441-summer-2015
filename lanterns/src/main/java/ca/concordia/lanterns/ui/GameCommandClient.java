@@ -322,7 +322,6 @@ public class GameCommandClient {
             Player currentPlayer = game.getPlayers()[currentIndex];
             playTurn(currentPlayer);
             game.setCurrentTurnPlayer(game.getNextPlayer());
-
         }
 
         // when game is ended, show the winner

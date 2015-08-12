@@ -38,7 +38,7 @@ public class EndGameDetectService implements EndGameService {
 	}
 
 	public Set<Player> getGameWinner(Game game) {
-		if (isGameEnded(game)) {
+		//if (isGameEnded(game)) {
 			Set<Player> winners = new HashSet<Player>();
 
 			for (Player player : game.getPlayers()) {
@@ -79,9 +79,9 @@ public class EndGameDetectService implements EndGameService {
 			}
 
 			return winners;
-		} else {
-			throw new GameRuleViolationException("Game is not ended yet. Cannot calculate winner.");
-		}
+		//} else {
+		//	throw new GameRuleViolationException("Game is not ended yet. Cannot calculate winner.");
+		//}
 	}
 	
 	private int countDedications(Player player) {
