@@ -11,7 +11,7 @@ import ca.concordia.lanternsentities.ai.AI;
 import ca.concordia.lanternsentities.enums.AIType;
 
 /**
- * the unfriendly player always makes a move which will bring the most harm to one or more opponents 
+ * the unfriendly player always makes a exchange which will bring the most harm to one or more opponents 
  * (i.e. wherever possible, always place a Lake Tile in such a way as to minimize bonuses going to other players,
  *  and/or attempt to prevent other players from collecting the Lantern Cards they need to make a dedication). 
  */
