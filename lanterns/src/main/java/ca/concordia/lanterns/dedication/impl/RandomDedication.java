@@ -12,6 +12,10 @@ import ca.concordia.lanternsentities.ai.DedicationBehavior;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
+/**
+ * This class performs the  dedications for Random player.
+ */
+
 public class RandomDedication implements DedicationBehavior {
 
 	@Override
