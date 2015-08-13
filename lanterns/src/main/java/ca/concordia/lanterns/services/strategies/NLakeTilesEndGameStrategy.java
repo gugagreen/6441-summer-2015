@@ -41,6 +41,6 @@ public class NLakeTilesEndGameStrategy implements EndGameStrategy {
             }
         }
 
-        return sum;
+        return sum - 1;
     }
 }

@@ -32,6 +32,11 @@ public class EndGameDetectService implements EndGameService {
         this.endGameStrategy = endGameStrategy;
     }
 
+	public EndGameStrategy getEndGameStrategy()
+	{
+		return endGameStrategy;
+	}
+
 	public boolean isGameEnded(Game game) {
 		return endGameStrategy.isGameEnded(game);
 	}
