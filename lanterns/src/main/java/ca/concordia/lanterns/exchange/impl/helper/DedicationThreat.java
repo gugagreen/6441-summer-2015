@@ -34,7 +34,7 @@ public class DedicationThreat {
 	private Game game;
 	
 	// Only internal methods should be able to create a DedicationThreat
-	private DedicationThreat(DedicationToken posssibleEarning, Colour absentColour, Game game){
+	private DedicationThreat(DedicationToken possibleEarning, Colour absentColour, Game game){
 		this.possibleEarning = possibleEarning;
 		this.absentColour = absentColour;
 		this.game = game;
@@ -59,12 +59,13 @@ public class DedicationThreat {
 	 * @param game - The game in context
 	 * @return {@link DedicationThreat} - If the player do threaten a dedication of type dedicationType, null -otherwise
 	 */
-	public static DedicationThreat getThreat(DedicationType dedicationType, Player player, Game game){
+	public static DedicationThreat getThreat(DedicationType dedicationType, Player player, Game game) throws IllegalArgumentException {
 
-		if ( dedicationType == DedicationType.GENERIC){
-			throw new IllegalArgumentException("The type of dedication is invalid");
-		}
+		DedicationCost cost;
 		
+		// Generc type is not allowed
+		cost = DedicationCost.getDedicationCost(dedicationType);
+
 		DedicationThreat threat = null;
 
 		LanternCardWrapper[]playerCards = player.getCards();
@@ -73,13 +74,12 @@ public class DedicationThreat {
 		int minGameCardQuantity = -1;
 		Colour absentColour = null;
 		
-		DedicationCost cost = DedicationCost.getDedicationCost(dedicationType);
 		int haveCardPerColorCount = 0;
 		
 		for (int i = 0; i != playerCards.length; ++i){
 			int gameCardQuantity = gameCards[i].getQuantity();
 			
-			if (playerCards[i].getQuantity() == cost.getRequiredCardPerColor() - 1 && gameCardQuantity >= 1){
+			if ((playerCards[i].getQuantity() == (cost.getRequiredCardPerColor() - 1)) && gameCardQuantity >= 1){
 				
 				if (minGameCardQuantity == -1){
 					absentColour = playerCards[i].getColour();

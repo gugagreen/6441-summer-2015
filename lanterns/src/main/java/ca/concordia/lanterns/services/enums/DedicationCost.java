@@ -27,7 +27,7 @@ public enum DedicationCost {
         return this.requiredCardPerColor;
     }
     
-    public static DedicationCost getDedicationCost(DedicationType dedicationType) {
+    public static DedicationCost getDedicationCost(DedicationType dedicationType) throws IllegalArgumentException {
     	if (dedicationType == DedicationType.FOUR_OF_A_KIND) {
     		return DedicationCost.FOUR_OF_A_KIND;
     	} else if (dedicationType == DedicationType.THREE_PAIRS){
