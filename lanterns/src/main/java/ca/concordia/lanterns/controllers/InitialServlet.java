@@ -36,6 +36,7 @@ public class InitialServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		session.setAttribute("game", game);
+		request.setAttribute("nextAction", "exchange");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("game.jsp");
 		dispatcher.forward(request, response);
 	}

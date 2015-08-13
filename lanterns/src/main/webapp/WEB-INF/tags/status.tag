@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="h" %>
+<%@ attribute name="owner" required="true" type="java.lang.Object" %>
 <%@ attribute name="cards" required="true" type="ca.concordia.lanternsentities.LanternCardWrapper[]" %>
 <%@ attribute name="tiles" required="true" type="java.util.Collection" %>
 <%@ attribute name="favors" required="true" type="java.lang.Integer" %>
@@ -29,8 +30,14 @@
 							</div>
 						</td>
 						<td>
-							<c:set var="dedications" value="${dedications}" scope="request" />
-							TODO - dedications
+							<c:choose>
+								<c:when test="${fn:contains(owner['class'].name,'Game')}">
+									<h:gameDedications dedicationWrappers="${owner.dedications}" />
+								</c:when>
+								<c:otherwise>
+									<h:playerDedications dedications="${owner.dedications}" id="${owner.id}" />
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 				</table>
@@ -60,8 +67,7 @@
 					</tr>
 					<tr>
 						<td>
-							<c:set var="dedications" value="${dedications}" scope="request" />
-							TODO - dedications
+							<h:playerDedications dedications="${owner.dedications}" id="${owner.id}" />
 						</td>
 					</tr>
 				</table>

@@ -63,11 +63,28 @@ function takeAction(selectedAction) {
 
 // setInterval(function(){ alert("Hello"); }, 3000);
 
+function aiPlay() {
+	var nextAction = document.getElementById("nextAction");
+	setInterval(function() {takeAction(nextAction.value);}, 2000);
+}
+
+function activatePlayer() {
+	var currentPlayer = document.getElementById("currentPlayer");
+	var currentPlayerAIType = document.getElementById("currentPlayerAIType");
+	
+	if (currentPlayerAIType.value === "HUMAN") {
+		var playerDiv = document.getElementById("player_" + currentPlayer.value);
+		playerDiv.style["pointer-events"] = "auto";
+		// FIXME - set correct action after load 
+		prepareAction("exchange", currentPlayer.value);
+	} else {
+		aiPlay();
+	}
+}
+
 
 function onPageLoad() {
-	var currentPlayer = document.getElementById("currentPlayer");
-	// FIXME - set correct action after load 
-	prepareAction("exchange", currentPlayer.value);
+	activatePlayer();
 }
 
 // last thing, on page load

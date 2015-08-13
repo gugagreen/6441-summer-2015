@@ -15,14 +15,15 @@
 		<form id="gameForm" action="game" method="post">
 			<input type="hidden" id="playerAction" name="playerAction" value="none">
 			<input type="hidden" id="currentPlayer" name="currentPlayer" value="${game.currentTurnPlayer}">
+			<input type="hidden" id="currentPlayerAIType" name="currentPlayerAIType" value="${game.aiPlayers[game.currentTurnPlayer].type}">
+			<input type="hidden" id="nextAction" name="nextAction" value="${requestScope.nextAction}">
 			<div id="gameBoard" style="background-color: #772222;" align="center">
-				<h:status cards="${game.cards}" tiles="${game.tiles}" favors="${game.favors}" vertical="false"/>
+				<h:status owner="${game}" cards="${game.cards}" tiles="${game.tiles}" favors="${game.favors}" vertical="false"/>
 			</div>
 			<table>
 				<tr>
 					<td>
 						<table style="width: 100%;">
-							<c:set var="gamePlayers" value="${game.players}" scope="request" />
 							<tr>
 								<td>&nbsp;</td>
 								<td><h:players player="${game.players[3]}" vertical="false" /></td>

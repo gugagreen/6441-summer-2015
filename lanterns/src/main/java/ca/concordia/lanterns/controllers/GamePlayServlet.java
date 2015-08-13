@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanternsentities.Game;
 
 public class GamePlayServlet extends HttpServlet {
@@ -27,7 +26,7 @@ public class GamePlayServlet extends HttpServlet {
 		String currentPlayer = request.getParameter("currentPlayer");
 		Game game = (Game)session.getAttribute("game");
 		int currentPlayerIndex = validate(game, playerAction, currentPlayer, request, response);
-		takeAction(game, playerAction, currentPlayerIndex);
+		takeAction(game, playerAction, currentPlayerIndex, request);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("game.jsp");
 		dispatcher.forward(request, response);
@@ -54,7 +53,7 @@ public class GamePlayServlet extends HttpServlet {
 		return currentPlayerIndex;
 	}
 	
-	private void takeAction(Game game, String playerAction, int currentPlayerIndex) {
+	private void takeAction(Game game, String playerAction, int currentPlayerIndex, HttpServletRequest request) {
 		System.out.println("Taking Action '" + playerAction + "' for player '" + currentPlayerIndex 
 				+ "' in game '" + game.getId() + "'"); // TODO - change to logger
 		// FIXME - change for human player 
@@ -62,15 +61,18 @@ public class GamePlayServlet extends HttpServlet {
 		case EXCHANGE:
 			// ActivePlayerService.getInstance().exchangeLanternCard(game, currentPlayerIndex, giveCard, receiveCard);
 			game.getAiPlayers()[currentPlayerIndex].performExchange();
+			request.setAttribute("nextAction", "dedication");
 			break;
 		case DEDICATION:
 			game.getAiPlayers()[currentPlayerIndex].performDedication();
+			request.setAttribute("nextAction", "place");
 			break;
 		case PLACE:
 			if (game.getPlayers()[currentPlayerIndex].getTiles().size() != 0) {
 	        	game.getAiPlayers()[currentPlayerIndex].performTilePlay();
 	        }
 			game.setCurrentTurnPlayer(game.getNextPlayer());
+			request.setAttribute("nextAction", "exchange");
 			break;
 
 		default:

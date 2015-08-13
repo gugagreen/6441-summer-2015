@@ -17,26 +17,5 @@
 				</c:forEach>
 			</tr>
 		</c:forEach>
-		
-		<%-- <c:forEach begin="0" end="${fn:length(lake) +1}" varStatus="ii">
-			<tr>
-				<c:forEach begin="0" end="${fn:length(lake[0]) +1}" varStatus="jj">
-					<c:choose>
-						<c:when test="${ii.index > 0 and ii.index < (fn:length(lake)+1) and jj.index > 0 and jj.index < (fn:length(lake[0])+1)}">
-							<c:set var="tile" value="${lake[ii.index-1][jj.index-1]}" />
-							<td style="border: 1px; border-color: #4488BB; border-style: solid;">
-								<input id="dir_${tile.id}" type="hidden" value="${tile.direction}" />
-								<img id="img_${tile.id}"
-										src="../img/tiles/tile_${tile.id}.jpg" width="50" height="50"
-										onclick="rotate('${tile.id}');" onload="setRotation('${tile.id}',${tile.direction});"/>
-							</td>
-						</c:when>
-						<c:otherwise>
-							<td style="border: 1px; border-color: #4488BB; border-style: solid; height: 50px; width: 50px;">&nbsp;</td>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</tr>
-		</c:forEach> --%>
 	</table>
 </div>
