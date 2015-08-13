@@ -59,7 +59,7 @@ public class Game {
      * Initializes a new Game based on the player names.
      * <p>This constructor will instantiate (but not populate) all attributes of this Game instance.
      *
-     * @param playerNames Names of each current player (ordered by login time)
+     * @param ais Names of each current player (ordered by login time)
      * @param id          The game id.
      */
     public void init(final AI[] ais, final String id) {

@@ -59,7 +59,7 @@ public class DedicationForecaster {
 
 	/**
 	 * Find out if there is any dedication one card away from completion.
-	 * @param player
+	 * @param player {@link Player}
 	 * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive], or null if there is no dedication one card away. 
 	 */
 	public LanternCardWrapper[] getNextDedication(Player player) {
@@ -76,7 +76,7 @@ public class DedicationForecaster {
     
     /**
      * Get necessary exchange to make a four of a kind dedication to given player.
-     * @param player
+     * @param player {@link Player}
      * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive], 
      * or null if there is no dedication one card away. 
      */
@@ -111,7 +111,7 @@ public class DedicationForecaster {
 	
     /**
      * Get necessary exchange to make a three pairs dedication to given player.
-     * @param player
+     * @param player {@link Player}
      * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive], 
      * or null if there is no dedication one card away. 
      */
@@ -162,7 +162,7 @@ public class DedicationForecaster {
 	
     /**
      * Get necessary exchange to make a seven unique dedication to given player.
-     * @param player
+     * @param player {@link Player}
      * @return	A pair of {@link LanternCardWrapper} with the [card to give, card to receive], 
      * or null if there is no dedication one card away. 
      */

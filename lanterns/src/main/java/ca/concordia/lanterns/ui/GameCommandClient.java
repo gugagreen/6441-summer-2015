@@ -39,6 +39,7 @@ public class GameCommandClient {
     /**
      * Takes care of displaying the game state in the console when required .
      * For example after player turns.
+     * @param game Game object.
      */
     public static void displayCurrentGameState(Game game) {
         for (int i = 0; i < game.getPlayers().length; i++) {
@@ -225,6 +226,7 @@ public class GameCommandClient {
     /**
      * Requests information from the user for setting the AI or player intelligence to each player.
      * @param playerNames is required to know how many users intelligence must be set.
+     * @return The AI types selected by the user.
      */
     public static AIType[] getPlayerIntelligences(String[] playerNames){
     	AIType[] selectedAITypes = new AIType[playerNames.length];
@@ -414,9 +416,9 @@ public class GameCommandClient {
 	
 	/**
      * Provide a validated numeric result of a specified range.
-     * @param Message of String type.
-     *  @param Minimun range value of int type.
-     * @param Maximum range value of int type.
+     * @param message Message of String type.
+     * @param min Minimun range value of int type.
+     * @param max Maximum range value of int type.
      * @return validated numeric value.
      */
     public static int getValidInt(final String message, final int min, final int max) {
@@ -442,7 +444,7 @@ public class GameCommandClient {
     
     /**
      * Provides a validated String .
-     * @param String object.
+     * @param message String object.
      * @return Validated String object .
      */
     public static String getValidString(final String message) {

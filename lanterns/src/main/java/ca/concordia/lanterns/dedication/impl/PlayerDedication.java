@@ -20,9 +20,9 @@ public class PlayerDedication implements DedicationBehavior {
 	/**
      * Ask human player to make a dedication if player wants to do and perform dedication.
      *
-     * @param The {@link Game} object.
-      * @param The {@link Player} object.
-       * @param The Boolean array of all possible dedications. 
+     * @param game The {@link Game} object.
+     * @param currentPlayer The {@link Player} object.
+     * @param dedicationsPossible The Boolean array of all possible dedications. 
      */
 	@Override
 	public void makeDedication(Game game, Player currentPlayer, boolean[] dedicationsPossible) {
@@ -52,8 +52,8 @@ public class PlayerDedication implements DedicationBehavior {
 	 /**
      * Gives the required colors to make dedications.
      * 
-     * @param resource save game name
-     * @param DedicationType object.
+     * @param dedicationType DedicationType object.
+     * @return The cost of a specific dedication.
      */
 	public int getRequiredColors(DedicationType dedicationType) {
 		DedicationCost cost = controller.getDedicationCost(dedicationType);

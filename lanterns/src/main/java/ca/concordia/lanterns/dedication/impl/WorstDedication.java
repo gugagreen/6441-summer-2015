@@ -29,9 +29,9 @@ public class WorstDedication implements DedicationBehavior {
      *  <li>Do not make a dedication otherwise</li>
      * </ul>
      *
-     * @param game - The game in context
-      * @param player - The player who will make unfriendly decision
-       * @param The Boolean array of all possible dedications. 
+     * @param game The game in context
+     * @param currentPlayer The player who will make unfriendly decision
+     * @param dedicationsPossible The Boolean array of all possible dedications. 
      */
 	@Override
 	public void makeDedication(Game game, Player currentPlayer, boolean[] dedicationsPossible) {

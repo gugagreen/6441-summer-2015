@@ -44,36 +44,36 @@ public interface SetupService {
 
     /**
      * Setup step #1:
-     * <p/>
+     * <p>
      * Place the starting Lake Tile in the center of the play area face down. Flip the tile face up and orient it so that one
      * player is facing the red side and each other player is facing a different side.
      *
-     * @param game
-     * @param initialTile
+     * @param game Game object.
+     * @param initialTile The same tile is always the initial tile.
      */
     void startLake(final Game game, final LakeTile initialTile);
 
     /**
      * Setup step #2:
-     * <p/>
+     * <p>
      * Deal 3 Lake Tiles to each player face down. Lake Tiles are held in hand and kept secret from other players.
      *
-     * @param totalTiles
-     * @param players
+     * @param totalTiles {@link LakeTile}
+     * @param players {@link Player}
      * @throws IllegalArgumentException If amount of tiles is not enough for the amount of players.
      */
     void dealPlayerTiles(final LakeTile[] totalTiles, final Player[] players);
 
     /**
      * Setup step #3:
-     * <p/>
+     * <p>
      * Create a draw stack of Lake Tiles. The number of tiles in the stack depends on player count:
      * <ul>
      * <li>4 Players: 20 tiles</li>
      * <li>3 Players: 18 tiles</li>
      * <li>2 Players: 16 tiles</li>
      * </ul>
-     * <p/>
+     * <p>
      * By the end of this method, the tiles collection will be populated.
      *
      * @param tiles       stack to be populated.
@@ -84,17 +84,16 @@ public interface SetupService {
 
     /**
      * Setup step #4:
-     * <p/>
-     * <p/>
+     * <p>
      * Separate the Lantern Cards by color into 7 stacks. These stacks are collectively called the supply The number of cards
-     * <p/>
+     * <p>
      * in each stack depends on player count:
      * <ul>
      * <li>4 Players: 8 cards</li>
      * <li>3 Players: 7 cards</li>
      * <li>2 Players: 5 cards</li>
      * </ul>
-     * <p/>
+     * <p>
      * By the end of this method, the cards stacks will be populated.
      *
      * @param cards       the cards stacks to populate.
@@ -105,14 +104,14 @@ public interface SetupService {
 
     /**
      * Setup step #5: Set aside the 3 generic Dedication Tokens.
-     * <p/>
+     * <p>
      * Setup step #6: Separate Dedication Tokens by type into 3 stacks. Arrange each stack in descending order of value.
      * <ul>
      * <li>4 Players: use all tokens</li>
      * <li>3 Players: remove tokens with 4 dots</li>
      * <li>2 Players: remove tokens with 3 or 4 dots</li>
      * </ul>
-     * <p/>
+     * <p>
      * By the end of this method the dedication stacks will be populated.
      *
      * @param dedications the dedication token stacks to be set
@@ -124,7 +123,7 @@ public interface SetupService {
     /**
      * Setup step #7: Give each player one Lantern Card corresponding to the color on the side of the starting Lake Tile he is
      * facing. Each players Lantern Cards are always kept in front of them, visible for everyone to see.
-     * <p/>
+     * <p>
      * fyi, setup step #8 (Give the player with the red Lantern Card, the color of good fortune, the start player marker) is
      * unnecessary, as start player can be inferred by first tile in {@link Game#getLake()} plus first player in the
      * {@link Game#getPlayers()}.

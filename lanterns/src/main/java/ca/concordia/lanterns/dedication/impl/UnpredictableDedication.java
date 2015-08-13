@@ -15,9 +15,9 @@ public class UnpredictableDedication implements DedicationBehavior {
 	/**
      * Perform dedications for Unpredictable player according to current Behavior.
      *
-     * @param The {@link Game} object.
-      * @param The {@link Player} object.
-       * @param The Boolean array of all possible dedications. 
+     * @param game The {@link Game} object.
+     * @param currentPlayer The {@link Player} object.
+     * @param dedicationsPossible The Boolean array of all possible dedications. 
      */
 	@Override
 	public void makeDedication(Game game, Player currentPlayer, boolean[] dedicationsPossible) {

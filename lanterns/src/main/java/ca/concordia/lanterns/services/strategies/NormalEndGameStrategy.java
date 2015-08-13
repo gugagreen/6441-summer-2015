@@ -12,7 +12,7 @@ public class NormalEndGameStrategy implements EndGameStrategy{
 	/**
      * It ends the game in normal way.
      *
-    * @param {@link Game} object.
+    * @param game {@link Game} object.
     * @return boolean object specifying the end of game result.
      */
     @Override

@@ -21,7 +21,7 @@ public class NHonorPointsEndGameStrategy implements EndGameStrategy {
     /**
      * Declare the end of game.
      *
-    * @param {@link Game} object.
+    * @param game {@link Game} object.
     * @return boolean object specifying the end of game result.
      */
     @Override

@@ -21,8 +21,8 @@ public class RandomExchange implements ExchangeBehavior {
 	/**
      * Make exchange of cards for Random AI player if possible.
      *
-     * @param {@link Player} object.
-     * @param {@link Game} object.
+     * @param currentPlayer {@link Player} object.
+     * @param game {@link Game} object.
      */
 	@Override
 	public void makeExchange(Game game, Player currentPlayer) throws GameRuleViolationException {

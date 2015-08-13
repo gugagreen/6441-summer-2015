@@ -32,7 +32,7 @@ public interface PlayerService {
      * A {@link Player} dedicates/returns a set of <b>Lantern Cards</b> from its stock to the
      * {@link Game} and obtains a {@link DedicationToken}. The number on the Dedication Token
      * indicates the amount of honor a player earns from the dedication.
-     * <p/>
+     * 
      * <p>The set of <b>Lantern Cards</b> needed to be dedicated for a Dedication Token depends
      * on the rules of the game.
      *

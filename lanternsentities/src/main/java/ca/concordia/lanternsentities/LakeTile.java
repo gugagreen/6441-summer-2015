@@ -184,9 +184,9 @@ public class LakeTile {
 
 	/**
      * Allows for the rotation of a lake Tile.
-     * <p/>
+     * <p>
      * Moves the tileSide[orientation] to the tileSide[0] and rotates the tile accordingly.
-     * <p/>
+     * <p>
      * Assumes that tiles have default orientation with Side[0] facing Player ID 0 and rest of sides increase in count going
      * clockwise.
      *
@@ -210,7 +210,7 @@ public class LakeTile {
     }
 
 	/**
-	 * Writes a TileStack into an array of 3 strings, in the following format:<p>
+	 * Writes a TileStack into an array of 3 strings, in the following format:
 	 * <ul>
 	 * 	<li>If the TileStack is null:
 	 * 		<ul>
@@ -229,7 +229,7 @@ public class LakeTile {
 	 * South or West. Ant the {p} will be "*" if the tile has a platform of "." if it doesn't.  
 	 * 	</li>
 	 * </ul>
-	 * @param ts
+	 * @param lt LakeTile
 	 * @return	The 3 lines array.
 	 */
 	public static String[] get3Lines(LakeTile lt) {

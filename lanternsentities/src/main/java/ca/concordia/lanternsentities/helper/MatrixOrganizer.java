@@ -62,8 +62,8 @@ public class MatrixOrganizer {
 	
 	/**
 	 * Count the number of valid elements in the matrix.
-	 * @param matrix
-	 * @return
+	 * @param matrix Lake tile matrix.
+	 * @return The number of lake tiles currently in the lake.
 	 */
 	public static int count(LakeTile[][] matrix) {
 		int count = 0;
@@ -217,7 +217,7 @@ public class MatrixOrganizer {
 	/**
      * Can be used to obtain the index of an opposite side of a lake tile.
      * Useful when checking for adjacent tiles.
-     *
+     * @param direction A specific tile side direction index.
      * @return The index of the opposing  side of a lake tile index.
      */
     public static Direction getOppositeTileSideIndex(Direction direction) {

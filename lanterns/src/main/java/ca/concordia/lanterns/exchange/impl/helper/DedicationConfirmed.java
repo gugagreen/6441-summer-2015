@@ -99,7 +99,7 @@ public class DedicationConfirmed {
 	/**
 	 * Checks if a dedication that is confirmed to happen in the future can be damaged
 	 * A dedication is considered damageable if we can reduce the honor that the player might acquire if the dedication is allowed to be performed
-	 * @return
+	 * @return Boolean value of whether a dedication might harm a player or not.
 	 */
 	public boolean isDamageable() {
 		List<DedicationType> dedications = Arrays.asList(DedicationType.values());

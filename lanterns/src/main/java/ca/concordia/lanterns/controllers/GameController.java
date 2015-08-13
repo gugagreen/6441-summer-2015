@@ -79,7 +79,7 @@ public class GameController {
     /**
      * Sets the end of game strategy.
      *
-     * @param {@link Game} object.
+     * @param game {@link Game} object.
      */
     public void setEndGameStrategy(Game game)
     {
@@ -131,7 +131,7 @@ public class GameController {
     /**
      * It resets the players intelligence(AI).
      *
-     * @param {@link Game} object.
+     * @param game {@link Game} object.
      */
     
     public void reSetPlayersAI(Game game)
