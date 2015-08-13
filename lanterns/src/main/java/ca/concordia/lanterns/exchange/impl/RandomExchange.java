@@ -11,9 +11,18 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.ai.ExchangeBehavior;
 import ca.concordia.lanternsentities.enums.Colour;
 
-
+/**
+ * Provides services for making an exchange of Lanterns cards randomly for random AI player.
+ *  
+ */
 public class RandomExchange implements ExchangeBehavior {
-
+	
+	/**
+     * Make exchange of cards for Random AI player if possible.
+     *
+     * @param {@link Player} object.
+     * @param {@link Game} object.
+     */
 	@Override
 	public void makeExchange(Game game, Player currentPlayer) throws GameRuleViolationException {
 		if(allowExchange()){

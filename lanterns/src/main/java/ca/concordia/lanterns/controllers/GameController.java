@@ -155,7 +155,7 @@ public class GameController {
     }
     
     /**
-     * Loads a {@link Game} object from a given resource.
+     * Gives the some of dedication token/values.
      *
      * @param The {@link Game} object.
      * @return Sum of dedication tokens/values .

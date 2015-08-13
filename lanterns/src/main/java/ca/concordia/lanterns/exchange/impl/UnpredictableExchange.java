@@ -5,11 +5,18 @@ import java.util.Random;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.ai.ExchangeBehavior;
-
+/**
+ * Provides services for making an exchange lantern cards for unpredictable player.
+  */
 public class UnpredictableExchange implements ExchangeBehavior{
 
 	ExchangeBehavior currentBehavior;
-	
+	/**
+     * Make exchange of cards for Unpredictable player if possible.
+     *
+     * @param {@link Player} object.
+     * @param {@link Game} object.
+     */
 	@Override
 	public void makeExchange(Game game, Player currentPlayer) {
 		switch (selectBehavior()) {
