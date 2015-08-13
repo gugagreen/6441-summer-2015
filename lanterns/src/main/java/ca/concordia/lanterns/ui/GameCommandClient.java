@@ -311,6 +311,7 @@ public class GameCommandClient {
             playTurn(currentPlayer);
             game.setCurrentTurnPlayer(game.getNextPlayer());
             isEnded = controller.isGameEnded(game);
+            gameSelection();
         }
 
         //after isEnded returns true there is one more turn to play for exchanges
