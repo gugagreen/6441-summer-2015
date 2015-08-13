@@ -14,10 +14,21 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
+/**
+ * A DedicationConfirmed represents the availability of enough resources for a {@link Player} to make a dedication
+ * @author parth
+ *
+ */
 public class DedicationConfirmed {
 
-	
+	/**
+	 * List of colors such that the lantern cards of these colors may be used to make the dedication
+	 */
 	private ArrayList<Colour> costCardColors;
+	
+	/**
+	 * The type of the dedication the player will make
+	 */
 	private DedicationType dedicationType;
 	private Game game;
 	private int playerID;
@@ -50,6 +61,14 @@ public class DedicationConfirmed {
 		this.playerID = playerID;
 	}
 	
+	/**
+	 * Returns a {@link DedicationConfirmed} object representing the availability/unavailability of the lantern cards by the specified
+	 * player of the game to make the specified dedication
+	 * @param dedicationType - the type of the dedication for which we wish to obtain availability
+	 * @param game - the game in context
+	 * @param playerID - the id of the player who might make the dedication
+	 * @return {@link DedicationConfirmed} object if their is availability of lantern cards, null otherwise
+	 */
 	public static DedicationConfirmed getDedicationConfirmed(DedicationType dedicationType, Game game, int playerID) {
 		DedicationConfirmed dedication = null;
 		
@@ -73,6 +92,11 @@ public class DedicationConfirmed {
 		return dedication;
 	}
 	
+	/**
+	 * Checks if a dedication that is confirmed to happen in the future can be damaged
+	 * A dedication is considered damageable if we can reduce the honor that the player might acquire if the dedication is allowed to be performed
+	 * @return
+	 */
 	public boolean isDamageable() {
 		List<DedicationType> dedications = Arrays.asList(DedicationType.values());
 		
