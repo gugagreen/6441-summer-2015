@@ -41,8 +41,7 @@ public class UnpredictableDedication implements DedicationBehavior {
 
 	private int selectBehavior(){
 		Random rand = new Random();
-		//TODO change nextInt to 3 once worst dedication is implemented
-		int possibleBehaviorIndex = rand.nextInt(2);
+		int possibleBehaviorIndex = rand.nextInt(3);
 		
 		return possibleBehaviorIndex;
 	}

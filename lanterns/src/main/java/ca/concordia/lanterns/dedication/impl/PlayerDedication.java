@@ -1,5 +1,6 @@
 package ca.concordia.lanterns.dedication.impl;
 
+import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
@@ -15,6 +16,7 @@ import ca.concordia.lanternsentities.enums.DedicationType;
  */
 public class PlayerDedication implements DedicationBehavior {
 	
+	private GameController controller = new GameController();
 	/**
      * Ask human player to make a dedication if player wants to do and perform dedication.
      *
@@ -39,7 +41,7 @@ public class PlayerDedication implements DedicationBehavior {
 				colours[i] = Colour.values()[giveCardIndex];
 			}
 			try {
-				ActivePlayerService.getInstance().makeDedication(game, currentPlayer.getId(), type, colours);
+				controller.makeDedication(game, currentPlayer.getId(), type, colours);
 			} catch (GameRuleViolationException e) {
 				System.err.println(e.getMessage());
 			}
@@ -54,7 +56,7 @@ public class PlayerDedication implements DedicationBehavior {
      * @param DedicationType object.
      */
 	public int getRequiredColors(DedicationType dedicationType) {
-		DedicationCost cost = ActivePlayerService.getInstance().getDedicationCost(dedicationType);
+		DedicationCost cost = controller.getDedicationCost(dedicationType);
 		return cost.getRequiredColors();
 	}
 }

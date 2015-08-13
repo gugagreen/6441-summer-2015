@@ -6,6 +6,7 @@ import java.util.Set;
 
 import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
+import ca.concordia.lanterns.services.impl.EndGameDetectService;
 import ca.concordia.lanternsentities.DedicationToken;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
@@ -301,7 +302,9 @@ public class GameCommandClient {
      * Begins game play and will alternate players until end conditions are met.
      */
     public void play() {
+
         boolean isEnded = controller.isGameEnded(game);
+
         while (!isEnded) {
             int currentIndex = game.getCurrentTurnPlayer();
             Player currentPlayer = game.getPlayers()[currentIndex];
@@ -311,12 +314,17 @@ public class GameCommandClient {
         }
 
         //after isEnded returns true there is one more turn to play for exchanges
-        for (int i = 0; i < game.getPlayers().length; i++) {
+        String endGameStrategy = EndGameDetectService.getInstance().getEndGameStrategy().getClass().getSimpleName();
+        if (!(endGameStrategy.equals("NLakeTilesEndGameStrategy")||endGameStrategy.equals("NHonorPointsEndGameStrategy")))
+        {
+            for (int i = 0; i < game.getPlayers().length; i++) {
 
-            int currentIndex = game.getCurrentTurnPlayer();
-            Player currentPlayer = game.getPlayers()[currentIndex];
-            playTurn(currentPlayer);
-            game.setCurrentTurnPlayer(game.getNextPlayer());
+                int currentIndex = game.getCurrentTurnPlayer();
+                Player currentPlayer = game.getPlayers()[currentIndex];
+                playTurn(currentPlayer);
+                game.setCurrentTurnPlayer(game.getNextPlayer());
+
+            }
         }
 
         // when game is ended, show the winner

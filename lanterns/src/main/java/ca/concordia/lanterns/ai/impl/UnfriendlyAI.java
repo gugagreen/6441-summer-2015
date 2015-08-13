@@ -22,8 +22,8 @@ public class UnfriendlyAI extends AI {
 	public UnfriendlyAI(Game game, Player currentPlayer){
 		super(AIType.UNFRIENDLY, game, currentPlayer);
 		// FIXME - behaviors not implemented
-		System.err.println("ERROR - behaviors not implemented yet!");
-		System.exit(0);
+		//System.err.println("ERROR - behaviors not implemented yet!");
+		//System.exit(0);
 		this.exchangeBehavior = new WorstExchange(); 
 		this.dedicationBehavior = new WorstDedication();
 		this.tilePlayBehavior = new WorstTile();
