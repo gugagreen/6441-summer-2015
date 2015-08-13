@@ -8,6 +8,9 @@ import ca.concordia.lanternsentities.ai.DedicationBehavior;
 import ca.concordia.lanternsentities.enums.Colour;
 import ca.concordia.lanternsentities.enums.DedicationType;
 
+/**
+ * This class performs the  dedications for greedy player.
+ */
 public class GreedyDedication implements DedicationBehavior {
 	
 	private GameController controller = new GameController();
