@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanternsentities.Game;
@@ -13,7 +14,7 @@ import ca.concordia.lanternsentities.ai.TilePlayBehavior;
 import ca.concordia.lanternsentities.helper.MatrixOrganizer;
 
 public class RandomTile implements TilePlayBehavior {
-
+	private GameController controller = new GameController();
 	@Override
 	public void placeTile(Game game, Player currentPlayer) throws GameRuleViolationException {
 		//making sure that player is not trying to place tiles without tiles
@@ -30,7 +31,7 @@ public class RandomTile implements TilePlayBehavior {
 			List<Integer> usableTileSides = usableLakeTileSides(lakeTile);
 			int existingTileSideIndex = randLakeTileSide(usableTileSides);
 
-			ActivePlayerService.getInstance().placeLakeTile(game, currentPlayer.getId(), playerTileIndex,
+			controller.placeLakeTile(game, currentPlayer.getId(), playerTileIndex,
 					lakeTile.getId(), existingTileSideIndex, playerTileSideIndex);
 		}
 	}

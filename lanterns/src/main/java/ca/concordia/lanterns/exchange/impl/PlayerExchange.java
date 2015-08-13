@@ -1,5 +1,6 @@
 package ca.concordia.lanterns.exchange.impl;
 
+import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanterns.ui.GameCommandClient;
@@ -14,7 +15,7 @@ import ca.concordia.lanternsentities.enums.Colour;
  */
 
 public class PlayerExchange implements ExchangeBehavior {
-	
+	private GameController controller = new GameController();
 	/**
      * Make exchange of cards for Human player if possible.
      *
@@ -36,7 +37,7 @@ public class PlayerExchange implements ExchangeBehavior {
             int receiveCardIndex = GameCommandClient.getValidInt(GameCommandClient.coloursWithIndexesString(), 0, 6);
             Colour receiveCard = Colour.values()[receiveCardIndex];
             try {
-            	ActivePlayerService.getInstance().exchangeLanternCard(game, currentPlayer.getId(), giveCard, receiveCard);
+            	controller.exchangeLanternCard(game, currentPlayer.getId(), giveCard, receiveCard);
             } catch (GameRuleViolationException e) {
                 System.err.println(e.getMessage());
             }

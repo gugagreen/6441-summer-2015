@@ -2,6 +2,7 @@ package ca.concordia.lanterns.tileplacement.impl;
 
 import java.util.List;
 
+import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanterns.ui.GameCommandClient;
@@ -11,7 +12,7 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.ai.TilePlayBehavior;
 
 public class PlayerTile implements TilePlayBehavior {
-
+	private GameController controller = new GameController();
 	@Override
 	public void placeTile(Game game, Player currentPlayer) {
 		boolean playerNotDone = true;
@@ -42,7 +43,7 @@ public class PlayerTile implements TilePlayBehavior {
 	        int playerTileSideIndex = GameCommandClient.getValidInt(GameCommandClient.getTileSidesString(playerTile), 0, playerTile.getSides().length - 1);
 	
 	        try {
-	        	ActivePlayerService.getInstance().placeLakeTile(game, currentPlayer.getId(), playerTileIndex,
+	        	controller.placeLakeTile(game, currentPlayer.getId(), playerTileIndex,
 	            		lakeTile.getId(), existingTileSideIndex, playerTileSideIndex);
 	            playerNotDone = false;
 	        } catch (GameRuleViolationException e) {

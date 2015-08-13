@@ -3,6 +3,7 @@ package ca.concordia.lanterns.dedication.impl;
 import java.util.Arrays;
 import java.util.Random;
 
+import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.enums.DedicationCost;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
@@ -17,7 +18,7 @@ import ca.concordia.lanternsentities.enums.DedicationType;
  */
 
 public class RandomDedication implements DedicationBehavior {
-	
+	private GameController controller = new GameController();
 	/**
      * Perform dedications for Random player according to possible dedication type.
      *
@@ -34,7 +35,7 @@ public class RandomDedication implements DedicationBehavior {
 			// get the colours to make that dedication
 			Colour[] colours = getDedicationLanterns(type, currentPlayer);
 
-			ActivePlayerService.getInstance().makeDedication(game, currentPlayer.getId(), type, colours);
+			controller.makeDedication(game, currentPlayer.getId(), type, colours);
 		}
 	}
 	/**
@@ -148,7 +149,7 @@ public class RandomDedication implements DedicationBehavior {
 	}
 
 	public int getRequiredColors(DedicationType dedicationType) {
-		DedicationCost cost = ActivePlayerService.getInstance().getDedicationCost(dedicationType);
+		DedicationCost cost = controller.getDedicationCost(dedicationType);
 		;
 		return cost.getRequiredColors();
 	}

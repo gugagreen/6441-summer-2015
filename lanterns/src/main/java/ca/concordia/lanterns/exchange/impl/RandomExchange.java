@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
 import ca.concordia.lanterns.services.impl.ActivePlayerService;
 import ca.concordia.lanternsentities.Game;
@@ -16,7 +17,7 @@ import ca.concordia.lanternsentities.enums.Colour;
  *  
  */
 public class RandomExchange implements ExchangeBehavior {
-	
+	private GameController controller = new GameController();
 	/**
      * Make exchange of cards for Random AI player if possible.
      *
@@ -33,7 +34,7 @@ public class RandomExchange implements ExchangeBehavior {
 			int receiveCardIndex = randIndexWithExclusion(giveCardIndex, possibleTableLanternsIndex(game) );
 			Colour receiveCard = Colour.values()[receiveCardIndex];
 					
-			ActivePlayerService.getInstance().exchangeLanternCard(game, currentPlayer.getId(), giveCard, receiveCard);
+			controller.exchangeLanternCard(game, currentPlayer.getId(), giveCard, receiveCard);
 		}
     }
 
