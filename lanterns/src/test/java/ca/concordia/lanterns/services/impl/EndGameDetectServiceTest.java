@@ -61,6 +61,7 @@ public class EndGameDetectServiceTest {
         EndGameDetectService endGameService = EndGameDetectService.getInstance();
 
         Player potentialWinner = this.game.getPlayers()[1];
+        assertNotNull(potentialWinner);
         Set<Player> winners = endGameService.getGameWinner(this.game);
         assertNotNull(winners);
         assertEquals(1, winners.size());

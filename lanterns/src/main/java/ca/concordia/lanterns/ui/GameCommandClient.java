@@ -6,12 +6,7 @@ import java.util.Set;
 
 import ca.concordia.lanterns.controllers.GameController;
 import ca.concordia.lanterns.exception.GameRuleViolationException;
-import ca.concordia.lanterns.services.impl.EndGameDetectService;
-import ca.concordia.lanterns.services.strategies.NHonorPointsEndGameStrategy;
-import ca.concordia.lanterns.services.strategies.NLakeTilesEndGameStrategy;
-import ca.concordia.lanterns.services.strategies.NormalEndGameStrategy;
 import ca.concordia.lanternsentities.DedicationToken;
-import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.LakeTile;
 import ca.concordia.lanternsentities.LanternCardWrapper;
@@ -218,6 +213,8 @@ public class GameCommandClient {
         AIType[] aiTypes = getPlayerIntelligences(playerNames);
         game = controller.createGame(playerNames, aiTypes);
 
+        controller.setEndGameStrategy(game);
+
         displayCurrentGameState(game);
         System.out.println("Successfully Initialized game");
 
@@ -226,9 +223,9 @@ public class GameCommandClient {
     
     /**
      * Requests information from the user for setting the AI or player intelligence to each player.
-     * @param numberOfPlayers Number of players is required to know how many users intelligence must be set.
+     * @param playerNames is required to know how many users intelligence must be set.
      */
-    private AIType[] getPlayerIntelligences(String[] playerNames){
+    public static AIType[] getPlayerIntelligences(String[] playerNames){
     	AIType[] selectedAITypes = new AIType[playerNames.length];
         for (int i = 0; i < playerNames.length; i++) {
         	System.out.println("For player " + playerNames[i]);
@@ -252,6 +249,9 @@ public class GameCommandClient {
         String loadFileName = getValidString("Specify the name of the load file with the extension (.xml)");
 
         game = controller.loadGame(loadFileName);
+
+        controller.reSetPlayersAI(game);
+        controller.setEndGameStrategy(game);
 
         displayCurrentGameState(game);
         System.out.println("Successfully loaded game");
@@ -317,7 +317,6 @@ public class GameCommandClient {
             Player currentPlayer = game.getPlayers()[currentIndex];
             playTurn(currentPlayer);
             game.setCurrentTurnPlayer(game.getNextPlayer());
-
         }
 
         // when game is ended, show the winner
@@ -405,7 +404,7 @@ public class GameCommandClient {
     }
 
     public static int getValidInt(final String message, final int min, final int max) {
-        System.out.print(message);
+        System.out.println(message);
         int userChoice = 0;
         boolean valid = false;
         while (!valid) {
@@ -440,49 +439,4 @@ public class GameCommandClient {
         System.out.println(value);
         return value;
     }
-
-    /**
-     * Requests user input for choosing between the various end game rules.
-     */
-    private void setEndGameStrategy()
-    {
-        System.out.println("Please select an end game strategy");
-        System.out.println("1) The normal way");
-        System.out.println("2) N Lake Tiles placed on the board strategy");
-        System.out.println("3) N Honor points earned strategy");
-
-        int userChoice = keyboard.nextInt();
-        int nLakeTiles = 0;
-        int nHonorPoint = 0;
-
-        switch (userChoice)
-        {
-        	// FIXME - none of the classes on the service layer should be seen here. Use the controller to 
-        	// retrieve the info you need
-            case 1:
-                EndGameDetectService.getInstance().setEndGameStrategy(new NormalEndGameStrategy());
-                break;
-            case 2:
-                nLakeTiles = getValidInt("Please enter the value N", 2, game.getTiles().size()/game.getPlayers().length);
-                EndGameDetectService.getInstance().setEndGameStrategy(new NLakeTilesEndGameStrategy(nLakeTiles));
-                break;
-            case 3:
-                nHonorPoint = getValidInt("Please enter the value N", 4, sumDedicationValues()/game.getPlayers().length);
-                EndGameDetectService.getInstance().setEndGameStrategy(new NHonorPointsEndGameStrategy(nHonorPoint));
-                break;
-        }
-
-    }
-
-    private int sumDedicationValues()
-    {
-        int sum = 0;
-
-        for(DedicationTokenWrapper dedicationTokenWrapper : game.getDedications())
-           for(DedicationToken dedicationToken : dedicationTokenWrapper.getStack())
-               sum += dedicationToken.getTokenValue();
-
-        return sum;
-    }
-
 }

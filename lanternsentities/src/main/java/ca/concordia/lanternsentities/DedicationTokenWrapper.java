@@ -24,13 +24,18 @@ public class DedicationTokenWrapper {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        DedicationToken first = stack.get(0);
-        if (first != null) {
-        	sb.append(first.getTokenType()+"=[" + first.getTokenValue());
-            for (int i = 1; i < stack.size(); i++) {
-                sb.append("," + stack.get(i).getTokenValue());
-            }
-            sb.append("]");
+        if(!stack.isEmpty()){
+        	DedicationToken first = stack.get(0);
+        	if (first != null) {
+        		sb.append(first.getTokenType()+"=[" + first.getTokenValue());
+        		for (int i = 1; i < stack.size(); i++) {
+        			sb.append("," + stack.get(i).getTokenValue());
+        		}
+        		sb.append("]");
+        	}
+        }
+        else{
+        	sb.append("Empty Stack");
         }
         return "Token Stack [" + sb.toString() + "]";
     }

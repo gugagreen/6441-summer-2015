@@ -8,6 +8,7 @@ import static ca.concordia.lanternsentities.helper.MatrixOrganizer.Direction.NOR
 import static ca.concordia.lanternsentities.helper.MatrixOrganizer.Direction.SOUTH;
 import static ca.concordia.lanternsentities.helper.MatrixOrganizer.Direction.WEST;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -94,6 +95,11 @@ public class PlaceATileTest {
     @Test
     public void validPlaceATile() {
 
+    	assertNotNull(game.getPlayers());
+    	assertNotNull(game.getTiles());
+    	assertNotNull(game.getLake());
+    	assertNotNull(game.getFavors());
+    	assertNotNull(getGameColourQty(game, RED));
         Player player = game.getPlayers()[1];
         // Record Data structures before placing a tile
         LakeTile[][] lake = game.getLake();
@@ -138,6 +144,8 @@ public class PlaceATileTest {
         
         westZerothTile = MatrixOrganizer.findTile(lake, T54.getId()).getSides()[WEST.ordinal()];
         southSecondTile = MatrixOrganizer.findTile(lake, T33.getId()).getSides()[SOUTH.ordinal()];
+        assertNotNull(westZerothTile);
+        assertNotNull(southSecondTile);
 
         assertSame(westZerothTile.getAdjacent(), playerTile);
         assertSame(southSecondTile.getAdjacent(), playerTile);

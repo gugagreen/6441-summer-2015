@@ -41,7 +41,7 @@
 	
 	<servlet>
 		<servlet-name>gameServlet</servlet-name>
-		<servlet-class>ca.concordia.lanterns.controllers.GameServlet</servlet-class>
+		<servlet-class>ca.concordia.lanterns.controllers.GamePlayServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
