@@ -1,6 +1,7 @@
 package ca.concordia.lanterns.controllers;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import ca.concordia.lanterns.services.impl.EndGameDetectService;
 import ca.concordia.lanternsentities.Game;
+import ca.concordia.lanternsentities.Player;
 
 public class GamePlayServlet extends HttpServlet {
 
@@ -28,6 +30,8 @@ public class GamePlayServlet extends HttpServlet {
 		Game game = (Game)session.getAttribute("game");
 		if (EndGameDetectService.getInstance().isGameEnded(game)) {
 			request.setAttribute("nextAction", "endGame");
+			Set<Player> winners = EndGameDetectService.getInstance().getGameWinner(game);
+			session.setAttribute("winners", winners.toArray(new Player[0]));
 		} else {
 			int currentPlayerIndex = validate(game, playerAction, currentPlayer, request, response);
 			takeAction(game, playerAction, currentPlayerIndex, request);

@@ -44,7 +44,10 @@
 				</tr>
 			</table>
 		</form>
-
+		
+		<c:if test="${not empty winners}">
+			<h:winners winners="${winners}"/>
+		</c:if>
 		
 
 	</c:if>
