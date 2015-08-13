@@ -54,7 +54,7 @@ public class WorstExchange implements ExchangeBehavior{
 		while(i != players.length - 1){
 			
 			// Ensures clockwise movement and appropriate indexing
-			nextPlayerIndex = nextPlayerIndex % 4 ;
+			nextPlayerIndex = nextPlayerIndex % game.getPlayers().length ;
 			
 			for (DedicationType dedicationType: sortedGameDedications){
 				DedicationThreat threat = DedicationThreat.getThreat(dedicationType, players[nextPlayerIndex], game);
