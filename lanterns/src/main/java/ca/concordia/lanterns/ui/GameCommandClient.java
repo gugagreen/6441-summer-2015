@@ -300,6 +300,29 @@ public class GameCommandClient {
         }
     }
     
+    private void saveContinue(){
+    	int newGameOption = getValidInt("Would you like to save and quit?:\n1) Yes\n2) No", 1,2);
+    	
+    	switch (newGameOption) {
+		case 1:
+			if (game!= null){
+				String saveFileName = getValidString("Specify the name of the save file with the extension (.xml)");
+
+                controller.saveGame(game, saveFileName);
+
+                System.out.println("Saved game, quitting.");
+                quit();
+			}
+			
+			break;
+		case 2:
+			System.out.println("Continuing the game.");
+			return;
+		default:
+			return;
+		}
+    }
+    
     /**
      * Begins game play and will alternate players until end conditions are met.
      */
@@ -311,9 +334,10 @@ public class GameCommandClient {
             int currentIndex = game.getCurrentTurnPlayer();
             Player currentPlayer = game.getPlayers()[currentIndex];
             playTurn(currentPlayer);
-            game.setCurrentTurnPlayer(game.getNextPlayer());
             isEnded = controller.isGameEnded(game);
-            gameSelection();
+            game.setCurrentTurnPlayer(game.getNextPlayer());
+            if(!isEnded)
+            saveContinue();
         }
 
         //after isEnded returns true there is one more turn to play for exchanges

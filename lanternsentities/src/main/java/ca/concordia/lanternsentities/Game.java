@@ -154,6 +154,13 @@ public class Game {
     }
 
     public void setLake(LakeTile[][] lake) {
+    	for(int i = 0 ; i< lake.length; i++){
+    		for(int j =0; j < lake[i].length; j++){
+    			if(lake[i][j] == null || lake[i][j].getId() == null){
+    				lake[i][j] = null;
+    			}
+    		}
+    	}
         this.lake = lake;
     }
 
