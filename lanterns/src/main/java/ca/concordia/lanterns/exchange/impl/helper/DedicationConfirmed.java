@@ -74,6 +74,10 @@ public class DedicationConfirmed {
 		
 		Player player = game.getPlayer(playerID);
 		
+		if (player == null){
+			throw new IllegalArgumentException("The game do not have a player with ID: " + playerID);
+		}
+		
 		ArrayList<Colour> costCardColours = new ArrayList<Colour>();
 		LanternCardWrapper[] playerCards = player.getCards();
 		DedicationCost dedicationCost = DedicationCost.getDedicationCost(dedicationType);

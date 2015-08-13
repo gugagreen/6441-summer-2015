@@ -39,7 +39,7 @@ public class WorstTile implements TilePlayBehavior {
 		while(i != players.length - 1){
 			
 			// Ensures clockwise movement and appropriate indexing
-			nextPlayerIndex = nextPlayerIndex % 4 ;
+			nextPlayerIndex = nextPlayerIndex % players.length ;
 			
 			for (DedicationType dedicationType: sortedGameDedications){
 				DedicationThreat threat = DedicationThreat.getThreat(dedicationType, players[nextPlayerIndex], game);
