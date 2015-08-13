@@ -6,6 +6,9 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.ai.DedicationBehavior;
 
+/**
+ * This class performs the  dedications for Unpredictable player.
+ */
 public class UnpredictableDedication implements DedicationBehavior {
 
 	DedicationBehavior currentBehavior;
