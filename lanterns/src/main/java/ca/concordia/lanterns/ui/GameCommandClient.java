@@ -402,7 +402,14 @@ public class GameCommandClient {
         }
         return sb.toString();
     }
-
+	
+	/**
+     * Provide a validated numeric result of a specified range.
+     * @param Message of String type.
+     *  @param Minimun range value of int type.
+     * @param Maximum range value of int type.
+     * @return validated numeric value.
+     */
     public static int getValidInt(final String message, final int min, final int max) {
         System.out.println(message);
         int userChoice = 0;
@@ -423,7 +430,12 @@ public class GameCommandClient {
         System.out.println(userChoice);
         return userChoice;
     }
-
+    
+    /**
+     * Provides a validated String .
+     * @param String object.
+     * @return Validated String object.
+     */
     public static String getValidString(final String message) {
         System.out.print(message);
         String value = null;

@@ -4,10 +4,17 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 
 /**
+ * provide the service of ending game normally.
  * Created by Ruixiang on 8/9/2015.
  */
 public class NormalEndGameStrategy implements EndGameStrategy{
-
+	
+	/**
+     * It ends the game in normal way.
+     *
+    * @param {@link Game} object.
+    * @return boolean object specifying the end of game result.
+     */
     @Override
     public boolean isGameEnded(Game game) {
 
