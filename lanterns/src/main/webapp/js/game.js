@@ -66,7 +66,7 @@ function takeAction(selectedAction) {
 function aiPlay() {
 	var nextAction = document.getElementById("nextAction");
 	if (nextAction.value !== "endGame") {
-		setInterval(function() {takeAction(nextAction.value);}, 200);
+		setInterval(function() {takeAction(nextAction.value);}, 1000);
 	}
 }
 
