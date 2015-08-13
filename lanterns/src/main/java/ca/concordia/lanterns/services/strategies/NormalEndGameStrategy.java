@@ -5,7 +5,7 @@ import ca.concordia.lanternsentities.Player;
 
 /**
  * provide the service of ending game normally.
- * Created by Ruixiang on 8/9/2015.
+ * Created by Ruixiang on 8/9/2015 .
  */
 public class NormalEndGameStrategy implements EndGameStrategy{
 	

@@ -5,6 +5,9 @@ import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 
 /**
+ * the game will end as soon as any one player has made enough dedications to earn N Honor points 
+ * (where the value of N is chosen by the user, and must be at least 4 and at most M,
+ *  where M is the sum of the values of all Dedication Tokens in the game divided by the number of players) 
  * Created by Ruixiang on 8/9/2015.
  */
 public class NHonorPointsEndGameStrategy implements EndGameStrategy {
@@ -14,7 +17,13 @@ public class NHonorPointsEndGameStrategy implements EndGameStrategy {
     public NHonorPointsEndGameStrategy(int nHonorPoint) {
         this.nHonorPoint = nHonorPoint;
     }
-
+    
+    /**
+     * Declare the end of game.
+     *
+    * @param {@link Game} object.
+    * @return boolean object specifying the end of game result.
+     */
     @Override
     public boolean isGameEnded(Game game) {
 

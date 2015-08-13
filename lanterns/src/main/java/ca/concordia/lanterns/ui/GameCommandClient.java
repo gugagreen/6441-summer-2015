@@ -434,7 +434,7 @@ public class GameCommandClient {
     /**
      * Provides a validated String .
      * @param String object.
-     * @return Validated String object.
+     * @return Validated String object .
      */
     public static String getValidString(final String message) {
         System.out.print(message);
