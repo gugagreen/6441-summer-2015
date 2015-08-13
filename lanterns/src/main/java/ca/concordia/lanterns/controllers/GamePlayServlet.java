@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ca.concordia.lanterns.services.impl.EndGameDetectService;
 import ca.concordia.lanternsentities.Game;
 
 public class GamePlayServlet extends HttpServlet {
@@ -25,9 +26,15 @@ public class GamePlayServlet extends HttpServlet {
 		String playerAction = request.getParameter("playerAction");
 		String currentPlayer = request.getParameter("currentPlayer");
 		Game game = (Game)session.getAttribute("game");
-		int currentPlayerIndex = validate(game, playerAction, currentPlayer, request, response);
-		takeAction(game, playerAction, currentPlayerIndex, request);
-		
+		if (EndGameDetectService.getInstance().isGameEnded(game)) {
+			System.out.println(">>> end game"); // FIXME - delete
+			request.setAttribute("nextAction", "endGame");
+		} else {
+			int currentPlayerIndex = validate(game, playerAction, currentPlayer, request, response);
+			takeAction(game, playerAction, currentPlayerIndex, request);
+			
+			System.out.println(">>> players: " + game.getPlayers().length); // FIXME - delete
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("game.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -70,11 +77,12 @@ public class GamePlayServlet extends HttpServlet {
 		case PLACE:
 			if (game.getPlayers()[currentPlayerIndex].getTiles().size() != 0) {
 	        	game.getAiPlayers()[currentPlayerIndex].performTilePlay();
+	        	System.out.println("placed"); // FIXME - delete
 	        }
 			game.setCurrentTurnPlayer(game.getNextPlayer());
+			System.out.println("set curr turn"); // FIXME - delete
 			request.setAttribute("nextAction", "exchange");
 			break;
-
 		default:
 			break;
 		}
