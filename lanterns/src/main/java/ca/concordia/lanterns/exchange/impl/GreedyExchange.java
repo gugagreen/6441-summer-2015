@@ -13,7 +13,13 @@ import ca.concordia.lanternsentities.ai.ExchangeBehavior;
 public class GreedyExchange implements ExchangeBehavior {
 	
 	private GameController controller = new GameController();
-
+	
+	/**
+     * Make exchange of cards for greedy player if possible.
+     *
+     * @param {@link Player} object.
+     * @param {@link Game} object.
+     */
 	@Override
 	public void makeExchange(Game game, Player player) {
 		// if there are enough tokens to make exchange

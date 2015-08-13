@@ -8,8 +8,19 @@ import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.ai.ExchangeBehavior;
 import ca.concordia.lanternsentities.enums.Colour;
 
-public class PlayerExchange implements ExchangeBehavior {
 
+/**
+ * Class helps to make exchange the Lanterns cards for Human player.
+ */
+
+public class PlayerExchange implements ExchangeBehavior {
+	
+	/**
+     * Make exchange of cards for Human player if possible.
+     *
+     * @param {@link Player} object.
+     * @param {@link Game} object.
+     */
 	@Override
 	public void makeExchange(Game game, Player currentPlayer) {
         int doExchange = 2;
