@@ -9,11 +9,22 @@
 				<c:forEach begin="0" end="${fn:length(lake[ii.index]) -1}"
 					varStatus="jj">
 					<c:set var="tile" value="${lake[ii.index][jj.index]}" />
-					<td><input id="dir_${tile.id}" type="hidden"
+					<c:choose>
+						<c:when test="${not empty tile.id}">
+							<td><input id="dir_${tile.id}" type="hidden"
 								value="${tile.direction}" />
 								<img id="img_${tile.id}"
 								src="../img/tiles/tile_${tile.id}.jpg" width="50" height="50"
 								onclick="alert('${tile.id}');" onload="setRotation('${tile.id}',${tile.direction});"/></td>
+						</c:when>
+						<c:otherwise>
+							<td>
+								<img src="../img/tiles/alphaSquare.png"  width="50" height="50" />
+							</td>
+						</c:otherwise>
+					</c:choose>
+					
+					
 				</c:forEach>
 			</tr>
 		</c:forEach>

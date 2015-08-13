@@ -74,8 +74,12 @@ function activatePlayer() {
 	var currentPlayer = document.getElementById("currentPlayer");
 	var currentPlayerAIType = document.getElementById("currentPlayerAIType");
 	
+	// highlight current player
+	var playerDiv = document.getElementById("player_" + currentPlayer.value);
+	playerDiv.style["background-color"] = "#FFFACD";
+	
+	// take action
 	if (currentPlayerAIType.value === "HUMAN") {
-		var playerDiv = document.getElementById("player_" + currentPlayer.value);
 		playerDiv.style["pointer-events"] = "auto";
 		// FIXME - set correct action after load 
 		prepareAction("exchange", currentPlayer.value);
