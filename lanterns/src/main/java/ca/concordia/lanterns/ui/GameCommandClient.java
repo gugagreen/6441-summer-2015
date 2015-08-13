@@ -336,8 +336,9 @@ public class GameCommandClient {
             playTurn(currentPlayer);
             isEnded = controller.isGameEnded(game);
             game.setCurrentTurnPlayer(game.getNextPlayer());
-            if(!isEnded)
+            if(!isEnded){
             saveContinue();
+            }
         }
 
         //after isEnded returns true there is one more turn to play for exchanges
@@ -358,6 +359,7 @@ public class GameCommandClient {
         try {
             Set<Player> winners = controller.getGameWinner(game);
             showWinner(winners);
+            quit();
         } catch (GameRuleViolationException e) {
             System.err.println(e.getMessage());
         }

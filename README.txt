@@ -1,4 +1,4 @@
-1) the names of all group members
+﻿1) the names of all group members
 	- Armaan Gill
 	- Gustavo Gallindo
 	- Maxime Lamothe
@@ -24,13 +24,6 @@
 	- This project is set up using apache maven (https://maven.apache.org/). So any tasks could be done using it.
 	- Please check README.txt file inside the “lanterns” project.
 	
-5) instructions for loading save files for specific rapid feature tests
-	- With the steps above, start the application
-	- Choose option "2" (Load game from file) (loading with validation not work with the following saves since they are hacked)
-	- Enter file name  (without quotes)
-		- "featureTest.xml" This save allows for testing of Lantern card Exchange and Making a dedication with player 0
-		- "end.xml" This save allows for testing end conditions, it is 3 tile plays away from the end.
-
 	
 fyi: the source code and other artifacts for this project can be found in github, on this link:
 	- https://github.com/gugagreen/6441-summer-2015/
