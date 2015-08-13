@@ -45,7 +45,8 @@ public class DedicationTokenWrapper {
     }
     
     /**
-     *  Get a decreasingly sorted list of dedication type depending on the dedication value at the top of dedication stacks in the game
+     *  Get a decreasingly sorted list of dedication type depending on the dedication value at the top of dedication stacks in the game.
+     *  Note: Ignores generic type.
      * @param gameDedications - An array of {@link DedicationTokenWrapper} to be sorted
      * @return The sorted list of DedicationType
      */

@@ -1,5 +1,7 @@
 package ca.concordia.lanterns.services.enums;
 
+import ca.concordia.lanternsentities.enums.DedicationType;
+
 /**
  * Represent the cost of different types of dedication. The cost is in terms of
  * Lantern cards of different colors.
@@ -23,5 +25,17 @@ public enum DedicationCost {
 
     public int getRequiredCardPerColor() {
         return this.requiredCardPerColor;
+    }
+    
+    public static DedicationCost getDedicationCost(DedicationType dedicationType) {
+    	if (dedicationType == DedicationType.FOUR_OF_A_KIND) {
+    		return DedicationCost.FOUR_OF_A_KIND;
+    	} else if (dedicationType == DedicationType.THREE_PAIRS){
+    		return DedicationCost.THREE_PAIRS;
+    	} else if (dedicationType == DedicationType.SEVEN_UNIQUE) {
+    		return DedicationCost.SEVEN_UNIQUE;
+    	} else {
+    		throw new IllegalArgumentException ("Invalid DedicationType Corresponding to DedicationCost");
+    	}
     }
 }

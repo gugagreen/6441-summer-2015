@@ -23,7 +23,6 @@ public class WorstTile implements TilePlayBehavior {
 
 	@Override
 	public void placeTile(Game game, Player currentPlayer) {
-		// TODO Auto-generated method stub
 		
 		List<LakeTile> playerTiles = currentPlayer.getTiles();
 		if(playerTiles.isEmpty()) {
