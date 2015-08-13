@@ -65,15 +65,24 @@ function takeAction(selectedAction) {
 
 function aiPlay() {
 	var nextAction = document.getElementById("nextAction");
-	setInterval(function() {takeAction(nextAction.value);}, 2000);
+	if (nextAction.value !== "endGame") {
+		setInterval(function() {takeAction(nextAction.value);}, 1000);
+	} else {
+		var winnersDiv = document.getElementById("winners_div");
+		winnersDiv.style["opacity"] = 1;
+	}
 }
 
 function activatePlayer() {
 	var currentPlayer = document.getElementById("currentPlayer");
 	var currentPlayerAIType = document.getElementById("currentPlayerAIType");
 	
+	// highlight current player
+	var playerDiv = document.getElementById("player_" + currentPlayer.value);
+	playerDiv.style["background-color"] = "#FFFACD";
+	
+	// take action
 	if (currentPlayerAIType.value === "HUMAN") {
-		var playerDiv = document.getElementById("player_" + currentPlayer.value);
 		playerDiv.style["pointer-events"] = "auto";
 		// FIXME - set correct action after load 
 		prepareAction("exchange", currentPlayer.value);
