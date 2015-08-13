@@ -56,6 +56,24 @@ public class WorstTile implements TilePlayBehavior {
 			++nextPlayerIndex;
 			++i;
 		}
+
+		// Assign the first available lake tile to the first available place in lake
+		LakeTile[][] lake = game.getLake();
+		
+		for (int k = 0; k != lake.length; ++k) {
+			for (int j = 0; j != lake[k].length; ++j) {
+				if (lake[k][j] != null){
+					TileSide[] side = lake[k][j].getSides();
+					for (int p = 0; p != side.length; ++p) {
+						if (side[p].getAdjacent() == null) {
+							controller.placeLakeTile(game, currentPlayer.getId(), 0, lake[k][j].getId(), p, 0); 
+							return;
+						}
+					}
+				}
+			}
+		}
+		
 	}
 	
 	
@@ -76,17 +94,19 @@ public class WorstTile implements TilePlayBehavior {
 		
 		for (int i = 0; i != playerTiles.size(); ++i) {
 			int foundColourCount = 0;
+			int playerTileSideIndex = 0;
 			TileSide[] side = playerTiles.get(i).getSides();
 			for (int j = 0; j != side.length; ++j) {
 				if (side[j].getColour() == absentColour) {
 					++foundColourCount;
-					selectedPlayerTileSideIndex = j;
+					playerTileSideIndex = j;
 				}
 			}
 			
 			if (foundColourCount > maxFoundColourCount){
 				maxFoundColourCount = foundColourCount;
 				selectedPlayerTileIndex = i;
+				selectedPlayerTileSideIndex = playerTileSideIndex;
 			}
 		}
 		
@@ -100,12 +120,13 @@ public class WorstTile implements TilePlayBehavior {
 		Direction oppDirection = MatrixOrganizer.getOppositeTileSideIndex(directions.get(playerID));
 		int lakeTileSideIndex = directions.indexOf(oppDirection);
 		for (int i = 0; i != lake.length; ++i) {
-			for (int j = 0; j != lake[i].length; ++i) {
-				
+			for (int j = 0; j != lake[i].length; ++j) {
+				if (lake[i][j] != null) {
 					if (lake[i][j].getSides()[lakeTileSideIndex].getAdjacent() == null) {
 						controller.placeLakeTile(game, playerID, selectedPlayerTileIndex, lake[i][j].getId(), lakeTileSideIndex, selectedPlayerTileSideIndex); 
 						return true;
 					}
+				}
 			}
 		}
 		

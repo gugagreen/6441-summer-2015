@@ -56,29 +56,44 @@ public class DedicationTokenWrapper {
      * @return The sorted list of DedicationType
      */
  	public static DedicationType[] sortDedications(DedicationTokenWrapper[] gameDedications){
- 		int[] sortedGameDedications = new int[gameDedications.length - 1];
  		DedicationType[] sortedType = new DedicationType[gameDedications.length - 1];
+ 		int[] gameDedicationsValue = new int[gameDedications.length - 1];
+
+ 		DedicationType[] dType = DedicationType.values();
+ 		Stack<DedicationToken> dedicationStack;
+ 		Stack<DedicationToken> genericStack = gameDedications[gameDedications.length - 1].getStack();
+ 		
+ 		for (int i = 0; i != gameDedications.length - 1; ++i) {
+ 			dedicationStack = gameDedications[i].getStack();
+ 			if (dedicationStack.isEmpty()) {
+ 				if (! (genericStack.isEmpty())) {
+ 					gameDedicationsValue[i] = genericStack.peek().getTokenValue();
+ 				} else {
+ 					gameDedicationsValue[i] = 0;
+ 				}
+ 			} else {
+ 				gameDedicationsValue[i] = dedicationStack.peek().getTokenValue();
+ 			}
+ 			sortedType[i] = dType[i];
+ 		}
  		
  		int key;
  		int j;
- 		sortedGameDedications[0] = gameDedications[0].getStack().peek().getTokenValue();
- 		sortedType[0] = gameDedications[0].getStack().peek().getTokenType();
+ 		DedicationType type;
  		
  		for (int i = 1; i != gameDedications.length - 1; ++i){
- 			DedicationToken top = gameDedications[i].getStack().peek();
- 				key = top.getTokenValue();
+ 				key = gameDedicationsValue[i];
+ 				type = sortedType[i];
  				
  				j = i - 1;
- 				while (j != -1 && sortedGameDedications[j] < key){
- 					sortedGameDedications[j+1] = sortedGameDedications[j];
+ 				while (j != -1 && gameDedicationsValue[j] < key){
+ 					gameDedicationsValue[j+1] = gameDedicationsValue[j];
  					sortedType[j+1] = sortedType[j];
  					--j ;
  				}
- 				sortedGameDedications[j+1] = key;
- 				sortedType[j+1] = top.getTokenType();
+ 				gameDedicationsValue[j+1] = key;
+ 				sortedType[j+1] = type;
  		}
- 		
- 		
  		return sortedType;	
  	}
 }
