@@ -14,7 +14,14 @@ import ca.concordia.lanternsentities.enums.DedicationType;
  * This class performs the  dedications for Human player.
  */
 public class PlayerDedication implements DedicationBehavior {
-
+	
+	/**
+     * Ask human player to make a dedication if player wants to do and perform dedication.
+     *
+     * @param The {@link Game} object.
+      * @param The {@link Player} object.
+       * @param The Boolean array of all possible dedications. 
+     */
 	@Override
 	public void makeDedication(Game game, Player currentPlayer, boolean[] dedicationsPossible) {
 		GameCommandClient.displayPlayerLanterns(game, currentPlayer.getId());
@@ -39,7 +46,13 @@ public class PlayerDedication implements DedicationBehavior {
 		}
 
 	}
-
+	
+	 /**
+     * Gives the required colors to make dedications.
+     * 
+     * @param resource save game name
+     * @param DedicationType object.
+     */
 	public int getRequiredColors(DedicationType dedicationType) {
 		DedicationCost cost = ActivePlayerService.getInstance().getDedicationCost(dedicationType);
 		return cost.getRequiredColors();

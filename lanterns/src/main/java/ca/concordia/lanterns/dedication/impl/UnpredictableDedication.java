@@ -12,7 +12,13 @@ import ca.concordia.lanternsentities.ai.DedicationBehavior;
 public class UnpredictableDedication implements DedicationBehavior {
 
 	DedicationBehavior currentBehavior;
-
+	/**
+     * Perform dedications for Unpredictable player according to current Behavior.
+     *
+     * @param The {@link Game} object.
+      * @param The {@link Player} object.
+       * @param The Boolean array of all possible dedications. 
+     */
 	@Override
 	public void makeDedication(Game game, Player currentPlayer, boolean[] dedicationsPossible) {
 		switch (selectBehavior()) {

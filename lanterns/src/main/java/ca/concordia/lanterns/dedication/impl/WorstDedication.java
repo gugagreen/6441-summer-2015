@@ -15,7 +15,13 @@ import ca.concordia.lanternsentities.enums.DedicationType;
  */
 public class WorstDedication implements DedicationBehavior {
 
-
+	/**
+     * Perform dedications for unfriendly player according in view of next players turn.
+     *
+     * @param The {@link Game} object.
+      * @param The {@link Player} object.
+       * @param The Boolean array of all possible dedications. 
+     */
 	@Override
 	public void makeDedication(Game game, Player currentPlayer, boolean[] dedicationsPossible) {
 		

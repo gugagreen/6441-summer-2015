@@ -17,7 +17,14 @@ import ca.concordia.lanternsentities.enums.DedicationType;
  */
 
 public class RandomDedication implements DedicationBehavior {
-
+	
+	/**
+     * Perform dedications for Random player according to possible dedication type.
+     *
+     * @param The {@link Game} object.
+      * @param The {@link Player} object.
+       * @param The Boolean array of all possible dedications. 
+     */
 	@Override
 	public void makeDedication(Game game, Player currentPlayer, boolean[] dedicationsPossible) throws GameRuleViolationException {
 		if (allowDedication()) {

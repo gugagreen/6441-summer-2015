@@ -14,7 +14,14 @@ import ca.concordia.lanternsentities.enums.DedicationType;
 public class GreedyDedication implements DedicationBehavior {
 	
 	private GameController controller = new GameController();
-
+	
+	/**
+     * Perform dedications for Greedy player according to possible dedication type.
+     *
+     * @param The {@link Game} object.
+      * @param The {@link Player} object.
+       * @param The Boolean array of all possible dedications. 
+     */
 	@Override
 	public void makeDedication(Game game, Player player, boolean[] dedicationsPossible) {
 		if (dedicationsPossible != null) {
