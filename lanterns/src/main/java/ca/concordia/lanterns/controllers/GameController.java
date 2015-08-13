@@ -20,8 +20,6 @@ import ca.concordia.lanterns.services.impl.EndGameDetectService;
 import ca.concordia.lanterns.services.strategies.NHonorPointsEndGameStrategy;
 import ca.concordia.lanterns.services.strategies.NLakeTilesEndGameStrategy;
 import ca.concordia.lanterns.services.strategies.NormalEndGameStrategy;
-import ca.concordia.lanternsentities.DedicationToken;
-import ca.concordia.lanternsentities.DedicationTokenWrapper;
 import ca.concordia.lanternsentities.Game;
 import ca.concordia.lanternsentities.Player;
 import ca.concordia.lanternsentities.enums.AIType;
@@ -104,16 +102,32 @@ public class GameController {
                 EndGameDetectService.getInstance().setEndGameStrategy(new NormalEndGameStrategy());
                 break;
             case 2:
-                nLakeTiles = getValidInt("Please enter the value N:", 2, game.getTiles().size()/game.getPlayers().length);
+                nLakeTiles = getValidInt("Please enter the value N:", 2, getOriginalTileStackSize(game)/game.getPlayers().length);
                 EndGameDetectService.getInstance().setEndGameStrategy(new NLakeTilesEndGameStrategy(nLakeTiles));
                 break;
             case 3:
-                nHonorPoint = getValidInt("Please enter the value N:", 4, sumDedicationValues(game)/game.getPlayers().length);
+                nHonorPoint = getValidInt("Please enter the value N:", 4, sumAllDedicationValues(game)/game.getPlayers().length);
                 EndGameDetectService.getInstance().setEndGameStrategy(new NHonorPointsEndGameStrategy(nHonorPoint));
                 break;
         }
     }
-    
+
+    private int getOriginalTileStackSize(Game game) {
+
+        switch (game.getPlayers().length)
+            {
+                case 2:
+                    return 16;
+                case 3:
+                    return 18;
+                case 4:
+                    return 20;
+                default:
+                    return 16;
+            }
+
+    }
+
     /**
      * It resets the players intelligence(AI).
      *
@@ -160,14 +174,18 @@ public class GameController {
      * @param The {@link Game} object.
      * @return Sum of dedication tokens/values .
      */
-    private int sumDedicationValues(Game game)
+    private int sumAllDedicationValues(Game game)
     {
-        int sum = 0;
-
-        for(DedicationTokenWrapper dedicationTokenWrapper : game.getDedications())
-            for(DedicationToken dedicationToken : dedicationTokenWrapper.getStack())
-                sum += dedicationToken.getTokenValue();
-
-        return sum;
+        switch (game.getPlayers().length)
+        {
+            case 2:
+                return 156;
+            case 3:
+                return 171;
+            case 4:
+                return 195;
+            default:
+                return 156;
+        }
     }
 }
