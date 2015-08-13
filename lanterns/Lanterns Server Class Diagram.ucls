@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="ca.concordia.lanterns.Controller.GameResource" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/Controller/GameResource.java" binary="false" 
+  <class id="1" language="java" name="ca.concordia.lanterns.controllers.GameController" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/controllers/GameController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="153" width="319" x="2014" y="266"/>    
+    <position height="-1" width="-1" x="5080" y="852"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="ca.concordia.lanterns.Controller.LanternsExceptionMapper" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/Controller/LanternsExceptionMapper.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="99" width="191" x="253" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="3" language="java" name="ca.concordia.lanterns.dao.GameDao" project="lanterns" 
+  <interface id="2" language="java" name="ca.concordia.lanterns.dao.GameDao" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/dao/GameDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="99" width="168" x="488" y="603"/>    
+    <position height="-1" width="-1" x="6998" y="518"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="4" language="java" name="ca.concordia.lanterns.dao.impl.FileGameDao" project="lanterns" 
+  <class id="3" language="java" name="ca.concordia.lanterns.dao.impl.FileGameDao" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/dao/impl/FileGameDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="168" x="488" y="266"/>    
+    <position height="-1" width="-1" x="7002" y="799"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="ca.concordia.lanterns.exception.LanternsException" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/exception/LanternsException.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="117" width="207" x="6393" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -42,67 +42,66 @@
   <class id="5" language="java" name="ca.concordia.lanterns.exception.GameRuleViolationException" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/exception/GameRuleViolationException.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="99" width="199" x="1775" y="266"/>    
+    <position height="-1" width="-1" x="6496" y="291"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="ca.concordia.lanterns.exception.LanternsException" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/exception/LanternsException.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="117" width="207" x="1775" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="7" language="java" name="ca.concordia.lanterns.readwrite.MarshallerManager" project="lanterns" 
+  <interface id="6" language="java" name="ca.concordia.lanterns.readwrite.MarshallerManager" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/readwrite/MarshallerManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="99" width="156" x="240" y="603"/>    
+    <position height="-1" width="-1" x="6758" y="799"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="8" language="java" name="ca.concordia.lanterns.readwrite.impl.JaxbGameMarshaller" project="lanterns" 
+  <class id="7" language="java" name="ca.concordia.lanterns.readwrite.impl.JaxbGameMarshaller" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/readwrite/impl/JaxbGameMarshaller.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="117" width="159" x="41" y="266"/>    
+    <position height="-1" width="-1" x="6484" y="799"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="9" language="java" name="ca.concordia.lanterns.services.GameEventListener" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/services/GameEventListener.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="81" width="190" x="2542" y="603"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="10" language="java" name="ca.concordia.lanterns.services.GamePoolService" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/services/GamePoolService.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="153" width="168" x="696" y="603"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="11" language="java" name="ca.concordia.lanterns.services.PlayerService" project="lanterns" 
+  <interface id="8" language="java" name="ca.concordia.lanterns.services.PlayerService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/PlayerService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="117" width="290" x="2014" y="603"/>    
+    <position height="-1" width="-1" x="7870" y="1011"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" name="ca.concordia.lanterns.services.EndGameService" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/EndGameService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6152" y="620"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" language="java" name="ca.concordia.lanterns.services.ValidateGame" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/ValidateGame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8244" y="687"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="11" language="java" name="ca.concordia.lanterns.services.GameCacheService" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/GameCacheService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6495" y="519"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,56 +110,57 @@
   </interface>  
   <interface id="12" language="java" name="ca.concordia.lanterns.services.SetupService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/SetupService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="261" width="385" x="1589" y="603"/>    
+    <position height="-1" width="-1" x="7485" y="1087"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="13" language="java" name="ca.concordia.lanterns.services.ValidateGame" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/services/ValidateGame.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="207" width="362" x="948" y="266"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="14" language="java" name="ca.concordia.lanterns.services.impl.ActivePlayerService" project="lanterns" 
+  <class id="13" language="java" name="ca.concordia.lanterns.services.impl.ActivePlayerService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/ActivePlayerService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="225" width="290" x="2373" y="266"/>    
+    <position height="-1" width="-1" x="7870" y="705"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="ca.concordia.lanterns.services.impl.ActivePlayerService.SingletonHolder" 
-    project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/ActivePlayerService.java" 
+  <class id="14" language="java" name="ca.concordia.lanterns.services.impl.EndGameDetectService.SingletonHolder" 
+    project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/EndGameDetectService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="158" x="2344" y="603"/>    
+    <position height="81" width="158" x="6076" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="ca.concordia.lanterns.services.impl.DefaultGamePoolService" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultGamePoolService.java" binary="false" 
+  <class id="15" language="java" name="ca.concordia.lanterns.services.impl.DefaultGameCacheService.SingletonHolder" 
+    project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultGameCacheService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6752" y="75"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="ca.concordia.lanterns.services.impl.EndGameDetectService" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/EndGameDetectService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="207" width="212" x="696" y="266"/>    
+    <position height="-1" width="-1" x="6148" y="399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="ca.concordia.lanterns.services.impl.DefaultGamePoolService.SingletonHolder" 
-    project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultGamePoolService.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="158" x="696" y="37"/>    
+  <class id="17" language="java" name="ca.concordia.lanterns.services.impl.ValidateGameImpl" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/ValidateGameImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="8244" y="125"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -170,168 +170,616 @@
   <class id="18" language="java" name="ca.concordia.lanterns.services.impl.DefaultSetupService" project="lanterns" 
     file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultSetupService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="297" width="385" x="1350" y="266"/>    
+    <position height="-1" width="-1" x="7485" y="750"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="ca.concordia.lanterns.services.impl.DefaultSetupService.SingletonHolder" 
+  <class id="19" language="java" name="ca.concordia.lanterns.services.impl.DefaultGameCacheService" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultGameCacheService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="6751" y="515"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="ca.concordia.lanterns.services.impl.ActivePlayerService.SingletonHolder" 
+    project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/ActivePlayerService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="7869" y="71"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="ca.concordia.lanterns.services.impl.DefaultSetupService.SingletonHolder" 
     project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/DefaultSetupService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="158" x="1350" y="37"/>    
+    <position height="-1" width="-1" x="7489" y="70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="ca.concordia.lanterns.services.impl.ValidateGameImpl" project="lanterns" 
-    file="/lanterns/src/main/java/ca/concordia/lanterns/services/impl/ValidateGameImpl.java" binary="false" 
+  <class id="22" language="java" name="ca.concordia.lanterns.services.strategies.NormalEndGameStrategy" 
+    project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/strategies/NormalEndGameStrategy.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="189" width="362" x="948" y="37"/>    
+    <position height="-1" width="-1" x="5812" y="81"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="21">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="22" name="setupService">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="23" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+  <interface id="23" language="java" name="ca.concordia.lanterns.services.strategies.EndGameStrategy" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/strategies/EndGameStrategy.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5570" y="398"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="24" language="java" name="ca.concordia.lanterns.services.strategies.NHonorPointsEndGameStrategy" 
+    project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/strategies/NHonorPointsEndGameStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5579" y="90"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="ca.concordia.lanterns.services.strategies.NLakeTilesEndGameStrategy" 
+    project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/services/strategies/NLakeTilesEndGameStrategy.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5342" y="99"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="ca.concordia.lanterns.ui.GameCommandClient" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/ui/GameCommandClient.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="5078" y="285"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="ca.concordia.lanternsentities.ai.AI" project="lanternsentities" 
+    file="/lanternsentities/src/main/java/ca/concordia/lanternsentities/ai/AI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3855" y="247"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="28" language="java" name="ca.concordia.lanternsentities.ai.DedicationBehavior" 
+    project="lanternsentities" 
+    file="/lanternsentities/src/main/java/ca/concordia/lanternsentities/ai/DedicationBehavior.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4203" y="605"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="29" language="java" name="ca.concordia.lanternsentities.ai.ExchangeBehavior" project="lanternsentities" 
+    file="/lanternsentities/src/main/java/ca/concordia/lanternsentities/ai/ExchangeBehavior.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3855" y="605"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="30" language="java" name="ca.concordia.lanternsentities.ai.TilePlayBehavior" project="lanternsentities" 
+    file="/lanternsentities/src/main/java/ca/concordia/lanternsentities/ai/TilePlayBehavior.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3522" y="605"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="31" language="java" name="ca.concordia.lanterns.dedication.impl.GreedyDedication" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/dedication/impl/GreedyDedication.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4618" y="664"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="ca.concordia.lanterns.ai.impl.GreedyAI" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/ai/impl/GreedyAI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3164" y="102"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="ca.concordia.lanterns.ai.impl.HumanPlayer" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/ai/impl/HumanPlayer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3164" y="213"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="ca.concordia.lanterns.ai.impl.RandomAI" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/ai/impl/RandomAI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3164" y="320"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="ca.concordia.lanterns.ai.impl.UnfriendlyAI" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/ai/impl/UnfriendlyAI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3164" y="421"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="ca.concordia.lanterns.ai.impl.UnpredictableAI" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/ai/impl/UnpredictableAI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3164" y="533"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="ca.concordia.lanterns.dedication.impl.PlayerDedication" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/dedication/impl/PlayerDedication.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4618" y="891"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="ca.concordia.lanterns.dedication.impl.RandomDedication" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/dedication/impl/RandomDedication.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4643" y="1111"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="ca.concordia.lanterns.dedication.impl.UnpredictableDedication" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/dedication/impl/UnpredictableDedication.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4618" y="1529"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="ca.concordia.lanterns.dedication.impl.WorstDedication" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/dedication/impl/WorstDedication.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4731" y="1351"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="ca.concordia.lanterns.tileplacement.impl.GreedyTile" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/tileplacement/impl/GreedyTile.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3067" y="799"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="42" language="java" name="ca.concordia.lanterns.tileplacement.impl.GreedyTile.TileIdIndexSideIndex" 
+    project="lanterns" file="/lanterns/src/main/java/ca/concordia/lanterns/tileplacement/impl/GreedyTile.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2742" y="799"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="43" language="java" name="ca.concordia.lanterns.tileplacement.impl.PlayerTile" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/tileplacement/impl/PlayerTile.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3156" y="1019"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="44" language="java" name="ca.concordia.lanterns.tileplacement.impl.RandomTile" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/tileplacement/impl/RandomTile.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3127" y="1219"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="45" language="java" name="ca.concordia.lanterns.tileplacement.impl.UnpredictableTile" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/tileplacement/impl/UnpredictableTile.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3156" y="1620"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="46" language="java" name="ca.concordia.lanterns.tileplacement.impl.WorstTile" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/tileplacement/impl/WorstTile.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3118" y="1429"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="47" language="java" name="ca.concordia.lanterns.exchange.impl.GreedyExchange" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/exchange/impl/GreedyExchange.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3853" y="1366"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="48" language="java" name="ca.concordia.lanterns.exchange.impl.PlayerExchange" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/exchange/impl/PlayerExchange.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3649" y="908"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="49" language="java" name="ca.concordia.lanterns.exchange.impl.RandomExchange" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/exchange/impl/RandomExchange.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="3641" y="1133"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="50" language="java" name="ca.concordia.lanterns.exchange.impl.UnpredictableExchange" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/exchange/impl/UnpredictableExchange.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4095" y="909"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="51" language="java" name="ca.concordia.lanterns.exchange.impl.WorstExchange" project="lanterns" 
+    file="/lanterns/src/main/java/ca/concordia/lanterns/exchange/impl/WorstExchange.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4110" y="1145"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="52">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="53" name="dao"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="24">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="10"/>  
+  <association id="55">    
+    <bendpoint x="3302" y="1616"/>    
+    <end type="SOURCE" refId="45" navigable="false">      
+      <attribute id="56" name="currentBehavior">        
+        <position height="18" width="88" x="3518" y="660"/>      
+      </attribute>      
+      <multiplicity id="57" minimum="0" maximum="1">        
+        <position height="16" width="23" x="3519" y="677"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="59" name="marshaller"/>      
+      <multiplicity id="60" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="61">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <realization id="62">    
+    <bendpoint x="3271" y="1181"/>    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="30"/>  
   </realization>  
-  <association id="25">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="26" name="dao">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="27" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="28">    
-    <end type="SOURCE" refId="14"/>    
+  <realization id="63">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="12"/>  
+  </realization>  
+  <realization id="64">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <realization id="65">    
+    <bendpoint x="3295" y="1425"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <nesting id="66">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="20"/>  
+  </nesting>  
+  <realization id="67">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <nesting id="68">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <realization id="69">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <generalization id="70">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <realization id="71">    
+    <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="11"/>  
   </realization>  
-  <association id="29">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="30" name="INSTANCE">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="31" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+  <realization id="72">    
+    <bendpoint x="4396" y="1491"/>    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <generalization id="73">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="74">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="75" name="INSTANCE"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="32">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="33" name="marshaller">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="34" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="35">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="13"/>  
+  <realization id="77">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="8"/>  
   </realization>  
-  <nesting id="36">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="17"/>  
-  </nesting>  
-  <nesting id="37">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="15"/>  
-  </nesting>  
-  <association id="38">    
+  <realization id="78">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <realization id="79">    
+    <bendpoint x="3954" y="794"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="29"/>  
+  </realization>  
+  <association id="80">    
     <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="39" name="gameEventListeners">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="40" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="41">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="42" name="INSTANCE">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="43" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+      <attribute id="81" name="INSTANCE"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="44">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
+  <realization id="83">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="29"/>  
   </realization>  
-  <realization id="45">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="12"/>  
+  <realization id="84">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
   </realization>  
-  <nesting id="46">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="19"/>  
+  <realization id="85">    
+    <bendpoint x="3965" y="1146"/>    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="29"/>  
+  </realization>  
+  <association id="86">    
+    <bendpoint x="4324" y="1526"/>    
+    <end type="SOURCE" refId="39" navigable="false">      
+      <attribute id="87" name="currentBehavior"/>      
+      <multiplicity id="88" minimum="0" maximum="1">        
+        <position height="16" width="23" x="4188" y="676"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="89">    
+    <bendpoint x="4458" y="1345"/>    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="28"/>  
+  </realization>  
+  <realization id="90">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <association id="91">    
+    <end type="SOURCE" refId="50" navigable="false">      
+      <attribute id="92" name="currentBehavior">        
+        <position height="18" width="88" x="3923" y="659"/>      
+      </attribute>      
+      <multiplicity id="93" minimum="0" maximum="1">        
+        <position height="16" width="23" x="3931" y="680"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="94">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <nesting id="95">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="42"/>  
   </nesting>  
-  <generalization id="47">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <association id="48">    
+  <association id="96">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="97" name="dedicationBehavior"/>      
+      <multiplicity id="98" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="99">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <association id="100">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="101" name="INSTANCE"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
     <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="49" name="INSTANCE">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="50" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+      <attribute id="104" name="INSTANCE"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
+    <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="51">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="52" name="playerService">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="53" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+  <nesting id="106">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="14"/>  
+  </nesting>  
+  <association id="107">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="108" name="tilePlayBehavior"/>      
+      <multiplicity id="109" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="30" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="54">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
+  <generalization id="110">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <realization id="111">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="112">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="29"/>  
+  </realization>  
+  <generalization id="113">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="114">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="115" name="endGameStrategy"/>      
+      <multiplicity id="116" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="117">    
+    <bendpoint x="3282" y="1623"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <nesting id="118">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <realization id="119">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <association id="120">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="121" name="exchangeBehavior"/>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="123">    
+    <bendpoint x="3799" y="1136"/>    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="29"/>  
+  </realization>  
+  <realization id="124">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <association id="125">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="126" name="controller"/>      
+      <multiplicity id="127" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="128">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <realization id="129">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="28"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
